@@ -6,17 +6,17 @@ using namespace xl_formula;
 using namespace xl_formula::functions::builtin;
 
 class BitwiseFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callBitAnd(const std::vector<Value>& args) {
         return bitand_function(args, context);
     }
-    
+
     Value callBitOr(const std::vector<Value>& args) {
         return bitor_function(args, context);
     }
-    
+
     Value callBitXor(const std::vector<Value>& args) {
         return bitxor_function(args, context);
     }
@@ -156,7 +156,8 @@ TEST_F(BitwiseFunctionTest, BitXor_SecondArgumentError_PropagatesError) {
 
 // Large number tests
 TEST_F(BitwiseFunctionTest, BitAnd_LargeNumbers_WorksCorrectly) {
-    auto result = callBitAnd({Value(static_cast<double>(0xFFFFFFFFFF)), Value(static_cast<double>(0x123456789A))});
+    auto result = callBitAnd(
+            {Value(static_cast<double>(0xFFFFFFFFFF)), Value(static_cast<double>(0x123456789A))});
     EXPECT_TRUE(result.isNumber());
     EXPECT_EQ(0x123456789A, result.asNumber());
 }
@@ -168,7 +169,8 @@ TEST_F(BitwiseFunctionTest, BitOr_PowersOfTwo_WorksCorrectly) {
 }
 
 TEST_F(BitwiseFunctionTest, BitXor_AlternatingBits_WorksCorrectly) {
-    auto result = callBitXor({Value(static_cast<double>(0xAAAAAAAAA)), Value(static_cast<double>(0x555555555))});  // Alternating bits
+    auto result = callBitXor({Value(static_cast<double>(0xAAAAAAAAA)),
+                              Value(static_cast<double>(0x555555555))});  // Alternating bits
     EXPECT_TRUE(result.isNumber());
     EXPECT_EQ(0xFFFFFFFFF, result.asNumber());  // All bits set
 }

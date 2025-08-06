@@ -5,10 +5,9 @@ namespace functions {
 namespace builtin {
 
 Value bitand_function(const std::vector<Value>& args, const Context& context) {
-    return templates::bitwiseFunction(args, context, "BITAND",
-        [](long long value1, long long value2) -> long long {
-            return value1 & value2;
-        });
+    return templates::bitwiseFunction(
+            args, context, "BITAND",
+            [](long long value1, long long value2) -> long long { return value1 & value2; });
 }
 
 }  // namespace builtin

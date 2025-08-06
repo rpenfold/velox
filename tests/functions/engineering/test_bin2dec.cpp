@@ -6,9 +6,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions::builtin;
 
 class Bin2DecFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callBin2Dec(const std::vector<Value>& args) {
         return bin2dec(args, context);
     }

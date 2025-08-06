@@ -6,9 +6,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions::builtin;
 
 class ConvertFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callConvert(const std::vector<Value>& args) {
         return convert(args, context);
     }

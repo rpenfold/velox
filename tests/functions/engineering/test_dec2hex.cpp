@@ -6,9 +6,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions::builtin;
 
 class Dec2HexFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callDec2Hex(const std::vector<Value>& args) {
         return dec2hex(args, context);
     }

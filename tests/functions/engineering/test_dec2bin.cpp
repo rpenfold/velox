@@ -6,9 +6,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions::builtin;
 
 class Dec2BinFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callDec2Bin(const std::vector<Value>& args) {
         return dec2bin(args, context);
     }

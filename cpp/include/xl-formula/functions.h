@@ -1160,22 +1160,22 @@ Value threeNumberFunction(const std::vector<Value>& args, const Context& context
  */
 template <typename Func>
 Value baseConversionFunction(const std::vector<Value>& args, const Context& context,
-                            const std::string& name, Func operation) {
+                             const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 1, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert to text string for processing
     std::string input_str = args[0].toString();
-    
+
     try {
         return Value(operation(input_str));
     } catch (const std::runtime_error&) {
@@ -1195,28 +1195,28 @@ Value baseConversionFunction(const std::vector<Value>& args, const Context& cont
  */
 template <typename Func>
 Value decimalToBaseFunction(const std::vector<Value>& args, const Context& context,
-                           const std::string& name, Func operation) {
+                            const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     // Accept 1 or 2 arguments (number, [places])
     if (args.size() < 1 || args.size() > 2) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert first argument to number
     auto number = utils::toNumberSafe(args[0], name);
     if (number.isError()) {
         return number;
     }
-    
+
     long long value = static_cast<long long>(number.asNumber());
     int places = 0;  // Default: no padding
-    
+
     // Handle optional places argument
     if (args.size() == 2) {
         auto places_val = utils::toNumberSafe(args[1], name);
@@ -1228,7 +1228,7 @@ Value decimalToBaseFunction(const std::vector<Value>& args, const Context& conte
             return Value::error(ErrorType::NUM_ERROR);
         }
     }
-    
+
     try {
         return Value(operation(value, places));
     } catch (const std::runtime_error&) {
@@ -1248,39 +1248,38 @@ Value decimalToBaseFunction(const std::vector<Value>& args, const Context& conte
  */
 template <typename Func>
 Value bitwiseFunction(const std::vector<Value>& args, const Context& context,
-                     const std::string& name, Func operation) {
+                      const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 2, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert arguments to integers
     auto num1 = utils::toNumberSafe(args[0], name);
     if (num1.isError()) {
         return num1;
     }
-    
+
     auto num2 = utils::toNumberSafe(args[1], name);
     if (num2.isError()) {
         return num2;
     }
-    
+
     long long value1 = static_cast<long long>(num1.asNumber());
     long long value2 = static_cast<long long>(num2.asNumber());
-    
+
     // Validate range (48-bit integers for Excel compatibility)
-    if (value1 < 0 || value1 > 281474976710655LL || 
-        value2 < 0 || value2 > 281474976710655LL) {
+    if (value1 < 0 || value1 > 281474976710655LL || value2 < 0 || value2 > 281474976710655LL) {
         return Value::error(ErrorType::NUM_ERROR);
     }
-    
+
     try {
         return Value(static_cast<double>(operation(value1, value2)));
     } catch (...) {
