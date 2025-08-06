@@ -71,6 +71,86 @@ Value false_function(const std::vector<Value>& args, const Context& context);
 Value if_function(const std::vector<Value>& args, const Context& context);
 
 /**
+ * @brief AND function - returns TRUE if all arguments are TRUE
+ * @param args Function arguments (at least one required)
+ * @param context Evaluation context (unused for AND)
+ * @return TRUE if all arguments are TRUE, FALSE otherwise
+ */
+Value and_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief OR function - returns TRUE if any argument is TRUE
+ * @param args Function arguments (at least one required)
+ * @param context Evaluation context (unused for OR)
+ * @return TRUE if any argument is TRUE, FALSE otherwise
+ */
+Value or_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief NOT function - reverses the logic of its argument
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for NOT)
+ * @return TRUE if argument is FALSE, FALSE if argument is TRUE
+ */
+Value not_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief XOR function - returns TRUE if an odd number of arguments are TRUE
+ * @param args Function arguments (at least one required)
+ * @param context Evaluation context (unused for XOR)
+ * @return TRUE if odd number of arguments are TRUE, FALSE otherwise
+ */
+Value xor_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IFERROR function - returns a value if expression is an error
+ * @param args Function arguments (value, value_if_error)
+ * @param context Evaluation context (unused for IFERROR)
+ * @return value_if_error if value is an error, otherwise value
+ */
+Value iferror_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IFNA function - returns a value if expression is #N/A
+ * @param args Function arguments (value, value_if_na)
+ * @param context Evaluation context (unused for IFNA)
+ * @return value_if_na if value is #N/A, otherwise value
+ */
+Value ifna_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISNUMBER function - tests if a value is a number
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISNUMBER)
+ * @return TRUE if value is a number or can be converted to number
+ */
+Value isnumber_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISTEXT function - tests if a value is text
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISTEXT)
+ * @return TRUE if value is text
+ */
+Value istext_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISBLANK function - tests if a value is blank
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISBLANK)
+ * @return TRUE if value is empty/blank
+ */
+Value isblank_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISERROR function - tests if a value is an error
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISERROR)
+ * @return TRUE if value is an error
+ */
+Value iserror_function(const std::vector<Value>& args, const Context& context);
+
+/**
  * @brief LEN function - returns length of text
  * @param args Function arguments (expects 1 text argument)
  * @param context Evaluation context (unused for LEN)

@@ -65,6 +65,16 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("TRUE", functions::builtin::true_function);
     registry->registerFunction("FALSE", functions::builtin::false_function);
     registry->registerFunction("IF", functions::builtin::if_function);
+    registry->registerFunction("AND", functions::builtin::and_function);
+    registry->registerFunction("OR", functions::builtin::or_function);
+    registry->registerFunction("NOT", functions::builtin::not_function);
+    registry->registerFunction("XOR", functions::builtin::xor_function);
+    registry->registerFunction("IFERROR", functions::builtin::iferror_function);
+    registry->registerFunction("IFNA", functions::builtin::ifna_function);
+    registry->registerFunction("ISNUMBER", functions::builtin::isnumber_function);
+    registry->registerFunction("ISTEXT", functions::builtin::istext_function);
+    registry->registerFunction("ISBLANK", functions::builtin::isblank_function);
+    registry->registerFunction("ISERROR", functions::builtin::iserror_function);
 
     return registry;
 }
