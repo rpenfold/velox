@@ -14,8 +14,9 @@ namespace xl_formula {
 using FunctionImpl = std::function<Value(const std::vector<Value>&, const Context&)>;
 
 /**
- * @brief Function registry with perfect hash dispatch for built-ins and dynamic registry for custom functions
- * 
+ * @brief Function registry with perfect hash dispatch for built-ins and dynamic registry for custom
+ * functions
+ *
  * Built-in functions are dispatched via a perfect hash for optimal performance.
  * Custom functions are stored in a dynamic hash map for flexibility.
  */

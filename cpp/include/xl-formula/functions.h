@@ -816,9 +816,8 @@ constexpr uint32_t hash_function_name(const char* str) {
  * @param context Evaluation context
  * @return Function result or empty Value if not a built-in function
  */
-Value dispatch_builtin_function(const std::string& name, 
-                               const std::vector<Value>& args, 
-                               const Context& context);
+Value dispatch_builtin_function(const std::string& name, const std::vector<Value>& args,
+                                const Context& context);
 
 /**
  * @brief Get list of all built-in function names

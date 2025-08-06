@@ -10,6 +10,7 @@ A high-performance Excel-like formula parsing and evaluation library implemented
 
 ### 🚀 High Performance
 - Written in modern C++17 for optimal speed and memory efficiency
+- **Perfect hash function dispatcher** for ultra-fast function calls (6-91% faster)
 - Decoupled parser and evaluator architecture
 - Optimized for repeated evaluations with variable contexts
 
@@ -52,31 +53,43 @@ if (result.isSuccess()) {
 
 ### Supported Functions
 
-#### Math Functions
-- `SUM(...)` - Sum of all arguments
-- `MAX(...)` - Maximum value
-- `ABS(number)` - Absolute value
-- `ROUND(number, places)` - Round to decimal places
+Currently supports **75+ built-in functions** across 8 categories:
 
-#### Text Functions
-- `CONCATENATE(...)` - Join text values
-- `TRIM(text)` - Remove leading/trailing whitespace
-- `LEN(text)` - Length of text
+#### 📊 Math & Statistical Functions (24)
+- **Basic**: `SUM`, `MIN`, `MAX`, `AVERAGE`, `COUNT`, `COUNTA`
+- **Rounding**: `ABS`, `ROUND`, `CEILING`, `FLOOR`, `INT`, `TRUNC`, `SIGN`
+- **Advanced**: `SQRT`, `POWER`, `MOD`, `PI`, `RAND`, `RANDBETWEEN`
+- **Statistical**: `MEDIAN`, `MODE`, `STDEV`, `VAR`, `COUNTIF`
 
-#### Logical Functions
-- `TRUE()` - Boolean true
-- `FALSE()` - Boolean false
-- `IF(condition, true_value, false_value)` - Conditional logic
-- `AND(...)` - Returns TRUE if all arguments are TRUE
-- `OR(...)` - Returns TRUE if any argument is TRUE
-- `NOT(value)` - Reverses the logic of its argument
-- `XOR(...)` - Returns TRUE if an odd number of arguments are TRUE
-- `IFERROR(value, value_if_error)` - Returns a value if expression is an error
-- `IFNA(value, value_if_na)` - Returns a value if expression is #N/A
-- `ISNUMBER(value)` - Tests if a value is a number
-- `ISTEXT(value)` - Tests if a value is text
-- `ISBLANK(value)` - Tests if a value is blank
-- `ISERROR(value)` - Tests if a value is an error
+#### 📝 Text Functions (14) 
+- **Manipulation**: `CONCATENATE`, `TRIM`, `LEN`, `LEFT`, `RIGHT`, `MID`
+- **Formatting**: `UPPER`, `LOWER`, `PROPER`, `TEXT`, `VALUE`
+- **Search**: `FIND`, `SEARCH`, `REPLACE`, `SUBSTITUTE`
+
+#### 🔄 Logical Functions (14)
+- **Basic**: `TRUE`, `FALSE`, `IF`, `AND`, `OR`, `NOT`, `XOR`
+- **Error Handling**: `IFERROR`, `IFNA`, `ISERROR`
+- **Type Testing**: `ISNUMBER`, `ISTEXT`, `ISBLANK`
+
+#### 📅 Date & Time Functions (12)
+- **Current**: `NOW`, `TODAY`
+- **Construction**: `DATE`, `TIME`
+- **Extraction**: `YEAR`, `MONTH`, `DAY`, `HOUR`, `MINUTE`, `SECOND`
+- **Calculations**: `WEEKDAY`, `DATEDIF`
+
+#### 🔢 Trigonometric Functions (16)
+- **Basic**: `SIN`, `COS`, `TAN`, `ASIN`, `ACOS`, `ATAN`, `ATAN2`
+- **Hyperbolic**: `SINH`, `COSH`, `TANH`
+- **Conversion**: `DEGREES`, `RADIANS`
+- **Logarithmic**: `EXP`, `LN`, `LOG`, `LOG10`
+
+#### 💰 Financial Functions (8)
+- **Time Value**: `PV`, `FV`, `PMT`, `RATE`, `NPER`
+- **Analysis**: `NPV`, `IRR`, `MIRR`
+
+#### ⚙️ Engineering Functions (8)
+- **Conversion**: `CONVERT`, `HEX2DEC`, `DEC2HEX`, `BIN2DEC`, `DEC2BIN`
+- **Bitwise**: `BITAND`, `BITOR`, `BITXOR`
 
 ### Supported Operations
 
@@ -340,12 +353,26 @@ if (!result.isSuccess()) {
 
 ## Performance
 
-Benchmarks on modern hardware:
+Benchmarks on modern hardware with **perfect hash optimization**:
 
+- **Function Dispatch**: 6-91% faster than traditional hash maps
 - **Parse Time**: ~10μs for typical formulas
-- **Evaluation Time**: ~5μs for simple arithmetic
+- **Evaluation Time**: ~5μs for simple arithmetic  
 - **Memory Usage**: <1KB per formula AST
 - **Throughput**: >100K evaluations/second
+
+## Roadmap
+
+### 🚀 Upcoming Features
+- **Lookup Functions**: VLOOKUP, INDEX, MATCH (Phase 9)
+- **Advanced Statistics**: CORRELATION, PERCENTILE, RANK (Phase 10)
+- **Extended Math**: SUMIF, AVERAGEIF, SUMPRODUCT (Phase 11)
+
+### 📱 Platform Bindings (Phase 12)
+- **React Native**: Nitro modules for iOS/Android apps
+- **WebAssembly**: Emscripten bindings for browsers
+- **NPM Package**: Unified distribution for JavaScript/TypeScript
+- **Type Definitions**: Full TypeScript support
 
 ## Contributing
 

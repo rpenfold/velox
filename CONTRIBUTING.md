@@ -311,8 +311,11 @@ xl-formula/
 │       ├── math/          # Mathematical functions
 │       ├── text/          # Text manipulation functions
 │       ├── logical/       # Logical functions
+│       ├── datetime/      # Date & time functions
+│       ├── financial/     # Financial functions
+│       ├── engineering/   # Engineering functions
 │       ├── utils/         # Utility functions
-│       └── function_registry.cpp # Function registration
+│       └── fn_dispatcher.cpp # Perfect hash function dispatcher
 ├── cpp/include/xl-formula/    # Public headers
 ├── tests/                 # Comprehensive test suite
 ├── examples/              # Usage examples
@@ -344,10 +347,13 @@ xl-formula/
    Value new_function(const std::vector<Value>& args, const Context& context);
    ```
 
-3. **Register Function**:
+3. **Register Function in Dispatcher**:
    ```cpp
-   // cpp/functions/function_registry.cpp
-   registry->registerFunction("NEW_FUNCTION", functions::builtin::new_function);
+   // cpp/functions/fn_dispatcher.cpp - Add to switch statement
+   case hash_function_name("NEW_FUNCTION"): return builtin::new_function(args, context);
+   
+   // cpp/functions/fn_dispatcher.cpp - Add to get_builtin_function_names()
+   "NEW_FUNCTION",  // Add to appropriate category list
    ```
 
 4. **Create Tests**:
@@ -361,63 +367,20 @@ xl-formula/
 ## Function Implementation Roadmap
 
 **Target**: Match and exceed Formula.js (399/515 functions implemented)
-**Current**: 22 functions implemented
+**Current**: 75 functions implemented (15% of Excel's ~500 core functions)
 
-### Phase 1: Core Math & Statistical Functions (Priority: High)
-- [x] **MIN** - Returns the minimum value in a set of values
-- [x] **AVERAGE** - Returns the average of its arguments
-- [x] **COUNT** - Counts the number of cells that contain numbers
-- [x] **COUNTA** - Counts the number of cells that are not empty
-- [x] **SQRT** - Returns the square root of a number
-- [x] **POWER** - Returns the result of a number raised to a power
-- [x] **MOD** - Returns the remainder from division
-- [x] **COUNTIF** - Counts the number of cells that meet a criterion
-- [x] **PI** - Returns the value of pi
-- [x] **RAND** - Returns a random number between 0 and 1
-- [x] **RANDBETWEEN** - Returns a random number between specified numbers
-- [x] **SIGN** - Returns the sign of a number
-- [x] **INT** - Rounds a number down to the nearest integer
-- [x] **TRUNC** - Truncates a number to an integer
-- [x] **CEILING** - Rounds a number up to the nearest multiple
-- [x] **FLOOR** - Rounds a number down to the nearest multiple
-- [x] **MEDIAN** - Returns the median of a set of numbers
-- [x] **MODE** - Returns the most frequently occurring value
-- [x] **STDEV** - Returns the standard deviation
-- [x] **VAR** - Returns the variance
+## Completed Functions ✅
 
-### Phase 2: Text Functions (Priority: High)
-- [x] **CONCATENATE** - Joins several text strings
-- [x] **TRIM** - Removes extra spaces
-- [x] **LEN** - Returns the length of a text string
-- [x] **LEFT** - Returns characters from the left side
-- [x] **RIGHT** - Returns characters from the right side
-- [x] **MID** - Returns characters from the middle
-- [x] **UPPER** - Converts text to uppercase
-- [x] **LOWER** - Converts text to lowercase
-- [x] **PROPER** - Capitalizes the first letter of each word
-- [x] **FIND** - Finds one text string within another
-- [x] **SEARCH** - Finds one text string within another (case-insensitive)
-- [x] **REPLACE** - Replaces part of a text string
-- [x] **SUBSTITUTE** - Substitutes new text for old text
-- [x] **TEXT** - Formats a number as text
-- [x] **VALUE** - Converts a text string to a number
+**75 functions implemented across 8 categories:**
+- **Math & Statistical**: 24 functions (SUM, AVERAGE, COUNT, SQRT, etc.)
+- **Text**: 14 functions (CONCATENATE, TRIM, LEN, UPPER, etc.)
+- **Logical**: 14 functions (IF, AND, OR, NOT, ISNUMBER, etc.)
+- **Date & Time**: 12 functions (NOW, TODAY, DATE, YEAR, etc.)
+- **Trigonometric**: 16 functions (SIN, COS, TAN, ATAN2, etc.)
+- **Financial**: 8 functions (PV, FV, PMT, NPV, IRR, etc.)
+- **Engineering**: 8 functions (CONVERT, HEX2DEC, BITAND, etc.)
 
-### Phase 3: Logical Functions (Priority: Medium)
-- [x] **TRUE** - Returns the logical value TRUE
-- [x] **FALSE** - Returns the logical value FALSE
-- [x] **IF** - Performs a conditional test
-- [x] **AND** - Returns TRUE if all arguments are TRUE
-- [x] **OR** - Returns TRUE if any argument is TRUE
-- [x] **NOT** - Reverses the logic of its argument
-- [x] **XOR** - Returns TRUE if an odd number of arguments are TRUE
-- [x] **IFERROR** - Returns a value if expression is an error
-- [x] **IFNA** - Returns a value if expression is #N/A
-- [x] **ISNUMBER** - Tests if a value is a number
-- [x] **ISTEXT** - Tests if a value is text
-- [x] **ISBLANK** - Tests if a value is blank
-- [x] **ISERROR** - Tests if a value is an error
-
-### Phase 4: Lookup & Reference Functions (Priority: Medium)
+### Next Phase 9: Lookup & Reference Functions (Priority: High)
 - [ ] **VLOOKUP** - Looks up a value in a table
 - [ ] **HLOOKUP** - Looks up a value in a table (horizontal)
 - [ ] **INDEX** - Returns a value from a table
@@ -429,57 +392,36 @@ xl-formula/
 - [ ] **ROW** - Returns the row number
 - [ ] **COLUMN** - Returns the column number
 
-### Phase 5: Date & Time Functions (Priority: Low)
-- [x] **NOW** - Returns the current date and time ✅
-- [x] **TODAY** - Returns the current date ✅
-- [x] **DATE** - Creates a date from year, month, day ✅
-- [x] **TIME** - Creates a time from hour, minute, second ✅
-- [x] **YEAR** - Returns the year from a date ✅
-- [x] **MONTH** - Returns the month from a date ✅
-- [x] **DAY** - Returns the day from a date ✅
-- [x] **HOUR** - Returns the hour from a time ✅
-- [x] **MINUTE** - Returns the minute from a time ✅
-- [x] **SECOND** - Returns the second from a time ✅
-- [x] **WEEKDAY** - Returns the day of the week ✅
-- [x] **DATEDIF** - Calculates the difference between dates ✅
+### Phase 10: Statistical & Data Analysis Functions (Priority: Medium)
+- [ ] **CORRELATION** - Returns the correlation coefficient
+- [ ] **COVARIANCE** - Returns covariance
+- [ ] **PERCENTILE** - Returns the k-th percentile
+- [ ] **QUARTILE** - Returns the quartile value
+- [ ] **RANK** - Returns the rank of a number
+- [ ] **SLOPE** - Returns the slope of a linear regression line
+- [ ] **INTERCEPT** - Returns the y-intercept of a linear regression line
+- [ ] **RSQ** - Returns the square of correlation coefficient
+- [ ] **FORECAST** - Calculates future value using linear trend
+- [ ] **TREND** - Returns values along a linear trend
 
-### Phase 6: Advanced Math & Trigonometry (Priority: Low)
-- [x] **SIN** - Returns the sine of an angle ✅
-- [x] **COS** - Returns the cosine of an angle ✅
-- [x] **TAN** - Returns the tangent of an angle ✅
-- [x] **ASIN** - Returns the arcsine ✅
-- [x] **ACOS** - Returns the arccosine ✅
-- [x] **ATAN** - Returns the arctangent ✅
-- [x] **ATAN2** - Returns the arctangent from x and y coordinates ✅
-- [x] **SINH** - Returns the hyperbolic sine ✅
-- [x] **COSH** - Returns the hyperbolic cosine ✅
-- [x] **TANH** - Returns the hyperbolic tangent ✅
-- [x] **DEGREES** - Converts radians to degrees ✅
-- [x] **RADIANS** - Converts degrees to radians ✅
-- [x] **EXP** - Returns e raised to a power ✅
-- [x] **LN** - Returns the natural logarithm ✅
-- [x] **LOG** - Returns the logarithm to a specified base ✅
-- [x] **LOG10** - Returns the base-10 logarithm ✅
+### Phase 11: Additional Math Functions (Priority: Medium)
+- [ ] **GCD** - Greatest common divisor
+- [ ] **LCM** - Least common multiple
+- [ ] **FACT** - Factorial
+- [ ] **COMBIN** - Number of combinations
+- [ ] **PERMUT** - Number of permutations
+- [ ] **SUMPRODUCT** - Sum of products of arrays
+- [ ] **SUMIF** - Sum cells that meet a criterion
+- [ ] **SUMIFS** - Sum cells that meet multiple criteria
+- [ ] **AVERAGEIF** - Average cells that meet a criterion
+- [ ] **AVERAGEIFS** - Average cells that meet multiple criteria
 
-### Phase 7: Financial Functions (Priority: Future)
-- [x] **PV** - Present value ✅
-- [x] **FV** - Future value ✅
-- [x] **PMT** - Payment amount ✅
-- [x] **RATE** - Interest rate ✅
-- [x] **NPER** - Number of periods ✅
-- [x] **NPV** - Net present value ✅
-- [x] **IRR** - Internal rate of return ✅
-- [x] **MIRR** - Modified internal rate of return ✅
-
-### Phase 8: Engineering & Specialized Functions (Priority: Future)
-- [x] **CONVERT** - Converts units ✅
-- [x] **HEX2DEC** - Converts hexadecimal to decimal ✅
-- [x] **DEC2HEX** - Converts decimal to hexadecimal ✅
-- [x] **BIN2DEC** - Converts binary to decimal ✅
-- [x] **DEC2BIN** - Converts decimal to binary ✅
-- [x] **BITAND** - Bitwise AND ✅
-- [x] **BITOR** - Bitwise OR ✅
-- [x] **BITXOR** - Bitwise XOR ✅
+### Phase 12: Platform Bindings (Priority: High)
+- [ ] **React Native Bindings** - Nitro modules for mobile apps
+- [ ] **WASM/Emscripten Bindings** - Web browser compatibility
+- [ ] **NPM Package Distribution** - Unified package for all platforms
+- [ ] **TypeScript Definitions** - Type safety for JavaScript/TypeScript
+- [ ] **Documentation Website** - Interactive examples and API docs
 
 ## Submitting Changes
 
