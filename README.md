@@ -141,7 +141,7 @@ xl-formula/
 │       ├── text/          # Text manipulation functions
 │       ├── logical/       # Logical functions
 │       └── utils/         # Utility functions
-├── include/xl-formula/    # Public headers
+├── cpp/include/xl-formula/    # Public headers
 ├── tests/                 # Comprehensive test suite
 ├── examples/              # Usage examples
 └── scripts/               # Build and utility scripts

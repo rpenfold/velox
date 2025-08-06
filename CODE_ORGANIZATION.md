@@ -119,7 +119,7 @@ registry->registerFunction("MIN", functions::builtin::min);
 
 3. **Add declaration (if needed):**
 ```cpp
-// include/xl-formula/functions.h
+// cpp/include/xl-formula/functions.h
 Value min(const std::vector<Value>& args, const Context& context);
 ```
 

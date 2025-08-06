@@ -23,8 +23,8 @@ target_link_libraries(xl-formula-tests
 )
 
 target_include_directories(xl-formula-tests PRIVATE 
-    ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/cpp/include
+    ${CMAKE_SOURCE_DIR}/cpp
 )
 
 # Discover tests for CTest
@@ -44,7 +44,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Coverage")
                 COMMAND ${GCOVR_PATH} 
                     --root ${CMAKE_SOURCE_DIR}
                     --filter ${CMAKE_SOURCE_DIR}/cpp/
-                    --filter ${CMAKE_SOURCE_DIR}/include/
+                    --filter ${CMAKE_SOURCE_DIR}/cpp/include/
                     --html --html-details 
                     --output coverage.html
                     --print-summary

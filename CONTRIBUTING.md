@@ -313,7 +313,7 @@ xl-formula/
 │       ├── logical/       # Logical functions
 │       ├── utils/         # Utility functions
 │       └── function_registry.cpp # Function registration
-├── include/xl-formula/    # Public headers
+├── cpp/include/xl-formula/    # Public headers
 ├── tests/                 # Comprehensive test suite
 ├── examples/              # Usage examples
 └── scripts/               # Build and utility scripts
@@ -340,7 +340,7 @@ xl-formula/
 
 2. **Add Declaration to Header**:
    ```cpp
-   // include/xl-formula/functions.h
+   // cpp/include/xl-formula/functions.h
    Value new_function(const std::vector<Value>& args, const Context& context);
    ```
 

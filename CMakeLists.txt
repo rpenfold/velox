@@ -20,7 +20,7 @@ option(BUILD_WEB_BINDINGS "Build Emscripten web bindings" OFF)
 option(BUILD_RN_BINDINGS "Build React Native bindings" OFF)
 
 # Include directories
-include_directories(include)
+include_directories(cpp/include)
 
 # Core library
 file(GLOB_RECURSE CORE_SOURCES 
@@ -31,12 +31,12 @@ file(GLOB_RECURSE CORE_SOURCES
 )
 
 file(GLOB_RECURSE CORE_HEADERS 
-    "include/xl-formula/*.h"
-    "include/xl-formula/*.hpp"
+    "cpp/include/xl-formula/*.h"
+    "cpp/include/xl-formula/*.hpp"
 )
 
 add_library(xl-formula STATIC ${CORE_SOURCES} ${CORE_HEADERS})
-target_include_directories(xl-formula PUBLIC include)
+target_include_directories(xl-formula PUBLIC cpp/include)
 
 # Tests
 if(BUILD_TESTS)
@@ -51,12 +51,12 @@ endif()
 
 # Web bindings
 if(BUILD_WEB_BINDINGS)
-    add_subdirectory(bindings/web)
+    add_subdirectory(cpp/bindings/web)
 endif()
 
 # React Native bindings
 if(BUILD_RN_BINDINGS)
-    add_subdirectory(bindings/react-native)
+    add_subdirectory(cpp/bindings/react-native)
 endif()
 
 # Install targets
@@ -66,4 +66,4 @@ install(TARGETS xl-formula
     RUNTIME DESTINATION bin
 )
 
-install(DIRECTORY include/ DESTINATION include)
+install(DIRECTORY cpp/include/ DESTINATION include)
