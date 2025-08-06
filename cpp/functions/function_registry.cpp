@@ -36,6 +36,12 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("CONCATENATE", functions::builtin::concatenate);
     registry->registerFunction("TRIM", functions::builtin::trim);
     registry->registerFunction("LEN", functions::builtin::len);
+    registry->registerFunction("LEFT", functions::builtin::left);
+    registry->registerFunction("RIGHT", functions::builtin::right);
+    registry->registerFunction("MID", functions::builtin::mid);
+    registry->registerFunction("UPPER", functions::builtin::upper);
+    registry->registerFunction("LOWER", functions::builtin::lower);
+    registry->registerFunction("PROPER", functions::builtin::proper);
 
     // Logical functions
     registry->registerFunction("TRUE", functions::builtin::true_function);

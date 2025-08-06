@@ -389,12 +389,12 @@ xl-formula/
 - [x] **CONCATENATE** - Joins several text strings ✅
 - [x] **TRIM** - Removes extra spaces ✅
 - [x] **LEN** - Returns the length of a text string ✅
-- [ ] **LEFT** - Returns characters from the left side
-- [ ] **RIGHT** - Returns characters from the right side
-- [ ] **MID** - Returns characters from the middle
-- [ ] **UPPER** - Converts text to uppercase
-- [ ] **LOWER** - Converts text to lowercase
-- [ ] **PROPER** - Capitalizes the first letter of each word
+- [x] **LEFT** - Returns characters from the left side ✅
+- [x] **RIGHT** - Returns characters from the right side ✅
+- [x] **MID** - Returns characters from the middle ✅
+- [x] **UPPER** - Converts text to uppercase ✅
+- [x] **LOWER** - Converts text to lowercase ✅
+- [x] **PROPER** - Capitalizes the first letter of each word ✅
 - [ ] **FIND** - Finds one text string within another
 - [ ] **SEARCH** - Finds one text string within another (case-insensitive)
 - [ ] **REPLACE** - Replaces part of a text string
