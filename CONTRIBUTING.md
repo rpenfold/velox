@@ -406,16 +406,16 @@ xl-formula/
 - [x] **TRUE** - Returns the logical value TRUE ✅
 - [x] **FALSE** - Returns the logical value FALSE ✅
 - [x] **IF** - Performs a conditional test ✅
-- [ ] **AND** - Returns TRUE if all arguments are TRUE
-- [ ] **OR** - Returns TRUE if any argument is TRUE
-- [ ] **NOT** - Reverses the logic of its argument
-- [ ] **XOR** - Returns TRUE if an odd number of arguments are TRUE
-- [ ] **IFERROR** - Returns a value if expression is an error
-- [ ] **IFNA** - Returns a value if expression is #N/A
-- [ ] **ISNUMBER** - Tests if a value is a number
-- [ ] **ISTEXT** - Tests if a value is text
-- [ ] **ISBLANK** - Tests if a value is blank
-- [ ] **ISERROR** - Tests if a value is an error
+- [x] **AND** - Returns TRUE if all arguments are TRUE ✅
+- [x] **OR** - Returns TRUE if any argument is TRUE ✅
+- [x] **NOT** - Reverses the logic of its argument ✅
+- [x] **XOR** - Returns TRUE if an odd number of arguments are TRUE ✅
+- [x] **IFERROR** - Returns a value if expression is an error ✅
+- [x] **IFNA** - Returns a value if expression is #N/A ✅
+- [x] **ISNUMBER** - Tests if a value is a number ✅
+- [x] **ISTEXT** - Tests if a value is text ✅
+- [x] **ISBLANK** - Tests if a value is blank ✅
+- [x] **ISERROR** - Tests if a value is an error ✅
 
 ### Phase 4: Lookup & Reference Functions (Priority: Medium)
 - [ ] **VLOOKUP** - Looks up a value in a table

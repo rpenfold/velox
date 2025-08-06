@@ -67,6 +67,16 @@ if (result.isSuccess()) {
 - `TRUE()` - Boolean true
 - `FALSE()` - Boolean false
 - `IF(condition, true_value, false_value)` - Conditional logic
+- `AND(...)` - Returns TRUE if all arguments are TRUE
+- `OR(...)` - Returns TRUE if any argument is TRUE
+- `NOT(value)` - Reverses the logic of its argument
+- `XOR(...)` - Returns TRUE if an odd number of arguments are TRUE
+- `IFERROR(value, value_if_error)` - Returns a value if expression is an error
+- `IFNA(value, value_if_na)` - Returns a value if expression is #N/A
+- `ISNUMBER(value)` - Tests if a value is a number
+- `ISTEXT(value)` - Tests if a value is text
+- `ISBLANK(value)` - Tests if a value is blank
+- `ISERROR(value)` - Tests if a value is an error
 
 ### Supported Operations
 
@@ -288,6 +298,24 @@ Simulates a spreadsheet with custom functions and complex formulas:
    ```cpp
    auto report = engine.evaluate(
        "\"Sales Report: \" & SUM(Q1, Q2, Q3, Q4) & \" total revenue\""
+   );
+   ```
+
+4. **Logical Operations**
+   ```cpp
+   // Complex conditional logic
+   auto result = engine.evaluate(
+       "IF(AND(ISNUMBER(A1), A1 > 0), A1 * 1.1, IFERROR(A1, 0))"
+   );
+   
+   // Error handling with fallbacks
+   auto safe_division = engine.evaluate(
+       "IFERROR(A1 / A2, \"Division by zero\")"
+   );
+   
+   // Type checking
+   auto validation = engine.evaluate(
+       "IF(OR(ISBLANK(A1), ISTEXT(A1)), \"Invalid input\", A1)"
    );
    ```
 
