@@ -29,12 +29,12 @@ Value text(const std::vector<Value>& args, const Context& context) {
         return errorCheck;
     }
 
-    // First argument should be a number
-    if (!args[0].isNumber()) {
+    // First argument should be a number or convertible to number
+    if (!args[0].isNumber() && !args[0].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
 
-    double value = args[0].asNumber();
+    double value = args[0].isNumber() ? args[0].asNumber() : args[0].toNumber();
     std::string format_text = args[1].toString();
     
     // Basic format implementation - supports common Excel formats

@@ -301,6 +301,54 @@ Value stdev(const std::vector<Value>& args, const Context& context);
  */
 Value var(const std::vector<Value>& args, const Context& context);
 
+/**
+ * @brief FIND function - finds one text string within another (case-sensitive)
+ * @param args Function arguments (find_text, within_text, [start_num])
+ * @param context Evaluation context (unused for FIND)
+ * @return Position of find_text within within_text, or #VALUE! if not found
+ */
+Value find(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SEARCH function - finds one text string within another (case-insensitive)
+ * @param args Function arguments (find_text, within_text, [start_num])
+ * @param context Evaluation context (unused for SEARCH)
+ * @return Position of find_text within within_text, or #VALUE! if not found
+ */
+Value search(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief REPLACE function - replaces part of a text string
+ * @param args Function arguments (old_text, start_num, num_chars, new_text)
+ * @param context Evaluation context (unused for REPLACE)
+ * @return Text with the specified characters replaced
+ */
+Value replace(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SUBSTITUTE function - substitutes new text for old text
+ * @param args Function arguments (text, old_text, new_text, [instance_num])
+ * @param context Evaluation context (unused for SUBSTITUTE)
+ * @return Text with old_text replaced by new_text
+ */
+Value substitute(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TEXT function - formats a number as text
+ * @param args Function arguments (value, format_text)
+ * @param context Evaluation context (unused for TEXT)
+ * @return Formatted text string
+ */
+Value text(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief VALUE function - converts a text string to a number
+ * @param args Function arguments (text)
+ * @param context Evaluation context (unused for VALUE)
+ * @return Numeric value
+ */
+Value value(const std::vector<Value>& args, const Context& context);
+
 }  // namespace builtin
 
 /**
