@@ -13,33 +13,8 @@ namespace builtin {
  * @return Year as numeric value
  */
 Value year(const std::vector<Value>& args, const Context& context) {
-    (void)context;  // Unused parameter
-    
-    // Check for errors first
-    auto error = utils::checkForErrors(args);
-    if (!error.isEmpty()) {
-        return error;
-    }
-    
-    // Validate argument count
-    if (args.size() != 1) {
-        return Value::error(ErrorType::VALUE_ERROR);
-    }
-    
-    // Check if argument is a date
-    if (!args[0].isDate()) {
-        return Value::error(ErrorType::VALUE_ERROR);
-    }
-    
-    try {
-        auto date_val = args[0].asDate();
-        auto time_t = std::chrono::system_clock::to_time_t(date_val);
-        auto local_tm = *std::localtime(&time_t);
-        
-        return Value(static_cast<double>(local_tm.tm_year + 1900));
-    } catch (...) {
-        return Value::error(ErrorType::VALUE_ERROR);
-    }
+    return templates::singleDateFunction(args, context, "YEAR",
+        [](const std::tm& tm) { return tm.tm_year + 1900; });
 }
 
 }  // namespace builtin

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <stdexcept>
+#include <cmath>
 #include "evaluator.h"
 #include "types.h"
 
@@ -750,7 +751,191 @@ Value multiArgFunction(const std::vector<Value>& args, const Context& context,
     return Value(operation(args));
 }
 
+/**
+ * @brief Template for single date argument functions (YEAR, MONTH, DAY)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform on the tm structure
+ * @return Result of the operation
+ */
+template<typename Func>
+Value singleDateFunction(const std::vector<Value>& args, const Context& context,
+                        const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    if (!args[0].isDate()) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+    
+    try {
+        auto date_val = args[0].asDate();
+        auto time_t = std::chrono::system_clock::to_time_t(date_val);
+        auto local_tm = *std::localtime(&time_t);
+        
+        return Value(static_cast<double>(operation(local_tm)));
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for date/time extraction functions (HOUR, MINUTE, SECOND)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param dateOperation Operation to perform on tm structure for date values
+ * @param fractionOperation Operation to perform on time fraction for numeric values
+ * @return Result of the operation
+ */
+template<typename DateFunc, typename FractionFunc>
+Value dateTimeExtractionFunction(const std::vector<Value>& args, const Context& context,
+                                const std::string& name, DateFunc dateOperation, 
+                                FractionFunc fractionOperation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    if (args[0].isDate()) {
+        // Handle date value
+        try {
+            auto date_val = args[0].asDate();
+            auto time_t = std::chrono::system_clock::to_time_t(date_val);
+            auto local_tm = *std::localtime(&time_t);
+            
+            return Value(static_cast<double>(dateOperation(local_tm)));
+        } catch (...) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+    } else if (args[0].canConvertToNumber()) {
+        // Handle time fraction (Excel-style)
+        double time_fraction = args[0].toNumber();
+        return Value(static_cast<double>(fractionOperation(time_fraction)));
+    } else {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for three numeric argument functions (DATE, TIME)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform with the three numbers
+ * @return Result of the operation
+ */
+template<typename Func>
+Value threeNumberFunction(const std::vector<Value>& args, const Context& context,
+                         const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 3, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    // Convert arguments to numbers
+    if (!args[0].canConvertToNumber() || !args[1].canConvertToNumber() || !args[2].canConvertToNumber()) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+    
+    int first = static_cast<int>(args[0].toNumber());
+    int second = static_cast<int>(args[1].toNumber());
+    int third = static_cast<int>(args[2].toNumber());
+    
+    try {
+        return operation(first, second, third);
+    } catch (const std::runtime_error&) {
+        return Value::error(ErrorType::NUM_ERROR);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
 }  // namespace templates
+
+/**
+ * @brief Utility functions for date/time operations
+ */
+namespace datetime_utils {
+
+/**
+ * @brief Extract fractional part of time and normalize to [0,1)
+ * @param time_fraction Input time fraction
+ * @return Normalized fractional part
+ */
+inline double normalizeFraction(double time_fraction) {
+    time_fraction = time_fraction - std::floor(time_fraction);
+    if (time_fraction < 0) time_fraction += 1.0;
+    return time_fraction;
+}
+
+/**
+ * @brief Convert time fraction to total seconds in the day
+ * @param time_fraction Normalized time fraction
+ * @return Total seconds
+ */
+inline double fractionToSeconds(double time_fraction) {
+    return time_fraction * 24.0 * 60.0 * 60.0;
+}
+
+/**
+ * @brief Extract hour from time fraction
+ * @param time_fraction Input time fraction
+ * @return Hour (0-23)
+ */
+inline int extractHourFromFraction(double time_fraction) {
+    double normalized = normalizeFraction(time_fraction);
+    double total_seconds = fractionToSeconds(normalized);
+    return static_cast<int>(total_seconds / 3600.0) % 24;
+}
+
+/**
+ * @brief Extract minute from time fraction
+ * @param time_fraction Input time fraction
+ * @return Minute (0-59)
+ */
+inline int extractMinuteFromFraction(double time_fraction) {
+    double normalized = normalizeFraction(time_fraction);
+    double total_seconds = fractionToSeconds(normalized);
+    return static_cast<int>((total_seconds / 60.0)) % 60;
+}
+
+/**
+ * @brief Extract second from time fraction
+ * @param time_fraction Input time fraction
+ * @return Second (0-59)
+ */
+inline int extractSecondFromFraction(double time_fraction) {
+    double normalized = normalizeFraction(time_fraction);
+    double total_seconds = fractionToSeconds(normalized);
+    return static_cast<int>(total_seconds) % 60;
+}
+
+}  // namespace datetime_utils
 
 }  // namespace functions
 }  // namespace xl_formula

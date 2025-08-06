@@ -13,48 +13,26 @@ namespace builtin {
  * @return Time value as a fraction of a day (Excel-style)
  */
 Value time_function(const std::vector<Value>& args, const Context& context) {
-    (void)context;  // Unused parameter
-    
-    // Check for errors first
-    auto error = utils::checkForErrors(args);
-    if (!error.isEmpty()) {
-        return error;
-    }
-    
-    // Validate argument count
-    if (args.size() != 3) {
-        return Value::error(ErrorType::VALUE_ERROR);
-    }
-    
-    // Convert arguments to numbers
-    if (!args[0].canConvertToNumber() || !args[1].canConvertToNumber() || !args[2].canConvertToNumber()) {
-        return Value::error(ErrorType::VALUE_ERROR);
-    }
-    
-    int hour = static_cast<int>(args[0].toNumber());
-    int minute = static_cast<int>(args[1].toNumber());
-    int second = static_cast<int>(args[2].toNumber());
-    
-    // Validate ranges
-    if (hour < 0 || hour > 23) {
-        return Value::error(ErrorType::NUM_ERROR);
-    }
-    if (minute < 0 || minute > 59) {
-        return Value::error(ErrorType::NUM_ERROR);
-    }
-    if (second < 0 || second > 59) {
-        return Value::error(ErrorType::NUM_ERROR);
-    }
-    
-    // Calculate time as fraction of a day (Excel convention)
-    // Total seconds in the time
-    double total_seconds = hour * 3600.0 + minute * 60.0 + second;
-    // Seconds in a day
-    double seconds_per_day = 24.0 * 60.0 * 60.0;
-    // Fraction of a day
-    double time_fraction = total_seconds / seconds_per_day;
-    
-    return Value(time_fraction);
+    return templates::threeNumberFunction(args, context, "TIME",
+        [](int hour, int minute, int second) -> Value {
+            // Validate ranges
+            if (hour < 0 || hour > 23) {
+                throw std::runtime_error("Hour out of range");
+            }
+            if (minute < 0 || minute > 59) {
+                throw std::runtime_error("Minute out of range");
+            }
+            if (second < 0 || second > 59) {
+                throw std::runtime_error("Second out of range");
+            }
+            
+            // Calculate time as fraction of a day (Excel convention)
+            double total_seconds = hour * 3600.0 + minute * 60.0 + second;
+            double seconds_per_day = 24.0 * 60.0 * 60.0;
+            double time_fraction = total_seconds / seconds_per_day;
+            
+            return Value(time_fraction);
+        });
 }
 
 }  // namespace builtin
