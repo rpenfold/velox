@@ -18,6 +18,15 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("SQRT", functions::builtin::sqrt_function);
     registry->registerFunction("POWER", functions::builtin::power);
     registry->registerFunction("MOD", functions::builtin::mod);
+    registry->registerFunction("PI", functions::builtin::pi);
+    registry->registerFunction("SIGN", functions::builtin::sign);
+    registry->registerFunction("INT", functions::builtin::int_function);
+    registry->registerFunction("TRUNC", functions::builtin::trunc_function);
+    registry->registerFunction("CEILING", functions::builtin::ceiling_function);
+    registry->registerFunction("FLOOR", functions::builtin::floor_function);
+    registry->registerFunction("RAND", functions::builtin::rand_function);
+    registry->registerFunction("RANDBETWEEN", functions::builtin::randbetween);
+    registry->registerFunction("COUNTIF", functions::builtin::countif);
 
     // Text functions
     registry->registerFunction("CONCATENATE", functions::builtin::concatenate);

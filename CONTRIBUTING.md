@@ -371,14 +371,14 @@ xl-formula/
 - [x] **SQRT** - Returns the square root of a number ✅
 - [x] **POWER** - Returns the result of a number raised to a power ✅
 - [x] **MOD** - Returns the remainder from division ✅
-- [ ] **COUNTIF** - Counts the number of cells that meet a criterion
-- [ ] **PI** - Returns the value of pi
-- [ ] **RAND** - Returns a random number between 0 and 1
-- [ ] **RANDBETWEEN** - Returns a random number between specified numbers
-- [ ] **SIGN** - Returns the sign of a number
-- [ ] **INT** - Rounds a number down to the nearest integer
-- [ ] **TRUNC** - Truncates a number to an integer
-- [ ] **CEILING** - Rounds a number up to the nearest multiple
+- [x] **COUNTIF** - Counts the number of cells that meet a criterion
+- [x] **PI** - Returns the value of pi ✅
+- [x] **RAND** - Returns a random number between 0 and 1 ✅
+- [x] **RANDBETWEEN** - Returns a random number between specified numbers ✅
+- [x] **SIGN** - Returns the sign of a number ✅
+- [x] **INT** - Rounds a number down to the nearest integer ✅
+- [x] **TRUNC** - Truncates a number to an integer ✅
+- [x] **CEILING** - Rounds a number up to the nearest multiple ✅
 - [ ] **FLOOR** - Rounds a number down to the nearest multiple
 - [ ] **MEDIAN** - Returns the median of a set of numbers
 - [ ] **MODE** - Returns the most frequently occurring value

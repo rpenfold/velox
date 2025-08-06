@@ -149,6 +149,78 @@ Value power(const std::vector<Value>& args, const Context& context);
  */
 Value mod(const std::vector<Value>& args, const Context& context);
 
+/**
+ * @brief PI function - returns the value of pi
+ * @param args Function arguments (should be empty)
+ * @param context Evaluation context (unused for PI)
+ * @return Value of pi
+ */
+Value pi(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SIGN function - returns the sign of a number
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for SIGN)
+ * @return 1 if positive, -1 if negative, 0 if zero
+ */
+Value sign(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief INT function - rounds a number down to the nearest integer
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for INT)
+ * @return Integer part of the number (rounded down)
+ */
+Value int_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TRUNC function - truncates a number to an integer
+ * @param args Function arguments (expects 1 or 2 arguments)
+ * @param context Evaluation context (unused for TRUNC)
+ * @return Truncated number
+ */
+Value trunc_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief CEILING function - rounds a number up to the nearest multiple
+ * @param args Function arguments (expects 1 or 2 arguments)
+ * @param context Evaluation context (unused for CEILING)
+ * @return Number rounded up to nearest multiple
+ */
+Value ceiling_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief FLOOR function - rounds a number down to the nearest multiple
+ * @param args Function arguments (expects 1 or 2 arguments)
+ * @param context Evaluation context (unused for FLOOR)
+ * @return Number rounded down to nearest multiple
+ */
+Value floor_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief RAND function - returns a random number between 0 and 1
+ * @param args Function arguments (should be empty)
+ * @param context Evaluation context (unused for RAND)
+ * @return Random number between 0 and 1
+ */
+Value rand_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief RANDBETWEEN function - returns a random number between specified numbers
+ * @param args Function arguments (expects 2 numeric arguments)
+ * @param context Evaluation context (unused for RANDBETWEEN)
+ * @return Random integer between bottom and top (inclusive)
+ */
+Value randbetween(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COUNTIF function - counts the number of cells that meet a criterion
+ * @param args Function arguments (expects 2+ arguments: range..., criteria)
+ * @param context Evaluation context (unused for COUNTIF)
+ * @return Count of values that match criteria
+ */
+Value countif(const std::vector<Value>& args, const Context& context);
+
 }  // namespace builtin
 
 /**
