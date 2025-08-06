@@ -96,6 +96,16 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("ISBLANK", functions::builtin::isblank_function);
     registry->registerFunction("ISERROR", functions::builtin::iserror_function);
 
+    // Engineering functions
+    registry->registerFunction("CONVERT", functions::builtin::convert);
+    registry->registerFunction("HEX2DEC", functions::builtin::hex2dec);
+    registry->registerFunction("DEC2HEX", functions::builtin::dec2hex);
+    registry->registerFunction("BIN2DEC", functions::builtin::bin2dec);
+    registry->registerFunction("DEC2BIN", functions::builtin::dec2bin);
+    registry->registerFunction("BITAND", functions::builtin::bitand_function);
+    registry->registerFunction("BITOR", functions::builtin::bitor_function);
+    registry->registerFunction("BITXOR", functions::builtin::bitxor_function);
+
     return registry;
 }
 

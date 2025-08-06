@@ -472,14 +472,14 @@ xl-formula/
 - [ ] **MIRR** - Modified internal rate of return
 
 ### Phase 8: Engineering & Specialized Functions (Priority: Future)
-- [ ] **CONVERT** - Converts units
-- [ ] **HEX2DEC** - Converts hexadecimal to decimal
-- [ ] **DEC2HEX** - Converts decimal to hexadecimal
-- [ ] **BIN2DEC** - Converts binary to decimal
-- [ ] **DEC2BIN** - Converts decimal to binary
-- [ ] **BITAND** - Bitwise AND
-- [ ] **BITOR** - Bitwise OR
-- [ ] **BITXOR** - Bitwise XOR
+- [x] **CONVERT** - Converts units ✅
+- [x] **HEX2DEC** - Converts hexadecimal to decimal ✅
+- [x] **DEC2HEX** - Converts decimal to hexadecimal ✅
+- [x] **BIN2DEC** - Converts binary to decimal ✅
+- [x] **DEC2BIN** - Converts decimal to binary ✅
+- [x] **BITAND** - Bitwise AND ✅
+- [x] **BITOR** - Bitwise OR ✅
+- [x] **BITXOR** - Bitwise XOR ✅
 
 ## Submitting Changes
 

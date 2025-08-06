@@ -657,6 +657,72 @@ Value weekday(const std::vector<Value>& args, const Context& context);
  */
 Value datedif(const std::vector<Value>& args, const Context& context);
 
+// Engineering & Specialized Functions
+
+/**
+ * @brief CONVERT function - converts units
+ * @param args Function arguments (number, from_unit, to_unit)
+ * @param context Evaluation context (unused for CONVERT)
+ * @return Converted value
+ */
+Value convert(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief HEX2DEC function - converts hexadecimal to decimal
+ * @param args Function arguments (hex_string)
+ * @param context Evaluation context (unused for HEX2DEC)
+ * @return Decimal value
+ */
+Value hex2dec(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DEC2HEX function - converts decimal to hexadecimal
+ * @param args Function arguments (number, [places])
+ * @param context Evaluation context (unused for DEC2HEX)
+ * @return Hexadecimal string
+ */
+Value dec2hex(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief BIN2DEC function - converts binary to decimal
+ * @param args Function arguments (binary_string)
+ * @param context Evaluation context (unused for BIN2DEC)
+ * @return Decimal value
+ */
+Value bin2dec(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DEC2BIN function - converts decimal to binary
+ * @param args Function arguments (number, [places])
+ * @param context Evaluation context (unused for DEC2BIN)
+ * @return Binary string
+ */
+Value dec2bin(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief BITAND function - bitwise AND
+ * @param args Function arguments (number1, number2)
+ * @param context Evaluation context (unused for BITAND)
+ * @return Result of bitwise AND
+ */
+Value bitand_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief BITOR function - bitwise OR
+ * @param args Function arguments (number1, number2)
+ * @param context Evaluation context (unused for BITOR)
+ * @return Result of bitwise OR
+ */
+Value bitor_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief BITXOR function - bitwise XOR
+ * @param args Function arguments (number1, number2)
+ * @param context Evaluation context (unused for BITXOR)
+ * @return Result of bitwise XOR
+ */
+Value bitxor_function(const std::vector<Value>& args, const Context& context);
+
 }  // namespace builtin
 
 /**
@@ -1079,6 +1145,144 @@ Value threeNumberFunction(const std::vector<Value>& args, const Context& context
         return operation(first, second, third);
     } catch (const std::runtime_error&) {
         return Value::error(ErrorType::NUM_ERROR);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for base conversion functions (like HEX2DEC, BIN2DEC)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The conversion operation to perform
+ * @return Result of the conversion
+ */
+template <typename Func>
+Value baseConversionFunction(const std::vector<Value>& args, const Context& context,
+                            const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    // Convert to text string for processing
+    std::string input_str = args[0].toString();
+    
+    try {
+        return Value(operation(input_str));
+    } catch (const std::runtime_error&) {
+        return Value::error(ErrorType::NUM_ERROR);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for decimal to base conversion functions (like DEC2HEX, DEC2BIN)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The conversion operation to perform
+ * @return Result of the conversion
+ */
+template <typename Func>
+Value decimalToBaseFunction(const std::vector<Value>& args, const Context& context,
+                           const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    // Accept 1 or 2 arguments (number, [places])
+    if (args.size() < 1 || args.size() > 2) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+    
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    // Convert first argument to number
+    auto number = utils::toNumberSafe(args[0], name);
+    if (number.isError()) {
+        return number;
+    }
+    
+    long long value = static_cast<long long>(number.asNumber());
+    int places = 0;  // Default: no padding
+    
+    // Handle optional places argument
+    if (args.size() == 2) {
+        auto places_val = utils::toNumberSafe(args[1], name);
+        if (places_val.isError()) {
+            return places_val;
+        }
+        places = static_cast<int>(places_val.asNumber());
+        if (places < 0) {
+            return Value::error(ErrorType::NUM_ERROR);
+        }
+    }
+    
+    try {
+        return Value(operation(value, places));
+    } catch (const std::runtime_error&) {
+        return Value::error(ErrorType::NUM_ERROR);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for bitwise operation functions (like BITAND, BITOR, BITXOR)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The bitwise operation to perform
+ * @return Result of the operation
+ */
+template <typename Func>
+Value bitwiseFunction(const std::vector<Value>& args, const Context& context,
+                     const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 2, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    // Convert arguments to integers
+    auto num1 = utils::toNumberSafe(args[0], name);
+    if (num1.isError()) {
+        return num1;
+    }
+    
+    auto num2 = utils::toNumberSafe(args[1], name);
+    if (num2.isError()) {
+        return num2;
+    }
+    
+    long long value1 = static_cast<long long>(num1.asNumber());
+    long long value2 = static_cast<long long>(num2.asNumber());
+    
+    // Validate range (48-bit integers for Excel compatibility)
+    if (value1 < 0 || value1 > 281474976710655LL || 
+        value2 < 0 || value2 > 281474976710655LL) {
+        return Value::error(ErrorType::NUM_ERROR);
+    }
+    
+    try {
+        return Value(static_cast<double>(operation(value1, value2)));
     } catch (...) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
