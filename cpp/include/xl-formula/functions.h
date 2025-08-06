@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <stdexcept>
 #include "evaluator.h"
 #include "types.h"
 
@@ -348,6 +349,104 @@ Value text(const std::vector<Value>& args, const Context& context);
  * @return Numeric value
  */
 Value value(const std::vector<Value>& args, const Context& context);
+
+// Date & Time Functions
+
+/**
+ * @brief NOW function - returns the current date and time
+ * @param args Function arguments (should be empty)
+ * @param context Evaluation context (unused for NOW)
+ * @return Current date and time
+ */
+Value now(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TODAY function - returns the current date
+ * @param args Function arguments (should be empty)
+ * @param context Evaluation context (unused for TODAY)
+ * @return Current date at midnight
+ */
+Value today(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DATE function - creates a date from year, month, day
+ * @param args Function arguments (year, month, day)
+ * @param context Evaluation context (unused for DATE)
+ * @return Date value created from the given components
+ */
+Value date(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TIME function - creates a time from hour, minute, second
+ * @param args Function arguments (hour, minute, second)
+ * @param context Evaluation context (unused for TIME)
+ * @return Time value as fraction of a day
+ */
+Value time_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief YEAR function - returns the year from a date
+ * @param args Function arguments (date)
+ * @param context Evaluation context (unused for YEAR)
+ * @return Year as numeric value
+ */
+Value year(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MONTH function - returns the month from a date
+ * @param args Function arguments (date)
+ * @param context Evaluation context (unused for MONTH)
+ * @return Month as numeric value (1-12)
+ */
+Value month(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DAY function - returns the day from a date
+ * @param args Function arguments (date)
+ * @param context Evaluation context (unused for DAY)
+ * @return Day as numeric value (1-31)
+ */
+Value day(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief HOUR function - returns the hour from a time/date
+ * @param args Function arguments (time/date)
+ * @param context Evaluation context (unused for HOUR)
+ * @return Hour as numeric value (0-23)
+ */
+Value hour(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MINUTE function - returns the minute from a time/date
+ * @param args Function arguments (time/date)
+ * @param context Evaluation context (unused for MINUTE)
+ * @return Minute as numeric value (0-59)
+ */
+Value minute(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SECOND function - returns the second from a time/date
+ * @param args Function arguments (time/date)
+ * @param context Evaluation context (unused for SECOND)
+ * @return Second as numeric value (0-59)
+ */
+Value second(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief WEEKDAY function - returns the day of the week
+ * @param args Function arguments (date, [return_type])
+ * @param context Evaluation context (unused for WEEKDAY)
+ * @return Day of the week as numeric value
+ */
+Value weekday(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DATEDIF function - calculates the difference between dates
+ * @param args Function arguments (start_date, end_date, unit)
+ * @param context Evaluation context (unused for DATEDIF)
+ * @return Date difference in specified unit
+ */
+Value datedif(const std::vector<Value>& args, const Context& context);
 
 }  // namespace builtin
 
