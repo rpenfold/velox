@@ -106,6 +106,16 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("BITOR", functions::builtin::bitor_function);
     registry->registerFunction("BITXOR", functions::builtin::bitxor_function);
 
+    // Financial functions
+    registry->registerFunction("PV", functions::builtin::pv);
+    registry->registerFunction("FV", functions::builtin::fv);
+    registry->registerFunction("PMT", functions::builtin::pmt);
+    registry->registerFunction("RATE", functions::builtin::rate);
+    registry->registerFunction("NPER", functions::builtin::nper);
+    registry->registerFunction("NPV", functions::builtin::npv);
+    registry->registerFunction("IRR", functions::builtin::irr);
+    registry->registerFunction("MIRR", functions::builtin::mirr);
+
     return registry;
 }
 

@@ -462,14 +462,14 @@ xl-formula/
 - [x] **LOG10** - Returns the base-10 logarithm ✅
 
 ### Phase 7: Financial Functions (Priority: Future)
-- [ ] **PV** - Present value
-- [ ] **FV** - Future value
-- [ ] **PMT** - Payment amount
-- [ ] **RATE** - Interest rate
-- [ ] **NPER** - Number of periods
-- [ ] **NPV** - Net present value
-- [ ] **IRR** - Internal rate of return
-- [ ] **MIRR** - Modified internal rate of return
+- [x] **PV** - Present value ✅
+- [x] **FV** - Future value ✅
+- [x] **PMT** - Payment amount ✅
+- [x] **RATE** - Interest rate ✅
+- [x] **NPER** - Number of periods ✅
+- [x] **NPV** - Net present value ✅
+- [x] **IRR** - Internal rate of return ✅
+- [x] **MIRR** - Modified internal rate of return ✅
 
 ### Phase 8: Engineering & Specialized Functions (Priority: Future)
 - [x] **CONVERT** - Converts units ✅

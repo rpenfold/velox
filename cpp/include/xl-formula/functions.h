@@ -723,6 +723,72 @@ Value bitor_function(const std::vector<Value>& args, const Context& context);
  */
 Value bitxor_function(const std::vector<Value>& args, const Context& context);
 
+// Financial Functions
+
+/**
+ * @brief PV function - calculates present value
+ * @param args Function arguments (rate, nper, pmt, [fv], [type])
+ * @param context Evaluation context (unused for PV)
+ * @return Present value
+ */
+Value pv(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief FV function - calculates future value
+ * @param args Function arguments (rate, nper, pmt, [pv], [type])
+ * @param context Evaluation context (unused for FV)
+ * @return Future value
+ */
+Value fv(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief PMT function - calculates payment amount
+ * @param args Function arguments (rate, nper, pv, [fv], [type])
+ * @param context Evaluation context (unused for PMT)
+ * @return Payment amount
+ */
+Value pmt(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief RATE function - calculates interest rate
+ * @param args Function arguments (nper, pmt, pv, [fv], [type], [guess])
+ * @param context Evaluation context (unused for RATE)
+ * @return Interest rate
+ */
+Value rate(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief NPER function - calculates number of periods
+ * @param args Function arguments (rate, pmt, pv, [fv], [type])
+ * @param context Evaluation context (unused for NPER)
+ * @return Number of periods
+ */
+Value nper(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief NPV function - calculates net present value
+ * @param args Function arguments (rate, value1, [value2], ...)
+ * @param context Evaluation context (unused for NPV)
+ * @return Net present value
+ */
+Value npv(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IRR function - calculates internal rate of return
+ * @param args Function arguments (values, [guess])
+ * @param context Evaluation context (unused for IRR)
+ * @return Internal rate of return
+ */
+Value irr(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MIRR function - calculates modified internal rate of return
+ * @param args Function arguments (values, finance_rate, reinvest_rate)
+ * @param context Evaluation context (unused for MIRR)
+ * @return Modified internal rate of return
+ */
+Value mirr(const std::vector<Value>& args, const Context& context);
+
 }  // namespace builtin
 
 /**
@@ -1282,6 +1348,90 @@ Value bitwiseFunction(const std::vector<Value>& args, const Context& context,
 
     try {
         return Value(static_cast<double>(operation(value1, value2)));
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for time value of money functions with 3-5 arguments
+ * @param args Function arguments
+ * @param context Evaluation context (unused)
+ * @param name Function name for error messages
+ * @param operation Lambda function that performs the calculation
+ * @return Result of the calculation
+ */
+template <typename Func>
+Value financialFunction(const std::vector<Value>& args, const Context& context,
+                        const std::string& name, size_t min_args, size_t max_args, Func operation) {
+    (void)context;  // Unused parameter
+    (void)name;     // Unused parameter
+
+    try {
+        // Validate argument count
+        if (args.size() < min_args || args.size() > max_args) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+
+        // Check for errors in arguments
+        auto errorCheck = utils::checkForErrors(args);
+        if (!errorCheck.isEmpty()) {
+            return errorCheck;
+        }
+
+        // Convert arguments to numbers
+        std::vector<double> numeric_args;
+        for (const auto& arg : args) {
+            auto num_val = utils::toNumberSafe(arg, name);
+            if (num_val.isError()) {
+                return num_val;
+            }
+            numeric_args.push_back(num_val.asNumber());
+        }
+
+        return operation(numeric_args);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for cash flow functions (NPV, IRR, MIRR)
+ * @param args Function arguments
+ * @param context Evaluation context (unused)
+ * @param name Function name for error messages
+ * @param operation Lambda function that performs the calculation
+ * @return Result of the calculation
+ */
+template <typename Func>
+Value cashFlowFunction(const std::vector<Value>& args, const Context& context,
+                       const std::string& name, size_t min_args, Func operation) {
+    (void)context;  // Unused parameter
+    (void)name;     // Unused parameter
+
+    try {
+        // Validate minimum argument count
+        if (args.size() < min_args) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+
+        // Check for errors in arguments
+        auto errorCheck = utils::checkForErrors(args);
+        if (!errorCheck.isEmpty()) {
+            return errorCheck;
+        }
+
+        // Convert arguments to numbers
+        std::vector<double> numeric_args;
+        for (const auto& arg : args) {
+            auto num_val = utils::toNumberSafe(arg, name);
+            if (num_val.isError()) {
+                return num_val;
+            }
+            numeric_args.push_back(num_val.asNumber());
+        }
+
+        return operation(numeric_args);
     } catch (...) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
