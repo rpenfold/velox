@@ -78,6 +78,54 @@ Value if_function(const std::vector<Value>& args, const Context& context);
 Value len(const std::vector<Value>& args, const Context& context);
 
 /**
+ * @brief LEFT function - returns the leftmost characters from text
+ * @param args Function arguments (text, [num_chars])
+ * @param context Evaluation context (unused for LEFT)
+ * @return Leftmost characters from text
+ */
+Value left(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief RIGHT function - returns the rightmost characters from text
+ * @param args Function arguments (text, [num_chars])
+ * @param context Evaluation context (unused for RIGHT)
+ * @return Rightmost characters from text
+ */
+Value right(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MID function - returns characters from the middle of text
+ * @param args Function arguments (text, start_num, num_chars)
+ * @param context Evaluation context (unused for MID)
+ * @return Characters from the middle of text
+ */
+Value mid(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief UPPER function - converts text to uppercase
+ * @param args Function arguments (expects 1 text argument)
+ * @param context Evaluation context (unused for UPPER)
+ * @return Text converted to uppercase
+ */
+Value upper(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LOWER function - converts text to lowercase
+ * @param args Function arguments (expects 1 text argument)
+ * @param context Evaluation context (unused for LOWER)
+ * @return Text converted to lowercase
+ */
+Value lower(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief PROPER function - capitalizes the first letter of each word
+ * @param args Function arguments (expects 1 text argument)
+ * @param context Evaluation context (unused for PROPER)
+ * @return Text with first letter of each word capitalized
+ */
+Value proper(const std::vector<Value>& args, const Context& context);
+
+/**
  * @brief ABS function - returns absolute value
  * @param args Function arguments (expects 1 numeric argument)
  * @param context Evaluation context (unused for ABS)
