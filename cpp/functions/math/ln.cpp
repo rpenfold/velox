@@ -6,13 +6,12 @@ namespace functions {
 namespace builtin {
 
 Value ln_function(const std::vector<Value>& args, const Context& context) {
-    return templates::singleNumericFunction(args, context, "LN", 
-        [](double x) { 
-            if (x <= 0.0) {
-                throw std::runtime_error("Domain error");
-            }
-            return std::log(x); 
-        });
+    return templates::singleNumericFunction(args, context, "LN", [](double x) {
+        if (x <= 0.0) {
+            throw std::runtime_error("Domain error");
+        }
+        return std::log(x);
+    });
 }
 
 }  // namespace builtin

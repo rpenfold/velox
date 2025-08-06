@@ -157,7 +157,8 @@ TEST_F(CountIfFunctionTest, MixedTypesWithNumberCriteria_CountsOnlyNumbers) {
 }
 
 TEST_F(CountIfFunctionTest, MixedTypesWithTextCriteria_CountsOnlyText) {
-    auto result = callCountIf({Value(5.0), Value("5"), Value(true), Value("5"), Value("5"), Value("5")});
+    auto result =
+            callCountIf({Value(5.0), Value("5"), Value(true), Value("5"), Value("5"), Value("5")});
 
     EXPECT_TRUE(result.isNumber());
     EXPECT_DOUBLE_EQ(2.0, result.asNumber());  // only the text "5"
@@ -165,16 +166,16 @@ TEST_F(CountIfFunctionTest, MixedTypesWithTextCriteria_CountsOnlyText) {
 
 // Error handling tests
 TEST_F(CountIfFunctionTest, ErrorInValues_PropagatesError) {
-    auto result = callCountIf(
-            {Value(1.0), Value::error(ErrorType::DIV_ZERO), Value(3.0), Value(2.0)});
+    auto result =
+            callCountIf({Value(1.0), Value::error(ErrorType::DIV_ZERO), Value(3.0), Value(2.0)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
 TEST_F(CountIfFunctionTest, ErrorInCriteria_PropagatesError) {
-    auto result = callCountIf(
-            {Value(1.0), Value(2.0), Value(3.0), Value::error(ErrorType::DIV_ZERO)});
+    auto result =
+            callCountIf({Value(1.0), Value(2.0), Value(3.0), Value::error(ErrorType::DIV_ZERO)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());

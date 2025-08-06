@@ -96,15 +96,10 @@ TEST_F(IfErrorFunctionTest, EmptyAsFallback_ReturnsEmpty) {
 }
 
 TEST_F(IfErrorFunctionTest, AllErrorTypes_WorkCorrectly) {
-    std::vector<ErrorType> error_types = {
-        ErrorType::DIV_ZERO,
-        ErrorType::VALUE_ERROR,
-        ErrorType::REF_ERROR,
-        ErrorType::NAME_ERROR,
-        ErrorType::NUM_ERROR,
-        ErrorType::NA_ERROR,
-        ErrorType::PARSE_ERROR
-    };
+    std::vector<ErrorType> error_types = {ErrorType::DIV_ZERO,   ErrorType::VALUE_ERROR,
+                                          ErrorType::REF_ERROR,  ErrorType::NAME_ERROR,
+                                          ErrorType::NUM_ERROR,  ErrorType::NA_ERROR,
+                                          ErrorType::PARSE_ERROR};
 
     for (const auto& error_type : error_types) {
         auto result = callIfError({Value::error(error_type), Value("fallback")});
@@ -121,7 +116,8 @@ TEST_F(IfErrorFunctionTest, ComplexValues_WorkCorrectly) {
 }
 
 TEST_F(IfErrorFunctionTest, ErrorInFallback_StillReturnsFallback) {
-    auto result = callIfError({Value::error(ErrorType::VALUE_ERROR), Value::error(ErrorType::DIV_ZERO)});
+    auto result =
+            callIfError({Value::error(ErrorType::VALUE_ERROR), Value::error(ErrorType::DIV_ZERO)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());

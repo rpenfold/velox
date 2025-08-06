@@ -6,8 +6,8 @@ namespace functions {
 namespace builtin {
 
 Value cos_function(const std::vector<Value>& args, const Context& context) {
-    return templates::singleNumericFunction(args, context, "COS", 
-        [](double x) { return std::cos(x); });
+    return templates::singleNumericFunction(args, context, "COS",
+                                            [](double x) { return std::cos(x); });
 }
 
 }  // namespace builtin

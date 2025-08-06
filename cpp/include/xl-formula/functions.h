@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
+#include <cmath>
 #include <stdexcept>
+#include <vector>
 #include "evaluator.h"
 #include "types.h"
 
@@ -558,6 +559,104 @@ Value log_function(const std::vector<Value>& args, const Context& context);
  */
 Value log10_function(const std::vector<Value>& args, const Context& context);
 
+// Date & Time Functions
+
+/**
+ * @brief NOW function - returns the current date and time
+ * @param args Function arguments (should be empty)
+ * @param context Evaluation context (unused for NOW)
+ * @return Current date and time
+ */
+Value now(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TODAY function - returns the current date
+ * @param args Function arguments (should be empty)
+ * @param context Evaluation context (unused for TODAY)
+ * @return Current date at midnight
+ */
+Value today(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DATE function - creates a date from year, month, day
+ * @param args Function arguments (year, month, day)
+ * @param context Evaluation context (unused for DATE)
+ * @return Date value created from the given components
+ */
+Value date(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TIME function - creates a time from hour, minute, second
+ * @param args Function arguments (hour, minute, second)
+ * @param context Evaluation context (unused for TIME)
+ * @return Time value as fraction of a day
+ */
+Value time_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief YEAR function - returns the year from a date
+ * @param args Function arguments (date)
+ * @param context Evaluation context (unused for YEAR)
+ * @return Year as numeric value
+ */
+Value year(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MONTH function - returns the month from a date
+ * @param args Function arguments (date)
+ * @param context Evaluation context (unused for MONTH)
+ * @return Month as numeric value (1-12)
+ */
+Value month(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DAY function - returns the day from a date
+ * @param args Function arguments (date)
+ * @param context Evaluation context (unused for DAY)
+ * @return Day as numeric value (1-31)
+ */
+Value day(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief HOUR function - returns the hour from a time/date
+ * @param args Function arguments (time/date)
+ * @param context Evaluation context (unused for HOUR)
+ * @return Hour as numeric value (0-23)
+ */
+Value hour(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MINUTE function - returns the minute from a time/date
+ * @param args Function arguments (time/date)
+ * @param context Evaluation context (unused for MINUTE)
+ * @return Minute as numeric value (0-59)
+ */
+Value minute(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SECOND function - returns the second from a time/date
+ * @param args Function arguments (time/date)
+ * @param context Evaluation context (unused for SECOND)
+ * @return Second as numeric value (0-59)
+ */
+Value second(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief WEEKDAY function - returns the day of the week
+ * @param args Function arguments (date, [return_type])
+ * @param context Evaluation context (unused for WEEKDAY)
+ * @return Day of the week as numeric value
+ */
+Value weekday(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DATEDIF function - calculates the difference between dates
+ * @param args Function arguments (start_date, end_date, unit)
+ * @param context Evaluation context (unused for DATEDIF)
+ * @return Date difference in specified unit
+ */
+Value datedif(const std::vector<Value>& args, const Context& context);
+
 }  // namespace builtin
 
 /**
@@ -613,21 +712,21 @@ namespace templates {
  * @param operation The numeric operation to perform
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value singleNumericFunction(const std::vector<Value>& args, const Context& context,
-                           const std::string& name, Func operation) {
+                            const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 1, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto num = utils::toNumberSafe(args[0], name);
     if (num.isError()) {
         return num;
     }
-    
+
     try {
         return Value(operation(num.asNumber()));
     } catch (const std::runtime_error&) {
@@ -645,31 +744,31 @@ Value singleNumericFunction(const std::vector<Value>& args, const Context& conte
  * @param operation The numeric operation to perform
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value multiNumericFunction(const std::vector<Value>& args, const Context& context,
-                          const std::string& name, Func operation) {
+                           const std::string& name, Func operation) {
     (void)context;  // Unused parameter
     (void)name;     // Unused parameter
-    
+
     // Allow empty arguments for functions like SUM
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     std::vector<double> numbers;
     numbers.reserve(args.size());
-    
+
     for (const auto& arg : args) {
         if (!arg.isEmpty() && arg.canConvertToNumber()) {
             numbers.push_back(arg.toNumber());
         }
     }
-    
+
     if (numbers.empty()) {
         return Value(0.0);
     }
-    
+
     try {
         return Value(operation(numbers));
     } catch (const std::runtime_error&) {
@@ -687,21 +786,21 @@ Value multiNumericFunction(const std::vector<Value>& args, const Context& contex
  * @param operation The text operation to perform
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value singleTextFunction(const std::vector<Value>& args, const Context& context,
-                        const std::string& name, Func operation) {
+                         const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 1, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert to text if needed
     std::string text;
     if (args[0].isText()) {
@@ -709,7 +808,7 @@ Value singleTextFunction(const std::vector<Value>& args, const Context& context,
     } else {
         text = args[0].toString();
     }
-    
+
     return Value(operation(text));
 }
 
@@ -721,16 +820,16 @@ Value singleTextFunction(const std::vector<Value>& args, const Context& context,
  * @param operation The operation to perform
  * @return Result of the operation
  */
-template<typename Func>
-Value noArgFunction(const std::vector<Value>& args, const Context& context,
-                   const std::string& name, Func operation) {
+template <typename Func>
+Value noArgFunction(const std::vector<Value>& args, const Context& context, const std::string& name,
+                    Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 0, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     return operation();
 }
 
@@ -742,37 +841,37 @@ Value noArgFunction(const std::vector<Value>& args, const Context& context,
  * @param operation The operation to perform (takes value and optional second arg)
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value oneOrTwoArgFunction(const std::vector<Value>& args, const Context& context,
-                         const std::string& name, Func operation) {
+                          const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     // Validate argument count (1 or 2 arguments)
     if (args.size() < 1 || args.size() > 2) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Check for errors first
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert first argument to number
     auto number = utils::toNumberSafe(args[0], name);
     if (number.isError()) {
         return number;
     }
-    
+
     double value = number.asNumber();
-    
+
     // If second argument provided, convert it too
     if (args.size() == 2) {
         auto second = utils::toNumberSafe(args[1], name);
         if (second.isError()) {
             return second;
         }
-        
+
         try {
             return Value(operation(value, second.asNumber()));
         } catch (const std::runtime_error&) {
@@ -783,7 +882,7 @@ Value oneOrTwoArgFunction(const std::vector<Value>& args, const Context& context
     } else {
         // Only one argument
         try {
-            return Value(operation(value, 0.0)); // Default second argument
+            return Value(operation(value, 0.0));  // Default second argument
         } catch (const std::runtime_error&) {
             return Value::error(ErrorType::NUM_ERROR);
         } catch (...) {
@@ -800,40 +899,40 @@ Value oneOrTwoArgFunction(const std::vector<Value>& args, const Context& context
  * @param operation The text operation to perform (takes text and optional num_chars)
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value oneOrTwoArgTextFunction(const std::vector<Value>& args, const Context& context,
-                             const std::string& name, Func operation) {
+                              const std::string& name, Func operation) {
     (void)context;  // Unused parameter
     (void)name;     // Unused parameter
-    
+
     // Validate argument count (1 or 2 arguments)
     if (args.size() < 1 || args.size() > 2) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Check for errors first
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert first argument to text
     std::string text = args[0].toString();
-    
+
     // If second argument provided, validate it's a number
-    int num_chars = 1; // Default value
+    int num_chars = 1;  // Default value
     if (args.size() == 2) {
         if (!args[1].isNumber()) {
             return Value::error(ErrorType::VALUE_ERROR);
         }
         num_chars = static_cast<int>(args[1].asNumber());
-        
+
         // If num_chars is negative, return empty string
         if (num_chars < 0) {
             return Value("");
         }
     }
-    
+
     return Value(operation(text, num_chars));
 }
 
@@ -845,22 +944,208 @@ Value oneOrTwoArgTextFunction(const std::vector<Value>& args, const Context& con
  * @param operation The operation to perform (takes all arguments)
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value multiArgFunction(const std::vector<Value>& args, const Context& context,
-                      const std::string& name, Func operation) {
+                       const std::string& name, Func operation) {
     (void)context;  // Unused parameter
     (void)name;     // Unused parameter
-    
+
     // Check for errors first
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     return Value(operation(args));
 }
 
+/**
+ * @brief Template for single date argument functions (YEAR, MONTH, DAY)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform on the tm structure
+ * @return Result of the operation
+ */
+template <typename Func>
+Value singleDateFunction(const std::vector<Value>& args, const Context& context,
+                         const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+
+    auto validation = utils::validateArgCount(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+
+    if (!args[0].isDate()) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+
+    try {
+        auto date_val = args[0].asDate();
+        auto time_t = std::chrono::system_clock::to_time_t(date_val);
+        auto local_tm = *std::localtime(&time_t);
+
+        return Value(static_cast<double>(operation(local_tm)));
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for date/time extraction functions (HOUR, MINUTE, SECOND)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param dateOperation Operation to perform on tm structure for date values
+ * @param fractionOperation Operation to perform on time fraction for numeric values
+ * @return Result of the operation
+ */
+template <typename DateFunc, typename FractionFunc>
+Value dateTimeExtractionFunction(const std::vector<Value>& args, const Context& context,
+                                 const std::string& name, DateFunc dateOperation,
+                                 FractionFunc fractionOperation) {
+    (void)context;  // Unused parameter
+
+    auto validation = utils::validateArgCount(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+
+    if (args[0].isDate()) {
+        // Handle date value
+        try {
+            auto date_val = args[0].asDate();
+            auto time_t = std::chrono::system_clock::to_time_t(date_val);
+            auto local_tm = *std::localtime(&time_t);
+
+            return Value(static_cast<double>(dateOperation(local_tm)));
+        } catch (...) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+    } else if (args[0].canConvertToNumber()) {
+        // Handle time fraction (Excel-style)
+        double time_fraction = args[0].toNumber();
+        return Value(static_cast<double>(fractionOperation(time_fraction)));
+    } else {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for three numeric argument functions (DATE, TIME)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform with the three numbers
+ * @return Result of the operation
+ */
+template <typename Func>
+Value threeNumberFunction(const std::vector<Value>& args, const Context& context,
+                          const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+
+    auto validation = utils::validateArgCount(args, 3, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+
+    // Convert arguments to numbers
+    if (!args[0].canConvertToNumber() || !args[1].canConvertToNumber() ||
+        !args[2].canConvertToNumber()) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+
+    int first = static_cast<int>(args[0].toNumber());
+    int second = static_cast<int>(args[1].toNumber());
+    int third = static_cast<int>(args[2].toNumber());
+
+    try {
+        return operation(first, second, third);
+    } catch (const std::runtime_error&) {
+        return Value::error(ErrorType::NUM_ERROR);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
 }  // namespace templates
+
+/**
+ * @brief Utility functions for date/time operations
+ */
+namespace datetime_utils {
+
+/**
+ * @brief Extract fractional part of time and normalize to [0,1)
+ * @param time_fraction Input time fraction
+ * @return Normalized fractional part
+ */
+inline double normalizeFraction(double time_fraction) {
+    time_fraction = time_fraction - std::floor(time_fraction);
+    if (time_fraction < 0)
+        time_fraction += 1.0;
+    return time_fraction;
+}
+
+/**
+ * @brief Convert time fraction to total seconds in the day
+ * @param time_fraction Normalized time fraction
+ * @return Total seconds
+ */
+inline double fractionToSeconds(double time_fraction) {
+    return time_fraction * 24.0 * 60.0 * 60.0;
+}
+
+/**
+ * @brief Extract hour from time fraction
+ * @param time_fraction Input time fraction
+ * @return Hour (0-23)
+ */
+inline int extractHourFromFraction(double time_fraction) {
+    double normalized = normalizeFraction(time_fraction);
+    double total_seconds = fractionToSeconds(normalized);
+    return static_cast<int>(total_seconds / 3600.0) % 24;
+}
+
+/**
+ * @brief Extract minute from time fraction
+ * @param time_fraction Input time fraction
+ * @return Minute (0-59)
+ */
+inline int extractMinuteFromFraction(double time_fraction) {
+    double normalized = normalizeFraction(time_fraction);
+    double total_seconds = fractionToSeconds(normalized);
+    return static_cast<int>((total_seconds / 60.0)) % 60;
+}
+
+/**
+ * @brief Extract second from time fraction
+ * @param time_fraction Input time fraction
+ * @return Second (0-59)
+ */
+inline int extractSecondFromFraction(double time_fraction) {
+    double normalized = normalizeFraction(time_fraction);
+    double total_seconds = fractionToSeconds(normalized);
+    return static_cast<int>(total_seconds) % 60;
+}
+
+}  // namespace datetime_utils
 
 }  // namespace functions
 }  // namespace xl_formula

@@ -99,7 +99,7 @@ TEST_F(TanFunctionTest, NonNumericText_ReturnsError) {
 }
 
 TEST_F(TanFunctionTest, NumericText_ReturnsTangent) {
-    auto result = callTan({Value("0.7853981633974483")}); // π/4
+    auto result = callTan({Value("0.7853981633974483")});  // π/4
 
     EXPECT_TRUE(result.isNumber());
     EXPECT_NEAR(1.0, result.asNumber(), 1e-10);

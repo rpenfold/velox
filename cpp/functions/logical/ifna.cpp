@@ -19,7 +19,7 @@ Value ifna_function(const std::vector<Value>& args, const Context& context) {
     if (value.isError() && value.asError() == ErrorType::NA_ERROR) {
         return value_if_na;
     }
-    
+
     // Otherwise, return the first argument
     return value;
 }

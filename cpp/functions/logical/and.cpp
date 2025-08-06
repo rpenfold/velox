@@ -21,7 +21,7 @@ Value and_function(const std::vector<Value>& args, const Context& context) {
     // Convert all arguments to boolean and check if all are TRUE
     for (const auto& arg : args) {
         bool is_true = false;
-        
+
         if (arg.isBoolean()) {
             is_true = arg.asBoolean();
         } else if (arg.canConvertToNumber()) {
@@ -32,12 +32,12 @@ Value and_function(const std::vector<Value>& args, const Context& context) {
             // Empty values are considered FALSE
             is_true = false;
         }
-        
+
         if (!is_true) {
             return Value(false);
         }
     }
-    
+
     return Value(true);
 }
 

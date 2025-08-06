@@ -152,7 +152,8 @@ TEST_F(VarFunctionTest, ComplexScenario_ReturnsCorrectVariance) {
 }
 
 TEST_F(VarFunctionTest, ManyNumbers_ReturnsCorrectVariance) {
-    auto result = callVar({Value(1.0), Value(2.0), Value(3.0), Value(4.0), Value(5.0), Value(6.0), Value(7.0)});
+    auto result = callVar(
+            {Value(1.0), Value(2.0), Value(3.0), Value(4.0), Value(5.0), Value(6.0), Value(7.0)});
 
     EXPECT_TRUE(result.isNumber());
     // Mean = 4, Variance = 4.666...

@@ -6,8 +6,8 @@ namespace functions {
 namespace builtin {
 
 Value sin_function(const std::vector<Value>& args, const Context& context) {
-    return templates::singleNumericFunction(args, context, "SIN", 
-        [](double x) { return std::sin(x); });
+    return templates::singleNumericFunction(args, context, "SIN",
+                                            [](double x) { return std::sin(x); });
 }
 
 }  // namespace builtin

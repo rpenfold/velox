@@ -6,13 +6,12 @@ namespace functions {
 namespace builtin {
 
 Value asin_function(const std::vector<Value>& args, const Context& context) {
-    return templates::singleNumericFunction(args, context, "ASIN", 
-        [](double x) { 
-            if (x < -1.0 || x > 1.0) {
-                throw std::runtime_error("Domain error");
-            }
-            return std::asin(x); 
-        });
+    return templates::singleNumericFunction(args, context, "ASIN", [](double x) {
+        if (x < -1.0 || x > 1.0) {
+            throw std::runtime_error("Domain error");
+        }
+        return std::asin(x);
+    });
 }
 
 }  // namespace builtin

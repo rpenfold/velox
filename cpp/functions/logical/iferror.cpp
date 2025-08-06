@@ -19,7 +19,7 @@ Value iferror_function(const std::vector<Value>& args, const Context& context) {
     if (value.isError()) {
         return value_if_error;
     }
-    
+
     // Otherwise, return the first argument
     return value;
 }

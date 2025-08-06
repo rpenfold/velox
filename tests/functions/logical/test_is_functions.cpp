@@ -233,7 +233,8 @@ TEST_F(IsFunctionsTest, IsError_NoArguments_ReturnsError) {
 }
 
 TEST_F(IsFunctionsTest, IsError_TooManyArguments_ReturnsError) {
-    auto result = callIsError({Value::error(ErrorType::VALUE_ERROR), Value::error(ErrorType::DIV_ZERO)});
+    auto result =
+            callIsError({Value::error(ErrorType::VALUE_ERROR), Value::error(ErrorType::DIV_ZERO)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::VALUE_ERROR, result.asError());
@@ -275,15 +276,10 @@ TEST_F(IsFunctionsTest, IsError_EmptyValue_ReturnsFalse) {
 }
 
 TEST_F(IsFunctionsTest, IsError_AllErrorTypes_ReturnTrue) {
-    std::vector<ErrorType> error_types = {
-        ErrorType::DIV_ZERO,
-        ErrorType::VALUE_ERROR,
-        ErrorType::REF_ERROR,
-        ErrorType::NAME_ERROR,
-        ErrorType::NUM_ERROR,
-        ErrorType::NA_ERROR,
-        ErrorType::PARSE_ERROR
-    };
+    std::vector<ErrorType> error_types = {ErrorType::DIV_ZERO,   ErrorType::VALUE_ERROR,
+                                          ErrorType::REF_ERROR,  ErrorType::NAME_ERROR,
+                                          ErrorType::NUM_ERROR,  ErrorType::NA_ERROR,
+                                          ErrorType::PARSE_ERROR};
 
     for (const auto& error_type : error_types) {
         auto result = callIsError({Value::error(error_type)});

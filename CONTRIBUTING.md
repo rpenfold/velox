@@ -430,18 +430,18 @@ xl-formula/
 - [ ] **COLUMN** - Returns the column number
 
 ### Phase 5: Date & Time Functions (Priority: Low)
-- [ ] **NOW** - Returns the current date and time
-- [ ] **TODAY** - Returns the current date
-- [ ] **DATE** - Creates a date from year, month, day
-- [ ] **TIME** - Creates a time from hour, minute, second
-- [ ] **YEAR** - Returns the year from a date
-- [ ] **MONTH** - Returns the month from a date
-- [ ] **DAY** - Returns the day from a date
-- [ ] **HOUR** - Returns the hour from a time
-- [ ] **MINUTE** - Returns the minute from a time
-- [ ] **SECOND** - Returns the second from a time
-- [ ] **WEEKDAY** - Returns the day of the week
-- [ ] **DATEDIF** - Calculates the difference between dates
+- [x] **NOW** - Returns the current date and time ✅
+- [x] **TODAY** - Returns the current date ✅
+- [x] **DATE** - Creates a date from year, month, day ✅
+- [x] **TIME** - Creates a time from hour, minute, second ✅
+- [x] **YEAR** - Returns the year from a date ✅
+- [x] **MONTH** - Returns the month from a date ✅
+- [x] **DAY** - Returns the day from a date ✅
+- [x] **HOUR** - Returns the hour from a time ✅
+- [x] **MINUTE** - Returns the minute from a time ✅
+- [x] **SECOND** - Returns the second from a time ✅
+- [x] **WEEKDAY** - Returns the day of the week ✅
+- [x] **DATEDIF** - Calculates the difference between dates ✅
 
 ### Phase 6: Advanced Math & Trigonometry (Priority: Low)
 - [x] **SIN** - Returns the sine of an angle ✅

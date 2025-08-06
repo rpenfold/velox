@@ -60,6 +60,26 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("UPPER", functions::builtin::upper);
     registry->registerFunction("LOWER", functions::builtin::lower);
     registry->registerFunction("PROPER", functions::builtin::proper);
+    registry->registerFunction("FIND", functions::builtin::find);
+    registry->registerFunction("SEARCH", functions::builtin::search);
+    registry->registerFunction("REPLACE", functions::builtin::replace);
+    registry->registerFunction("SUBSTITUTE", functions::builtin::substitute);
+    registry->registerFunction("TEXT", functions::builtin::text);
+    registry->registerFunction("VALUE", functions::builtin::value);
+
+    // Date & Time functions
+    registry->registerFunction("NOW", functions::builtin::now);
+    registry->registerFunction("TODAY", functions::builtin::today);
+    registry->registerFunction("DATE", functions::builtin::date);
+    registry->registerFunction("TIME", functions::builtin::time_function);
+    registry->registerFunction("YEAR", functions::builtin::year);
+    registry->registerFunction("MONTH", functions::builtin::month);
+    registry->registerFunction("DAY", functions::builtin::day);
+    registry->registerFunction("HOUR", functions::builtin::hour);
+    registry->registerFunction("MINUTE", functions::builtin::minute);
+    registry->registerFunction("SECOND", functions::builtin::second);
+    registry->registerFunction("WEEKDAY", functions::builtin::weekday);
+    registry->registerFunction("DATEDIF", functions::builtin::datedif);
 
     // Logical functions
     registry->registerFunction("TRUE", functions::builtin::true_function);

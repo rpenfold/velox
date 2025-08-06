@@ -96,14 +96,9 @@ TEST_F(IfNaFunctionTest, EmptyAsFallback_ReturnsEmpty) {
 }
 
 TEST_F(IfNaFunctionTest, DifferentErrorTypes_DoNotTriggerFallback) {
-    std::vector<ErrorType> non_na_error_types = {
-        ErrorType::DIV_ZERO,
-        ErrorType::VALUE_ERROR,
-        ErrorType::REF_ERROR,
-        ErrorType::NAME_ERROR,
-        ErrorType::NUM_ERROR,
-        ErrorType::PARSE_ERROR
-    };
+    std::vector<ErrorType> non_na_error_types = {ErrorType::DIV_ZERO,  ErrorType::VALUE_ERROR,
+                                                 ErrorType::REF_ERROR, ErrorType::NAME_ERROR,
+                                                 ErrorType::NUM_ERROR, ErrorType::PARSE_ERROR};
 
     for (const auto& error_type : non_na_error_types) {
         auto result = callIfNa({Value::error(error_type), Value("fallback")});

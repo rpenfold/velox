@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <algorithm>
 #include <xl-formula/types.h>
+#include <algorithm>
 
 using namespace xl_formula;
 

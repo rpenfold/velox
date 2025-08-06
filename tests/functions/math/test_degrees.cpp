@@ -99,7 +99,7 @@ TEST_F(DegreesFunctionTest, NonNumericText_ReturnsError) {
 }
 
 TEST_F(DegreesFunctionTest, NumericText_ReturnsDegrees) {
-    auto result = callDegrees({Value("3.141592653589793")}); // π
+    auto result = callDegrees({Value("3.141592653589793")});  // π
 
     EXPECT_TRUE(result.isNumber());
     EXPECT_NEAR(180.0, result.asNumber(), 1e-10);

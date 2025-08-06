@@ -91,7 +91,8 @@ TEST_F(ReplaceFunctionTest, ReplaceWithEmptyString_RemovesCharacters) {
 }
 
 TEST_F(ReplaceFunctionTest, ReplaceWithLongerString_ExpandsText) {
-    auto result = callReplace({Value("hello world"), Value(7.0), Value(5.0), Value("beautiful earth")});
+    auto result =
+            callReplace({Value("hello world"), Value(7.0), Value(5.0), Value("beautiful earth")});
 
     EXPECT_TRUE(result.isText());
     EXPECT_EQ("hello beautiful earth", result.asText());
@@ -154,28 +155,32 @@ TEST_F(ReplaceFunctionTest, BooleanInput_ConvertsToTextFirst) {
 }
 
 TEST_F(ReplaceFunctionTest, ErrorInput_PropagatesError) {
-    auto result = callReplace({Value::error(ErrorType::DIV_ZERO), Value(1.0), Value(2.0), Value("world")});
+    auto result = callReplace(
+            {Value::error(ErrorType::DIV_ZERO), Value(1.0), Value(2.0), Value("world")});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
 TEST_F(ReplaceFunctionTest, ErrorInSecondArgument_PropagatesError) {
-    auto result = callReplace({Value("hello"), Value::error(ErrorType::DIV_ZERO), Value(2.0), Value("world")});
+    auto result = callReplace(
+            {Value("hello"), Value::error(ErrorType::DIV_ZERO), Value(2.0), Value("world")});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
 TEST_F(ReplaceFunctionTest, ErrorInThirdArgument_PropagatesError) {
-    auto result = callReplace({Value("hello"), Value(1.0), Value::error(ErrorType::DIV_ZERO), Value("world")});
+    auto result = callReplace(
+            {Value("hello"), Value(1.0), Value::error(ErrorType::DIV_ZERO), Value("world")});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
 TEST_F(ReplaceFunctionTest, ErrorInFourthArgument_PropagatesError) {
-    auto result = callReplace({Value("hello"), Value(1.0), Value(2.0), Value::error(ErrorType::DIV_ZERO)});
+    auto result = callReplace(
+            {Value("hello"), Value(1.0), Value(2.0), Value::error(ErrorType::DIV_ZERO)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());

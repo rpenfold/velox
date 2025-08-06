@@ -162,13 +162,13 @@ bool evaluateCriteria(const Value& value, const Value& criteria) {
  */
 Value countif(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
+
     // Check for errors first
     auto error = utils::checkForErrors(args);
     if (!error.isEmpty()) {
         return error;
     }
-    
+
     // Validate argument count (at least 2 arguments)
     if (args.size() < 2) {
         return Value::error(ErrorType::VALUE_ERROR);

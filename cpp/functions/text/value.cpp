@@ -29,32 +29,32 @@ Value value(const std::vector<Value>& args, const Context& context) {
     }
 
     std::string text = args[0].toString();
-    
+
     // Remove leading and trailing whitespace
     text.erase(0, text.find_first_not_of(" \t\n\r"));
     text.erase(text.find_last_not_of(" \t\n\r") + 1);
-    
+
     if (text.empty()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Handle percentage values
     bool is_percentage = false;
     if (text.back() == '%') {
         is_percentage = true;
         text.pop_back();
     }
-    
+
     // Handle currency symbols
     if (text.front() == '$') {
         text.erase(0, 1);
     }
-    
+
     // Handle negative currency (e.g., -$123.45)
     if (text.front() == '-' && text.length() > 1 && text[1] == '$') {
-        text.erase(1, 1); // Remove the $ but keep the minus sign
+        text.erase(1, 1);  // Remove the $ but keep the minus sign
     }
-    
+
     // Handle boolean text values
     if (text == "TRUE" || text == "true") {
         return Value(1.0);
@@ -65,7 +65,7 @@ Value value(const std::vector<Value>& args, const Context& context) {
     // Try to convert to double
     std::istringstream iss(text);
     double result;
-    
+
     if (iss >> result) {
         // Check if there are any remaining characters (indicating invalid input)
         char remaining;
@@ -78,7 +78,7 @@ Value value(const std::vector<Value>& args, const Context& context) {
         }
         return Value(result);
     }
-    
+
     // If conversion failed, return error
     return Value::error(ErrorType::VALUE_ERROR);
 }

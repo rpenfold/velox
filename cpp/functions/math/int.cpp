@@ -7,7 +7,7 @@ namespace builtin {
 
 Value int_function(const std::vector<Value>& args, const Context& context) {
     return templates::singleNumericFunction(args, context, "INT",
-        [](double x) { return std::floor(x); });
+                                            [](double x) { return std::floor(x); });
 }
 
 }  // namespace builtin

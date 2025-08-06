@@ -106,7 +106,7 @@ TEST_F(LnFunctionTest, NonNumericText_ReturnsError) {
 }
 
 TEST_F(LnFunctionTest, NumericText_ReturnsLn) {
-    auto result = callLn({Value("2.718281828459045")}); // e
+    auto result = callLn({Value("2.718281828459045")});  // e
 
     EXPECT_TRUE(result.isNumber());
     EXPECT_NEAR(1.0, result.asNumber(), 1e-10);

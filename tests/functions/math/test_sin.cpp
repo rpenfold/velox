@@ -120,7 +120,7 @@ TEST_F(SinFunctionTest, NonNumericText_ReturnsError) {
 }
 
 TEST_F(SinFunctionTest, NumericText_ReturnsSine) {
-    auto result = callSin({Value("1.5707963267948966")}); // π/2
+    auto result = callSin({Value("1.5707963267948966")});  // π/2
 
     EXPECT_TRUE(result.isNumber());
     EXPECT_NEAR(1.0, result.asNumber(), 1e-10);

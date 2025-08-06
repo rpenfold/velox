@@ -6,8 +6,8 @@ namespace functions {
 namespace builtin {
 
 Value cosh_function(const std::vector<Value>& args, const Context& context) {
-    return templates::singleNumericFunction(args, context, "COSH", 
-        [](double x) { return std::cosh(x); });
+    return templates::singleNumericFunction(args, context, "COSH",
+                                            [](double x) { return std::cosh(x); });
 }
 
 }  // namespace builtin

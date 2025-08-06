@@ -20,7 +20,7 @@ Value not_function(const std::vector<Value>& args, const Context& context) {
 
     // Convert argument to boolean and return the opposite
     bool is_true = false;
-    
+
     if (arg.isBoolean()) {
         is_true = arg.asBoolean();
     } else if (arg.canConvertToNumber()) {
@@ -31,7 +31,7 @@ Value not_function(const std::vector<Value>& args, const Context& context) {
         // Empty values are considered FALSE
         is_true = false;
     }
-    
+
     return Value(!is_true);
 }
 

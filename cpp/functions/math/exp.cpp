@@ -6,8 +6,8 @@ namespace functions {
 namespace builtin {
 
 Value exp_function(const std::vector<Value>& args, const Context& context) {
-    return templates::singleNumericFunction(args, context, "EXP", 
-        [](double x) { return std::exp(x); });
+    return templates::singleNumericFunction(args, context, "EXP",
+                                            [](double x) { return std::exp(x); });
 }
 
 }  // namespace builtin

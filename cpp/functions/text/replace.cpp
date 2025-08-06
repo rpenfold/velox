@@ -36,34 +36,34 @@ Value replace(const std::vector<Value>& args, const Context& context) {
     int start_num = static_cast<int>(args[1].asNumber());
     int num_chars = static_cast<int>(args[2].asNumber());
     std::string new_text = args[3].toString();
-    
+
     // If start_num is less than 1, return error
     if (start_num < 1) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // If num_chars is negative, return error
     if (num_chars < 0) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Convert to 0-based indexing
     size_t start_pos = static_cast<size_t>(start_num - 1);
-    
+
     // If start_pos is beyond the text length, append new_text to the end
     if (start_pos >= old_text.length()) {
         return Value(old_text + new_text);
     }
-    
+
     // Calculate the actual number of characters to replace
     size_t available_chars = old_text.length() - start_pos;
     size_t chars_to_replace = std::min(static_cast<size_t>(num_chars), available_chars);
-    
+
     // Build the result string
     std::string result = old_text.substr(0, start_pos);
     result += new_text;
     result += old_text.substr(start_pos + chars_to_replace);
-    
+
     return Value(result);
 }
 

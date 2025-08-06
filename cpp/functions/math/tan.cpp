@@ -6,8 +6,8 @@ namespace functions {
 namespace builtin {
 
 Value tan_function(const std::vector<Value>& args, const Context& context) {
-    return templates::singleNumericFunction(args, context, "TAN", 
-        [](double x) { return std::tan(x); });
+    return templates::singleNumericFunction(args, context, "TAN",
+                                            [](double x) { return std::tan(x); });
 }
 
 }  // namespace builtin

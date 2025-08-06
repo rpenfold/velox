@@ -13,23 +13,23 @@ namespace builtin {
  */
 Value floor_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
+
     // Validate argument count (1 or 2 arguments)
     if (args.empty() || args.size() > 2) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
 
-        // Check for errors first
+    // Check for errors first
     auto error = utils::checkForErrors(args);
     if (!error.isEmpty()) {
         return error;
     }
-    
+
     // Convert first argument to number
     if (!args[0].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     double value = args[0].toNumber();
 
     // If only one argument, round down to nearest integer
@@ -37,11 +37,11 @@ Value floor_function(const std::vector<Value>& args, const Context& context) {
         return Value(std::floor(value));
     }
 
-        // If two arguments, second is the significance (multiple)
+    // If two arguments, second is the significance (multiple)
     if (!args[1].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     double sig = args[1].toNumber();
 
     // Handle zero significance
