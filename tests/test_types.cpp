@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <algorithm>
 #include <xl-formula/types.h>
 
 using namespace xl_formula;
