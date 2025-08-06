@@ -1,0 +1,32 @@
+{
+  "name": "xl-formula-web",
+  "version": "0.1.0",
+  "description": "XL Formula library for web applications",
+  "main": "xl-formula.js",
+  "files": [
+    "xl-formula.js",
+    "xl-formula.wasm"
+  ],
+  "scripts": {
+    "test": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "excel",
+    "formula",
+    "parser",
+    "evaluator",
+    "webassembly",
+    "wasm"
+  ],
+  "author": "XL Formula Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/xl-formula.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/xl-formula/issues"
+  },
+  "homepage": "https://github.com/your-username/xl-formula#readme"
+}

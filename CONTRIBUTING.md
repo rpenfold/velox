@@ -416,7 +416,38 @@ xl-formula/
 - [ ] **AVERAGEIF** - Average cells that meet a criterion
 - [ ] **AVERAGEIFS** - Average cells that meet multiple criteria
 
-### Phase 12: Platform Bindings (Priority: High)
+### Phase 12: Binary Size Optimization (Priority: High)
+
+**Size Breakdown**:
+- COUNTIF function: 146K (16% - regex bloat)
+- Core evaluator: 49K (5%)
+- Parser: 31K (3%)
+- Engineering functions: 30K (3%)
+- Other functions: ~660K (72%)
+
+**Optimization Tasks**:
+- [ ] **Replace COUNTIF regex usage** - Custom string matching to save ~100K (16% reduction)
+- [ ] **Enable Link Time Optimization (LTO)** - Compiler optimization for 10-15% size reduction
+- [ ] **Optimize string literals** - Reduce error message and constant string overhead
+- [ ] **Template instantiation analysis** - Identify and consolidate redundant template code
+- [ ] **Strip unused STL symbols** - Remove unnecessary standard library components
+- [ ] **Custom allocators** - Replace STL allocators for smaller footprint
+- [ ] **Function inlining review** - Balance performance vs size for hot functions
+
+**Size Analysis Tools**:
+```bash
+# Check library sizes
+ls -lh build/libxl-formula*.a
+
+# Analyze object file sizes
+cd build && mkdir temp && cd temp
+ar -x ../libxl-formula.a && ls -lhS *.o | head -10
+
+# Check for regex usage (major bloat source)
+grep -r "#include <regex>" cpp/functions/
+```
+
+### Phase 13: Platform Bindings (Priority: High)
 - [ ] **React Native Bindings** - Nitro modules for mobile apps
 - [ ] **WASM/Emscripten Bindings** - Web browser compatibility
 - [ ] **NPM Package Distribution** - Unified package for all platforms
