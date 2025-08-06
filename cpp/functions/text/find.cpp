@@ -68,7 +68,13 @@ Value find(const std::vector<Value>& args, const Context& context) {
     size_t start_pos = static_cast<size_t>(start_num - 1);
     
     // Find the substring starting from start_pos
+    // If start_pos is at the beginning of find_text, we need to skip it
     size_t found_pos = within_text.find(find_text, start_pos);
+    
+    // If we found the text at the start position, we need to find the next occurrence
+    if (found_pos == start_pos && find_text.length() == 1) {
+        found_pos = within_text.find(find_text, start_pos + 1);
+    }
     
     // If not found, return #VALUE! error
     if (found_pos == std::string::npos) {

@@ -50,11 +50,30 @@ Value value(const std::vector<Value>& args, const Context& context) {
         text.erase(0, 1);
     }
     
+    // Handle negative currency (e.g., -$123.45)
+    if (text.front() == '-' && text.length() > 1 && text[1] == '$') {
+        text.erase(1, 1); // Remove the $ but keep the minus sign
+    }
+    
+    // Handle boolean text values
+    if (text == "TRUE" || text == "true") {
+        return Value(1.0);
+    }
+    if (text == "FALSE" || text == "false") {
+        return Value(0.0);
+    }
+    
     // Try to convert to double
     std::istringstream iss(text);
     double result;
     
     if (iss >> result) {
+        // Check if there are any remaining characters (indicating invalid input)
+        char remaining;
+        if (iss >> remaining) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+        
         // If it was a percentage, divide by 100
         if (is_percentage) {
             result /= 100.0;

@@ -79,6 +79,11 @@ Value search(const std::vector<Value>& args, const Context& context) {
     // Find the substring starting from start_pos (case-insensitive)
     size_t found_pos = within_text_lower.find(find_text_lower, start_pos);
     
+    // If we found the text at the start position, we need to find the next occurrence
+    if (found_pos == start_pos && find_text_lower.length() == 1) {
+        found_pos = within_text_lower.find(find_text_lower, start_pos + 1);
+    }
+    
     // If not found, return #VALUE! error
     if (found_pos == std::string::npos) {
         return Value::error(ErrorType::VALUE_ERROR);

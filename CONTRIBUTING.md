@@ -361,7 +361,7 @@ xl-formula/
 ## Function Implementation Roadmap
 
 **Target**: Match and exceed Formula.js (399/515 functions implemented)
-**Current**: 16 functions implemented
+**Current**: 22 functions implemented
 
 ### Phase 1: Core Math & Statistical Functions (Priority: High)
 - [x] **MIN** - Returns the minimum value in a set of values ✅
@@ -395,12 +395,12 @@ xl-formula/
 - [x] **UPPER** - Converts text to uppercase ✅
 - [x] **LOWER** - Converts text to lowercase ✅
 - [x] **PROPER** - Capitalizes the first letter of each word ✅
-- [ ] **FIND** - Finds one text string within another
-- [ ] **SEARCH** - Finds one text string within another (case-insensitive)
-- [ ] **REPLACE** - Replaces part of a text string
-- [ ] **SUBSTITUTE** - Substitutes new text for old text
-- [ ] **TEXT** - Formats a number as text
-- [ ] **VALUE** - Converts a text string to a number
+- [x] **FIND** - Finds one text string within another ✅
+- [x] **SEARCH** - Finds one text string within another (case-insensitive) ✅
+- [x] **REPLACE** - Replaces part of a text string ✅
+- [x] **SUBSTITUTE** - Substitutes new text for old text ✅
+- [x] **TEXT** - Formats a number as text ✅
+- [x] **VALUE** - Converts a text string to a number ✅
 
 ### Phase 3: Logical Functions (Priority: Medium)
 - [x] **TRUE** - Returns the logical value TRUE ✅
