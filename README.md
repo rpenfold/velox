@@ -82,8 +82,8 @@ if (result.isSuccess()) {
 
 - CMake 3.20+
 - C++17 compatible compiler (GCC 7+, Clang 5+, MSVC 2017+)
-- Optional: Emscripten (for web builds)
-- Optional: React Native development environment (for RN builds)
+- Optional: Emscripten (for future web builds)
+- Optional: React Native development environment (for future mobile builds)
 
 ### Quick Build
 
@@ -93,9 +93,6 @@ if (result.isSuccess()) {
 
 # Debug build with tests
 ./build.sh --debug --tests
-
-# Web build
-./build.sh --web
 
 # Coverage build
 ./build.sh --coverage --tests
@@ -128,8 +125,8 @@ ctest
 |--------|-------------|---------|
 | `BUILD_TESTS` | Build test suite | ON |
 | `BUILD_EXAMPLES` | Build example programs | ON |
-| `BUILD_WEB_BINDINGS` | Build Emscripten web bindings | OFF |
-| `BUILD_RN_BINDINGS` | Build React Native bindings | OFF |
+| `BUILD_WEB_BINDINGS` | Build web bindings (not implemented) | OFF |
+| `BUILD_RN_BINDINGS` | Build React Native bindings (not implemented) | OFF |
 
 ## Project Structure
 
@@ -147,9 +144,7 @@ xl-formula/
 ├── include/xl-formula/    # Public headers
 ├── tests/                 # Comprehensive test suite
 ├── examples/              # Usage examples
-├── web/                   # Web bindings (future)
-├── react-native/          # React Native bindings (future)
-└── package.json          # NPM package config (future)
+└── scripts/               # Build and utility scripts
 ```
 
 ## API Reference

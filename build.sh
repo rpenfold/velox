@@ -51,8 +51,8 @@ Options:
     -e, --examples      Build examples (default: ON)
     --no-tests          Don't build tests
     --no-examples       Don't build examples
-    --web               Build web bindings (Emscripten)
-    --react-native      Build React Native bindings
+    --web               Build web bindings (not implemented)
+    --react-native      Build React Native bindings (not implemented)
     --install           Install after building
     --coverage          Build with coverage information
     --format            Format all C++ source files with clang-format
@@ -62,7 +62,7 @@ Examples:
     $0                  # Basic release build
     $0 -d -t            # Debug build with tests
     $0 -c --coverage    # Clean build with coverage
-    $0 --web            # Build web bindings
+    $0 --format         # Format all code
 
 EOF
 }

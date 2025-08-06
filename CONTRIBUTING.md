@@ -74,21 +74,11 @@ Before you begin, ensure you have the following tools installed:
 
 #### Optional Dependencies
 
-5. **Emscripten** (for web builds)
-   ```bash
-   # Install Emscripten SDK
-   git clone https://github.com/emscripten-core/emsdk.git
-   cd emsdk
-   ./emsdk install latest
-   ./emsdk activate latest
-   source ./emsdk_env.sh
-   ```
+5. **Future Dependencies** (not yet implemented)
+   - Emscripten (for planned web builds)
+   - React Native development environment (for planned mobile builds)
 
-6. **React Native Development Environment** (for RN builds)
-   - Follow the [React Native CLI setup guide](https://reactnative.dev/docs/environment-setup)
-   - Install Node.js 16+ and npm/yarn
-
-7. **Coverage Tools** (for coverage reports)
+6. **Coverage Tools** (for coverage reports)
    ```bash
    # macOS
    brew install gcovr
@@ -131,9 +121,6 @@ Before you begin, ensure you have the following tools installed:
 # Clean build with coverage
 ./build.sh --clean --coverage --tests
 
-# Web build (requires Emscripten)
-./build.sh --web
-
 # Format all code
 ./build.sh --format
 
@@ -152,8 +139,8 @@ Before you begin, ensure you have the following tools installed:
 | `-e, --examples` | Build examples | ON |
 | `--no-tests` | Don't build tests | - |
 | `--no-examples` | Don't build examples | - |
-| `--web` | Build web bindings (Emscripten) | OFF |
-| `--react-native` | Build React Native bindings | OFF |
+| `--web` | Build web bindings (not implemented) | OFF |
+| `--react-native` | Build React Native bindings (not implemented) | OFF |
 | `--install` | Install after building | false |
 | `--coverage` | Build with coverage information | false |
 | `--format` | Format all C++ source files | false |
@@ -329,10 +316,7 @@ xl-formula/
 ├── include/xl-formula/    # Public headers
 ├── tests/                 # Comprehensive test suite
 ├── examples/              # Usage examples
-├── scripts/               # Build and utility scripts
-├── web/                   # Web bindings (future)
-├── react-native/          # React Native bindings (future)
-└── docs/                  # Documentation (future)
+└── scripts/               # Build and utility scripts
 ```
 
 ### Adding New Functions
@@ -572,13 +556,12 @@ We follow [Semantic Versioning](https://semver.org/):
 - [ ] Version bumped in CMakeLists.txt
 - [ ] Changelog updated
 - [ ] Release notes prepared
-- [ ] Bindings tested (web/React Native)
+- [ ] Cross-platform build tested
 
 ## Getting Help
 
 - **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/your-org/xl-formula/issues)
-- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/your-org/xl-formula/discussions)
-- **Discord**: Join our developer community (link coming soon)
+- **Questions**: Use [GitHub Discussions](https://github.com/your-org/xl-formula/discussions) for questions and community support
 
 ## License
 
