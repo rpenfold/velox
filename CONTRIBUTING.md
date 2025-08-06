@@ -444,22 +444,22 @@ xl-formula/
 - [ ] **DATEDIF** - Calculates the difference between dates
 
 ### Phase 6: Advanced Math & Trigonometry (Priority: Low)
-- [ ] **SIN** - Returns the sine of an angle
-- [ ] **COS** - Returns the cosine of an angle
-- [ ] **TAN** - Returns the tangent of an angle
-- [ ] **ASIN** - Returns the arcsine
-- [ ] **ACOS** - Returns the arccosine
-- [ ] **ATAN** - Returns the arctangent
-- [ ] **ATAN2** - Returns the arctangent from x and y coordinates
-- [ ] **SINH** - Returns the hyperbolic sine
-- [ ] **COSH** - Returns the hyperbolic cosine
-- [ ] **TANH** - Returns the hyperbolic tangent
-- [ ] **DEGREES** - Converts radians to degrees
-- [ ] **RADIANS** - Converts degrees to radians
-- [ ] **EXP** - Returns e raised to a power
-- [ ] **LN** - Returns the natural logarithm
-- [ ] **LOG** - Returns the logarithm to a specified base
-- [ ] **LOG10** - Returns the base-10 logarithm
+- [x] **SIN** - Returns the sine of an angle ✅
+- [x] **COS** - Returns the cosine of an angle ✅
+- [x] **TAN** - Returns the tangent of an angle ✅
+- [x] **ASIN** - Returns the arcsine ✅
+- [x] **ACOS** - Returns the arccosine ✅
+- [x] **ATAN** - Returns the arctangent ✅
+- [x] **ATAN2** - Returns the arctangent from x and y coordinates ✅
+- [x] **SINH** - Returns the hyperbolic sine ✅
+- [x] **COSH** - Returns the hyperbolic cosine ✅
+- [x] **TANH** - Returns the hyperbolic tangent ✅
+- [x] **DEGREES** - Converts radians to degrees ✅
+- [x] **RADIANS** - Converts degrees to radians ✅
+- [x] **EXP** - Returns e raised to a power ✅
+- [x] **LN** - Returns the natural logarithm ✅
+- [x] **LOG** - Returns the logarithm to a specified base ✅
+- [x] **LOG10** - Returns the base-10 logarithm ✅
 
 ### Phase 7: Financial Functions (Priority: Future)
 - [ ] **PV** - Present value

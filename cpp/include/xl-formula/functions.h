@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <stdexcept>
 #include "evaluator.h"
 #include "types.h"
 
@@ -348,6 +349,134 @@ Value text(const std::vector<Value>& args, const Context& context);
  * @return Numeric value
  */
 Value value(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SIN function - returns the sine of an angle
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for SIN)
+ * @return Sine of the angle
+ */
+Value sin_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COS function - returns the cosine of an angle
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for COS)
+ * @return Cosine of the angle
+ */
+Value cos_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TAN function - returns the tangent of an angle
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for TAN)
+ * @return Tangent of the angle
+ */
+Value tan_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ASIN function - returns the arcsine
+ * @param args Function arguments (expects 1 numeric argument between -1 and 1)
+ * @param context Evaluation context (unused for ASIN)
+ * @return Arcsine in radians
+ */
+Value asin_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ACOS function - returns the arccosine
+ * @param args Function arguments (expects 1 numeric argument between -1 and 1)
+ * @param context Evaluation context (unused for ACOS)
+ * @return Arccosine in radians
+ */
+Value acos_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ATAN function - returns the arctangent
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for ATAN)
+ * @return Arctangent in radians
+ */
+Value atan_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ATAN2 function - returns the arctangent from x and y coordinates
+ * @param args Function arguments (expects 2 numeric arguments: y, x)
+ * @param context Evaluation context (unused for ATAN2)
+ * @return Arctangent in radians
+ */
+Value atan2_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SINH function - returns the hyperbolic sine
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for SINH)
+ * @return Hyperbolic sine
+ */
+Value sinh_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COSH function - returns the hyperbolic cosine
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for COSH)
+ * @return Hyperbolic cosine
+ */
+Value cosh_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TANH function - returns the hyperbolic tangent
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for TANH)
+ * @return Hyperbolic tangent
+ */
+Value tanh_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DEGREES function - converts radians to degrees
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for DEGREES)
+ * @return Angle in degrees
+ */
+Value degrees_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief RADIANS function - converts degrees to radians
+ * @param args Function arguments (expects 1 numeric argument in degrees)
+ * @param context Evaluation context (unused for RADIANS)
+ * @return Angle in radians
+ */
+Value radians_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief EXP function - returns e raised to a power
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for EXP)
+ * @return e raised to the power
+ */
+Value exp_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LN function - returns the natural logarithm
+ * @param args Function arguments (expects 1 positive numeric argument)
+ * @param context Evaluation context (unused for LN)
+ * @return Natural logarithm
+ */
+Value ln_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LOG function - returns the logarithm to a specified base
+ * @param args Function arguments (expects 1 or 2 arguments: number, [base])
+ * @param context Evaluation context (unused for LOG)
+ * @return Logarithm to the specified base (default 10)
+ */
+Value log_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LOG10 function - returns the base-10 logarithm
+ * @param args Function arguments (expects 1 positive numeric argument)
+ * @param context Evaluation context (unused for LOG10)
+ * @return Base-10 logarithm
+ */
+Value log10_function(const std::vector<Value>& args, const Context& context);
 
 }  // namespace builtin
 
