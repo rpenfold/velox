@@ -379,11 +379,11 @@ xl-formula/
 - [x] **INT** - Rounds a number down to the nearest integer ✅
 - [x] **TRUNC** - Truncates a number to an integer ✅
 - [x] **CEILING** - Rounds a number up to the nearest multiple ✅
-- [ ] **FLOOR** - Rounds a number down to the nearest multiple
-- [ ] **MEDIAN** - Returns the median of a set of numbers
-- [ ] **MODE** - Returns the most frequently occurring value
-- [ ] **STDEV** - Returns the standard deviation
-- [ ] **VAR** - Returns the variance
+- [x] **FLOOR** - Rounds a number down to the nearest multiple ✅
+- [x] **MEDIAN** - Returns the median of a set of numbers ✅
+- [x] **MODE** - Returns the most frequently occurring value ✅
+- [x] **STDEV** - Returns the standard deviation ✅
+- [x] **VAR** - Returns the variance ✅
 
 ### Phase 2: Text Functions (Priority: High)
 - [x] **CONCATENATE** - Joins several text strings ✅

@@ -27,6 +27,10 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("RAND", functions::builtin::rand_function);
     registry->registerFunction("RANDBETWEEN", functions::builtin::randbetween);
     registry->registerFunction("COUNTIF", functions::builtin::countif);
+    registry->registerFunction("MEDIAN", functions::builtin::median);
+    registry->registerFunction("MODE", functions::builtin::mode);
+    registry->registerFunction("STDEV", functions::builtin::stdev);
+    registry->registerFunction("VAR", functions::builtin::var);
 
     // Text functions
     registry->registerFunction("CONCATENATE", functions::builtin::concatenate);

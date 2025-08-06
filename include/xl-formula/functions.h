@@ -221,6 +221,38 @@ Value randbetween(const std::vector<Value>& args, const Context& context);
  */
 Value countif(const std::vector<Value>& args, const Context& context);
 
+/**
+ * @brief MEDIAN function - returns the median of a set of numbers
+ * @param args Function arguments (expects 1+ numeric arguments)
+ * @param context Evaluation context (unused for MEDIAN)
+ * @return Median value of the arguments
+ */
+Value median(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MODE function - returns the most frequently occurring value
+ * @param args Function arguments (expects 1+ numeric arguments)
+ * @param context Evaluation context (unused for MODE)
+ * @return Most frequently occurring value
+ */
+Value mode(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief STDEV function - returns the standard deviation of a set of numbers
+ * @param args Function arguments (expects 1+ numeric arguments)
+ * @param context Evaluation context (unused for STDEV)
+ * @return Standard deviation of the arguments
+ */
+Value stdev(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief VAR function - returns the variance of a set of numbers
+ * @param args Function arguments (expects 1+ numeric arguments)
+ * @param context Evaluation context (unused for VAR)
+ * @return Variance of the arguments
+ */
+Value var(const std::vector<Value>& args, const Context& context);
+
 }  // namespace builtin
 
 /**
