@@ -153,7 +153,7 @@ TEST_F(LowerFunctionTest, TextWithAccentedCharacters_HandlesAccents) {
 
     EXPECT_TRUE(result.isText());
     // Note: std::tolower has limited Unicode support
-    // This test documents the current behavior
+    // The function returns "cafÉ" (with uppercase É) due to std::tolower limitations
     EXPECT_EQ("cafÉ", result.asText());
 }
 
