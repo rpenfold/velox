@@ -32,6 +32,24 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("STDEV", functions::builtin::stdev);
     registry->registerFunction("VAR", functions::builtin::var);
 
+    // Trigonometric functions
+    registry->registerFunction("SIN", functions::builtin::sin_function);
+    registry->registerFunction("COS", functions::builtin::cos_function);
+    registry->registerFunction("TAN", functions::builtin::tan_function);
+    registry->registerFunction("ASIN", functions::builtin::asin_function);
+    registry->registerFunction("ACOS", functions::builtin::acos_function);
+    registry->registerFunction("ATAN", functions::builtin::atan_function);
+    registry->registerFunction("ATAN2", functions::builtin::atan2_function);
+    registry->registerFunction("SINH", functions::builtin::sinh_function);
+    registry->registerFunction("COSH", functions::builtin::cosh_function);
+    registry->registerFunction("TANH", functions::builtin::tanh_function);
+    registry->registerFunction("DEGREES", functions::builtin::degrees_function);
+    registry->registerFunction("RADIANS", functions::builtin::radians_function);
+    registry->registerFunction("EXP", functions::builtin::exp_function);
+    registry->registerFunction("LN", functions::builtin::ln_function);
+    registry->registerFunction("LOG", functions::builtin::log_function);
+    registry->registerFunction("LOG10", functions::builtin::log10_function);
+
     // Text functions
     registry->registerFunction("CONCATENATE", functions::builtin::concatenate);
     registry->registerFunction("TRIM", functions::builtin::trim);
