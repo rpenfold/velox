@@ -792,6 +792,43 @@ Value mirr(const std::vector<Value>& args, const Context& context);
 }  // namespace builtin
 
 /**
+ * @brief Built-in function dispatcher using perfect hash for optimal performance
+ */
+namespace dispatcher {
+
+/**
+ * @brief Compile-time hash function for function names
+ * Uses FNV-1a hash algorithm for good distribution and perfect hash properties
+ */
+constexpr uint32_t hash_function_name(const char* str) {
+    uint32_t hash = 2166136261u;  // FNV-1a offset basis
+    while (*str) {
+        hash ^= static_cast<uint32_t>(*str++);
+        hash *= 16777619u;  // FNV-1a prime
+    }
+    return hash;
+}
+
+/**
+ * @brief Fast built-in function dispatcher using perfect hash
+ * @param name Function name (must be uppercase)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @return Function result or empty Value if not a built-in function
+ */
+Value dispatch_builtin_function(const std::string& name, 
+                               const std::vector<Value>& args, 
+                               const Context& context);
+
+/**
+ * @brief Get list of all built-in function names
+ * @return Vector of all built-in function names (uppercase)
+ */
+std::vector<std::string> get_builtin_function_names();
+
+}  // namespace dispatcher
+
+/**
  * @brief Utility functions for argument validation
  */
 namespace utils {

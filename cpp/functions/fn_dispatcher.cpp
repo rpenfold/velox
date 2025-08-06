@@ -1,0 +1,163 @@
+#include "xl-formula/functions.h"
+
+namespace xl_formula {
+namespace functions {
+namespace dispatcher {
+
+Value dispatch_builtin_function(const std::string& name, 
+                               const std::vector<Value>& args, 
+                               const Context& context) {
+    // Use compile-time hash for ultra-fast dispatch
+    const uint32_t hash = hash_function_name(name.c_str());
+    
+    switch (hash) {
+        // Math functions
+        case hash_function_name("SUM"):         return builtin::sum(args, context);
+        case hash_function_name("MAX"):         return builtin::max(args, context);
+        case hash_function_name("MIN"):         return builtin::min(args, context);
+        case hash_function_name("AVERAGE"):     return builtin::average(args, context);
+        case hash_function_name("COUNT"):       return builtin::count(args, context);
+        case hash_function_name("COUNTA"):      return builtin::counta(args, context);
+        case hash_function_name("ABS"):         return builtin::abs_function(args, context);
+        case hash_function_name("ROUND"):       return builtin::round_function(args, context);
+        case hash_function_name("SQRT"):        return builtin::sqrt_function(args, context);
+        case hash_function_name("POWER"):       return builtin::power(args, context);
+        case hash_function_name("MOD"):         return builtin::mod(args, context);
+        case hash_function_name("PI"):          return builtin::pi(args, context);
+        case hash_function_name("SIGN"):        return builtin::sign(args, context);
+        case hash_function_name("INT"):         return builtin::int_function(args, context);
+        case hash_function_name("TRUNC"):       return builtin::trunc_function(args, context);
+        case hash_function_name("CEILING"):     return builtin::ceiling_function(args, context);
+        case hash_function_name("FLOOR"):       return builtin::floor_function(args, context);
+        case hash_function_name("RAND"):        return builtin::rand_function(args, context);
+        case hash_function_name("RANDBETWEEN"): return builtin::randbetween(args, context);
+        case hash_function_name("COUNTIF"):     return builtin::countif(args, context);
+        case hash_function_name("MEDIAN"):      return builtin::median(args, context);
+        case hash_function_name("MODE"):        return builtin::mode(args, context);
+        case hash_function_name("STDEV"):       return builtin::stdev(args, context);
+        case hash_function_name("VAR"):         return builtin::var(args, context);
+        
+        // Trigonometric functions
+        case hash_function_name("SIN"):         return builtin::sin_function(args, context);
+        case hash_function_name("COS"):         return builtin::cos_function(args, context);
+        case hash_function_name("TAN"):         return builtin::tan_function(args, context);
+        case hash_function_name("ASIN"):        return builtin::asin_function(args, context);
+        case hash_function_name("ACOS"):        return builtin::acos_function(args, context);
+        case hash_function_name("ATAN"):        return builtin::atan_function(args, context);
+        case hash_function_name("ATAN2"):       return builtin::atan2_function(args, context);
+        case hash_function_name("SINH"):        return builtin::sinh_function(args, context);
+        case hash_function_name("COSH"):        return builtin::cosh_function(args, context);
+        case hash_function_name("TANH"):        return builtin::tanh_function(args, context);
+        case hash_function_name("DEGREES"):     return builtin::degrees_function(args, context);
+        case hash_function_name("RADIANS"):     return builtin::radians_function(args, context);
+        case hash_function_name("EXP"):         return builtin::exp_function(args, context);
+        case hash_function_name("LN"):          return builtin::ln_function(args, context);
+        case hash_function_name("LOG"):         return builtin::log_function(args, context);
+        case hash_function_name("LOG10"):       return builtin::log10_function(args, context);
+        
+        // Text functions
+        case hash_function_name("CONCATENATE"): return builtin::concatenate(args, context);
+        case hash_function_name("TRIM"):        return builtin::trim(args, context);
+        case hash_function_name("LEN"):         return builtin::len(args, context);
+        case hash_function_name("LEFT"):        return builtin::left(args, context);
+        case hash_function_name("RIGHT"):       return builtin::right(args, context);
+        case hash_function_name("MID"):         return builtin::mid(args, context);
+        case hash_function_name("UPPER"):       return builtin::upper(args, context);
+        case hash_function_name("LOWER"):       return builtin::lower(args, context);
+        case hash_function_name("PROPER"):      return builtin::proper(args, context);
+        case hash_function_name("FIND"):        return builtin::find(args, context);
+        case hash_function_name("SEARCH"):      return builtin::search(args, context);
+        case hash_function_name("REPLACE"):     return builtin::replace(args, context);
+        case hash_function_name("SUBSTITUTE"):  return builtin::substitute(args, context);
+        case hash_function_name("TEXT"):        return builtin::text(args, context);
+        case hash_function_name("VALUE"):       return builtin::value(args, context);
+        
+        // Date & Time functions
+        case hash_function_name("NOW"):         return builtin::now(args, context);
+        case hash_function_name("TODAY"):       return builtin::today(args, context);
+        case hash_function_name("DATE"):        return builtin::date(args, context);
+        case hash_function_name("TIME"):        return builtin::time_function(args, context);
+        case hash_function_name("YEAR"):        return builtin::year(args, context);
+        case hash_function_name("MONTH"):       return builtin::month(args, context);
+        case hash_function_name("DAY"):         return builtin::day(args, context);
+        case hash_function_name("HOUR"):        return builtin::hour(args, context);
+        case hash_function_name("MINUTE"):      return builtin::minute(args, context);
+        case hash_function_name("SECOND"):      return builtin::second(args, context);
+        case hash_function_name("WEEKDAY"):     return builtin::weekday(args, context);
+        case hash_function_name("DATEDIF"):     return builtin::datedif(args, context);
+        
+        // Logical functions
+        case hash_function_name("TRUE"):        return builtin::true_function(args, context);
+        case hash_function_name("FALSE"):       return builtin::false_function(args, context);
+        case hash_function_name("IF"):          return builtin::if_function(args, context);
+        case hash_function_name("AND"):         return builtin::and_function(args, context);
+        case hash_function_name("OR"):          return builtin::or_function(args, context);
+        case hash_function_name("NOT"):         return builtin::not_function(args, context);
+        case hash_function_name("XOR"):         return builtin::xor_function(args, context);
+        case hash_function_name("IFERROR"):     return builtin::iferror_function(args, context);
+        case hash_function_name("IFNA"):        return builtin::ifna_function(args, context);
+        case hash_function_name("ISNUMBER"):    return builtin::isnumber_function(args, context);
+        case hash_function_name("ISTEXT"):      return builtin::istext_function(args, context);
+        case hash_function_name("ISBLANK"):     return builtin::isblank_function(args, context);
+        case hash_function_name("ISERROR"):     return builtin::iserror_function(args, context);
+        
+        // Engineering functions
+        case hash_function_name("CONVERT"):     return builtin::convert(args, context);
+        case hash_function_name("HEX2DEC"):     return builtin::hex2dec(args, context);
+        case hash_function_name("DEC2HEX"):     return builtin::dec2hex(args, context);
+        case hash_function_name("BIN2DEC"):     return builtin::bin2dec(args, context);
+        case hash_function_name("DEC2BIN"):     return builtin::dec2bin(args, context);
+        case hash_function_name("BITAND"):      return builtin::bitand_function(args, context);
+        case hash_function_name("BITOR"):       return builtin::bitor_function(args, context);
+        case hash_function_name("BITXOR"):      return builtin::bitxor_function(args, context);
+        
+        // Financial functions
+        case hash_function_name("PV"):          return builtin::pv(args, context);
+        case hash_function_name("FV"):          return builtin::fv(args, context);
+        case hash_function_name("PMT"):         return builtin::pmt(args, context);
+        case hash_function_name("RATE"):        return builtin::rate(args, context);
+        case hash_function_name("NPER"):        return builtin::nper(args, context);
+        case hash_function_name("NPV"):         return builtin::npv(args, context);
+        case hash_function_name("IRR"):         return builtin::irr(args, context);
+        case hash_function_name("MIRR"):        return builtin::mirr(args, context);
+        
+        default:
+            // Not a built-in function - return empty Value to indicate fallback needed
+            return Value();
+    }
+}
+
+std::vector<std::string> get_builtin_function_names() {
+    return {
+        // Math functions
+        "SUM", "MAX", "MIN", "AVERAGE", "COUNT", "COUNTA", "ABS", "ROUND", "SQRT", "POWER",
+        "MOD", "PI", "SIGN", "INT", "TRUNC", "CEILING", "FLOOR", "RAND", "RANDBETWEEN",
+        "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR",
+        
+        // Trigonometric functions
+        "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN", "ATAN2", "SINH", "COSH", "TANH",
+        "DEGREES", "RADIANS", "EXP", "LN", "LOG", "LOG10",
+        
+        // Text functions
+        "CONCATENATE", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER",
+        "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE",
+        
+        // Date & Time functions
+        "NOW", "TODAY", "DATE", "TIME", "YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND",
+        "WEEKDAY", "DATEDIF",
+        
+        // Logical functions
+        "TRUE", "FALSE", "IF", "AND", "OR", "NOT", "XOR", "IFERROR", "IFNA", "ISNUMBER",
+        "ISTEXT", "ISBLANK", "ISERROR",
+        
+        // Engineering functions
+        "CONVERT", "HEX2DEC", "DEC2HEX", "BIN2DEC", "DEC2BIN", "BITAND", "BITOR", "BITXOR",
+        
+        // Financial functions
+        "PV", "FV", "PMT", "RATE", "NPER", "NPV", "IRR", "MIRR"
+    };
+}
+
+}  // namespace dispatcher
+}  // namespace functions
+}  // namespace xl_formula

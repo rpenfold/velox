@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include "xl-formula/parser.h"
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 
@@ -15,6 +16,14 @@ void FunctionRegistry::registerFunction(const std::string& name, const FunctionI
 bool FunctionRegistry::hasFunction(const std::string& name) const {
     std::string upper_name = name;
     std::transform(upper_name.begin(), upper_name.end(), upper_name.begin(), ::toupper);
+    
+    // Check if it's a built-in function using perfect hash dispatcher
+    Value test_result = functions::dispatcher::dispatch_builtin_function(upper_name, {}, Context());
+    if (!test_result.isEmpty()) {
+        return true;  // Built-in function exists
+    }
+    
+    // Check custom functions
     return functions_.find(upper_name) != functions_.end();
 }
 
@@ -23,25 +32,41 @@ Value FunctionRegistry::callFunction(const std::string& name, const std::vector<
     std::string upper_name = name;
     std::transform(upper_name.begin(), upper_name.end(), upper_name.begin(), ::toupper);
 
-    auto it = functions_.find(upper_name);
-    if (it == functions_.end()) {
-        return Value::error(ErrorType::NAME_ERROR);
-    }
-
     try {
-        return it->second(args, context);
+        // Try built-in function dispatcher first (ultra-fast perfect hash path)
+        Value result = functions::dispatcher::dispatch_builtin_function(upper_name, args, context);
+        if (!result.isEmpty()) {
+            return result;  // Built-in function found and executed
+        }
+        
+        // Fall back to custom function registry
+        auto it = functions_.find(upper_name);
+        if (it != functions_.end()) {
+            return it->second(args, context);
+        }
+        
+        return Value::error(ErrorType::NAME_ERROR);
     } catch (const std::exception&) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
 }
 
 std::vector<std::string> FunctionRegistry::getFunctionNames() const {
-    std::vector<std::string> names;
-    names.reserve(functions_.size());
+    // Start with all built-in functions
+    std::vector<std::string> names = functions::dispatcher::get_builtin_function_names();
+    
+    // Add custom functions
+    names.reserve(names.size() + functions_.size());
     for (const auto& pair : functions_) {
         names.push_back(pair.first);
     }
+    
     return names;
+}
+
+std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
+    // Built-in functions are handled by the dispatcher, so just create an empty registry for custom functions
+    return std::make_unique<FunctionRegistry>();
 }
 
 // Evaluator implementation

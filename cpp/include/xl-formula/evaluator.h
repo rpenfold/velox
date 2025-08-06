@@ -14,29 +14,32 @@ namespace xl_formula {
 using FunctionImpl = std::function<Value(const std::vector<Value>&, const Context&)>;
 
 /**
- * @brief Registry for built-in functions
+ * @brief Function registry with perfect hash dispatch for built-ins and dynamic registry for custom functions
+ * 
+ * Built-in functions are dispatched via a perfect hash for optimal performance.
+ * Custom functions are stored in a dynamic hash map for flexibility.
  */
 class FunctionRegistry {
   private:
-    std::unordered_map<std::string, FunctionImpl> functions_;
+    std::unordered_map<std::string, FunctionImpl> functions_;  // Custom functions only
 
   public:
     /**
-     * @brief Register a built-in function
+     * @brief Register a custom function
      * @param name Function name (case-insensitive)
      * @param impl Function implementation
      */
     void registerFunction(const std::string& name, const FunctionImpl& impl);
 
     /**
-     * @brief Check if a function is registered
+     * @brief Check if a function exists (built-in or custom)
      * @param name Function name
      * @return true if function exists, false otherwise
      */
     bool hasFunction(const std::string& name) const;
 
     /**
-     * @brief Call a registered function
+     * @brief Call a function (built-in or custom)
      * @param name Function name
      * @param args Function arguments
      * @param context Evaluation context
@@ -46,13 +49,13 @@ class FunctionRegistry {
                        const Context& context) const;
 
     /**
-     * @brief Get all registered function names
+     * @brief Get all function names (built-in and custom)
      * @return Vector of function names
      */
     std::vector<std::string> getFunctionNames() const;
 
     /**
-     * @brief Create default registry with built-in functions
+     * @brief Create a default registry (built-ins handled via dispatcher, custom functions empty)
      * @return Default function registry
      */
     static std::unique_ptr<FunctionRegistry> createDefault();
