@@ -1,0 +1,35 @@
+#include "xl-formula/evaluator.h"
+#include "xl-formula/functions.h"
+
+namespace xl_formula {
+
+std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
+    auto registry = std::make_unique<FunctionRegistry>();
+
+    // Math functions
+    registry->registerFunction("SUM", functions::builtin::sum);
+    registry->registerFunction("MAX", functions::builtin::max);
+    registry->registerFunction("MIN", functions::builtin::min);
+    registry->registerFunction("AVERAGE", functions::builtin::average);
+    registry->registerFunction("COUNT", functions::builtin::count);
+    registry->registerFunction("COUNTA", functions::builtin::counta);
+    registry->registerFunction("ABS", functions::builtin::abs_function);
+    registry->registerFunction("ROUND", functions::builtin::round_function);
+    registry->registerFunction("SQRT", functions::builtin::sqrt_function);
+    registry->registerFunction("POWER", functions::builtin::power);
+    registry->registerFunction("MOD", functions::builtin::mod);
+
+    // Text functions
+    registry->registerFunction("CONCATENATE", functions::builtin::concatenate);
+    registry->registerFunction("TRIM", functions::builtin::trim);
+    registry->registerFunction("LEN", functions::builtin::len);
+
+    // Logical functions
+    registry->registerFunction("TRUE", functions::builtin::true_function);
+    registry->registerFunction("FALSE", functions::builtin::false_function);
+    registry->registerFunction("IF", functions::builtin::if_function);
+
+    return registry;
+}
+
+}  // namespace xl_formula

@@ -1,0 +1,197 @@
+#pragma once
+
+#include <vector>
+#include "evaluator.h"
+#include "types.h"
+
+namespace xl_formula {
+namespace functions {
+
+/**
+ * @brief Built-in function implementations
+ */
+namespace builtin {
+
+/**
+ * @brief SUM function - adds all numeric arguments
+ * @param args Function arguments
+ * @param context Evaluation context (unused for SUM)
+ * @return Sum of all numeric arguments
+ */
+Value sum(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MAX function - returns maximum value from arguments
+ * Supports numbers, dates, and comparable types
+ * @param args Function arguments
+ * @param context Evaluation context (unused for MAX)
+ * @return Maximum value from arguments
+ */
+Value max(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief CONCATENATE function - concatenates all arguments as text
+ * @param args Function arguments
+ * @param context Evaluation context (unused for CONCATENATE)
+ * @return Concatenated string
+ */
+Value concatenate(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TRIM function - removes leading and trailing whitespace
+ * @param args Function arguments (expects 1 text argument)
+ * @param context Evaluation context (unused for TRIM)
+ * @return Trimmed string
+ */
+Value trim(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TRUE function - returns boolean true
+ * @param args Function arguments (ignored)
+ * @param context Evaluation context (unused for TRUE)
+ * @return Boolean true value
+ */
+Value true_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief FALSE function - returns boolean false
+ * @param args Function arguments (ignored)
+ * @param context Evaluation context (unused for FALSE)
+ * @return Boolean false value
+ */
+Value false_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IF function - conditional logic
+ * @param args Function arguments (condition, true_value, false_value)
+ * @param context Evaluation context (unused for IF)
+ * @return true_value if condition is true, false_value otherwise
+ */
+Value if_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LEN function - returns length of text
+ * @param args Function arguments (expects 1 text argument)
+ * @param context Evaluation context (unused for LEN)
+ * @return Length of text as number
+ */
+Value len(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ABS function - returns absolute value
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for ABS)
+ * @return Absolute value
+ */
+Value abs_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ROUND function - rounds number to specified decimal places
+ * @param args Function arguments (number, decimal_places)
+ * @param context Evaluation context (unused for ROUND)
+ * @return Rounded number
+ */
+Value round_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MIN function - returns minimum value in a set of values
+ * @param args Function arguments (values to compare)
+ * @param context Evaluation context (unused for MIN)
+ * @return Minimum value
+ */
+Value min(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief AVERAGE function - returns average of arguments
+ * @param args Function arguments (numeric values)
+ * @param context Evaluation context (unused for AVERAGE)
+ * @return Average value
+ */
+Value average(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COUNT function - counts numeric values
+ * @param args Function arguments (values to count)
+ * @param context Evaluation context (unused for COUNT)
+ * @return Count of numeric values
+ */
+Value count(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COUNTA function - counts non-empty values
+ * @param args Function arguments (values to count)
+ * @param context Evaluation context (unused for COUNTA)
+ * @return Count of non-empty values
+ */
+Value counta(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SQRT function - returns square root
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for SQRT)
+ * @return Square root
+ */
+Value sqrt_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief POWER function - returns number raised to a power
+ * @param args Function arguments (base, exponent)
+ * @param context Evaluation context (unused for POWER)
+ * @return Base raised to exponent
+ */
+Value power(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MOD function - returns remainder from division
+ * @param args Function arguments (numerator, divisor)
+ * @param context Evaluation context (unused for MOD)
+ * @return Remainder
+ */
+Value mod(const std::vector<Value>& args, const Context& context);
+
+}  // namespace builtin
+
+/**
+ * @brief Utility functions for argument validation
+ */
+namespace utils {
+
+/**
+ * @brief Validate minimum number of arguments
+ * @param args Arguments to validate
+ * @param min_count Minimum required arguments
+ * @param function_name Function name for error messages
+ * @return Error value if validation fails, empty value if success
+ */
+Value validateMinArgs(const std::vector<Value>& args, size_t min_count,
+                      const std::string& function_name);
+
+/**
+ * @brief Validate exact number of arguments
+ * @param args Arguments to validate
+ * @param count Required number of arguments
+ * @param function_name Function name for error messages
+ * @return Error value if validation fails, empty value if success
+ */
+Value validateArgCount(const std::vector<Value>& args, size_t count,
+                       const std::string& function_name);
+
+/**
+ * @brief Check if any argument is an error
+ * @param args Arguments to check
+ * @return First error found, or empty value if no errors
+ */
+Value checkForErrors(const std::vector<Value>& args);
+
+/**
+ * @brief Convert value to number, handling errors
+ * @param value Value to convert
+ * @param function_name Function name for error messages
+ * @return Converted number or error value
+ */
+Value toNumberSafe(const Value& value, const std::string& function_name);
+
+}  // namespace utils
+
+}  // namespace functions
+}  // namespace xl_formula

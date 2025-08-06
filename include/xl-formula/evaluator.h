@@ -1,0 +1,207 @@
+#pragma once
+
+#include <functional>
+#include <memory>
+#include <unordered_map>
+#include "ast.h"
+#include "types.h"
+
+namespace xl_formula {
+
+/**
+ * @brief Function signature for built-in functions
+ */
+using FunctionImpl = std::function<Value(const std::vector<Value>&, const Context&)>;
+
+/**
+ * @brief Registry for built-in functions
+ */
+class FunctionRegistry {
+  private:
+    std::unordered_map<std::string, FunctionImpl> functions_;
+
+  public:
+    /**
+     * @brief Register a built-in function
+     * @param name Function name (case-insensitive)
+     * @param impl Function implementation
+     */
+    void registerFunction(const std::string& name, const FunctionImpl& impl);
+
+    /**
+     * @brief Check if a function is registered
+     * @param name Function name
+     * @return true if function exists, false otherwise
+     */
+    bool hasFunction(const std::string& name) const;
+
+    /**
+     * @brief Call a registered function
+     * @param name Function name
+     * @param args Function arguments
+     * @param context Evaluation context
+     * @return Function result
+     */
+    Value callFunction(const std::string& name, const std::vector<Value>& args,
+                       const Context& context) const;
+
+    /**
+     * @brief Get all registered function names
+     * @return Vector of function names
+     */
+    std::vector<std::string> getFunctionNames() const;
+
+    /**
+     * @brief Create default registry with built-in functions
+     * @return Default function registry
+     */
+    static std::unique_ptr<FunctionRegistry> createDefault();
+};
+
+/**
+ * @brief Evaluation result containing value and any errors
+ */
+class EvaluationResult {
+  private:
+    Value value_;
+    std::vector<std::string> warnings_;
+    bool success_;
+
+  public:
+    EvaluationResult() : success_(false) {}
+    EvaluationResult(const Value& value) : value_(value), success_(true) {}
+    EvaluationResult(const Value& value, const std::vector<std::string>& warnings)
+        : value_(value), warnings_(warnings), success_(true) {}
+
+    bool isSuccess() const {
+        return success_;
+    }
+    const Value& getValue() const {
+        return value_;
+    }
+    const std::vector<std::string>& getWarnings() const {
+        return warnings_;
+    }
+
+    void addWarning(const std::string& warning) {
+        warnings_.push_back(warning);
+    }
+
+    static EvaluationResult error(ErrorType type) {
+        EvaluationResult result;
+        result.value_ = Value::error(type);
+        result.success_ = false;
+        return result;
+    }
+};
+
+/**
+ * @brief AST evaluator using visitor pattern
+ */
+class Evaluator : public ASTVisitor {
+  private:
+    const Context* context_;
+    const FunctionRegistry* function_registry_;
+    Value result_;
+    std::vector<std::string> warnings_;
+
+    Value performBinaryOperation(BinaryOpNode::Operator op, const Value& left, const Value& right);
+    Value performUnaryOperation(UnaryOpNode::Operator op, const Value& operand);
+
+  public:
+    /**
+     * @brief Constructor
+     * @param context Evaluation context for variable lookups
+     * @param function_registry Registry for function calls (optional, uses default if null)
+     */
+    explicit Evaluator(const Context& context, const FunctionRegistry* function_registry = nullptr);
+
+    /**
+     * @brief Evaluate an AST node
+     * @param node AST node to evaluate
+     * @return Evaluation result
+     */
+    EvaluationResult evaluate(const ASTNode& node);
+
+    // Visitor pattern implementation
+    void visit(const LiteralNode& node) override;
+    void visit(const VariableNode& node) override;
+    void visit(const BinaryOpNode& node) override;
+    void visit(const UnaryOpNode& node) override;
+    void visit(const FunctionCallNode& node) override;
+
+  private:
+    void resetState();
+};
+
+/**
+ * @brief High-level formula evaluation API
+ */
+class FormulaEngine {
+  private:
+    std::unique_ptr<FunctionRegistry> function_registry_;
+    Context context_;
+
+  public:
+    FormulaEngine();
+    ~FormulaEngine();
+
+    /**
+     * @brief Evaluate a formula string
+     * @param formula Formula text to evaluate
+     * @return Evaluation result
+     */
+    EvaluationResult evaluate(const std::string& formula);
+
+    /**
+     * @brief Evaluate a parsed AST
+     * @param ast Parsed AST to evaluate
+     * @return Evaluation result
+     */
+    EvaluationResult evaluate(const ASTNode& ast);
+
+    /**
+     * @brief Get the evaluation context
+     * @return Reference to context
+     */
+    Context& getContext() {
+        return context_;
+    }
+    const Context& getContext() const {
+        return context_;
+    }
+
+    /**
+     * @brief Get the function registry
+     * @return Reference to function registry
+     */
+    FunctionRegistry& getFunctionRegistry() {
+        return *function_registry_;
+    }
+    const FunctionRegistry& getFunctionRegistry() const {
+        return *function_registry_;
+    }
+
+    /**
+     * @brief Set a variable in the context
+     * @param name Variable name
+     * @param value Variable value
+     */
+    void setVariable(const std::string& name, const Value& value);
+
+    /**
+     * @brief Get a variable from the context
+     * @param name Variable name
+     * @return Variable value (empty if not found)
+     */
+    Value getVariable(const std::string& name) const;
+
+    /**
+     * @brief Register a custom function
+     * @param name Function name
+     * @param impl Function implementation
+     */
+    void registerFunction(const std::string& name, const FunctionImpl& impl);
+};
+
+}  // namespace xl_formula

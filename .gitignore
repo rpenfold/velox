@@ -1,0 +1,46 @@
+# Build directories
+build/
+cmake-build-*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Object files and libraries
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+
+# Executables
+*.exe
+*.out
+
+# Debug files
+*.dSYM/
+
+# IDE files
+.vscode/
+.idea/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# System files
+.DS_Store
+*~
+
+# Test coverage
+*.gcov
+*.gcno
+*.gcda
+coverage.html
+
+# Temporary files
+*.tmp
+*.log
