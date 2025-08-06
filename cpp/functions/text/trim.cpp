@@ -7,31 +7,22 @@ namespace functions {
 namespace builtin {
 
 Value trim(const std::vector<Value>& args, const Context& context) {
-    (void)context;  // Unused parameter
-
-    auto validation = utils::validateArgCount(args, 1, "TRIM");
-    if (!validation.isEmpty()) {
-        return validation;
-    }
-
-    const auto& arg = args[0];
-    if (arg.isError()) {
-        return arg;
-    }
-
-    std::string text = arg.toString();
-
-    // Trim leading whitespace
-    text.erase(text.begin(), std::find_if(text.begin(), text.end(),
-                                          [](unsigned char ch) { return !std::isspace(ch); }));
-
-    // Trim trailing whitespace
-    text.erase(std::find_if(text.rbegin(), text.rend(),
-                            [](unsigned char ch) { return !std::isspace(ch); })
-                       .base(),
-               text.end());
-
-    return Value(text);
+    return templates::singleTextFunction(args, context, "TRIM",
+        [](const std::string& text) {
+            std::string result = text;
+            
+            // Trim leading whitespace
+            result.erase(result.begin(), std::find_if(result.begin(), result.end(),
+                                              [](unsigned char ch) { return !std::isspace(ch); }));
+            
+            // Trim trailing whitespace
+            result.erase(std::find_if(result.rbegin(), result.rend(),
+                              [](unsigned char ch) { return !std::isspace(ch); })
+                         .base(),
+                     result.end());
+            
+            return result;
+        });
 }
 
 }  // namespace builtin

@@ -1,4 +1,5 @@
 #include <xl-formula/functions.h>
+#include <numeric>
 
 namespace xl_formula {
 namespace functions {
@@ -8,9 +9,9 @@ Value average(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 
     // AVERAGE requires at least one argument
-    auto error = utils::validateMinArgs(args, 1, "AVERAGE");
-    if (!error.isEmpty()) {
-        return error;
+    auto validation = utils::validateMinArgs(args, 1, "AVERAGE");
+    if (!validation.isEmpty()) {
+        return validation;
     }
 
     // Check for errors first
@@ -19,27 +20,22 @@ Value average(const std::vector<Value>& args, const Context& context) {
         return errorCheck;
     }
 
-    double sum = 0.0;
-    int count = 0;
+    std::vector<double> numbers;
+    numbers.reserve(args.size());
 
     for (const auto& arg : args) {
-        if (arg.isEmpty()) {
-            continue;  // Skip empty values
+        if (!arg.isEmpty() && arg.canConvertToNumber()) {
+            numbers.push_back(arg.toNumber());
         }
-
-        if (arg.canConvertToNumber()) {
-            sum += arg.toNumber();
-            count++;
-        }
-        // Non-numeric values are ignored in AVERAGE (Excel behavior)
     }
 
     // If no numeric values found, return error
-    if (count == 0) {
+    if (numbers.empty()) {
         return Value::error(ErrorType::DIV_ZERO);
     }
 
-    return Value(sum / count);
+    double sum = std::accumulate(numbers.begin(), numbers.end(), 0.0);
+    return Value(sum / numbers.size());
 }
 
 }  // namespace builtin

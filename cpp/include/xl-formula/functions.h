@@ -393,5 +393,265 @@ Value toNumberSafe(const Value& value, const std::string& function_name);
 
 }  // namespace utils
 
+// Template function declarations for common patterns
+namespace templates {
+
+/**
+ * @brief Template for single-argument numeric functions
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The numeric operation to perform
+ * @return Result of the operation
+ */
+template<typename Func>
+Value singleNumericFunction(const std::vector<Value>& args, const Context& context,
+                           const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    auto num = utils::toNumberSafe(args[0], name);
+    if (num.isError()) {
+        return num;
+    }
+    
+    try {
+        return Value(operation(num.asNumber()));
+    } catch (const std::runtime_error&) {
+        return Value::error(ErrorType::NUM_ERROR);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for multi-argument numeric functions
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The numeric operation to perform
+ * @return Result of the operation
+ */
+template<typename Func>
+Value multiNumericFunction(const std::vector<Value>& args, const Context& context,
+                          const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    (void)name;     // Unused parameter
+    
+    // Allow empty arguments for functions like SUM
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    std::vector<double> numbers;
+    numbers.reserve(args.size());
+    
+    for (const auto& arg : args) {
+        if (!arg.isEmpty() && arg.canConvertToNumber()) {
+            numbers.push_back(arg.toNumber());
+        }
+    }
+    
+    if (numbers.empty()) {
+        return Value(0.0);
+    }
+    
+    try {
+        return Value(operation(numbers));
+    } catch (const std::runtime_error&) {
+        return Value::error(ErrorType::DIV_ZERO);
+    } catch (...) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+}
+
+/**
+ * @brief Template for single-argument text functions
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The text operation to perform
+ * @return Result of the operation
+ */
+template<typename Func>
+Value singleTextFunction(const std::vector<Value>& args, const Context& context,
+                        const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    // Convert to text if needed
+    std::string text;
+    if (args[0].isText()) {
+        text = args[0].asText();
+    } else {
+        text = args[0].toString();
+    }
+    
+    return Value(operation(text));
+}
+
+/**
+ * @brief Template for no-argument functions
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform
+ * @return Result of the operation
+ */
+template<typename Func>
+Value noArgFunction(const std::vector<Value>& args, const Context& context,
+                   const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    auto validation = utils::validateArgCount(args, 0, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+    
+    return operation();
+}
+
+/**
+ * @brief Template for functions that take 1-2 arguments (like ROUND, FLOOR, CEILING, TRUNC)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform (takes value and optional second arg)
+ * @return Result of the operation
+ */
+template<typename Func>
+Value oneOrTwoArgFunction(const std::vector<Value>& args, const Context& context,
+                         const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    
+    // Validate argument count (1 or 2 arguments)
+    if (args.size() < 1 || args.size() > 2) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+    
+    // Check for errors first
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    // Convert first argument to number
+    auto number = utils::toNumberSafe(args[0], name);
+    if (number.isError()) {
+        return number;
+    }
+    
+    double value = number.asNumber();
+    
+    // If second argument provided, convert it too
+    if (args.size() == 2) {
+        auto second = utils::toNumberSafe(args[1], name);
+        if (second.isError()) {
+            return second;
+        }
+        
+        try {
+            return Value(operation(value, second.asNumber()));
+        } catch (const std::runtime_error&) {
+            return Value::error(ErrorType::NUM_ERROR);
+        } catch (...) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+    } else {
+        // Only one argument
+        try {
+            return Value(operation(value, 0.0)); // Default second argument
+        } catch (const std::runtime_error&) {
+            return Value::error(ErrorType::NUM_ERROR);
+        } catch (...) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+    }
+}
+
+/**
+ * @brief Template for text functions that take 1-2 arguments (like LEFT, RIGHT)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The text operation to perform (takes text and optional num_chars)
+ * @return Result of the operation
+ */
+template<typename Func>
+Value oneOrTwoArgTextFunction(const std::vector<Value>& args, const Context& context,
+                             const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    (void)name;     // Unused parameter
+    
+    // Validate argument count (1 or 2 arguments)
+    if (args.size() < 1 || args.size() > 2) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+    
+    // Check for errors first
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    // Convert first argument to text
+    std::string text = args[0].toString();
+    
+    // If second argument provided, validate it's a number
+    int num_chars = 1; // Default value
+    if (args.size() == 2) {
+        if (!args[1].isNumber()) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+        num_chars = static_cast<int>(args[1].asNumber());
+        
+        // If num_chars is negative, return empty string
+        if (num_chars < 0) {
+            return Value("");
+        }
+    }
+    
+    return Value(operation(text, num_chars));
+}
+
+/**
+ * @brief Template for functions that take any number of arguments (like CONCATENATE)
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform (takes all arguments)
+ * @return Result of the operation
+ */
+template<typename Func>
+Value multiArgFunction(const std::vector<Value>& args, const Context& context,
+                      const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+    (void)name;     // Unused parameter
+    
+    // Check for errors first
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    return Value(operation(args));
+}
+
+}  // namespace templates
+
 }  // namespace functions
 }  // namespace xl_formula
