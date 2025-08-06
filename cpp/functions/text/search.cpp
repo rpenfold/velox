@@ -83,7 +83,6 @@ Value search(const std::vector<Value>& args, const Context& context) {
     if (found_pos == start_pos && find_text_lower.length() == 1) {
         found_pos = within_text_lower.find(find_text_lower, start_pos + 1);
     }
-    
     // If not found, return #VALUE! error
     if (found_pos == std::string::npos) {
         return Value::error(ErrorType::VALUE_ERROR);

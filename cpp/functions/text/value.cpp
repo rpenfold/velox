@@ -62,7 +62,6 @@ Value value(const std::vector<Value>& args, const Context& context) {
     if (text == "FALSE" || text == "false") {
         return Value(0.0);
     }
-    
     // Try to convert to double
     std::istringstream iss(text);
     double result;
@@ -73,7 +72,6 @@ Value value(const std::vector<Value>& args, const Context& context) {
         if (iss >> remaining) {
             return Value::error(ErrorType::VALUE_ERROR);
         }
-        
         // If it was a percentage, divide by 100
         if (is_percentage) {
             result /= 100.0;

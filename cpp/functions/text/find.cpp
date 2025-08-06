@@ -75,7 +75,6 @@ Value find(const std::vector<Value>& args, const Context& context) {
     if (found_pos == start_pos && find_text.length() == 1) {
         found_pos = within_text.find(find_text, start_pos + 1);
     }
-    
     // If not found, return #VALUE! error
     if (found_pos == std::string::npos) {
         return Value::error(ErrorType::VALUE_ERROR);
