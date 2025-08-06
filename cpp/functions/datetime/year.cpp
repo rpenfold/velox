@@ -1,6 +1,6 @@
-#include "xl-formula/functions.h"
 #include <chrono>
 #include <ctime>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -14,7 +14,7 @@ namespace builtin {
  */
 Value year(const std::vector<Value>& args, const Context& context) {
     return templates::singleDateFunction(args, context, "YEAR",
-        [](const std::tm& tm) { return tm.tm_year + 1900; });
+                                         [](const std::tm& tm) { return tm.tm_year + 1900; });
 }
 
 }  // namespace builtin

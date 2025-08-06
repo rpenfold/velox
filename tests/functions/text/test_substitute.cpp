@@ -28,7 +28,8 @@ TEST_F(SubstituteFunctionTest, TooFewArguments_ReturnsError) {
 }
 
 TEST_F(SubstituteFunctionTest, TooManyArguments_ReturnsError) {
-    auto result = callSubstitute({Value("hello"), Value("world"), Value("earth"), Value(1.0), Value(2.0)});
+    auto result = callSubstitute(
+            {Value("hello"), Value("world"), Value("earth"), Value(1.0), Value(2.0)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::VALUE_ERROR, result.asError());
@@ -56,21 +57,24 @@ TEST_F(SubstituteFunctionTest, BasicSubstitute_ReplacesAllOccurrences) {
 }
 
 TEST_F(SubstituteFunctionTest, SubstituteSpecificInstance_ReplacesOnlySpecified) {
-    auto result = callSubstitute({Value("hello world hello"), Value("hello"), Value("goodbye"), Value(1.0)});
+    auto result = callSubstitute(
+            {Value("hello world hello"), Value("hello"), Value("goodbye"), Value(1.0)});
 
     EXPECT_TRUE(result.isText());
     EXPECT_EQ("goodbye world hello", result.asText());
 }
 
 TEST_F(SubstituteFunctionTest, SubstituteSecondInstance_ReplacesSecondOccurrence) {
-    auto result = callSubstitute({Value("hello world hello"), Value("hello"), Value("goodbye"), Value(2.0)});
+    auto result = callSubstitute(
+            {Value("hello world hello"), Value("hello"), Value("goodbye"), Value(2.0)});
 
     EXPECT_TRUE(result.isText());
     EXPECT_EQ("hello world goodbye", result.asText());
 }
 
 TEST_F(SubstituteFunctionTest, InstanceNumBeyondOccurrences_ReturnsOriginal) {
-    auto result = callSubstitute({Value("hello world"), Value("hello"), Value("goodbye"), Value(3.0)});
+    auto result =
+            callSubstitute({Value("hello world"), Value("hello"), Value("goodbye"), Value(3.0)});
 
     EXPECT_TRUE(result.isText());
     EXPECT_EQ("hello world", result.asText());
@@ -161,28 +165,32 @@ TEST_F(SubstituteFunctionTest, BooleanInput_ConvertsToTextFirst) {
 }
 
 TEST_F(SubstituteFunctionTest, ErrorInput_PropagatesError) {
-    auto result = callSubstitute({Value::error(ErrorType::DIV_ZERO), Value("hello"), Value("world")});
+    auto result =
+            callSubstitute({Value::error(ErrorType::DIV_ZERO), Value("hello"), Value("world")});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
 TEST_F(SubstituteFunctionTest, ErrorInSecondArgument_PropagatesError) {
-    auto result = callSubstitute({Value("hello"), Value::error(ErrorType::DIV_ZERO), Value("world")});
+    auto result =
+            callSubstitute({Value("hello"), Value::error(ErrorType::DIV_ZERO), Value("world")});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
 TEST_F(SubstituteFunctionTest, ErrorInThirdArgument_PropagatesError) {
-    auto result = callSubstitute({Value("hello"), Value("world"), Value::error(ErrorType::DIV_ZERO)});
+    auto result =
+            callSubstitute({Value("hello"), Value("world"), Value::error(ErrorType::DIV_ZERO)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
 TEST_F(SubstituteFunctionTest, ErrorInFourthArgument_PropagatesError) {
-    auto result = callSubstitute({Value("hello"), Value("world"), Value("earth"), Value::error(ErrorType::DIV_ZERO)});
+    auto result = callSubstitute(
+            {Value("hello"), Value("world"), Value("earth"), Value::error(ErrorType::DIV_ZERO)});
 
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());

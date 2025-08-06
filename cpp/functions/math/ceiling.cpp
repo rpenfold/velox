@@ -13,7 +13,7 @@ namespace builtin {
  */
 Value ceiling_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
+
     // Validate argument count (1 or 2 arguments)
     if (args.empty() || args.size() > 2) {
         return Value::error(ErrorType::VALUE_ERROR);
@@ -24,12 +24,12 @@ Value ceiling_function(const std::vector<Value>& args, const Context& context) {
     if (!error.isEmpty()) {
         return error;
     }
-    
+
     // Convert first argument to number
     if (!args[0].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     double value = args[0].toNumber();
 
     // If only one argument, round up to nearest integer
@@ -37,11 +37,11 @@ Value ceiling_function(const std::vector<Value>& args, const Context& context) {
         return Value(std::ceil(value));
     }
 
-        // If two arguments, second is the significance (multiple)
+    // If two arguments, second is the significance (multiple)
     if (!args[1].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     double sig = args[1].toNumber();
 
     // Handle zero significance

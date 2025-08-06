@@ -14,23 +14,23 @@ namespace builtin {
  */
 Value randbetween(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
-        // Check for errors first
+
+    // Check for errors first
     auto error = utils::checkForErrors(args);
     if (!error.isEmpty()) {
         return error;
     }
-    
+
     // Validate argument count
     if (args.size() != 2) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Convert arguments to numbers
     if (!args[0].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     if (!args[1].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }

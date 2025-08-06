@@ -24,7 +24,7 @@ class HourFunctionTest : public ::testing::Test {
         time_info.tm_min = min;
         time_info.tm_sec = sec;
         time_info.tm_isdst = -1;
-        
+
         std::time_t time_val = std::mktime(&time_info);
         return std::chrono::system_clock::from_time_t(time_val);
     }

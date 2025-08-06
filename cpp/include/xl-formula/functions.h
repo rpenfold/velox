@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
-#include <stdexcept>
 #include <cmath>
+#include <stdexcept>
+#include <vector>
 #include "evaluator.h"
 #include "types.h"
 
@@ -70,6 +70,86 @@ Value false_function(const std::vector<Value>& args, const Context& context);
  * @return true_value if condition is true, false_value otherwise
  */
 Value if_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief AND function - returns TRUE if all arguments are TRUE
+ * @param args Function arguments (at least one required)
+ * @param context Evaluation context (unused for AND)
+ * @return TRUE if all arguments are TRUE, FALSE otherwise
+ */
+Value and_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief OR function - returns TRUE if any argument is TRUE
+ * @param args Function arguments (at least one required)
+ * @param context Evaluation context (unused for OR)
+ * @return TRUE if any argument is TRUE, FALSE otherwise
+ */
+Value or_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief NOT function - reverses the logic of its argument
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for NOT)
+ * @return TRUE if argument is FALSE, FALSE if argument is TRUE
+ */
+Value not_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief XOR function - returns TRUE if an odd number of arguments are TRUE
+ * @param args Function arguments (at least one required)
+ * @param context Evaluation context (unused for XOR)
+ * @return TRUE if odd number of arguments are TRUE, FALSE otherwise
+ */
+Value xor_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IFERROR function - returns a value if expression is an error
+ * @param args Function arguments (value, value_if_error)
+ * @param context Evaluation context (unused for IFERROR)
+ * @return value_if_error if value is an error, otherwise value
+ */
+Value iferror_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IFNA function - returns a value if expression is #N/A
+ * @param args Function arguments (value, value_if_na)
+ * @param context Evaluation context (unused for IFNA)
+ * @return value_if_na if value is #N/A, otherwise value
+ */
+Value ifna_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISNUMBER function - tests if a value is a number
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISNUMBER)
+ * @return TRUE if value is a number or can be converted to number
+ */
+Value isnumber_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISTEXT function - tests if a value is text
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISTEXT)
+ * @return TRUE if value is text
+ */
+Value istext_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISBLANK function - tests if a value is blank
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISBLANK)
+ * @return TRUE if value is empty/blank
+ */
+Value isblank_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ISERROR function - tests if a value is an error
+ * @param args Function arguments (expects 1 argument)
+ * @param context Evaluation context (unused for ISERROR)
+ * @return TRUE if value is an error
+ */
+Value iserror_function(const std::vector<Value>& args, const Context& context);
 
 /**
  * @brief LEN function - returns length of text
@@ -351,6 +431,134 @@ Value text(const std::vector<Value>& args, const Context& context);
  */
 Value value(const std::vector<Value>& args, const Context& context);
 
+/**
+ * @brief SIN function - returns the sine of an angle
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for SIN)
+ * @return Sine of the angle
+ */
+Value sin_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COS function - returns the cosine of an angle
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for COS)
+ * @return Cosine of the angle
+ */
+Value cos_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TAN function - returns the tangent of an angle
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for TAN)
+ * @return Tangent of the angle
+ */
+Value tan_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ASIN function - returns the arcsine
+ * @param args Function arguments (expects 1 numeric argument between -1 and 1)
+ * @param context Evaluation context (unused for ASIN)
+ * @return Arcsine in radians
+ */
+Value asin_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ACOS function - returns the arccosine
+ * @param args Function arguments (expects 1 numeric argument between -1 and 1)
+ * @param context Evaluation context (unused for ACOS)
+ * @return Arccosine in radians
+ */
+Value acos_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ATAN function - returns the arctangent
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for ATAN)
+ * @return Arctangent in radians
+ */
+Value atan_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ATAN2 function - returns the arctangent from x and y coordinates
+ * @param args Function arguments (expects 2 numeric arguments: y, x)
+ * @param context Evaluation context (unused for ATAN2)
+ * @return Arctangent in radians
+ */
+Value atan2_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SINH function - returns the hyperbolic sine
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for SINH)
+ * @return Hyperbolic sine
+ */
+Value sinh_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COSH function - returns the hyperbolic cosine
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for COSH)
+ * @return Hyperbolic cosine
+ */
+Value cosh_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TANH function - returns the hyperbolic tangent
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for TANH)
+ * @return Hyperbolic tangent
+ */
+Value tanh_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DEGREES function - converts radians to degrees
+ * @param args Function arguments (expects 1 numeric argument in radians)
+ * @param context Evaluation context (unused for DEGREES)
+ * @return Angle in degrees
+ */
+Value degrees_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief RADIANS function - converts degrees to radians
+ * @param args Function arguments (expects 1 numeric argument in degrees)
+ * @param context Evaluation context (unused for RADIANS)
+ * @return Angle in radians
+ */
+Value radians_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief EXP function - returns e raised to a power
+ * @param args Function arguments (expects 1 numeric argument)
+ * @param context Evaluation context (unused for EXP)
+ * @return e raised to the power
+ */
+Value exp_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LN function - returns the natural logarithm
+ * @param args Function arguments (expects 1 positive numeric argument)
+ * @param context Evaluation context (unused for LN)
+ * @return Natural logarithm
+ */
+Value ln_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LOG function - returns the logarithm to a specified base
+ * @param args Function arguments (expects 1 or 2 arguments: number, [base])
+ * @param context Evaluation context (unused for LOG)
+ * @return Logarithm to the specified base (default 10)
+ */
+Value log_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LOG10 function - returns the base-10 logarithm
+ * @param args Function arguments (expects 1 positive numeric argument)
+ * @param context Evaluation context (unused for LOG10)
+ * @return Base-10 logarithm
+ */
+Value log10_function(const std::vector<Value>& args, const Context& context);
+
 // Date & Time Functions
 
 /**
@@ -504,21 +712,21 @@ namespace templates {
  * @param operation The numeric operation to perform
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value singleNumericFunction(const std::vector<Value>& args, const Context& context,
-                           const std::string& name, Func operation) {
+                            const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 1, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto num = utils::toNumberSafe(args[0], name);
     if (num.isError()) {
         return num;
     }
-    
+
     try {
         return Value(operation(num.asNumber()));
     } catch (const std::runtime_error&) {
@@ -536,31 +744,31 @@ Value singleNumericFunction(const std::vector<Value>& args, const Context& conte
  * @param operation The numeric operation to perform
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value multiNumericFunction(const std::vector<Value>& args, const Context& context,
-                          const std::string& name, Func operation) {
+                           const std::string& name, Func operation) {
     (void)context;  // Unused parameter
     (void)name;     // Unused parameter
-    
+
     // Allow empty arguments for functions like SUM
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     std::vector<double> numbers;
     numbers.reserve(args.size());
-    
+
     for (const auto& arg : args) {
         if (!arg.isEmpty() && arg.canConvertToNumber()) {
             numbers.push_back(arg.toNumber());
         }
     }
-    
+
     if (numbers.empty()) {
         return Value(0.0);
     }
-    
+
     try {
         return Value(operation(numbers));
     } catch (const std::runtime_error&) {
@@ -578,21 +786,21 @@ Value multiNumericFunction(const std::vector<Value>& args, const Context& contex
  * @param operation The text operation to perform
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value singleTextFunction(const std::vector<Value>& args, const Context& context,
-                        const std::string& name, Func operation) {
+                         const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 1, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert to text if needed
     std::string text;
     if (args[0].isText()) {
@@ -600,7 +808,7 @@ Value singleTextFunction(const std::vector<Value>& args, const Context& context,
     } else {
         text = args[0].toString();
     }
-    
+
     return Value(operation(text));
 }
 
@@ -612,16 +820,16 @@ Value singleTextFunction(const std::vector<Value>& args, const Context& context,
  * @param operation The operation to perform
  * @return Result of the operation
  */
-template<typename Func>
-Value noArgFunction(const std::vector<Value>& args, const Context& context,
-                   const std::string& name, Func operation) {
+template <typename Func>
+Value noArgFunction(const std::vector<Value>& args, const Context& context, const std::string& name,
+                    Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 0, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     return operation();
 }
 
@@ -633,37 +841,37 @@ Value noArgFunction(const std::vector<Value>& args, const Context& context,
  * @param operation The operation to perform (takes value and optional second arg)
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value oneOrTwoArgFunction(const std::vector<Value>& args, const Context& context,
-                         const std::string& name, Func operation) {
+                          const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     // Validate argument count (1 or 2 arguments)
     if (args.size() < 1 || args.size() > 2) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Check for errors first
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert first argument to number
     auto number = utils::toNumberSafe(args[0], name);
     if (number.isError()) {
         return number;
     }
-    
+
     double value = number.asNumber();
-    
+
     // If second argument provided, convert it too
     if (args.size() == 2) {
         auto second = utils::toNumberSafe(args[1], name);
         if (second.isError()) {
             return second;
         }
-        
+
         try {
             return Value(operation(value, second.asNumber()));
         } catch (const std::runtime_error&) {
@@ -674,7 +882,7 @@ Value oneOrTwoArgFunction(const std::vector<Value>& args, const Context& context
     } else {
         // Only one argument
         try {
-            return Value(operation(value, 0.0)); // Default second argument
+            return Value(operation(value, 0.0));  // Default second argument
         } catch (const std::runtime_error&) {
             return Value::error(ErrorType::NUM_ERROR);
         } catch (...) {
@@ -691,40 +899,40 @@ Value oneOrTwoArgFunction(const std::vector<Value>& args, const Context& context
  * @param operation The text operation to perform (takes text and optional num_chars)
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value oneOrTwoArgTextFunction(const std::vector<Value>& args, const Context& context,
-                             const std::string& name, Func operation) {
+                              const std::string& name, Func operation) {
     (void)context;  // Unused parameter
     (void)name;     // Unused parameter
-    
+
     // Validate argument count (1 or 2 arguments)
     if (args.size() < 1 || args.size() > 2) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Check for errors first
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert first argument to text
     std::string text = args[0].toString();
-    
+
     // If second argument provided, validate it's a number
-    int num_chars = 1; // Default value
+    int num_chars = 1;  // Default value
     if (args.size() == 2) {
         if (!args[1].isNumber()) {
             return Value::error(ErrorType::VALUE_ERROR);
         }
         num_chars = static_cast<int>(args[1].asNumber());
-        
+
         // If num_chars is negative, return empty string
         if (num_chars < 0) {
             return Value("");
         }
     }
-    
+
     return Value(operation(text, num_chars));
 }
 
@@ -736,18 +944,18 @@ Value oneOrTwoArgTextFunction(const std::vector<Value>& args, const Context& con
  * @param operation The operation to perform (takes all arguments)
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value multiArgFunction(const std::vector<Value>& args, const Context& context,
-                      const std::string& name, Func operation) {
+                       const std::string& name, Func operation) {
     (void)context;  // Unused parameter
     (void)name;     // Unused parameter
-    
+
     // Check for errors first
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     return Value(operation(args));
 }
 
@@ -759,30 +967,30 @@ Value multiArgFunction(const std::vector<Value>& args, const Context& context,
  * @param operation The operation to perform on the tm structure
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value singleDateFunction(const std::vector<Value>& args, const Context& context,
-                        const std::string& name, Func operation) {
+                         const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 1, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     if (!args[0].isDate()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     try {
         auto date_val = args[0].asDate();
         auto time_t = std::chrono::system_clock::to_time_t(date_val);
         auto local_tm = *std::localtime(&time_t);
-        
+
         return Value(static_cast<double>(operation(local_tm)));
     } catch (...) {
         return Value::error(ErrorType::VALUE_ERROR);
@@ -798,29 +1006,29 @@ Value singleDateFunction(const std::vector<Value>& args, const Context& context,
  * @param fractionOperation Operation to perform on time fraction for numeric values
  * @return Result of the operation
  */
-template<typename DateFunc, typename FractionFunc>
+template <typename DateFunc, typename FractionFunc>
 Value dateTimeExtractionFunction(const std::vector<Value>& args, const Context& context,
-                                const std::string& name, DateFunc dateOperation, 
-                                FractionFunc fractionOperation) {
+                                 const std::string& name, DateFunc dateOperation,
+                                 FractionFunc fractionOperation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 1, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     if (args[0].isDate()) {
         // Handle date value
         try {
             auto date_val = args[0].asDate();
             auto time_t = std::chrono::system_clock::to_time_t(date_val);
             auto local_tm = *std::localtime(&time_t);
-            
+
             return Value(static_cast<double>(dateOperation(local_tm)));
         } catch (...) {
             return Value::error(ErrorType::VALUE_ERROR);
@@ -842,30 +1050,31 @@ Value dateTimeExtractionFunction(const std::vector<Value>& args, const Context& 
  * @param operation The operation to perform with the three numbers
  * @return Result of the operation
  */
-template<typename Func>
+template <typename Func>
 Value threeNumberFunction(const std::vector<Value>& args, const Context& context,
-                         const std::string& name, Func operation) {
+                          const std::string& name, Func operation) {
     (void)context;  // Unused parameter
-    
+
     auto validation = utils::validateArgCount(args, 3, name);
     if (!validation.isEmpty()) {
         return validation;
     }
-    
+
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Convert arguments to numbers
-    if (!args[0].canConvertToNumber() || !args[1].canConvertToNumber() || !args[2].canConvertToNumber()) {
+    if (!args[0].canConvertToNumber() || !args[1].canConvertToNumber() ||
+        !args[2].canConvertToNumber()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     int first = static_cast<int>(args[0].toNumber());
     int second = static_cast<int>(args[1].toNumber());
     int third = static_cast<int>(args[2].toNumber());
-    
+
     try {
         return operation(first, second, third);
     } catch (const std::runtime_error&) {
@@ -889,7 +1098,8 @@ namespace datetime_utils {
  */
 inline double normalizeFraction(double time_fraction) {
     time_fraction = time_fraction - std::floor(time_fraction);
-    if (time_fraction < 0) time_fraction += 1.0;
+    if (time_fraction < 0)
+        time_fraction += 1.0;
     return time_fraction;
 }
 

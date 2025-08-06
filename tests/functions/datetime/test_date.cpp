@@ -20,11 +20,11 @@ TEST_F(DateFunctionTest, ValidDate_ReturnsDate) {
     auto result = callDate({Value(2023.0), Value(12.0), Value(25.0)});
 
     EXPECT_TRUE(result.isDate());
-    
+
     auto date_val = result.asDate();
     auto time_t = std::chrono::system_clock::to_time_t(date_val);
     auto local_tm = *std::localtime(&time_t);
-    
+
     EXPECT_EQ(2023, local_tm.tm_year + 1900);
     EXPECT_EQ(12, local_tm.tm_mon + 1);
     EXPECT_EQ(25, local_tm.tm_mday);
@@ -34,11 +34,11 @@ TEST_F(DateFunctionTest, MinimumValidDate_ReturnsDate) {
     auto result = callDate({Value(1900.0), Value(1.0), Value(1.0)});
 
     EXPECT_TRUE(result.isDate());
-    
+
     auto date_val = result.asDate();
     auto time_t = std::chrono::system_clock::to_time_t(date_val);
     auto local_tm = *std::localtime(&time_t);
-    
+
     EXPECT_EQ(1900, local_tm.tm_year + 1900);
     EXPECT_EQ(1, local_tm.tm_mon + 1);
     EXPECT_EQ(1, local_tm.tm_mday);
@@ -48,11 +48,11 @@ TEST_F(DateFunctionTest, MaximumValidDate_ReturnsDate) {
     auto result = callDate({Value(2099.0), Value(12.0), Value(31.0)});
 
     EXPECT_TRUE(result.isDate());
-    
+
     auto date_val = result.asDate();
     auto time_t = std::chrono::system_clock::to_time_t(date_val);
     auto local_tm = *std::localtime(&time_t);
-    
+
     EXPECT_EQ(2099, local_tm.tm_year + 1900);
     EXPECT_EQ(12, local_tm.tm_mon + 1);
     EXPECT_EQ(31, local_tm.tm_mday);

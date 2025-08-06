@@ -141,7 +141,8 @@ TEST_F(ModeFunctionTest, ZeroValues_HandlesCorrectly) {
 }
 
 TEST_F(ModeFunctionTest, ComplexModeScenario_ReturnsCorrectMode) {
-    auto result = callMode({Value(1.0), Value(2.0), Value(2.0), Value(3.0), Value(3.0), Value(3.0)});
+    auto result =
+            callMode({Value(1.0), Value(2.0), Value(2.0), Value(3.0), Value(3.0), Value(3.0)});
 
     EXPECT_TRUE(result.isNumber());
     EXPECT_DOUBLE_EQ(3.0, result.asNumber());  // 3 appears most frequently

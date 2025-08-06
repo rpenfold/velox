@@ -43,7 +43,7 @@ TEST_F(NowFunctionTest, ReturnsCurrentTime) {
     auto after = std::chrono::system_clock::now();
 
     EXPECT_TRUE(result.isDate());
-    
+
     auto result_time = result.asDate();
     EXPECT_GE(result_time, before);
     EXPECT_LE(result_time, after);

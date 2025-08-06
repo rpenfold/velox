@@ -1,5 +1,5 @@
-#include "xl-formula/functions.h"
 #include <chrono>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -13,9 +13,7 @@ namespace builtin {
  */
 Value now(const std::vector<Value>& args, const Context& context) {
     return templates::noArgFunction(args, context, "NOW",
-        []() { 
-            return Value(std::chrono::system_clock::now()); 
-        });
+                                    []() { return Value(std::chrono::system_clock::now()); });
 }
 
 }  // namespace builtin

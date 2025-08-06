@@ -1,6 +1,6 @@
-#include "xl-formula/functions.h"
 #include <chrono>
 #include <ctime>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -13,8 +13,9 @@ namespace builtin {
  * @return Month as numeric value (1-12)
  */
 Value month(const std::vector<Value>& args, const Context& context) {
-    return templates::singleDateFunction(args, context, "MONTH",
-        [](const std::tm& tm) { return tm.tm_mon + 1; });  // tm_mon is 0-based
+    return templates::singleDateFunction(args, context, "MONTH", [](const std::tm& tm) {
+        return tm.tm_mon + 1;
+    });  // tm_mon is 0-based
 }
 
 }  // namespace builtin

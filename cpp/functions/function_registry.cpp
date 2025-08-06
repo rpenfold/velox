@@ -32,6 +32,24 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("STDEV", functions::builtin::stdev);
     registry->registerFunction("VAR", functions::builtin::var);
 
+    // Trigonometric functions
+    registry->registerFunction("SIN", functions::builtin::sin_function);
+    registry->registerFunction("COS", functions::builtin::cos_function);
+    registry->registerFunction("TAN", functions::builtin::tan_function);
+    registry->registerFunction("ASIN", functions::builtin::asin_function);
+    registry->registerFunction("ACOS", functions::builtin::acos_function);
+    registry->registerFunction("ATAN", functions::builtin::atan_function);
+    registry->registerFunction("ATAN2", functions::builtin::atan2_function);
+    registry->registerFunction("SINH", functions::builtin::sinh_function);
+    registry->registerFunction("COSH", functions::builtin::cosh_function);
+    registry->registerFunction("TANH", functions::builtin::tanh_function);
+    registry->registerFunction("DEGREES", functions::builtin::degrees_function);
+    registry->registerFunction("RADIANS", functions::builtin::radians_function);
+    registry->registerFunction("EXP", functions::builtin::exp_function);
+    registry->registerFunction("LN", functions::builtin::ln_function);
+    registry->registerFunction("LOG", functions::builtin::log_function);
+    registry->registerFunction("LOG10", functions::builtin::log10_function);
+
     // Text functions
     registry->registerFunction("CONCATENATE", functions::builtin::concatenate);
     registry->registerFunction("TRIM", functions::builtin::trim);
@@ -67,6 +85,16 @@ std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
     registry->registerFunction("TRUE", functions::builtin::true_function);
     registry->registerFunction("FALSE", functions::builtin::false_function);
     registry->registerFunction("IF", functions::builtin::if_function);
+    registry->registerFunction("AND", functions::builtin::and_function);
+    registry->registerFunction("OR", functions::builtin::or_function);
+    registry->registerFunction("NOT", functions::builtin::not_function);
+    registry->registerFunction("XOR", functions::builtin::xor_function);
+    registry->registerFunction("IFERROR", functions::builtin::iferror_function);
+    registry->registerFunction("IFNA", functions::builtin::ifna_function);
+    registry->registerFunction("ISNUMBER", functions::builtin::isnumber_function);
+    registry->registerFunction("ISTEXT", functions::builtin::istext_function);
+    registry->registerFunction("ISBLANK", functions::builtin::isblank_function);
+    registry->registerFunction("ISERROR", functions::builtin::iserror_function);
 
     return registry;
 }

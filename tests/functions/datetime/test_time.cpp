@@ -18,7 +18,7 @@ TEST_F(TimeFunctionTest, ValidTime_ReturnsNumericFraction) {
     auto result = callTime({Value(12.0), Value(30.0), Value(45.0)});
 
     EXPECT_TRUE(result.isNumber());
-    
+
     // 12:30:45 = 12*3600 + 30*60 + 45 = 45045 seconds
     // 45045 / 86400 = 0.5214... (fraction of day)
     double expected = 45045.0 / 86400.0;
@@ -43,7 +43,7 @@ TEST_F(TimeFunctionTest, AlmostMidnight_ReturnsNearOne) {
     auto result = callTime({Value(23.0), Value(59.0), Value(59.0)});
 
     EXPECT_TRUE(result.isNumber());
-    
+
     // 23:59:59 = 23*3600 + 59*60 + 59 = 86399 seconds
     // 86399 / 86400 = 0.999988... (very close to 1)
     double expected = 86399.0 / 86400.0;

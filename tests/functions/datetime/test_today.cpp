@@ -41,22 +41,22 @@ TEST_F(TodayFunctionTest, ReturnsCurrentDate) {
     auto result = callToday();
 
     EXPECT_TRUE(result.isDate());
-    
+
     // Check that it's today's date at midnight
     auto result_time = result.asDate();
     auto time_t = std::chrono::system_clock::to_time_t(result_time);
     auto local_tm = *std::localtime(&time_t);
-    
+
     // Should be midnight (00:00:00)
     EXPECT_EQ(0, local_tm.tm_hour);
     EXPECT_EQ(0, local_tm.tm_min);
     EXPECT_EQ(0, local_tm.tm_sec);
-    
+
     // Should be today's date
     auto now = std::chrono::system_clock::now();
     auto now_time_t = std::chrono::system_clock::to_time_t(now);
     auto now_tm = *std::localtime(&now_time_t);
-    
+
     EXPECT_EQ(now_tm.tm_year, local_tm.tm_year);
     EXPECT_EQ(now_tm.tm_mon, local_tm.tm_mon);
     EXPECT_EQ(now_tm.tm_mday, local_tm.tm_mday);

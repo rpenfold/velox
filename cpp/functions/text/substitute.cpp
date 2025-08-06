@@ -34,29 +34,29 @@ Value substitute(const std::vector<Value>& args, const Context& context) {
     std::string text = args[0].toString();
     std::string old_text = args[1].toString();
     std::string new_text = args[2].toString();
-    
+
     // If old_text is empty, return original text
     if (old_text.empty()) {
         return Value(text);
     }
-    
+
     // Default to replace all instances
     int instance_num = -1;
-    
+
     if (args.size() == 4) {
         if (!args[3].isNumber()) {
             return Value::error(ErrorType::VALUE_ERROR);
         }
         instance_num = static_cast<int>(args[3].asNumber());
-        
+
         // If instance_num is less than 1, return error
         if (instance_num < 1) {
             return Value::error(ErrorType::VALUE_ERROR);
         }
     }
-    
+
     std::string result = text;
-    
+
     if (instance_num == -1) {
         // Replace all instances
         size_t pos = 0;
@@ -68,7 +68,7 @@ Value substitute(const std::vector<Value>& args, const Context& context) {
         // Replace specific instance
         size_t pos = 0;
         int current_instance = 0;
-        
+
         while ((pos = result.find(old_text, pos)) != std::string::npos) {
             current_instance++;
             if (current_instance == instance_num) {
@@ -77,13 +77,13 @@ Value substitute(const std::vector<Value>& args, const Context& context) {
             }
             pos += old_text.length();
         }
-        
+
         // If the specified instance wasn't found, return original text
         if (current_instance < instance_num) {
             return Value(text);
         }
     }
-    
+
     return Value(result);
 }
 

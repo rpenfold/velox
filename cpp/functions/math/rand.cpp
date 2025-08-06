@@ -13,7 +13,7 @@ namespace builtin {
  */
 Value rand_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
+
     // RAND takes no arguments
     if (!args.empty()) {
         return Value::error(ErrorType::VALUE_ERROR);

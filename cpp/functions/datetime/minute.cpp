@@ -1,7 +1,7 @@
-#include "xl-formula/functions.h"
 #include <chrono>
-#include <ctime>
 #include <cmath>
+#include <ctime>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -14,9 +14,11 @@ namespace builtin {
  * @return Minute as numeric value (0-59)
  */
 Value minute(const std::vector<Value>& args, const Context& context) {
-    return templates::dateTimeExtractionFunction(args, context, "MINUTE",
-        [](const std::tm& tm) { return tm.tm_min; },
-        [](double time_fraction) { return datetime_utils::extractMinuteFromFraction(time_fraction); });
+    return templates::dateTimeExtractionFunction(
+            args, context, "MINUTE", [](const std::tm& tm) { return tm.tm_min; },
+            [](double time_fraction) {
+                return datetime_utils::extractMinuteFromFraction(time_fraction);
+            });
 }
 
 }  // namespace builtin

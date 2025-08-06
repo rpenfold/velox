@@ -24,7 +24,7 @@ class YearFunctionTest : public ::testing::Test {
         time_info.tm_min = 0;
         time_info.tm_sec = 0;
         time_info.tm_isdst = -1;
-        
+
         std::time_t time_val = std::mktime(&time_info);
         return std::chrono::system_clock::from_time_t(time_val);
     }
@@ -132,14 +132,14 @@ TEST_F(YearFunctionTest, DateWithTime_ReturnsCorrectYear) {
     time_info.tm_year = 2023 - 1900;
     time_info.tm_mon = 6 - 1;  // June
     time_info.tm_mday = 15;
-    time_info.tm_hour = 14;    // 2 PM
+    time_info.tm_hour = 14;  // 2 PM
     time_info.tm_min = 30;
     time_info.tm_sec = 45;
     time_info.tm_isdst = -1;
-    
+
     std::time_t time_val = std::mktime(&time_info);
     auto date_val = std::chrono::system_clock::from_time_t(time_val);
-    
+
     auto result = callYear({Value(date_val)});
 
     EXPECT_TRUE(result.isNumber());
