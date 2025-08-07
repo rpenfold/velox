@@ -7,7 +7,7 @@ export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? '/xl-formula/' : '/',
   resolve: {
     alias: {
-      'xl-formula-web': resolve(__dirname, '../../node_modules/xl-formula-web/xl-formula-wrapper.js')
+      'xl-formula-web': resolve(__dirname, '../../packages/web/xl-formula-wrapper.js')
     }
   },
   build: {
