@@ -53,13 +53,16 @@ if (result.isSuccess()) {
 
 ### Supported Functions
 
-Currently supports **75+ built-in functions** across 8 categories:
+Currently supports **85+ built-in functions** across 8 categories:
 
-#### 📊 Math & Statistical Functions (24)
+#### 📊 Math & Statistical Functions (34)
 - **Basic**: `SUM`, `MIN`, `MAX`, `AVERAGE`, `COUNT`, `COUNTA`
 - **Rounding**: `ABS`, `ROUND`, `CEILING`, `FLOOR`, `INT`, `TRUNC`, `SIGN`
 - **Advanced**: `SQRT`, `POWER`, `MOD`, `PI`, `RAND`, `RANDBETWEEN`
 - **Statistical**: `MEDIAN`, `MODE`, `STDEV`, `VAR`, `COUNTIF`
+- **Conditional**: `SUMIF`, `SUMIFS`, `AVERAGEIF`, `AVERAGEIFS`
+- **Combinatorics**: `GCD`, `LCM`, `FACT`, `COMBIN`, `PERMUT`
+- **Arrays**: `SUMPRODUCT`
 
 #### 📝 Text Functions (14) 
 - **Manipulation**: `CONCATENATE`, `TRIM`, `LEN`, `LEFT`, `RIGHT`, `MID`

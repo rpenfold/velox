@@ -15,19 +15,19 @@ class FvFunctionTest : public ::testing::Test {
 };
 
 TEST_F(FvFunctionTest, BasicFvCalculation) {
-    // FV(5%, 10, -1000) should be around 12578.95
+    // FV(5%, 10, -1000) should be around 12577.89
     auto result = callFv({Value(0.05), Value(10.0), Value(-1000.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(12578.95, result.asNumber(), 0.01);
+    EXPECT_NEAR(12577.89, result.asNumber(), 0.01);
 }
 
 TEST_F(FvFunctionTest, FvWithPresentValue) {
-    // FV(6%, 5, -200, -1000) should be around 2673.01
+    // FV(6%, 5, -200, -1000) should be around 2465.64
     auto result = callFv({Value(0.06), Value(5.0), Value(-200.0), Value(-1000.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(2673.01, result.asNumber(), 0.01);
+    EXPECT_NEAR(2465.64, result.asNumber(), 0.01);
 }
 
 TEST_F(FvFunctionTest, FvBeginningOfPeriod) {
@@ -35,7 +35,7 @@ TEST_F(FvFunctionTest, FvBeginningOfPeriod) {
     auto result = callFv({Value(0.08), Value(4.0), Value(-500.0), Value(0.0), Value(1.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(2330.88, result.asNumber(), 0.01);
+    EXPECT_NEAR(2433.30, result.asNumber(), 0.01);
 }
 
 TEST_F(FvFunctionTest, ZeroRate) {

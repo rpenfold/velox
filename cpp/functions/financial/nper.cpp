@@ -37,11 +37,17 @@ Value nper(const std::vector<Value>& args, const Context& context) {
                 double numerator = adj_pmt - fv * rate;
                 double denominator = adj_pmt + pv * rate;
 
-                if (numerator <= 0.0 || denominator <= 0.0) {
+                // Check for division by zero and invalid log arguments
+                if (denominator == 0.0) {
+                    return Value::error(ErrorType::DIV_ZERO);
+                }
+                
+                double ratio = numerator / denominator;
+                if (ratio <= 0.0) {
                     return Value::error(ErrorType::VALUE_ERROR);
                 }
 
-                double nper_result = std::log(numerator / denominator) / std::log(1.0 + rate);
+                double nper_result = std::log(ratio) / std::log(1.0 + rate);
 
                 return Value(nper_result);
             });

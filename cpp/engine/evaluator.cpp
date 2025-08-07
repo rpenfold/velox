@@ -1,8 +1,8 @@
 #include "xl-formula/evaluator.h"
 #include <algorithm>
 #include <cmath>
-#include "xl-formula/functions.h"
 #include "xl-formula/parser.h"
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 
@@ -16,13 +16,13 @@ void FunctionRegistry::registerFunction(const std::string& name, const FunctionI
 bool FunctionRegistry::hasFunction(const std::string& name) const {
     std::string upper_name = name;
     std::transform(upper_name.begin(), upper_name.end(), upper_name.begin(), ::toupper);
-
+    
     // Check if it's a built-in function using perfect hash dispatcher
     Value test_result = functions::dispatcher::dispatch_builtin_function(upper_name, {}, Context());
     if (!test_result.isEmpty()) {
         return true;  // Built-in function exists
     }
-
+    
     // Check custom functions
     return functions_.find(upper_name) != functions_.end();
 }
@@ -38,13 +38,13 @@ Value FunctionRegistry::callFunction(const std::string& name, const std::vector<
         if (!result.isEmpty()) {
             return result;  // Built-in function found and executed
         }
-
+        
         // Fall back to custom function registry
         auto it = functions_.find(upper_name);
         if (it != functions_.end()) {
             return it->second(args, context);
         }
-
+        
         return Value::error(ErrorType::NAME_ERROR);
     } catch (const std::exception&) {
         return Value::error(ErrorType::VALUE_ERROR);
@@ -54,19 +54,18 @@ Value FunctionRegistry::callFunction(const std::string& name, const std::vector<
 std::vector<std::string> FunctionRegistry::getFunctionNames() const {
     // Start with all built-in functions
     std::vector<std::string> names = functions::dispatcher::get_builtin_function_names();
-
+    
     // Add custom functions
     names.reserve(names.size() + functions_.size());
     for (const auto& pair : functions_) {
         names.push_back(pair.first);
     }
-
+    
     return names;
 }
 
 std::unique_ptr<FunctionRegistry> FunctionRegistry::createDefault() {
-    // Built-in functions are handled by the dispatcher, so just create an empty registry for custom
-    // functions
+    // Built-in functions are handled by the dispatcher, so just create an empty registry for custom functions
     return std::make_unique<FunctionRegistry>();
 }
 
@@ -121,6 +120,22 @@ void Evaluator::visit(const UnaryOpNode& node) {
     Value operand = result_;
 
     result_ = performUnaryOperation(node.getOperator(), operand);
+}
+
+void Evaluator::visit(const ArrayNode& node) {
+    // Arrays evaluate to a special array Value type
+    // For now, we'll evaluate all elements and store them in a vector
+    // This will be used by financial functions like IRR, NPV, MIRR
+    std::vector<Value> elements;
+    elements.reserve(node.getElements().size());
+
+    for (const auto& element : node.getElements()) {
+        const_cast<ASTNode&>(*element).accept(*this);
+        elements.push_back(result_);
+    }
+
+    // Create an array Value - we need to add this to the Value class
+    result_ = Value::array(elements);
 }
 
 void Evaluator::visit(const FunctionCallNode& node) {

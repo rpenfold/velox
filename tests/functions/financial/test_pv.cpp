@@ -27,7 +27,7 @@ TEST_F(PvFunctionTest, PvWithFutureValue) {
     auto result = callPv({Value(0.06), Value(5.0), Value(-200.0), Value(-1000.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(1589.56, result.asNumber(), 0.01);
+    EXPECT_NEAR(1589.731, result.asNumber(), 0.01);
 }
 
 TEST_F(PvFunctionTest, PvBeginningOfPeriod) {
@@ -35,7 +35,7 @@ TEST_F(PvFunctionTest, PvBeginningOfPeriod) {
     auto result = callPv({Value(0.08), Value(4.0), Value(-500.0), Value(0.0), Value(1.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(1790.69, result.asNumber(), 0.01);
+    EXPECT_NEAR(1788.548, result.asNumber(), 0.01);
 }
 
 TEST_F(PvFunctionTest, ZeroRate) {

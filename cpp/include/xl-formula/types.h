@@ -18,6 +18,7 @@ enum class ValueType {
     BOOLEAN,  ///< Boolean value (true/false)
     DATE,     ///< Date value
     ERROR,    ///< Error value
+    ARRAY,    ///< Array value (vector of Values)
     EMPTY     ///< Empty/null value
 };
 
@@ -41,7 +42,8 @@ enum class ErrorType {
 class Value {
   public:
     using DateType = std::chrono::system_clock::time_point;
-    using VariantType = std::variant<double, std::string, bool, DateType, ErrorType>;
+    using ArrayType = std::shared_ptr<std::vector<Value>>;
+    using VariantType = std::variant<double, std::string, bool, DateType, ErrorType, ArrayType>;
 
   private:
     VariantType data_;
@@ -76,6 +78,9 @@ class Value {
     bool isError() const {
         return type_ == ValueType::ERROR;
     }
+    bool isArray() const {
+        return type_ == ValueType::ARRAY;
+    }
     bool isEmpty() const {
         return type_ == ValueType::EMPTY;
     }
@@ -86,6 +91,7 @@ class Value {
     bool asBoolean() const;
     DateType asDate() const;
     ErrorType asError() const;
+    const std::vector<Value>& asArray() const;
 
     // Conversion utilities
     bool canConvertToNumber() const;
@@ -102,12 +108,18 @@ class Value {
     bool operator>(const Value& other) const;
     bool operator>=(const Value& other) const;
 
+    // Array constructor
+    Value(const std::vector<Value>& array) : data_(std::make_shared<std::vector<Value>>(array)), type_(ValueType::ARRAY) {}
+
     // Static factory methods
     static Value error(ErrorType type) {
         return Value(type);
     }
     static Value empty() {
         return Value();
+    }
+    static Value array(const std::vector<Value>& elements) {
+        return Value(elements);
     }
 };
 

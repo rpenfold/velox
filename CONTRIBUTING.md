@@ -367,12 +367,12 @@ xl-formula/
 ## Function Implementation Roadmap
 
 **Target**: Match and exceed Formula.js (399/515 functions implemented)
-**Current**: 75 functions implemented (15% of Excel's ~500 core functions)
+**Current**: 85 functions implemented (17% of Excel's ~500 core functions)
 
 ## Completed Functions ✅
 
-**75 functions implemented across 8 categories:**
-- **Math & Statistical**: 24 functions (SUM, AVERAGE, COUNT, SQRT, etc.)
+**85 functions implemented across 8 categories:**
+- **Math & Statistical**: 34 functions (SUM, AVERAGE, COUNT, SQRT, GCD, FACT, SUMIF, etc.)
 - **Text**: 14 functions (CONCATENATE, TRIM, LEN, UPPER, etc.)
 - **Logical**: 14 functions (IF, AND, OR, NOT, ISNUMBER, etc.)
 - **Date & Time**: 12 functions (NOW, TODAY, DATE, YEAR, etc.)
@@ -404,17 +404,17 @@ xl-formula/
 - [ ] **FORECAST** - Calculates future value using linear trend
 - [ ] **TREND** - Returns values along a linear trend
 
-### Phase 11: Additional Math Functions (Priority: Medium)
-- [ ] **GCD** - Greatest common divisor
-- [ ] **LCM** - Least common multiple
-- [ ] **FACT** - Factorial
-- [ ] **COMBIN** - Number of combinations
-- [ ] **PERMUT** - Number of permutations
-- [ ] **SUMPRODUCT** - Sum of products of arrays
-- [ ] **SUMIF** - Sum cells that meet a criterion
-- [ ] **SUMIFS** - Sum cells that meet multiple criteria
-- [ ] **AVERAGEIF** - Average cells that meet a criterion
-- [ ] **AVERAGEIFS** - Average cells that meet multiple criteria
+### ✅ Phase 11: Additional Math Functions (Completed)
+- [x] **GCD** - Greatest common divisor
+- [x] **LCM** - Least common multiple
+- [x] **FACT** - Factorial
+- [x] **COMBIN** - Number of combinations
+- [x] **PERMUT** - Number of permutations
+- [x] **SUMPRODUCT** - Sum of products of arrays
+- [x] **SUMIF** - Sum cells that meet a criterion
+- [x] **SUMIFS** - Sum cells that meet multiple criteria
+- [x] **AVERAGEIF** - Average cells that meet a criterion
+- [x] **AVERAGEIFS** - Average cells that meet multiple criteria
 
 ### Phase 12: Binary Size Optimization (Priority: High)
 

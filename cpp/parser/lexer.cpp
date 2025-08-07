@@ -206,6 +206,12 @@ Token Lexer::nextToken() {
             case ')':
                 advance();
                 return Token(TokenType::RIGHT_PAREN, ")", start_pos, 1);
+            case '{':
+                advance();
+                return Token(TokenType::LEFT_BRACE, "{", start_pos, 1);
+            case '}':
+                advance();
+                return Token(TokenType::RIGHT_BRACE, "}", start_pos, 1);
             case ',':
                 advance();
                 return Token(TokenType::COMMA, ",", start_pos, 1);

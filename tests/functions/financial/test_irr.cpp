@@ -15,19 +15,19 @@ class IrrFunctionTest : public ::testing::Test {
 };
 
 TEST_F(IrrFunctionTest, BasicIrrCalculation) {
-    // IRR(-1000, 500, 400, 300, 200) should be around 14.28%
+    // IRR(-1000, 500, 400, 300, 200) should be around 17.80%
     auto result = callIrr({Value(-1000.0), Value(500.0), Value(400.0), Value(300.0), Value(200.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(0.1428, result.asNumber(), 0.001);
+    EXPECT_NEAR(0.178047, result.asNumber(), 0.001);
 }
 
 TEST_F(IrrFunctionTest, SimpleIrrCalculation) {
-    // IRR(-100, 50, 60) should be around 6.54%
+    // IRR(-100, 50, 60) should be around 6.394%
     auto result = callIrr({Value(-100.0), Value(50.0), Value(60.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(0.0654, result.asNumber(), 0.001);
+    EXPECT_NEAR(0.063941, result.asNumber(), 0.001);
 }
 
 TEST_F(IrrFunctionTest, IrrWithGuess) {
@@ -36,7 +36,7 @@ TEST_F(IrrFunctionTest, IrrWithGuess) {
             {Value(-1000.0), Value(500.0), Value(400.0), Value(300.0), Value(200.0), Value(0.2)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(0.1428, result.asNumber(), 0.001);
+    EXPECT_NEAR(0.178047, result.asNumber(), 0.001);
 }
 
 TEST_F(IrrFunctionTest, NoPositiveCashFlows) {

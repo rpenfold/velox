@@ -20,15 +20,15 @@ TEST_F(NpvFunctionTest, BasicNpvCalculation) {
             {Value(0.1), Value(-1000.0), Value(500.0), Value(400.0), Value(300.0), Value(200.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(164.27, result.asNumber(), 0.01);
+    EXPECT_NEAR(133.746453, result.asNumber(), 0.01);
 }
 
 TEST_F(NpvFunctionTest, SimpleNpvCalculation) {
-    // NPV(5%, 100, 200) should be around 285.71
+    // NPV(5%, 100, 200) should be around 276.64
     auto result = callNpv({Value(0.05), Value(100.0), Value(200.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(285.71, result.asNumber(), 0.01);
+    EXPECT_NEAR(276.643991, result.asNumber(), 0.01);
 }
 
 TEST_F(NpvFunctionTest, NegativeNpv) {
@@ -37,7 +37,7 @@ TEST_F(NpvFunctionTest, NegativeNpv) {
 
     EXPECT_TRUE(result.isNumber());
     EXPECT_LT(result.asNumber(), 0);
-    EXPECT_NEAR(-771.61, result.asNumber(), 0.01);
+    EXPECT_NEAR(-671.023903, result.asNumber(), 0.01);
 }
 
 TEST_F(NpvFunctionTest, ZeroRate) {

@@ -89,4 +89,21 @@ std::string FunctionCallNode::toString() const {
     return oss.str();
 }
 
+// ArrayNode implementation
+void ArrayNode::accept(ASTVisitor& visitor) {
+    visitor.visit(*this);
+}
+
+std::string ArrayNode::toString() const {
+    std::ostringstream oss;
+    oss << "Array([";
+    for (size_t i = 0; i < elements_.size(); ++i) {
+        if (i > 0)
+            oss << ", ";
+        oss << elements_[i]->toString();
+    }
+    oss << "])";
+    return oss.str();
+}
+
 }  // namespace xl_formula

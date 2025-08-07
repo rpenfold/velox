@@ -41,6 +41,13 @@ ErrorType Value::asError() const {
     return std::get<ErrorType>(data_);
 }
 
+const std::vector<Value>& Value::asArray() const {
+    if (type_ != ValueType::ARRAY) {
+        throw std::runtime_error("Value is not an array");
+    }
+    return *std::get<ArrayType>(data_);
+}
+
 bool Value::canConvertToNumber() const {
     switch (type_) {
         case ValueType::NUMBER:
@@ -127,6 +134,17 @@ std::string Value::toString() const {
                 default:
                     return "#ERROR!";
             }
+        case ValueType::ARRAY: {
+            std::ostringstream oss;
+            oss << "{";
+            const auto& arr = *std::get<ArrayType>(data_);
+            for (size_t i = 0; i < arr.size(); ++i) {
+                if (i > 0) oss << ", ";
+                oss << arr[i].toString();
+            }
+            oss << "}";
+            return oss.str();
+        }
         case ValueType::EMPTY:
             return "";
         default:
@@ -155,6 +173,9 @@ bool Value::operator<(const Value& other) const {
             return std::get<bool>(data_) < std::get<bool>(other.data_);
         case ValueType::DATE:
             return std::get<DateType>(data_) < std::get<DateType>(other.data_);
+        case ValueType::ARRAY:
+            // Arrays compare lexicographically
+            return *std::get<ArrayType>(data_) < *std::get<ArrayType>(other.data_);
         default:
             return false;
     }

@@ -34,11 +34,11 @@ Value rate(const std::vector<Value>& args, const Context& context) {
                         pv_calc = -(fv + pmt * nper);
                         dpv_dr = -pmt * nper * (nper - 1) / 2.0;
                     } else {
-                        double pvif = std::pow(1.0 + rate, nper);
-                        double pvifa = (pvif - 1.0) / rate;
+                        double pvif = std::pow(1.0 + rate, -nper);
+                        double pvifa = (1.0 - pvif) / rate;
 
                         // Present value calculation
-                        pv_calc = -(fv / pvif + pmt * pvifa);
+                        pv_calc = -(fv * pvif + pmt * pvifa);
 
                         // Adjust for payment timing
                         if (type == 1.0) {
@@ -47,10 +47,10 @@ Value rate(const std::vector<Value>& args, const Context& context) {
                         }
 
                         // Derivative of present value with respect to rate
-                        double dpvif_dr = nper * std::pow(1.0 + rate, nper - 1);
-                        double dpvifa_dr = (dpvif_dr * rate - (pvif - 1.0)) / (rate * rate);
+                        double dpvif_dr = -nper * std::pow(1.0 + rate, -nper - 1);
+                        double dpvifa_dr = (-dpvif_dr * rate - (1.0 - pvif)) / (rate * rate);
 
-                        dpv_dr = fv * dpvif_dr / (pvif * pvif) - pmt * dpvifa_dr;
+                        dpv_dr = -fv * dpvif_dr - pmt * dpvifa_dr;
 
                         if (type == 1.0) {
                             dpv_dr -= pmt * dpvifa_dr;

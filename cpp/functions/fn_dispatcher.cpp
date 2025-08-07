@@ -216,6 +216,28 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
         case hash_function_name("MIRR"):
             return builtin::mirr(args, context);
 
+        // Phase 11: Additional Math Functions
+        case hash_function_name("GCD"):
+            return builtin::gcd(args, context);
+        case hash_function_name("LCM"):
+            return builtin::lcm(args, context);
+        case hash_function_name("FACT"):
+            return builtin::fact(args, context);
+        case hash_function_name("COMBIN"):
+            return builtin::combin(args, context);
+        case hash_function_name("PERMUT"):
+            return builtin::permut(args, context);
+        case hash_function_name("SUMPRODUCT"):
+            return builtin::sumproduct(args, context);
+        case hash_function_name("SUMIF"):
+            return builtin::sumif(args, context);
+        case hash_function_name("SUMIFS"):
+            return builtin::sumifs(args, context);
+        case hash_function_name("AVERAGEIF"):
+            return builtin::averageif(args, context);
+        case hash_function_name("AVERAGEIFS"):
+            return builtin::averageifs(args, context);
+
         default:
             // Not a built-in function - return empty Value to indicate fallback needed
             return Value();
@@ -226,7 +248,8 @@ std::vector<std::string> get_builtin_function_names() {
     return {// Math functions
             "SUM", "MAX", "MIN", "AVERAGE", "COUNT", "COUNTA", "ABS", "ROUND", "SQRT", "POWER",
             "MOD", "PI", "SIGN", "INT", "TRUNC", "CEILING", "FLOOR", "RAND", "RANDBETWEEN",
-            "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR",
+            "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD", "LCM", "FACT", "COMBIN", "PERMUT",
+            "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF", "AVERAGEIFS",
 
             // Trigonometric functions
             "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN", "ATAN2", "SINH", "COSH", "TANH", "DEGREES",

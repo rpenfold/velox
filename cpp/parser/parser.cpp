@@ -248,6 +248,11 @@ std::unique_ptr<ASTNode> Parser::parsePrimary() {
         return expr;
     }
 
+    // Array literals {value1, value2, value3}
+    if (match(TokenType::LEFT_BRACE)) {
+        return parseArrayLiteral();
+    }
+
     error("Expected expression");
     return nullptr;
 }
@@ -285,6 +290,32 @@ std::vector<std::unique_ptr<ASTNode>> Parser::parseArgumentList() {
     }
 
     return arguments;
+}
+
+std::unique_ptr<ASTNode> Parser::parseArrayLiteral() {
+    std::vector<std::unique_ptr<ASTNode>> elements;
+
+    // Handle empty array {}
+    if (check(TokenType::RIGHT_BRACE)) {
+        advance(); // consume '}'
+        return std::make_unique<ArrayNode>(std::move(elements));
+    }
+
+    // Parse first element
+    elements.push_back(parseExpression());
+
+    // Parse remaining elements (comma for horizontal, semicolon for vertical)
+    // For now, we'll support both separators but treat them the same
+    while (match(TokenType::COMMA) || match(TokenType::SEMICOLON)) {
+        elements.push_back(parseExpression());
+    }
+
+    if (!match(TokenType::RIGHT_BRACE)) {
+        error("Expected '}' after array elements");
+        return nullptr;
+    }
+
+    return std::make_unique<ArrayNode>(std::move(elements));
 }
 
 }  // namespace xl_formula

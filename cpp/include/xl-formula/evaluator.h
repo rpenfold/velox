@@ -132,6 +132,7 @@ class Evaluator : public ASTVisitor {
     void visit(const VariableNode& node) override;
     void visit(const BinaryOpNode& node) override;
     void visit(const UnaryOpNode& node) override;
+    void visit(const ArrayNode& node) override;
     void visit(const FunctionCallNode& node) override;
 
   private:

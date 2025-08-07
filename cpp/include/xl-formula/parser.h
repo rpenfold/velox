@@ -37,6 +37,8 @@ enum class TokenType {
     // Delimiters
     LEFT_PAREN,   // (
     RIGHT_PAREN,  // )
+    LEFT_BRACE,   // {
+    RIGHT_BRACE,  // }
     COMMA,        // ,
     SEMICOLON,    // ;
 
@@ -179,6 +181,7 @@ class Parser {
     std::unique_ptr<ASTNode> parseUnary();
     std::unique_ptr<ASTNode> parsePrimary();
     std::unique_ptr<ASTNode> parseFunctionCall(const std::string& name);
+    std::unique_ptr<ASTNode> parseArrayLiteral();
 
     std::vector<std::unique_ptr<ASTNode>> parseArgumentList();
 

@@ -138,6 +138,25 @@ class UnaryOpNode : public ASTNode {
 };
 
 /**
+ * @brief Array literal node [value1, value2, value3]
+ */
+class ArrayNode : public ASTNode {
+  private:
+    std::vector<std::unique_ptr<ASTNode>> elements_;
+
+  public:
+    explicit ArrayNode(std::vector<std::unique_ptr<ASTNode>> elements)
+        : elements_(std::move(elements)) {}
+
+    const std::vector<std::unique_ptr<ASTNode>>& getElements() const {
+        return elements_;
+    }
+
+    void accept(ASTVisitor& visitor) override;
+    std::string toString() const override;
+};
+
+/**
  * @brief Function call node
  */
 class FunctionCallNode : public ASTNode {
@@ -171,6 +190,7 @@ class ASTVisitor {
     virtual void visit(const VariableNode& node) = 0;
     virtual void visit(const BinaryOpNode& node) = 0;
     virtual void visit(const UnaryOpNode& node) = 0;
+    virtual void visit(const ArrayNode& node) = 0;
     virtual void visit(const FunctionCallNode& node) = 0;
 };
 

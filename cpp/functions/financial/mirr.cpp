@@ -6,56 +6,95 @@ namespace functions {
 namespace builtin {
 
 Value mirr(const std::vector<Value>& args, const Context& context) {
-    return templates::cashFlowFunction(
-            args, context, "MIRR", 3, [](const std::vector<double>& args) -> Value {
-                if (args.size() < 3) {
-                    return Value::error(ErrorType::VALUE_ERROR);
-                }
+    (void)context;
+    
+    if (args.size() < 3) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+    
+    // Check for errors
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+    
+    std::vector<double> cash_flows;
+    double finance_rate, reinvest_rate;
+    
+    if (args.size() == 3 && args[0].isArray()) {
+        // Array syntax: MIRR({cash_flows}, finance_rate, reinvest_rate)
+        const auto& cash_flows_array = args[0].asArray();
+        for (const auto& val : cash_flows_array) {
+            if (val.isError()) return val;
+            auto num = utils::toNumberSafe(val, "MIRR");
+            if (num.isError()) return num;
+            cash_flows.push_back(num.asNumber());
+        }
+        
+        auto finance_rate_val = utils::toNumberSafe(args[1], "MIRR");
+        if (finance_rate_val.isError()) return finance_rate_val;
+        finance_rate = finance_rate_val.asNumber();
+        
+        auto reinvest_rate_val = utils::toNumberSafe(args[2], "MIRR");
+        if (reinvest_rate_val.isError()) return reinvest_rate_val;
+        reinvest_rate = reinvest_rate_val.asNumber();
+    } else {
+        // Legacy syntax: MIRR(cf1, cf2, cf3, ..., finance_rate, reinvest_rate)
+        // Last two arguments are rates, rest are cash flows
+        if (args.size() < 3) {
+            return Value::error(ErrorType::VALUE_ERROR);
+        }
+        
+        // Extract cash flows (all but last two arguments)
+        for (size_t i = 0; i < args.size() - 2; i++) {
+            auto num = utils::toNumberSafe(args[i], "MIRR");
+            if (num.isError()) return num;
+            cash_flows.push_back(num.asNumber());
+        }
+        
+        // Last two arguments are rates
+        auto finance_rate_val = utils::toNumberSafe(args[args.size() - 2], "MIRR");
+        if (finance_rate_val.isError()) return finance_rate_val;
+        finance_rate = finance_rate_val.asNumber();
+        
+        auto reinvest_rate_val = utils::toNumberSafe(args[args.size() - 1], "MIRR");
+        if (reinvest_rate_val.isError()) return reinvest_rate_val;
+        reinvest_rate = reinvest_rate_val.asNumber();
+    }
+    
+    if (cash_flows.empty()) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+    
+    size_t n = cash_flows.size();
 
-                // Extract finance rate and reinvestment rate (last two arguments)
-                double finance_rate = args[args.size() - 2];
-                double reinvest_rate = args[args.size() - 1];
+    // Calculate present value of negative cash flows (outflows)
+    double pv_outflows = 0.0;
+    for (size_t i = 0; i < n; i++) {
+        if (cash_flows[i] < 0) {
+            pv_outflows += cash_flows[i] /
+                           std::pow(1.0 + finance_rate, static_cast<double>(i));
+        }
+    }
 
-                // Extract cash flows (all but last two arguments)
-                std::vector<double> cash_flows;
-                for (size_t i = 0; i < args.size() - 2; i++) {
-                    cash_flows.push_back(args[i]);
-                }
+    // Calculate future value of positive cash flows (inflows)
+    double fv_inflows = 0.0;
+    for (size_t i = 0; i < n; i++) {
+        if (cash_flows[i] > 0) {
+            double periods_to_end = static_cast<double>(n - 1 - i);
+            fv_inflows += cash_flows[i] * std::pow(1.0 + reinvest_rate, periods_to_end);
+        }
+    }
 
-                if (cash_flows.empty()) {
-                    return Value::error(ErrorType::VALUE_ERROR);
-                }
+    // Check for valid calculations
+    if (pv_outflows == 0.0 || fv_inflows == 0.0) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
 
-                size_t n = cash_flows.size();
+    // Calculate MIRR
+    double mirr_result = std::pow(-fv_inflows / pv_outflows, 1.0 / (n - 1)) - 1.0;
 
-                // Calculate present value of negative cash flows (outflows)
-                double pv_outflows = 0.0;
-                for (size_t i = 0; i < n; i++) {
-                    if (cash_flows[i] < 0) {
-                        pv_outflows += cash_flows[i] /
-                                       std::pow(1.0 + finance_rate, static_cast<double>(i));
-                    }
-                }
-
-                // Calculate future value of positive cash flows (inflows)
-                double fv_inflows = 0.0;
-                for (size_t i = 0; i < n; i++) {
-                    if (cash_flows[i] > 0) {
-                        double periods_to_end = static_cast<double>(n - 1 - i);
-                        fv_inflows += cash_flows[i] * std::pow(1.0 + reinvest_rate, periods_to_end);
-                    }
-                }
-
-                // Check for valid calculations
-                if (pv_outflows == 0.0 || fv_inflows == 0.0) {
-                    return Value::error(ErrorType::VALUE_ERROR);
-                }
-
-                // Calculate MIRR
-                double mirr_result = std::pow(-fv_inflows / pv_outflows, 1.0 / (n - 1)) - 1.0;
-
-                return Value(mirr_result);
-            });
+    return Value(mirr_result);
 }
 
 }  // namespace builtin

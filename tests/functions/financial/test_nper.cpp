@@ -23,11 +23,11 @@ TEST_F(NperFunctionTest, BasicNperCalculation) {
 }
 
 TEST_F(NperFunctionTest, NperWithFutureValue) {
-    // NPER(6%, -200, 1000, 500) should be around 4.13
+    // NPER(6%, -200, 1000, 500) should be around 8.52
     auto result = callNper({Value(0.06), Value(-200.0), Value(1000.0), Value(500.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(4.13, result.asNumber(), 0.01);
+    EXPECT_NEAR(8.519756, result.asNumber(), 0.01);
 }
 
 TEST_F(NperFunctionTest, NperBeginningOfPeriod) {
@@ -54,12 +54,12 @@ TEST_F(NperFunctionTest, ZeroRateZeroPayment) {
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
 }
 
-TEST_F(NperFunctionTest, InvalidMathConditions) {
-    // Conditions that would result in logarithm of negative number
+TEST_F(NperFunctionTest, NegativeResult) {
+    // NPER(10%, -100, -500) returns negative periods (mathematically valid)
     auto result = callNper({Value(0.1), Value(-100.0), Value(-500.0)});
 
-    EXPECT_TRUE(result.isError());
-    EXPECT_EQ(ErrorType::VALUE_ERROR, result.asError());
+    EXPECT_TRUE(result.isNumber());
+    EXPECT_NEAR(-4.254164, result.asNumber(), 0.001);
 }
 
 TEST_F(NperFunctionTest, InvalidArguments) {

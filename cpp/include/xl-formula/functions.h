@@ -789,6 +789,94 @@ Value irr(const std::vector<Value>& args, const Context& context);
  */
 Value mirr(const std::vector<Value>& args, const Context& context);
 
+/**
+ * @brief GCD function - calculates greatest common divisor
+ * @param args Function arguments (numbers)
+ * @param context Evaluation context
+ * @return Greatest common divisor
+ */
+Value gcd(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LCM function - calculates least common multiple
+ * @param args Function arguments (numbers)
+ * @param context Evaluation context
+ * @return Least common multiple
+ */
+Value lcm(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief FACT function - calculates factorial
+ * @param args Function arguments (number)
+ * @param context Evaluation context
+ * @return Factorial of the number
+ */
+Value fact(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COMBIN function - calculates number of combinations
+ * @param args Function arguments (n, k)
+ * @param context Evaluation context
+ * @return Number of combinations C(n,k)
+ */
+Value combin(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief PERMUT function - calculates number of permutations
+ * @param args Function arguments (n, k)
+ * @param context Evaluation context
+ * @return Number of permutations P(n,k)
+ */
+Value permut(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SUMPRODUCT function - calculates sum of products
+ * @param args Function arguments (arrays/values)
+ * @param context Evaluation context
+ * @return Sum of products
+ */
+Value sumproduct(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SUMIF function - sums values that meet a criterion
+ * @param args Function arguments (range, criteria, [sum_range])
+ * @param context Evaluation context
+ * @return Sum of values meeting criteria
+ */
+Value sumif(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SUMIFS function - sums values that meet multiple criteria
+ * @param args Function arguments (sum_range, criteria_range1, criteria1, ...)
+ * @param context Evaluation context
+ * @return Sum of values meeting all criteria
+ */
+Value sumifs(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief AVERAGEIF function - averages values that meet a criterion
+ * @param args Function arguments (range, criteria, [average_range])
+ * @param context Evaluation context
+ * @return Average of values meeting criteria
+ */
+Value averageif(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief AVERAGEIFS function - averages values that meet multiple criteria
+ * @param args Function arguments (average_range, criteria_range1, criteria1, ...)
+ * @param context Evaluation context
+ * @return Average of values meeting all criteria
+ */
+Value averageifs(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief Helper function for simple wildcard matching without regex
+ * @param text The text to match
+ * @param pattern Pattern with * and ? wildcards
+ * @return true if text matches pattern
+ */
+bool simpleWildcardMatch(const std::string& text, const std::string& pattern);
+
 }  // namespace builtin
 
 /**
