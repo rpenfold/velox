@@ -151,12 +151,13 @@ export function FunctionDetail({ func, category, categoryName }) {
   return (
     <div>
       {/* Function Header */}
-      <div className="mb-8">
-        <div className="mb-3">
-          <div className="inline-flex items-center gap-2 mb-2">
-            <span className="text-xs px-2 py-1 rounded" style={{ 
+      <div style={{ marginBottom: '2rem' }}>
+        <div style={{ marginBottom: '0.25rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0' }}>
+            <span className="text-xs rounded" style={{ 
               background: 'var(--color-primary-light)', 
-              color: 'var(--color-primary)' 
+              color: 'var(--color-primary)',
+              padding: '2px 8px'
             }}>
               {categoryName}
             </span>
