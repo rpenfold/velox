@@ -293,5 +293,35 @@ describe('XL Formula Integration Tests', () => {
       expect(value1.asBoolean()).toBe(true);
       expect(value2.asBoolean()).toBe(false);
     });
+
+    test('SWITCH() should handle multiple conditions correctly', () => {
+      const result1 = engine.evaluate('SWITCH(2, 1, "One", 2, "Two", 3, "Three")');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isText()).toBe(true);
+      expect(value1.asText()).toBe('Two');
+      
+      // Test with default value
+      const result2 = engine.evaluate('SWITCH(4, 1, "One", 2, "Two", "Default")');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isText()).toBe(true);
+      expect(value2.asText()).toBe('Default');
+    });
+
+    test('IFS() should handle multiple IF conditions correctly', () => {
+      const result1 = engine.evaluate('IFS(FALSE, "First", TRUE, "Second", TRUE, "Third")');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isText()).toBe(true);
+      expect(value1.asText()).toBe('Second');
+      
+      // Test with numeric conditions
+      const result2 = engine.evaluate('IFS(0, "Zero", 1, "One")');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isText()).toBe(true);
+      expect(value2.asText()).toBe('One');
+    });
   });
 });

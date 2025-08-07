@@ -844,8 +844,8 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 
 ### Logical
 - [x] TRUE / FALSE / IF / AND / OR / NOT / XOR / IFERROR / IFNA / ISNUMBER / ISTEXT / ISBLANK / ISERROR
-- [ ] SWITCH
-- [ ] IFS
+- [x] SWITCH
+- [x] IFS
 
 ### Math & Trigonometry
 - [x] SUM / MAX / MIN / AVERAGE / COUNT / COUNTA / ABS / ROUND / SQRT / POWER / MOD / PI / SIGN / INT / TRUNC / CEILING / FLOOR / RAND / RANDBETWEEN / COUNTIF / MEDIAN / MODE / STDEV / VAR / GCD / LCM / FACT / COMBIN / PERMUT / SUMPRODUCT / SUMIF / SUMIFS / AVERAGEIF / AVERAGEIFS / SIN / COS / TAN / ASIN / ACOS / ATAN / ATAN2 / SINH / COSH / TANH / DEGREES / RADIANS / EXP / LN / LOG / LOG10

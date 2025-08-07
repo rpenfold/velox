@@ -193,6 +193,10 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::isblank_function(args, context);
         case hash_function_name("ISERROR"):
             return builtin::iserror_function(args, context);
+        case hash_function_name("SWITCH"):
+            return builtin::switch_function(args, context);
+        case hash_function_name("IFS"):
+            return builtin::ifs_function(args, context);
 
         // Engineering functions
         case hash_function_name("CONVERT"):
@@ -290,7 +294,7 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Logical functions
             "TRUE", "FALSE", "IF", "AND", "OR", "NOT", "XOR", "IFERROR", "IFNA", "ISNUMBER",
-            "ISTEXT", "ISBLANK", "ISERROR",
+            "ISTEXT", "ISBLANK", "ISERROR", "SWITCH", "IFS",
 
             // Engineering functions
             "CONVERT", "HEX2DEC", "DEC2HEX", "BIN2DEC", "DEC2BIN", "BITAND", "BITOR", "BITXOR",

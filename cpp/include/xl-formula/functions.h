@@ -153,6 +153,22 @@ Value isblank_function(const std::vector<Value>& args, const Context& context);
 Value iserror_function(const std::vector<Value>& args, const Context& context);
 
 /**
+ * @brief SWITCH function - compares an expression against multiple values and returns corresponding result
+ * @param args Function arguments (expression, value1, result1, [value2, result2, ...], [default])
+ * @param context Evaluation context (unused for SWITCH)
+ * @return The result corresponding to the first matching value, or default if no match
+ */
+Value switch_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IFS function - checks multiple conditions and returns corresponding result for first TRUE condition
+ * @param args Function arguments (condition1, result1, [condition2, result2, ...])
+ * @param context Evaluation context (unused for IFS)
+ * @return The result corresponding to the first TRUE condition, or #N/A if none are TRUE
+ */
+Value ifs_function(const std::vector<Value>& args, const Context& context);
+
+/**
  * @brief LEN function - returns length of text
  * @param args Function arguments (expects 1 text argument)
  * @param context Evaluation context (unused for LEN)

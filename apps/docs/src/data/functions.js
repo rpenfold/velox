@@ -458,6 +458,38 @@ export const functionCategories = {
           { formula: 'OR(5 > 10, 3 < 5)', result: 'TRUE', description: 'One condition is true' },
           { formula: 'OR(A1 < 0, B1 > 100)', result: 'FALSE', description: 'Both conditions are false' }
         ]
+      },
+      SWITCH: {
+        name: 'SWITCH',
+        description: 'Compares an expression against multiple values and returns corresponding result',
+        syntax: 'SWITCH(expression, value1, result1, [value2, result2, ...], [default])',
+        parameters: [
+          { name: 'expression', description: 'The value to compare against', required: true },
+          { name: 'value1', description: 'First value to compare with expression', required: true },
+          { name: 'result1', description: 'Result to return if value1 matches', required: true },
+          { name: 'value2', description: 'Additional values to compare (optional)', required: false },
+          { name: 'result2', description: 'Additional results (optional)', required: false },
+          { name: 'default', description: 'Default value if no match found (optional)', required: false }
+        ],
+        examples: [
+          { formula: 'SWITCH(2, 1, "One", 2, "Two", 3, "Three")', result: '"Two"', description: 'Match found for value 2' },
+          { formula: 'SWITCH(4, 1, "One", 2, "Two", "Default")', result: '"Default"', description: 'No match, return default' }
+        ]
+      },
+      IFS: {
+        name: 'IFS',
+        description: 'Checks multiple conditions and returns result for first TRUE condition',
+        syntax: 'IFS(condition1, result1, [condition2, result2, ...])',
+        parameters: [
+          { name: 'condition1', description: 'First logical condition to test', required: true },
+          { name: 'result1', description: 'Result to return if condition1 is TRUE', required: true },
+          { name: 'condition2', description: 'Additional conditions to test (optional)', required: false },
+          { name: 'result2', description: 'Additional results (optional)', required: false }
+        ],
+        examples: [
+          { formula: 'IFS(FALSE, "First", TRUE, "Second")', result: '"Second"', description: 'First TRUE condition wins' },
+          { formula: 'IFS(0, "Zero", 1, "One")', result: '"One"', description: 'Number conditions: 0=FALSE, 1=TRUE' }
+        ]
       }
     }
   },
