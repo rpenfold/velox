@@ -109,10 +109,11 @@ std::string Value::toString() const {
         case ValueType::BOOLEAN:
             return std::get<bool>(data_) ? "TRUE" : "FALSE";
         case ValueType::DATE: {
-            // Simple date formatting - could be improved
+            // Format date and time - always include time for consistency
             auto time_t = std::chrono::system_clock::to_time_t(std::get<DateType>(data_));
+            auto local_tm = *std::localtime(&time_t);
             std::ostringstream oss;
-            oss << std::put_time(std::localtime(&time_t), "%Y-%m-%d");
+            oss << std::put_time(&local_tm, "%Y-%m-%d %H:%M:%S");
             return oss.str();
         }
         case ValueType::ERROR:

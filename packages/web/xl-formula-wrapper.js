@@ -60,6 +60,11 @@ class Value {
         return new Value(XLFormulaModule.Value.empty());
     }
 
+    static date(timestamp) {
+        if (!isInitialized()) throw new Error('XL Formula not initialized');
+        return new Value(XLFormulaModule.Value.fromDate(timestamp));
+    }
+
     isNumber() { return this._value.isNumber(); }
     isText() { return this._value.isText(); }
     isBoolean() { return this._value.isBoolean(); }
@@ -70,6 +75,14 @@ class Value {
     asNumber() { return this._value.asNumber(); }
     asText() { return this._value.asText(); }
     asBoolean() { return this._value.asBoolean(); }
+    asDate() { 
+        if (this.isDate()) {
+            // Convert C++ timestamp to JavaScript Date
+            const timestamp = this._value.asDate();
+            return new Date(timestamp * 1000); // Convert seconds to milliseconds
+        }
+        throw new Error('Value is not a date');
+    }
     getErrorText() { return this._value.getErrorText(); }
     getTypeName() { return this._value.getTypeName(); }
 
@@ -173,6 +186,18 @@ class FormulaEngine {
 
     evaluateBoolean(formula) {
         return this._engine.evaluateBoolean(normalizeFormula(formula));
+    }
+
+    evaluateDate(formula) {
+        const result = this._engine.evaluate(normalizeFormula(formula));
+        if (result.isSuccess()) {
+            const value = new Value(result.getValue());
+            if (value.isDate()) {
+                return value.asDate();
+            }
+            throw new Error('Formula result is not a date');
+        }
+        throw new Error(result.getErrorMessage());
     }
 }
 

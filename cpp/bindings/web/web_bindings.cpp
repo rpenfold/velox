@@ -3,6 +3,7 @@
 #include <xl-formula/xl-formula.h>
 #include <string>
 #include <vector>
+#include <chrono>
 
 using namespace emscripten;
 using namespace xl_formula;
@@ -46,6 +47,14 @@ public:
             return value_.asBoolean();
         }
         return false;
+    }
+
+    double asDate() const {
+        if (value_.isDate()) {
+            auto time_t = std::chrono::system_clock::to_time_t(value_.asDate());
+            return static_cast<double>(time_t);
+        }
+        return 0.0;
     }
 
     std::string getErrorText() const {
@@ -273,6 +282,7 @@ EMSCRIPTEN_BINDINGS(xl_formula) {
         .function("asNumber", &JSValue::asNumber)
         .function("asText", &JSValue::asText)
         .function("asBoolean", &JSValue::asBoolean)
+        .function("asDate", &JSValue::asDate)
         .function("getErrorText", &JSValue::getErrorText)
         .function("getTypeName", &JSValue::getTypeName);
 
