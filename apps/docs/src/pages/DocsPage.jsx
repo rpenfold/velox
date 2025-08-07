@@ -11,6 +11,7 @@ export function DocsPage({ category, function: functionName }) {
   const selectedCategory = category || 'all'
   const selectedFunction = functionName || null
   const [searchTerm, setSearchTerm] = useState('')
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
 
   // Redirect to default category if none specified and we're at base /docs
   useEffect(() => {
@@ -83,13 +84,53 @@ export function DocsPage({ category, function: functionName }) {
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <h1 className="text-2xl font-bold mb-6">Documentation</h1>
-      
+      {/* Mobile category button */}
+      <button className="btn btn-sm show-mobile" style={{ marginBottom: '1rem', width: '100%' }} onClick={() => setMobileSidebarOpen(true)}>
+        Browse Categories
+      </button>
+      {/* Mobile sidebar drawer */}
+      {mobileSidebarOpen && (
+        <>
+          <div className="sidebar-mobile-backdrop" onClick={() => setMobileSidebarOpen(false)}></div>
+          <div className="sidebar-mobile-drawer open">
+            <div style={{ padding: '1rem', borderBottom: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>Categories</span>
+              <button className="btn btn-sm" style={{ background: 'none', border: 'none', fontSize: '1.5rem' }} aria-label="Close menu" onClick={() => setMobileSidebarOpen(false)}>&times;</button>
+            </div>
+            <nav style={{ display: 'flex', flexDirection: 'column', padding: '1rem' }}>
+              {Object.entries(functionCategories).map(([key, cat]) => {
+                const categoryIcons = {
+                  all: '📚',
+                  math: '🔢',
+                  text: '📝',
+                  logical: '🔀',
+                  datetime: '📅',
+                  financial: '💰',
+                  engineering: '⚙️'
+                }
+                const icon = categoryIcons[key] || '📄'
+                return (
+                  <Link
+                    key={key}
+                    href={`${basePath}docs/${key}`}
+                    className={`btn btn-sm${selectedCategory === key ? ' btn-primary' : ''}`}
+                    style={{ marginBottom: '0.5rem', textAlign: 'left' }}
+                    onClick={() => setMobileSidebarOpen(false)}
+                  >
+                    <span style={{ marginRight: '0.75rem' }}>{icon}</span>
+                    {cat.name}
+                  </Link>
+                )
+              })}
+            </nav>
+          </div>
+        </>
+      )}
       <div style={{ display: 'flex', gap: '2rem' }}>
         {/* Categories Sidebar - Left Quarter */}
-        <div style={{ width: '25%', minWidth: '250px' }}>
+        <div className="hide-mobile" style={{ width: '25%', minWidth: '250px' }}>
           <div className="card">
             <h3 className="font-semibold mb-4">Categories</h3>
-            
             <div className="grid gap-2">
               {Object.entries(functionCategories).map(([key, cat]) => {
                 // Define icons for each category
@@ -103,7 +144,6 @@ export function DocsPage({ category, function: functionName }) {
                   engineering: '⚙️'
                 }
                 const icon = categoryIcons[key] || '📄'
-                
                 return (
                   <Link
                     key={key}
@@ -131,7 +171,6 @@ export function DocsPage({ category, function: functionName }) {
             </div>
           </div>
         </div>
-
         {/* Functions Grid - Right Three Quarters */}
         <div style={{ flex: 1 }}>
           <div className="card">
@@ -144,7 +183,6 @@ export function DocsPage({ category, function: functionName }) {
                 {searchTerm && ` matching "${searchTerm}"`}
               </div>
             </div>
-            
             {/* Search Bar */}
             <div className="mb-4">
               <input
@@ -163,11 +201,9 @@ export function DocsPage({ category, function: functionName }) {
                 }}
               />
             </div>
-            
             <p className="text-sm text-muted mb-4">
               {currentCategory?.description}
             </p>
-            
             {/* Responsive function grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {filteredFunctions.length > 0 ? filteredFunctions.map(([key, func]) => (

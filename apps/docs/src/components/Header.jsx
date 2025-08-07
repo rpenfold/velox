@@ -1,9 +1,11 @@
 import { Link } from 'preact-router/match'
+import { useState } from 'preact/hooks'
 
 export function Header() {
   // Get base path from environment variable, default to '/' for development
   const basePath = import.meta.env.VITE_BASE_PATH || '/'
-  
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <header style={{ 
       borderBottom: '1px solid var(--color-border)', 
@@ -14,12 +16,14 @@ export function Header() {
     }}>
       <div className="container">
         <nav className="flex items-center justify-between" style={{ height: '4rem' }}>
-          <div className="flex items-center">
+          <div className="flex items-center" style={{ flex: 1 }}>
             <Link href={basePath} className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
               XL Formula
             </Link>
-            
-            <div className="flex items-center">
+            <button className="show-mobile btn btn-sm" style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--color-text)', fontSize: '1.5rem', display: 'none' }} aria-label="Open menu" onClick={() => setMobileMenuOpen(true)}>
+              <span style={{ fontSize: '2rem', lineHeight: 1 }}>&#9776;</span>
+            </button>
+            <div className="flex items-center hide-mobile" style={{ marginLeft: '2rem' }}>
               <Link 
                 href={`${basePath}playground`} 
                 className="text-sm font-medium nav-link"
@@ -54,8 +58,7 @@ export function Header() {
               </Link>
             </div>
           </div>
-          
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 hide-mobile">
             <a 
               href="https://github.com/rpenfold/xl-formula" 
               target="_blank" 
@@ -75,6 +78,35 @@ export function Header() {
           </div>
         </nav>
       </div>
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <>
+          <div className="sidebar-mobile-backdrop" onClick={() => setMobileMenuOpen(false)}></div>
+          <div className="sidebar-mobile-drawer open">
+            <div style={{ padding: '1rem', borderBottom: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>XL Formula</span>
+              <button className="btn btn-sm" style={{ background: 'none', border: 'none', fontSize: '1.5rem' }} aria-label="Close menu" onClick={() => setMobileMenuOpen(false)}>&times;</button>
+            </div>
+            <nav style={{ display: 'flex', flexDirection: 'column', padding: '1rem' }}>
+              <Link href={basePath} className="btn btn-sm" style={{ marginBottom: '0.5rem' }} onClick={() => setMobileMenuOpen(false)}>
+                Home
+              </Link>
+              <Link href={`${basePath}playground`} className="btn btn-sm" onClick={() => setMobileMenuOpen(false)}>
+                Playground
+              </Link>
+              <Link href={`${basePath}docs`} className="btn btn-sm" onClick={() => setMobileMenuOpen(false)}>
+                Documentation
+              </Link>
+              <a href="https://github.com/rpenfold/xl-formula" target="_blank" rel="noopener noreferrer" className="btn btn-sm">
+                GitHub
+              </a>
+              <a href="https://www.npmjs.com/package/xl-formula-web" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-primary">
+                npm install
+              </a>
+            </nav>
+          </div>
+        </>
+      )}
     </header>
   )
 }
