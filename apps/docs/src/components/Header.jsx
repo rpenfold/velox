@@ -1,6 +1,9 @@
 import { Link } from 'preact-router/match'
 
 export function Header() {
+  // Get base path from environment variable, default to '/' for development
+  const basePath = import.meta.env.VITE_BASE_PATH || '/'
+  
   return (
     <header style={{ 
       borderBottom: '1px solid var(--color-border)', 
@@ -12,13 +15,13 @@ export function Header() {
       <div className="container">
         <nav className="flex items-center justify-between" style={{ height: '4rem' }}>
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
+            <Link href={basePath} className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
               XL Formula
             </Link>
             
             <div className="flex items-center">
               <Link 
-                href="/playground" 
+                href={`${basePath}playground`} 
                 className="text-sm font-medium nav-link"
                 style={{ 
                   textDecoration: 'none', 
@@ -34,7 +37,7 @@ export function Header() {
                 Playground
               </Link>
               <Link 
-                href="/docs" 
+                href={`${basePath}docs`} 
                 className="text-sm font-medium nav-link"
                 style={{ 
                   textDecoration: 'none', 
