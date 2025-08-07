@@ -23,16 +23,8 @@ Value if_function(const std::vector<Value>& args, const Context& context) {
     if (false_value.isError())
         return false_value;
 
-    // Convert condition to boolean
-    bool is_true = false;
-    if (condition.isBoolean()) {
-        is_true = condition.asBoolean();
-    } else if (condition.canConvertToNumber()) {
-        is_true = condition.toNumber() != 0.0;
-    } else if (condition.isText()) {
-        is_true = !condition.asText().empty();
-    }
-
+    // Use shared boolean conversion utility
+    bool is_true = ::xl_formula::conditional::toBooleanExcel(condition);
     return is_true ? true_value : false_value;
 }
 

@@ -12,16 +12,8 @@ Value iferror_function(const std::vector<Value>& args, const Context& context) {
         return validation;
     }
 
-    const auto& value = args[0];
-    const auto& value_if_error = args[1];
-
-    // If the first argument is an error, return the second argument
-    if (value.isError()) {
-        return value_if_error;
-    }
-
-    // Otherwise, return the first argument
-    return value;
+    // Use shared error conditional utility
+    return ::xl_formula::conditional::conditionalOnError(args[0], args[1], [](ErrorType) { return true; });
 }
 
 }  // namespace builtin

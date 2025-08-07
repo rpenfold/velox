@@ -4,8 +4,7 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
-// Forward declaration from sumif.cpp
-bool evaluateCriteriaCustom(const Value& value, const Value& criteria);
+// Use shared criteria evaluation utility
 
 Value averageif(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Suppress unused parameter warning
@@ -30,7 +29,7 @@ Value averageif(const std::vector<Value>& args, const Context& context) {
         int count = 0;
 
         // Simple implementation: check if single value meets criteria
-        if (evaluateCriteriaCustom(rangeArg, criteriaArg)) {
+        if (::xl_formula::conditional::evaluateCriteria(rangeArg, criteriaArg)) {
             auto numValue = utils::toNumberSafe(averageRangeArg, "AVERAGEIF");
             if (numValue.isError()) {
                 return numValue;

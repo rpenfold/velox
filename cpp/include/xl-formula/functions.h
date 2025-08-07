@@ -3,6 +3,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <vector>
+#include "conditional_utils.h"
 #include "evaluator.h"
 #include "types.h"
 
