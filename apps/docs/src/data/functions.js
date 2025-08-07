@@ -722,6 +722,70 @@ export const functionCategories = {
           { formula: 'VALUE("123")', result: '123', description: 'Convert text to number' },
           { formula: 'VALUE("$1,000.00")', result: '1000', description: 'Convert formatted text to number' }
         ]
+      },
+      CONCAT: {
+        name: 'CONCAT',
+        description: 'Joins text strings (alias for CONCATENATE)',
+        syntax: 'CONCAT(text1, [text2], ...)',
+        parameters: [
+          { name: 'text1', description: 'The first text string', required: true },
+          { name: 'text2', description: 'Additional text strings', required: false }
+        ],
+        examples: [
+          { formula: 'CONCAT("Hello", " ", "World")', result: '"Hello World"', description: 'Join three strings' },
+          { formula: 'CONCAT(A1, B1)', result: '"JohnDoe"', description: 'Join cell values directly' }
+        ]
+      },
+      T: {
+        name: 'T',
+        description: 'Returns text if the argument is text, otherwise returns empty string',
+        syntax: 'T(value)',
+        parameters: [
+          { name: 'value', description: 'The value to test', required: true }
+        ],
+        examples: [
+          { formula: 'T("Hello")', result: '"Hello"', description: 'Text input returns text' },
+          { formula: 'T(123)', result: '""', description: 'Number input returns empty string' }
+        ]
+      },
+      TEXTJOIN: {
+        name: 'TEXTJOIN',
+        description: 'Joins text values with a delimiter',
+        syntax: 'TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...)',
+        parameters: [
+          { name: 'delimiter', description: 'Text to use as separator', required: true },
+          { name: 'ignore_empty', description: 'TRUE to ignore empty values, FALSE to include them', required: true },
+          { name: 'text1', description: 'First text value to join', required: true },
+          { name: 'text2', description: 'Additional text values to join', required: false }
+        ],
+        examples: [
+          { formula: 'TEXTJOIN(",", TRUE, "A", "", "B", "C")', result: '"A,B,C"', description: 'Join with comma, ignore empty' },
+          { formula: 'TEXTJOIN(" ", FALSE, "Hello", "", "World")', result: '"Hello  World"', description: 'Join with space, include empty' }
+        ]
+      },
+      UNICHAR: {
+        name: 'UNICHAR',
+        description: 'Returns the Unicode character for a given code point',
+        syntax: 'UNICHAR(number)',
+        parameters: [
+          { name: 'number', description: 'Unicode code point (1 to 1114111)', required: true }
+        ],
+        examples: [
+          { formula: 'UNICHAR(65)', result: '"A"', description: 'ASCII code 65 is "A"' },
+          { formula: 'UNICHAR(128512)', result: '"😀"', description: 'Unicode emoji character' }
+        ]
+      },
+      UNICODE: {
+        name: 'UNICODE',
+        description: 'Returns the Unicode code point of the first character in text',
+        syntax: 'UNICODE(text)',
+        parameters: [
+          { name: 'text', description: 'The text containing the character', required: true }
+        ],
+        examples: [
+          { formula: 'UNICODE("A")', result: '65', description: 'Unicode code for "A"' },
+          { formula: 'UNICODE("😀")', result: '128512', description: 'Unicode code for emoji' }
+        ]
       }
     }
   },

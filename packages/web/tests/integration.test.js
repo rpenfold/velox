@@ -223,6 +223,48 @@ describe('XL Formula Integration Tests', () => {
       expect(result2.getValue().isBoolean()).toBe(true);
       expect(result2.getValue().asBoolean()).toBe(false);
     });
+
+    test('CONCAT() should work as alias for CONCATENATE', () => {
+      const result = engine.evaluate('CONCAT("Hello", " ", "World")');
+      expect(result.isSuccess()).toBe(true);
+      expect(result.getValue().isText()).toBe(true);
+      expect(result.getValue().asText()).toBe('Hello World');
+    });
+
+    test('T() should coerce values to text', () => {
+      // Text input should return text unchanged
+      const result1 = engine.evaluate('T("Hello")');
+      expect(result1.isSuccess()).toBe(true);
+      expect(result1.getValue().isText()).toBe(true);
+      expect(result1.getValue().asText()).toBe('Hello');
+      
+      // Number input should return empty string
+      const result2 = engine.evaluate('T(123)');
+      expect(result2.isSuccess()).toBe(true);
+      expect(result2.getValue().isText()).toBe(true);
+      expect(result2.getValue().asText()).toBe('');
+    });
+
+    test('TEXTJOIN() should join text with delimiter', () => {
+      const result = engine.evaluate('TEXTJOIN(",", TRUE, "A", "", "B", "C")');
+      expect(result.isSuccess()).toBe(true);
+      expect(result.getValue().isText()).toBe(true);
+      expect(result.getValue().asText()).toBe('A,B,C'); // Empty string ignored
+    });
+
+    test('UNICHAR() should convert code to Unicode character', () => {
+      const result = engine.evaluate('UNICHAR(65)');
+      expect(result.isSuccess()).toBe(true);
+      expect(result.getValue().isText()).toBe(true);
+      expect(result.getValue().asText()).toBe('A');
+    });
+
+    test('UNICODE() should convert character to code', () => {
+      const result = engine.evaluate('UNICODE("A")');
+      expect(result.isSuccess()).toBe(true);
+      expect(result.getValue().isNumber()).toBe(true);
+      expect(result.getValue().asNumber()).toBe(65);
+    });
   });
 
   describe('Logical Functions', () => {

@@ -97,6 +97,8 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
         // Text functions
         case hash_function_name("CONCATENATE"):
             return builtin::concatenate(args, context);
+        case hash_function_name("CONCAT"):
+            return builtin::concatenate(args, context);
         case hash_function_name("TRIM"):
             return builtin::trim(args, context);
         case hash_function_name("LEN"):
@@ -129,6 +131,14 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::text(args, context);
         case hash_function_name("VALUE"):
             return builtin::value(args, context);
+        case hash_function_name("T"):
+            return builtin::t_function(args, context);
+        case hash_function_name("TEXTJOIN"):
+            return builtin::textjoin(args, context);
+        case hash_function_name("UNICHAR"):
+            return builtin::unichar(args, context);
+        case hash_function_name("UNICODE"):
+            return builtin::unicode_function(args, context);
 
         // Date & Time functions
         case hash_function_name("NOW"):
@@ -270,9 +280,9 @@ std::vector<std::string> get_builtin_function_names() {
             "RADIANS", "EXP", "LN", "LOG", "LOG10",
 
             // Text functions
-            "CONCATENATE", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",
+            "CONCATENATE", "CONCAT", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",
             "CHAR", "CODE", "CLEAN", "EXACT",
-            "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE",
+            "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE", "T", "TEXTJOIN", "UNICHAR", "UNICODE",
 
             // Date & Time functions
             "NOW", "TODAY", "DATE", "TIME", "YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND",

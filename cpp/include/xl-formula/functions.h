@@ -221,6 +221,38 @@ Value proper(const std::vector<Value>& args, const Context& context);
 Value rpt(const std::vector<Value>& args, const Context& context);
 
 /**
+ * @brief T function - converts value to text, returns empty string for non-text values
+ * @param args Function arguments (value)
+ * @param context Evaluation context (unused for T)
+ * @return Text representation if input is text, empty string otherwise
+ */
+Value t_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TEXTJOIN function - joins text values with a delimiter
+ * @param args Function arguments (delimiter, ignore_empty, text1, text2, ...)
+ * @param context Evaluation context (unused for TEXTJOIN)
+ * @return Joined text string
+ */
+Value textjoin(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief UNICHAR function - returns Unicode character for given code point
+ * @param args Function arguments (code_point)
+ * @param context Evaluation context (unused for UNICHAR)
+ * @return Unicode character corresponding to the code point
+ */
+Value unichar(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief UNICODE function - returns Unicode code point for first character
+ * @param args Function arguments (text)
+ * @param context Evaluation context (unused for UNICODE)
+ * @return Unicode code point of the first character
+ */
+Value unicode_function(const std::vector<Value>& args, const Context& context);
+
+/**
  * @brief ABS function - returns absolute value
  * @param args Function arguments (expects 1 numeric argument)
  * @param context Evaluation context (unused for ABS)

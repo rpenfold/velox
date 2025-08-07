@@ -836,11 +836,11 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 - [x] CODE
 - [x] CLEAN
 - [x] EXACT
-- [ ] TEXTJOIN
-- [ ] CONCAT (Excel newer alias for CONCATENATE)
-- [ ] T (coerce to text)
+- [x] TEXTJOIN
+- [x] CONCAT (Excel newer alias for CONCATENATE)
+- [x] T (coerce to text)
+- [x] UNICHAR / UNICODE
 - [ ] TEXTAFTER / TEXTBEFORE / TEXTSPLIT
-- [ ] UNICHAR / UNICODE
 
 ### Logical
 - [x] TRUE / FALSE / IF / AND / OR / NOT / XOR / IFERROR / IFNA / ISNUMBER / ISTEXT / ISBLANK / ISERROR
