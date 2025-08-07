@@ -3,6 +3,9 @@ import { Link, route } from 'preact-router'
 import { functionCategories, getAllFunctions } from '../data/functions.js'
 import { FunctionDetail } from '../components/FunctionDetail.jsx'
 
+// Get base path from environment variable, default to '/' for development
+const basePath = import.meta.env.VITE_BASE_PATH || '/'
+
 export function DocsPage({ category, function: functionName }) {
   // Use URL parameters as the single source of truth
   const selectedCategory = category || 'all'
@@ -11,8 +14,8 @@ export function DocsPage({ category, function: functionName }) {
 
   // Redirect to default category if none specified and we're at base /docs
   useEffect(() => {
-    if (!category && !functionName && window.location.pathname === '/docs') {
-      route('/docs/all', true)
+    if (!category && !functionName && window.location.pathname === `${basePath}docs`) {
+      route(`${basePath}docs/all`, true)
     }
   }, [category, functionName])
 
@@ -51,14 +54,14 @@ export function DocsPage({ category, function: functionName }) {
         <div className="mb-6">
           <nav className="flex items-center gap-2 text-sm text-muted">
             <Link 
-              href="/docs" 
+              href={`${basePath}docs`} 
               style={{ textDecoration: 'none', color: 'var(--color-primary)' }}
             >
               Documentation
             </Link>
             <span>→</span>
             <Link 
-              href={`/docs/${selectedCategory}`}
+              href={`${basePath}docs/${selectedCategory}`}
               style={{ textDecoration: 'none', color: 'var(--color-primary)' }}
             >
               {currentCategory?.name}
@@ -104,7 +107,7 @@ export function DocsPage({ category, function: functionName }) {
                 return (
                   <Link
                     key={key}
-                    href={`/docs/${key}`}
+                    href={`${basePath}docs/${key}`}
                     className={`p-3 rounded text-sm ${selectedCategory === key ? 'bg-primary text-white' : 'hover:bg-secondary'}`}
                     style={{ 
                       textDecoration: 'none',
@@ -170,7 +173,7 @@ export function DocsPage({ category, function: functionName }) {
               {filteredFunctions.length > 0 ? filteredFunctions.map(([key, func]) => (
                 <Link
                   key={key}
-                  href={`/docs/${selectedCategory}/${key.toLowerCase()}`}
+                  href={`${basePath}docs/${selectedCategory}/${key.toLowerCase()}`}
                   className="p-3 rounded border hover:border-primary"
                   style={{ 
                     textDecoration: 'none',

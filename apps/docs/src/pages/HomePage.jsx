@@ -1,5 +1,8 @@
 import { Link } from 'preact-router'
 
+// Get base path from environment variable, default to '/' for development
+const basePath = import.meta.env.VITE_BASE_PATH || '/'
+
 export function HomePage() {
   return (
     <div>
@@ -17,7 +20,7 @@ export function HomePage() {
             High-performance Excel-like formula parser and evaluator for web applications
           </p>
           <div className="flex gap-4" style={{ justifyContent: 'center' }}>
-            <Link href="/playground" className="btn btn-primary" style={{ 
+            <Link href={`${basePath}playground`} className="btn btn-primary" style={{ 
               background: 'white', 
               color: '#4f46e5',
               padding: '1rem 2rem',
@@ -26,7 +29,7 @@ export function HomePage() {
             }}>
               Try Playground
             </Link>
-            <Link href="/docs" className="btn" style={{ 
+            <Link href={`${basePath}docs`} className="btn" style={{ 
               background: 'rgba(255,255,255,0.1)', 
               border: '1px solid rgba(255,255,255,0.3)',
               color: 'white',
