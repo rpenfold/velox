@@ -24,6 +24,9 @@ _deps/
 # Debug files
 *.dSYM/
 
+# Node modules
+node_modules/
+
 # IDE files
 .vscode/
 .idea/

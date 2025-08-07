@@ -1,0 +1,30 @@
+{
+  "name": "xl-formula-docs",
+  "version": "1.0.0",
+  "description": "Documentation and interactive examples for XL Formula",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "preact": "^10.19.3",
+    "preact-router": "^4.1.2",
+    "hot-formula-parser": "^4.0.0",
+    "xl-formula-web": "*"
+  }, 
+  "devDependencies": {
+    "@preact/preset-vite": "^2.5.1",
+    "vite": "^5.0.10"
+  },
+  "keywords": [
+    "xl-formula",
+    "documentation",
+    "examples",
+    "demo"
+  ],
+  "author": "XL Formula Team",
+  "license": "MIT"
+}

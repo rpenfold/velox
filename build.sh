@@ -195,6 +195,16 @@ if [[ "$BUILD_WEB" == "ON" ]]; then
         exit 1
     fi
     print_status "Using Emscripten for web build..."
+    # Disable tests and examples for web builds to avoid Node.js compatibility issues
+    BUILD_TESTS=OFF
+    BUILD_EXAMPLES=OFF
+    CMAKE_ARGS=(
+        -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
+        -DBUILD_TESTS="$BUILD_TESTS"
+        -DBUILD_EXAMPLES="$BUILD_EXAMPLES"
+        -DBUILD_WEB_BINDINGS="$BUILD_WEB"
+        -DBUILD_RN_BINDINGS="$BUILD_RN"
+    )
     emcmake cmake "${CMAKE_ARGS[@]}" "$SCRIPT_DIR"
 else
     cmake "${CMAKE_ARGS[@]}" "$SCRIPT_DIR"
