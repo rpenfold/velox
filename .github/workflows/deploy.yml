@@ -29,10 +29,11 @@ jobs:
         chmod +x build.sh
         ./build.sh --web
         
-    - name: Install web dependencies
+    - name: Install web dependencies (with cleanup)
       run: |
         cd apps/docs
-        npm ci
+        rm -rf node_modules package-lock.json
+        npm install
         
     - name: Build the web app
       run: |
