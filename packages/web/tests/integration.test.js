@@ -404,4 +404,106 @@ describe('XL Formula Integration Tests', () => {
       expect(value2.asText()).toBe('One');
     });
   });
+
+  describe('Engineering Functions', () => {
+    test('DEC2OCT() should convert decimal to octal correctly', () => {
+      const result = engine.evaluate('DEC2OCT(8)');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isText()).toBe(true);
+      expect(value.asText()).toBe('10');
+    });
+
+    test('BIN2OCT() should convert binary to octal correctly', () => {
+      const result = engine.evaluate('BIN2OCT("1000")');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isText()).toBe(true);
+      expect(value.asText()).toBe('10');
+    });
+
+    test('OCT2BIN() should convert octal to binary correctly', () => {
+      const result = engine.evaluate('OCT2BIN("10")');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isText()).toBe(true);
+      expect(value.asText()).toBe('1000');
+    });
+
+    test('HEX2OCT() should convert hexadecimal to octal correctly', () => {
+      const result = engine.evaluate('HEX2OCT("A")');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isText()).toBe(true);
+      expect(value.asText()).toBe('12');
+    });
+
+    test('OCT2HEX() should convert octal to hexadecimal correctly', () => {
+      const result = engine.evaluate('OCT2HEX("12")');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isText()).toBe(true);
+      expect(value.asText()).toBe('A');
+    });
+
+    test('COMPLEX() should create complex numbers correctly', () => {
+      const result1 = engine.evaluate('COMPLEX(3, 4)');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isText()).toBe(true);
+      expect(value1.asText()).toBe('3+4i');
+
+      const result2 = engine.evaluate('COMPLEX(5, -2)');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isText()).toBe(true);
+      expect(value2.asText()).toBe('5-2i');
+
+      const result3 = engine.evaluate('COMPLEX(0, 1)');
+      expect(result3.isSuccess()).toBe(true);
+      const value3 = result3.getValue();
+      expect(value3.isText()).toBe(true);
+      expect(value3.asText()).toBe('i');
+    });
+
+    test('IMREAL() should extract real part correctly', () => {
+      const result1 = engine.evaluate('IMREAL("3+4i")');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isNumber()).toBe(true);
+      expect(value1.asNumber()).toBe(3);
+
+      const result2 = engine.evaluate('IMREAL("7")');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isNumber()).toBe(true);
+      expect(value2.asNumber()).toBe(7);
+
+      const result3 = engine.evaluate('IMREAL("3i")');
+      expect(result3.isSuccess()).toBe(true);
+      const value3 = result3.getValue();
+      expect(value3.isNumber()).toBe(true);
+      expect(value3.asNumber()).toBe(0);
+    });
+
+    test('IMAGINARY() should extract imaginary part correctly', () => {
+      const result1 = engine.evaluate('IMAGINARY("3+4i")');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isNumber()).toBe(true);
+      expect(value1.asNumber()).toBe(4);
+
+      const result2 = engine.evaluate('IMAGINARY("7")');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isNumber()).toBe(true);
+      expect(value2.asNumber()).toBe(0);
+
+      const result3 = engine.evaluate('IMAGINARY("3i")');
+      expect(result3.isSuccess()).toBe(true);
+      const value3 = result3.getValue();
+      expect(value3.isNumber()).toBe(true);
+      expect(value3.asNumber()).toBe(3);
+    });
+  });
 });

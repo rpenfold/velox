@@ -1144,6 +1144,108 @@ export const functionCategories = {
           { formula: 'CONVERT(32, "F", "C")', result: '0', description: 'Fahrenheit to Celsius' },
           { formula: 'CONVERT(1, "m", "ft")', result: '3.28084', description: 'Meters to feet' }
         ]
+      },
+      DEC2OCT: {
+        name: 'DEC2OCT',
+        description: 'Converts a decimal number to octal',
+        syntax: 'DEC2OCT(number, [places])',
+        parameters: [
+          { name: 'number', description: 'The decimal number to convert', required: true },
+          { name: 'places', description: 'Number of characters to use (for padding)', required: false }
+        ],
+        examples: [
+          { formula: 'DEC2OCT(8)', result: '"10"', description: '8 decimal = 10 octal' },
+          { formula: 'DEC2OCT(64)', result: '"100"', description: '64 decimal = 100 octal' }
+        ]
+      },
+      BIN2OCT: {
+        name: 'BIN2OCT',
+        description: 'Converts a binary number to octal',
+        syntax: 'BIN2OCT(number)',
+        parameters: [
+          { name: 'number', description: 'The binary number to convert', required: true }
+        ],
+        examples: [
+          { formula: 'BIN2OCT("1000")', result: '"10"', description: '1000 binary = 10 octal' },
+          { formula: 'BIN2OCT("1010")', result: '"12"', description: '1010 binary = 12 octal' }
+        ]
+      },
+      OCT2BIN: {
+        name: 'OCT2BIN',
+        description: 'Converts an octal number to binary',
+        syntax: 'OCT2BIN(number)',
+        parameters: [
+          { name: 'number', description: 'The octal number to convert', required: true }
+        ],
+        examples: [
+          { formula: 'OCT2BIN("10")', result: '"1000"', description: '10 octal = 1000 binary' },
+          { formula: 'OCT2BIN("12")', result: '"1010"', description: '12 octal = 1010 binary' }
+        ]
+      },
+      HEX2OCT: {
+        name: 'HEX2OCT',
+        description: 'Converts a hexadecimal number to octal',
+        syntax: 'HEX2OCT(number)',
+        parameters: [
+          { name: 'number', description: 'The hexadecimal number to convert', required: true }
+        ],
+        examples: [
+          { formula: 'HEX2OCT("A")', result: '"12"', description: 'A hex = 12 octal' },
+          { formula: 'HEX2OCT("FF")', result: '"377"', description: 'FF hex = 377 octal' }
+        ]
+      },
+      OCT2HEX: {
+        name: 'OCT2HEX',
+        description: 'Converts an octal number to hexadecimal',
+        syntax: 'OCT2HEX(number)',
+        parameters: [
+          { name: 'number', description: 'The octal number to convert', required: true }
+        ],
+        examples: [
+          { formula: 'OCT2HEX("12")', result: '"A"', description: '12 octal = A hex' },
+          { formula: 'OCT2HEX("377")', result: '"FF"', description: '377 octal = FF hex' }
+        ]
+      },
+      COMPLEX: {
+        name: 'COMPLEX',
+        description: 'Creates a complex number from real and imaginary coefficients',
+        syntax: 'COMPLEX(real_num, i_num, [suffix])',
+        parameters: [
+          { name: 'real_num', description: 'The real coefficient of the complex number', required: true },
+          { name: 'i_num', description: 'The imaginary coefficient of the complex number', required: true },
+          { name: 'suffix', description: 'The suffix for the imaginary component ("i" or "j")', required: false }
+        ],
+        examples: [
+          { formula: 'COMPLEX(3, 4)', result: '"3+4i"', description: 'Create complex number 3+4i' },
+          { formula: 'COMPLEX(0, 1)', result: '"i"', description: 'Pure imaginary unit' },
+          { formula: 'COMPLEX(5, -2, "j")', result: '"5-2j"', description: 'Complex with j suffix' }
+        ]
+      },
+      IMREAL: {
+        name: 'IMREAL',
+        description: 'Returns the real coefficient of a complex number',
+        syntax: 'IMREAL(complex_number)',
+        parameters: [
+          { name: 'complex_number', description: 'The complex number to extract real part from', required: true }
+        ],
+        examples: [
+          { formula: 'IMREAL("3+4i")', result: '3', description: 'Real part of 3+4i is 3' },
+          { formula: 'IMREAL("7")', result: '7', description: 'Real number returns itself' },
+          { formula: 'IMREAL("3i")', result: '0', description: 'Pure imaginary has real part 0' }
+        ]
+      },
+      IMAGINARY: {
+        name: 'IMAGINARY',
+        description: 'Returns the imaginary coefficient of a complex number',
+        syntax: 'IMAGINARY(complex_number)',
+        parameters: [
+          { name: 'complex_number', description: 'The complex number to extract imaginary part from', required: true }
+        ],
+        examples: [
+          { formula: 'IMAGINARY("3+4i")', result: '4', description: 'Imaginary part of 3+4i is 4' },
+          { formula: 'IMAGINARY("7")', result: '0', description: 'Real number has imaginary part 0' },
+          { formula: 'IMAGINARY("3i")', result: '3', description: 'Pure imaginary coefficient is 3' }
+        ]
       }
     }
   },

@@ -840,6 +840,70 @@ Value bitor_function(const std::vector<Value>& args, const Context& context);
  */
 Value bitxor_function(const std::vector<Value>& args, const Context& context);
 
+/**
+ * @brief DEC2OCT function - converts decimal to octal
+ * @param args Function arguments (number, [places])
+ * @param context Evaluation context (unused for DEC2OCT)
+ * @return Octal representation as text
+ */
+Value dec2oct(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief BIN2OCT function - converts binary to octal
+ * @param args Function arguments (binary_string)
+ * @param context Evaluation context (unused for BIN2OCT)
+ * @return Octal representation as text
+ */
+Value bin2oct(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief OCT2BIN function - converts octal to binary
+ * @param args Function arguments (octal_string)
+ * @param context Evaluation context (unused for OCT2BIN)
+ * @return Binary representation as text
+ */
+Value oct2bin(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief HEX2OCT function - converts hexadecimal to octal
+ * @param args Function arguments (hex_string)
+ * @param context Evaluation context (unused for HEX2OCT)
+ * @return Octal representation as text
+ */
+Value hex2oct(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief OCT2HEX function - converts octal to hexadecimal
+ * @param args Function arguments (octal_string)
+ * @param context Evaluation context (unused for OCT2HEX)
+ * @return Hexadecimal representation as text
+ */
+Value oct2hex(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief COMPLEX function - creates a complex number from real and imaginary parts
+ * @param args Function arguments (real_num, i_num, [suffix])
+ * @param context Evaluation context (unused for COMPLEX)
+ * @return Complex number as text string
+ */
+Value complex_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IMREAL function - returns the real coefficient of a complex number
+ * @param args Function arguments (complex_number)
+ * @param context Evaluation context (unused for IMREAL)
+ * @return Real part of the complex number
+ */
+Value imreal(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief IMAGINARY function - returns the imaginary coefficient of a complex number
+ * @param args Function arguments (complex_number)
+ * @param context Evaluation context (unused for IMAGINARY)
+ * @return Imaginary part of the complex number
+ */
+Value imaginary(const std::vector<Value>& args, const Context& context);
+
 // Financial Functions
 
 /**
