@@ -1,4 +1,3 @@
-#include <regex>
 #include <string>
 #include "xl-formula/functions.h"
 
@@ -109,30 +108,13 @@ bool evaluateCriteria(const Value& value, const Value& criteria) {
             }
         }
 
-        // Handle wildcards (* and ?)
+        // Handle wildcards (* and ?) using simpleWildcardMatch to avoid regex bloat
         if (criteriaStr.find('*') != std::string::npos ||
             criteriaStr.find('?') != std::string::npos) {
             if (!value.isText()) {
                 return false;
             }
-
-            // Convert Excel wildcards to regex
-            std::string regexStr = criteriaStr;
-            // Escape regex special characters except * and ?
-            std::regex specialChars(R"([\.\[\]\(\)\{\}\+\^\$\|\\])");
-            regexStr = std::regex_replace(regexStr, specialChars, R"(\$&)");
-            // Convert wildcards
-            std::regex starWildcard(R"(\*)");
-            regexStr = std::regex_replace(regexStr, starWildcard, ".*");
-            std::regex questionWildcard(R"(\?)");
-            regexStr = std::regex_replace(regexStr, questionWildcard, ".");
-
-            try {
-                std::regex pattern(regexStr, std::regex_constants::icase);
-                return std::regex_match(value.asText(), pattern);
-            } catch (...) {
-                return false;
-            }
+            return simpleWildcardMatch(value.asText(), criteriaStr);
         }
 
         // Direct text comparison
