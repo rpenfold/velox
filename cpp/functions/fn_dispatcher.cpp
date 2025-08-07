@@ -113,6 +113,8 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::lower(args, context);
         case hash_function_name("PROPER"):
             return builtin::proper(args, context);
+        case hash_function_name("RPT"):
+            return builtin::rpt(args, context);
         case hash_function_name("FIND"):
             return builtin::find(args, context);
         case hash_function_name("SEARCH"):
@@ -256,7 +258,7 @@ std::vector<std::string> get_builtin_function_names() {
             "RADIANS", "EXP", "LN", "LOG", "LOG10",
 
             // Text functions
-            "CONCATENATE", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER",
+            "CONCATENATE", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",
             "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE",
 
             // Date & Time functions

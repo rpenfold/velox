@@ -209,6 +209,14 @@ Value lower(const std::vector<Value>& args, const Context& context);
 Value proper(const std::vector<Value>& args, const Context& context);
 
 /**
+ * @brief RPT function - repeats text a specified number of times
+ * @param args Function arguments (text, repeat_count)
+ * @param context Evaluation context (unused for RPT)
+ * @return Text repeated the specified number of times
+ */
+Value rpt(const std::vector<Value>& args, const Context& context);
+
+/**
  * @brief ABS function - returns absolute value
  * @param args Function arguments (expects 1 numeric argument)
  * @param context Evaluation context (unused for ABS)
@@ -1191,6 +1199,44 @@ Value oneOrTwoArgTextFunction(const std::vector<Value>& args, const Context& con
     }
 
     return Value(operation(text, num_chars));
+}
+
+/**
+ * @brief Template for functions that take exactly 2 arguments: text + number
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param operation The operation to perform (takes text and number)
+ * @return Result of the operation
+ */
+template <typename Func>
+Value twoArgTextNumberFunction(const std::vector<Value>& args, const Context& context,
+                              const std::string& name, Func operation) {
+    (void)context;  // Unused parameter
+
+    // Validate argument count (exactly 2 arguments)
+    auto error = utils::validateArgCount(args, 2, name);
+    if (!error.isEmpty()) {
+        return error;
+    }
+
+    // Check for errors first
+    auto errorCheck = utils::checkForErrors(args);
+    if (!errorCheck.isEmpty()) {
+        return errorCheck;
+    }
+
+    // Convert first argument to text
+    std::string text = args[0].toString();
+
+    // Validate that second argument is a number
+    if (!args[1].isNumber()) {
+        return Value::error(ErrorType::VALUE_ERROR);
+    }
+
+    double number = args[1].asNumber();
+
+    return Value(operation(text, number));
 }
 
 /**

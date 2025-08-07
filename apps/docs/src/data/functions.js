@@ -554,6 +554,19 @@ export const functionCategories = {
           { formula: 'LOWER(A1)', result: '"world"', description: 'Convert cell content to lowercase' }
         ]
       },
+      RPT: {
+        name: 'RPT',
+        description: 'Repeats text a specified number of times',
+        syntax: 'RPT(text, repeat_count)',
+        parameters: [
+          { name: 'text', description: 'The text string to repeat', required: true },
+          { name: 'repeat_count', description: 'The number of times to repeat the text', required: true }
+        ],
+        examples: [
+          { formula: 'RPT("abc", 3)', result: '"abcabcabc"', description: 'Repeat text three times' },
+          { formula: 'RPT("x", 5)', result: '"xxxxx"', description: 'Repeat single character five times' }
+        ]
+      },
       PROPER: {
         name: 'PROPER',
         description: 'Capitalizes the first letter of each word in text',
