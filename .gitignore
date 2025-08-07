@@ -1,6 +1,7 @@
 # Build directories
 build/
 cmake-build-*/
+dist/
 
 # CMake generated files
 CMakeCache.txt
@@ -47,3 +48,7 @@ coverage.html
 # Temporary files
 *.tmp
 *.log
+
+# Web build artifacts
+apps/docs/dist/
+apps/docs/.vite/

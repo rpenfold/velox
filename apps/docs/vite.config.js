@@ -4,6 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [preact()],
+  base: process.env.NODE_ENV === 'production' ? '/xl-formula/' : '/',
   resolve: {
     alias: {
       'xl-formula-web': resolve(__dirname, '../../node_modules/xl-formula-web/xl-formula-wrapper.js')
