@@ -115,6 +115,8 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::proper(args, context);
         case hash_function_name("RPT"):
             return builtin::rpt(args, context);
+        case hash_function_name("REPT"):
+            return builtin::rpt(args, context);
         case hash_function_name("FIND"):
             return builtin::find(args, context);
         case hash_function_name("SEARCH"):
@@ -240,6 +242,16 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
         case hash_function_name("AVERAGEIFS"):
             return builtin::averageifs(args, context);
 
+        // Text additions
+        case hash_function_name("CHAR"):
+            return builtin::char_function(args, context);
+        case hash_function_name("CODE"):
+            return builtin::code_function(args, context);
+        case hash_function_name("CLEAN"):
+            return builtin::clean(args, context);
+        case hash_function_name("EXACT"):
+            return builtin::exact(args, context);
+
         default:
             // Not a built-in function - return empty Value to indicate fallback needed
             return Value();
@@ -259,6 +271,7 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Text functions
             "CONCATENATE", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",
+            "CHAR", "CODE", "CLEAN", "EXACT",
             "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE",
 
             // Date & Time functions

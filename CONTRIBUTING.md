@@ -826,6 +826,74 @@ Before submitting your function implementation:
 3. **Check namespace** - Use `builtin::` namespace for function calls in tests
 4. **Review test examples** - See the RPT test example above
 
+## TODO: Functions Parity with Formula.js
+
+This section tracks Excel/Formula.js functions that we intend to implement. Items are grouped by category and checked when implemented. Contributions welcome – please reference this list in PRs.
+
+### Text
+- [x] LEFT / RIGHT / MID / LEN / TRIM / UPPER / LOWER / PROPER / CONCATENATE / FIND / SEARCH / REPLACE / SUBSTITUTE / TEXT / VALUE / RPT (alias REPT)
+- [x] CHAR
+- [x] CODE
+- [x] CLEAN
+- [x] EXACT
+- [ ] TEXTJOIN
+- [ ] CONCAT (Excel newer alias for CONCATENATE)
+- [ ] T (coerce to text)
+- [ ] TEXTAFTER / TEXTBEFORE / TEXTSPLIT
+- [ ] UNICHAR / UNICODE
+
+### Logical
+- [x] TRUE / FALSE / IF / AND / OR / NOT / XOR / IFERROR / IFNA / ISNUMBER / ISTEXT / ISBLANK / ISERROR
+- [ ] SWITCH
+- [ ] IFS
+
+### Math & Trigonometry
+- [x] SUM / MAX / MIN / AVERAGE / COUNT / COUNTA / ABS / ROUND / SQRT / POWER / MOD / PI / SIGN / INT / TRUNC / CEILING / FLOOR / RAND / RANDBETWEEN / COUNTIF / MEDIAN / MODE / STDEV / VAR / GCD / LCM / FACT / COMBIN / PERMUT / SUMPRODUCT / SUMIF / SUMIFS / AVERAGEIF / AVERAGEIFS / SIN / COS / TAN / ASIN / ACOS / ATAN / ATAN2 / SINH / COSH / TANH / DEGREES / RADIANS / EXP / LN / LOG / LOG10
+- [ ] SUMSQ
+- [ ] SUMX2MY2 / SUMX2PY2 / SUMXMY2
+- [ ] QUOTIENT
+- [ ] EVEN / ODD
+- [ ] MROUND / ROUNDUP / ROUNDDOWN
+- [ ] ROMAN / ARABIC (ARABIC done if needed)
+- [ ] SERIESSUM
+
+### Date & Time
+- [x] NOW / TODAY / DATE / TIME / YEAR / MONTH / DAY / HOUR / MINUTE / SECOND / WEEKDAY / DATEDIF
+- [ ] EDATE / EOMONTH
+- [ ] DATEVALUE / TIMEVALUE
+- [ ] WEEKNUM / WEEKNUM.ISO / ISOWEEKNUM
+- [ ] WORKDAY / WORKDAY.INTL / NETWORKDAYS / NETWORKDAYS.INTL
+
+### Lookup & Reference
+- [ ] ADDRESS
+- [ ] AREAS
+- [ ] CHOOSECOLS / CHOOSEROWS
+- [ ] COLUMN / COLUMNS (COLUMNS supported; verify COLUMN variants)
+- [ ] HLOOKUP / VLOOKUP / LOOKUP / XLOOKUP
+- [ ] INDEX / MATCH / XMATCH
+- [ ] OFFSET / INDIRECT
+
+### Financial
+- [x] PV / FV / PMT / RATE / NPER / NPV / IRR / MIRR
+- [ ] ACCRINT / ACCRINTM
+- [ ] CUMIPMT / CUMPRINC
+- [ ] DB / DDB / SLN / SYD / VDB (depreciation)
+- [ ] PRICE / YIELD family
+
+### Engineering
+- [x] CONVERT / HEX2DEC / DEC2HEX / BIN2DEC / DEC2BIN / BITAND / BITOR / BITXOR
+- [ ] BIN2OCT / OCT2BIN / HEX2OCT / OCT2HEX / DEC2OCT
+- [ ] COMPLEX / IMABS / IMARGUMENT / IMREAL / IMAGINARY / IMSUM / IMDIV / IMPRODUCT / IMSUB / IMPOWER
+
+### Statistical
+- [ ] AVERAGEA
+- [ ] AVEDEV / STDEVA / VARA
+- [ ] CHISQ.* / BETA.* / BINOM.* (subset already covered; expand as needed)
+- [ ] CORREL / COVAR / COVARIANCE.* / PEARSON / RSQ / SLOPE / INTERCEPT
+- [ ] PERCENTILE.* / QUARTILE.* / RANK.*
+
+Note: This list is non-exhaustive and will evolve. When you implement a function, please move it to the checked list and include tests and docs.
+
 ## Function Implementation Roadmap
 
 **Target**: Match and exceed Formula.js (399/515 functions implemented)

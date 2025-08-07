@@ -207,6 +207,10 @@ Value lower(const std::vector<Value>& args, const Context& context);
  * @return Text with first letter of each word capitalized
  */
 Value proper(const std::vector<Value>& args, const Context& context);
+    Value char_function(const std::vector<Value>& args, const Context& context);
+    Value code_function(const std::vector<Value>& args, const Context& context);
+    Value clean(const std::vector<Value>& args, const Context& context);
+    Value exact(const std::vector<Value>& args, const Context& context);
 
 /**
  * @brief RPT function - repeats text a specified number of times
@@ -1229,12 +1233,13 @@ Value twoArgTextNumberFunction(const std::vector<Value>& args, const Context& co
     // Convert first argument to text
     std::string text = args[0].toString();
 
-    // Validate that second argument is a number
-    if (!args[1].isNumber()) {
-        return Value::error(ErrorType::VALUE_ERROR);
+    // Convert second argument to number safely
+    auto numResult = utils::toNumberSafe(args[1], name);
+    if (numResult.isError()) {
+        return numResult;
     }
 
-    double number = args[1].asNumber();
+    double number = numResult.asNumber();
 
     return Value(operation(text, number));
 }

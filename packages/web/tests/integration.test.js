@@ -119,7 +119,12 @@ describe('XL Formula Integration Tests', () => {
     });
 
     test('NOW() should return a JavaScript Date object', () => {
-      const result = engine.evaluateDate('NOW()');
+      const evalResult = engine.evaluate('NOW()');
+      expect(evalResult.isSuccess()).toBe(true);
+      const value = evalResult.getValue();
+      expect(value.isDate()).toBe(true);
+      
+      const result = value.asDate();
       console.log('🔍 NOW() as Date:', result, 'Type:', typeof result);
       
       expect(result).toBeInstanceOf(Date);
@@ -127,7 +132,12 @@ describe('XL Formula Integration Tests', () => {
     });
 
     test('TODAY() should return a JavaScript Date object', () => {
-      const result = engine.evaluateDate('TODAY()');
+      const evalResult = engine.evaluate('TODAY()');
+      expect(evalResult.isSuccess()).toBe(true);
+      const value = evalResult.getValue();
+      expect(value.isDate()).toBe(true);
+      
+      const result = value.asDate();
       console.log('🔍 TODAY() as Date:', result, 'Type:', typeof result);
       
       expect(result).toBeInstanceOf(Date);
@@ -139,7 +149,12 @@ describe('XL Formula Integration Tests', () => {
     });
 
     test('DATE() should return a JavaScript Date object', () => {
-      const result = engine.evaluateDate('DATE(2024, 1, 15)');
+      const evalResult = engine.evaluate('DATE(2024, 1, 15)');
+      expect(evalResult.isSuccess()).toBe(true);
+      const value = evalResult.getValue();
+      expect(value.isDate()).toBe(true);
+      
+      const result = value.asDate();
       console.log('🔍 DATE(2024, 1, 15) as Date:', result, 'Type:', typeof result);
       
       expect(result).toBeInstanceOf(Date);
@@ -168,6 +183,45 @@ describe('XL Formula Integration Tests', () => {
       const value = result.getValue();
       expect(value.isNumber()).toBe(true);
       expect(value.asNumber()).toBe(11);
+    });
+
+    test('CHAR() should convert number to character', () => {
+      const result = engine.evaluate('CHAR(65)');
+      expect(result.isSuccess()).toBe(true);
+      
+      const value = result.getValue();
+      expect(value.isText()).toBe(true);
+      expect(value.asText()).toBe('A');
+    });
+
+    test('CODE() should convert character to number', () => {
+      const result = engine.evaluate('CODE("A")');
+      expect(result.isSuccess()).toBe(true);
+      
+      const value = result.getValue();
+      expect(value.isNumber()).toBe(true);
+      expect(value.asNumber()).toBe(65);
+    });
+
+    test('CLEAN() should remove non-printable characters', () => {
+      const result = engine.evaluate('CLEAN("Hello\tWorld\n")');
+      expect(result.isSuccess()).toBe(true);
+      
+      const value = result.getValue();
+      expect(value.isText()).toBe(true);
+      expect(value.asText()).toBe('HelloWorld');
+    });
+
+    test('EXACT() should compare strings exactly', () => {
+      const result1 = engine.evaluate('EXACT("Hello", "Hello")');
+      expect(result1.isSuccess()).toBe(true);
+      expect(result1.getValue().isBoolean()).toBe(true);
+      expect(result1.getValue().asBoolean()).toBe(true);
+
+      const result2 = engine.evaluate('EXACT("Hello", "hello")');
+      expect(result2.isSuccess()).toBe(true);
+      expect(result2.getValue().isBoolean()).toBe(true);
+      expect(result2.getValue().asBoolean()).toBe(false);
     });
   });
 

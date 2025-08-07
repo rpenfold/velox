@@ -12,6 +12,19 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+# Fix GoogleTest warnings on compilers that support these flags
+include(CheckCXXCompilerFlag)
+
+# Check if compiler supports the character-conversion warning flag
+check_cxx_compiler_flag("-Wno-character-conversion" COMPILER_SUPPORTS_WNO_CHARACTER_CONVERSION)
+
+if(TARGET gtest AND COMPILER_SUPPORTS_WNO_CHARACTER_CONVERSION)
+    target_compile_options(gtest PRIVATE -Wno-character-conversion)
+endif()
+if(TARGET gtest_main AND COMPILER_SUPPORTS_WNO_CHARACTER_CONVERSION)
+    target_compile_options(gtest_main PRIVATE -Wno-character-conversion)
+endif()
+
 # Test executable
 file(GLOB_RECURSE TEST_SOURCES "*.cpp")
 add_executable(xl-formula-tests ${TEST_SOURCES})

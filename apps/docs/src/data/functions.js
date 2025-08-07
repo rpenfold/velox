@@ -662,6 +662,55 @@ export const functionCategories = {
           { formula: 'TEXT(0.75, "0%")', result: '"75%"', description: 'Format as percentage' }
         ]
       },
+      CHAR: {
+        name: 'CHAR',
+        description: 'Returns the character specified by a code number (1-255)',
+        syntax: 'CHAR(number)',
+        parameters: [
+          { name: 'number', description: 'Code number between 1 and 255', required: true }
+        ],
+        examples: [
+          { formula: 'CHAR(65)', result: '"A"', description: 'Character for code 65' },
+          { formula: 'CHAR(10)', result: '"\n"', description: 'Line feed character' }
+        ]
+      },
+      CODE: {
+        name: 'CODE',
+        description: 'Returns a numeric code for the first character in a text string',
+        syntax: 'CODE(text)',
+        parameters: [
+          { name: 'text', description: 'The text to examine', required: true }
+        ],
+        examples: [
+          { formula: 'CODE("A")', result: '65', description: 'Code for letter A' },
+          { formula: 'CODE("!Hello")', result: '33', description: 'Code for first character !' }
+        ]
+      },
+      CLEAN: {
+        name: 'CLEAN',
+        description: 'Removes all nonprintable characters from text (ASCII codes < 32)',
+        syntax: 'CLEAN(text)',
+        parameters: [
+          { name: 'text', description: 'The text from which to remove nonprintable characters', required: true }
+        ],
+        examples: [
+          { formula: 'CLEAN("Hello\nWorld")', result: '"HelloWorld"', description: 'Removes line feed' },
+          { formula: 'CLEAN(CHAR(9) & "Tab")', result: '"Tab"', description: 'Removes tab' }
+        ]
+      },
+      EXACT: {
+        name: 'EXACT',
+        description: 'Checks whether two text strings are exactly the same (case-sensitive)',
+        syntax: 'EXACT(text1, text2)',
+        parameters: [
+          { name: 'text1', description: 'First text string', required: true },
+          { name: 'text2', description: 'Second text string', required: true }
+        ],
+        examples: [
+          { formula: 'EXACT("Hello", "Hello")', result: 'TRUE', description: 'Strings match exactly' },
+          { formula: 'EXACT("Hello", "hello")', result: 'FALSE', description: 'Case-sensitive comparison' }
+        ]
+      },
       VALUE: {
         name: 'VALUE',
         description: 'Converts text that represents a number to a number',
