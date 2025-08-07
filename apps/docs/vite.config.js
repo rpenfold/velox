@@ -2,9 +2,12 @@ import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
 import { resolve } from 'path'
 
+// Get base path from environment variable, default to '/' for development
+const basePath = process.env.VITE_BASE_PATH || '/'
+
 export default defineConfig({
   plugins: [preact()],
-  base: process.env.NODE_ENV === 'production' ? '/xl-formula/' : '/',
+  base: basePath,
   resolve: {
     alias: {
       'xl-formula-web': resolve(__dirname, '../../packages/web/xl-formula-wrapper.js')

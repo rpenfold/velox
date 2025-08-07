@@ -1,13 +1,20 @@
-// Utility to handle base path for GitHub Pages
+// Base path utility - uses environment variable set at build time
+const BASE_PATH = import.meta.env.VITE_BASE_PATH || '/'
+
 export const getBasePath = () => {
-  // Check if we're in production (GitHub Pages)
-  if (typeof window !== 'undefined' && window.location.hostname === 'rpenfold.github.io') {
-    return '/xl-formula'
-  }
-  return ''
+  return BASE_PATH
 }
 
 export const getPath = (path) => {
-  const basePath = getBasePath()
-  return `${basePath}${path}`
+  return `${BASE_PATH}${path}`
+}
+
+// Get the current path relative to the base path
+export const getCurrentPath = () => {
+  if (typeof window !== 'undefined') {
+    const basePath = getBasePath()
+    const pathname = window.location.pathname
+    return pathname.replace(basePath, '') || '/'
+  }
+  return '/'
 } 
