@@ -1,13 +1,6 @@
 import { Link } from 'preact-router/match'
-import { getRuntimeBasePath } from '../utils/basePath.js'
 
 export function Header() {
-  const runtimeBasePath = getRuntimeBasePath()
-  
-  const getNavPath = (path) => {
-    return `${runtimeBasePath}${path}`
-  }
-
   return (
     <header style={{ 
       borderBottom: '1px solid var(--color-border)', 
@@ -19,13 +12,13 @@ export function Header() {
       <div className="container">
         <nav className="flex items-center justify-between" style={{ height: '4rem' }}>
           <div className="flex items-center">
-            <Link href={getNavPath('/')} className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
+            <Link href="/" className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
               XL Formula
             </Link>
             
             <div className="flex items-center">
               <Link 
-                href={getNavPath('/playground')} 
+                href="/playground" 
                 className="text-sm font-medium nav-link"
                 style={{ 
                   textDecoration: 'none', 
@@ -41,7 +34,7 @@ export function Header() {
                 Playground
               </Link>
               <Link 
-                href={getNavPath('/docs')} 
+                href="/docs" 
                 className="text-sm font-medium nav-link"
                 style={{ 
                   textDecoration: 'none', 
