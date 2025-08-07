@@ -8,77 +8,69 @@ namespace builtin {
 Value rate(const std::vector<Value>& args, const Context& context) {
     return templates::financialFunction(
             args, context, "RATE", 3, 6, [](const std::vector<double>& args) -> Value {
-                double nper = args[0];
-                double pmt = args[1];
-                double pv = args[2];
-                double fv = (args.size() > 3) ? args[3] : 0.0;
+                double periods = args[0];
+                double payment = args[1];
+                double present = args[2];
+                double future = (args.size() > 3) ? args[3] : 0.0;
                 double type = (args.size() > 4) ? args[4] : 0.0;
-                double guess = (args.size() > 5) ? args[5] : 0.1;
+                double guess = (args.size() > 5) ? args[5] : 0.01;
 
                 // Type should be 0 (end of period) or 1 (beginning of period)
                 if (type != 0.0 && type != 1.0) {
                     return Value::error(ErrorType::VALUE_ERROR);
                 }
 
-                // Newton-Raphson method to solve for rate
+                // Set maximum epsilon for end of iteration
+                const double epsMax = 1e-6;
+
+                // Set maximum number of iterations
+                const int iterMax = 100;
+                int iter = 0;
+                bool close = false;
                 double rate = guess;
-                const double tolerance = 1e-12;
-                const int max_iterations = 100;
 
-                for (int i = 0; i < max_iterations; i++) {
-                    // Calculate present value using current rate guess
-                    double pv_calc, dpv_dr;
+                while (iter < iterMax && !close) {
+                    double f1, f2, f3;
 
-                    if (std::abs(rate) < tolerance) {
-                        // Handle rate ≈ 0 case
-                        pv_calc = -(fv + pmt * nper);
-                        dpv_dr = -pmt * nper * (nper - 1) / 2.0;
+                    if (std::abs(rate) < 1e-10) {
+                        // Handle near-zero rate case
+                        f1 = future + present + payment * periods;
+                        f2 = payment * periods * (periods - 1) / 2.0;
+                        f3 = 0.0;
                     } else {
-                        double pvif = std::pow(1.0 + rate, -nper);
-                        double pvifa = (1.0 - pvif) / rate;
-
-                        // Present value calculation
-                        pv_calc = -(fv * pvif + pmt * pvifa);
-
-                        // Adjust for payment timing
-                        if (type == 1.0) {
-                            pv_calc = pv_calc - pmt;
-                            pvifa += 1.0;
-                        }
-
-                        // Derivative of present value with respect to rate
-                        double dpvif_dr = -nper * std::pow(1.0 + rate, -nper - 1);
-                        double dpvifa_dr = (-dpvif_dr * rate - (1.0 - pvif)) / (rate * rate);
-
-                        dpv_dr = -fv * dpvif_dr - pmt * dpvifa_dr;
-
-                        if (type == 1.0) {
-                            dpv_dr -= pmt * dpvifa_dr;
-                        }
+                        const double t1 = std::pow(rate + 1, periods);
+                        const double t2 = std::pow(rate + 1, periods - 1);
+                        f1 = future + t1 * present + payment * (t1 - 1) * (rate * type + 1) / rate;
+                        f2 = periods * t2 * present -
+                             payment * (t1 - 1) * (rate * type + 1) / std::pow(rate, 2);
+                        f3 = periods * payment * t2 * (rate * type + 1) / rate +
+                             payment * (t1 - 1) * type / rate;
                     }
 
-                    // Newton-Raphson iteration
-                    double f = pv_calc - pv;
-                    if (std::abs(f) < tolerance) {
-                        return Value(rate);
-                    }
-
-                    if (std::abs(dpv_dr) < tolerance) {
+                    const double denominator = f2 + f3;
+                    if (std::abs(denominator) < 1e-15) {
                         return Value::error(ErrorType::VALUE_ERROR);
                     }
 
-                    double new_rate = rate - f / dpv_dr;
+                    const double newRate = rate - f1 / denominator;
 
-                    // Bound the rate to reasonable values
-                    if (new_rate < -0.99 || new_rate > 10.0) {
+                    // Bound the rate to reasonable values to prevent divergence
+                    if (newRate < -0.99 || newRate > 10.0) {
                         return Value::error(ErrorType::VALUE_ERROR);
                     }
 
-                    rate = new_rate;
+                    if (std::abs(newRate - rate) < epsMax) {
+                        close = true;
+                    }
+                    iter++;
+                    rate = newRate;
                 }
 
-                // If we didn't converge, return an error
-                return Value::error(ErrorType::VALUE_ERROR);
+                if (!close) {
+                    return Value::error(ErrorType::VALUE_ERROR);
+                }
+
+                return Value(rate);
             });
 }
 

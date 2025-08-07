@@ -23,11 +23,11 @@ TEST_F(RateFunctionTest, BasicRateCalculation) {
 }
 
 TEST_F(RateFunctionTest, RateWithFutureValue) {
-    // RATE(5, -200, 1000, 500) should be around 6%
-    auto result = callRate({Value(5.0), Value(-200.0), Value(1000.0), Value(500.0)});
+    // RATE(5, -200, 800, 0) should be around 7.93%
+    auto result = callRate({Value(5.0), Value(-200.0), Value(800.0), Value(0.0)});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_NEAR(0.06, result.asNumber(), 0.001);
+    EXPECT_NEAR(0.07931, result.asNumber(), 0.001);
 }
 
 TEST_F(RateFunctionTest, RateBeginningOfPeriod) {

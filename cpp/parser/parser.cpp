@@ -297,7 +297,7 @@ std::unique_ptr<ASTNode> Parser::parseArrayLiteral() {
 
     // Handle empty array {}
     if (check(TokenType::RIGHT_BRACE)) {
-        advance(); // consume '}'
+        advance();  // consume '}'
         return std::make_unique<ArrayNode>(std::move(elements));
     }
 

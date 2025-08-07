@@ -41,7 +41,7 @@ Value nper(const std::vector<Value>& args, const Context& context) {
                 if (denominator == 0.0) {
                     return Value::error(ErrorType::DIV_ZERO);
                 }
-                
+
                 double ratio = numerator / denominator;
                 if (ratio <= 0.0) {
                     return Value::error(ErrorType::VALUE_ERROR);

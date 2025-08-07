@@ -7,29 +7,31 @@ namespace builtin {
 
 Value irr(const std::vector<Value>& args, const Context& context) {
     (void)context;
-    
+
     if (args.empty()) {
         return Value::error(ErrorType::VALUE_ERROR);
     }
-    
+
     // Check for errors
     auto errorCheck = utils::checkForErrors(args);
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     std::vector<double> cash_flows;
     double guess = 0.1;  // Default guess
-    
+
     // First argument must be array of cash flows
     const auto& first_arg = args[0];
     if (first_arg.isArray()) {
         // Extract cash flows from array
         const auto& arr = first_arg.asArray();
         for (const auto& val : arr) {
-            if (val.isError()) return val;
+            if (val.isError())
+                return val;
             auto num = utils::toNumberSafe(val, "IRR");
-            if (num.isError()) return num;
+            if (num.isError())
+                return num;
             cash_flows.push_back(num.asNumber());
         }
     } else {
@@ -37,13 +39,14 @@ Value irr(const std::vector<Value>& args, const Context& context) {
         // If we have more than 1 arg, the last one might be a guess (optional)
         for (const auto& arg : args) {
             auto num = utils::toNumberSafe(arg, "IRR");
-            if (num.isError()) return num;
+            if (num.isError())
+                return num;
             cash_flows.push_back(num.asNumber());
         }
-        
+
         // Default guess
         guess = 0.1;
-        
+
         // In legacy mode, if we have multiple args, check if last should be treated as guess
         // We need at least 2 cash flows, so if we have 3+ args, last could be guess
         if (args.size() >= 3) {
@@ -59,11 +62,12 @@ Value irr(const std::vector<Value>& args, const Context& context) {
             }
         }
     }
-    
+
     // If we have 2 args and first is array, second is guess
     if (args.size() == 2 && first_arg.isArray()) {
         auto guess_val = utils::toNumberSafe(args[1], "IRR");
-        if (guess_val.isError()) return guess_val;
+        if (guess_val.isError())
+            return guess_val;
         guess = guess_val.asNumber();
     }
 

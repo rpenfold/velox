@@ -109,7 +109,8 @@ class Value {
     bool operator>=(const Value& other) const;
 
     // Array constructor
-    Value(const std::vector<Value>& array) : data_(std::make_shared<std::vector<Value>>(array)), type_(ValueType::ARRAY) {}
+    Value(const std::vector<Value>& array)
+        : data_(std::make_shared<std::vector<Value>>(array)), type_(ValueType::ARRAY) {}
 
     // Static factory methods
     static Value error(ErrorType type) {

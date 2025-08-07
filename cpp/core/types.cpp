@@ -139,7 +139,8 @@ std::string Value::toString() const {
             oss << "{";
             const auto& arr = *std::get<ArrayType>(data_);
             for (size_t i = 0; i < arr.size(); ++i) {
-                if (i > 0) oss << ", ";
+                if (i > 0)
+                    oss << ", ";
                 oss << arr[i].toString();
             }
             oss << "}";
