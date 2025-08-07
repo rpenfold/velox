@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/joltdev/Git/xl-formula/build/cmake_install.cmake",
+		"/Users/joltdev/Git/xl-formula/build/cpp/bindings/web/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
