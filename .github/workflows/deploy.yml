@@ -21,21 +21,39 @@ jobs:
         cache: 'npm'
         cache-dependency-path: apps/docs/package-lock.json
         
-    - name: Install dependencies
+    - name: Install Emscripten
+      run: |
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+        echo "$PWD/upstream/emscripten" >> $GITHUB_PATH
+        echo "EMSDK=$PWD" >> $GITHUB_ENV
+        
+    - name: Install CMake
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake
+        
+    - name: Build WebAssembly using build script
+      run: |
+        source emsdk/emsdk_env.sh
+        chmod +x build.sh
+        ./build.sh --web
+        
+    - name: Install web dependencies
       run: |
         cd apps/docs
         npm ci
         
-    - name: Build the app
+    - name: Build the web app
       run: |
         cd apps/docs
         npm run build
         
-    - name: Deploy to GitHub Pages (gh-pages branch)
+    - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./apps/docs/dist
-        # Uncomment the next line if gh-pages branch doesn't exist
-        # publish_branch: main 
+        publish_dir: ./apps/docs/dist 
