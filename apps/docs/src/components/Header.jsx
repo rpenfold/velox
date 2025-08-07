@@ -1,4 +1,5 @@
 import { Link } from 'preact-router/match'
+import { getPath } from '../utils/basePath.js'
 
 export function Header() {
   return (
@@ -12,13 +13,13 @@ export function Header() {
       <div className="container">
         <nav className="flex items-center justify-between" style={{ height: '4rem' }}>
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
+            <Link href={getPath('/')} className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
               XL Formula
             </Link>
             
             <div className="flex items-center">
               <Link 
-                href="/playground" 
+                href={getPath('/playground')} 
                 className="text-sm font-medium nav-link"
                 style={{ 
                   textDecoration: 'none', 
@@ -34,7 +35,7 @@ export function Header() {
                 Playground
               </Link>
               <Link 
-                href="/docs" 
+                href={getPath('/docs')} 
                 className="text-sm font-medium nav-link"
                 style={{ 
                   textDecoration: 'none', 
@@ -54,7 +55,7 @@ export function Header() {
           
           <div className="flex items-center gap-4">
             <a 
-              href="https://github.com/your-username/xl-formula" 
+              href="https://github.com/rpenfold/xl-formula" 
               target="_blank" 
               rel="noopener noreferrer"
               className="btn btn-sm"
