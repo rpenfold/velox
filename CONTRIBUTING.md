@@ -849,11 +849,11 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 
 ### Math & Trigonometry
 - [x] SUM / MAX / MIN / AVERAGE / COUNT / COUNTA / ABS / ROUND / SQRT / POWER / MOD / PI / SIGN / INT / TRUNC / CEILING / FLOOR / RAND / RANDBETWEEN / COUNTIF / MEDIAN / MODE / STDEV / VAR / GCD / LCM / FACT / COMBIN / PERMUT / SUMPRODUCT / SUMIF / SUMIFS / AVERAGEIF / AVERAGEIFS / SIN / COS / TAN / ASIN / ACOS / ATAN / ATAN2 / SINH / COSH / TANH / DEGREES / RADIANS / EXP / LN / LOG / LOG10
-- [ ] SUMSQ
+- [x] SUMSQ
 - [ ] SUMX2MY2 / SUMX2PY2 / SUMXMY2
-- [ ] QUOTIENT
-- [ ] EVEN / ODD
-- [ ] MROUND / ROUNDUP / ROUNDDOWN
+- [x] QUOTIENT
+- [x] EVEN / ODD
+- [x] MROUND / ROUNDUP / ROUNDDOWN
 - [ ] ROMAN / ARABIC (ARABIC done if needed)
 - [ ] SERIESSUM
 

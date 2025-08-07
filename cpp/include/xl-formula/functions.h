@@ -285,6 +285,62 @@ Value abs_function(const std::vector<Value>& args, const Context& context);
 Value round_function(const std::vector<Value>& args, const Context& context);
 
 /**
+ * @brief ROUNDUP function - rounds a number up, away from zero
+ * @param args Function arguments (number, num_digits)
+ * @param context Evaluation context (unused for ROUNDUP)
+ * @return Number rounded up to specified decimal places
+ */
+Value roundup(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ROUNDDOWN function - rounds a number down, toward zero
+ * @param args Function arguments (number, num_digits)
+ * @param context Evaluation context (unused for ROUNDDOWN)
+ * @return Number rounded down to specified decimal places
+ */
+Value rounddown(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief MROUND function - rounds a number to the nearest multiple
+ * @param args Function arguments (number, multiple)
+ * @param context Evaluation context (unused for MROUND)
+ * @return Number rounded to the nearest multiple
+ */
+Value mround(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SUMSQ function - returns the sum of the squares of the arguments
+ * @param args Function arguments (number values)
+ * @param context Evaluation context (unused for SUMSQ)
+ * @return Sum of squares of all numeric arguments
+ */
+Value sumsq(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief QUOTIENT function - returns the integer portion of a division
+ * @param args Function arguments (numerator, denominator)
+ * @param context Evaluation context (unused for QUOTIENT)
+ * @return Integer portion of numerator divided by denominator
+ */
+Value quotient(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief EVEN function - rounds a number up to the nearest even integer
+ * @param args Function arguments (number)
+ * @param context Evaluation context (unused for EVEN)
+ * @return Nearest even integer >= number (for positive) or <= number (for negative)
+ */
+Value even_function(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief ODD function - rounds a number up to the nearest odd integer
+ * @param args Function arguments (number)
+ * @param context Evaluation context (unused for ODD)
+ * @return Nearest odd integer >= number (for positive) or <= number (for negative)
+ */
+Value odd_function(const std::vector<Value>& args, const Context& context);
+
+/**
  * @brief MIN function - returns minimum value in a set of values
  * @param args Function arguments (values to compare)
  * @param context Evaluation context (unused for MIN)

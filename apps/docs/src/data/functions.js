@@ -357,6 +357,95 @@ export const functionCategories = {
           { formula: 'RANDBETWEEN(1, 10)', result: '7', description: 'Random integer between 1 and 10' },
           { formula: 'RANDBETWEEN(-5, 5)', result: '-2', description: 'Random integer between -5 and 5' }
         ]
+      },
+      SUMSQ: {
+        name: 'SUMSQ',
+        description: 'Returns the sum of the squares of the arguments',
+        syntax: 'SUMSQ(number1, [number2], ...)',
+        parameters: [
+          { name: 'number1', description: 'The first number to square and sum', required: true },
+          { name: 'number2', description: 'Additional numbers to square and sum', required: false }
+        ],
+        examples: [
+          { formula: 'SUMSQ(2, 3, 4)', result: '29', description: '2² + 3² + 4² = 4 + 9 + 16 = 29' },
+          { formula: 'SUMSQ(1, -2, 3)', result: '14', description: '1² + (-2)² + 3² = 1 + 4 + 9 = 14' }
+        ]
+      },
+      QUOTIENT: {
+        name: 'QUOTIENT',
+        description: 'Returns the integer portion of a division',
+        syntax: 'QUOTIENT(numerator, denominator)',
+        parameters: [
+          { name: 'numerator', description: 'The dividend', required: true },
+          { name: 'denominator', description: 'The divisor', required: true }
+        ],
+        examples: [
+          { formula: 'QUOTIENT(10, 3)', result: '3', description: '10 ÷ 3 = 3.33..., truncated to 3' },
+          { formula: 'QUOTIENT(-10, 3)', result: '-3', description: 'Truncates toward zero' }
+        ]
+      },
+      EVEN: {
+        name: 'EVEN',
+        description: 'Rounds a number up to the nearest even integer',
+        syntax: 'EVEN(number)',
+        parameters: [
+          { name: 'number', description: 'The value to round to the nearest even integer', required: true }
+        ],
+        examples: [
+          { formula: 'EVEN(1.5)', result: '2', description: 'Rounds up to next even integer' },
+          { formula: 'EVEN(-1)', result: '-2', description: 'Rounds away from zero to even' }
+        ]
+      },
+      ODD: {
+        name: 'ODD',
+        description: 'Rounds a number up to the nearest odd integer',
+        syntax: 'ODD(number)',
+        parameters: [
+          { name: 'number', description: 'The value to round to the nearest odd integer', required: true }
+        ],
+        examples: [
+          { formula: 'ODD(2)', result: '3', description: 'Rounds up to next odd integer' },
+          { formula: 'ODD(0)', result: '1', description: 'Zero rounds to 1' }
+        ]
+      },
+      MROUND: {
+        name: 'MROUND',
+        description: 'Rounds a number to the nearest multiple',
+        syntax: 'MROUND(number, multiple)',
+        parameters: [
+          { name: 'number', description: 'The value to round', required: true },
+          { name: 'multiple', description: 'The multiple to which to round', required: true }
+        ],
+        examples: [
+          { formula: 'MROUND(10, 3)', result: '9', description: 'Nearest multiple of 3 to 10' },
+          { formula: 'MROUND(1.3, 0.2)', result: '1.4', description: 'Nearest multiple of 0.2 to 1.3' }
+        ]
+      },
+      ROUNDUP: {
+        name: 'ROUNDUP',
+        description: 'Rounds a number up, away from zero',
+        syntax: 'ROUNDUP(number, num_digits)',
+        parameters: [
+          { name: 'number', description: 'The number to round up', required: true },
+          { name: 'num_digits', description: 'The number of digits to which to round', required: true }
+        ],
+        examples: [
+          { formula: 'ROUNDUP(3.2, 0)', result: '4', description: 'Always rounds away from zero' },
+          { formula: 'ROUNDUP(-3.2, 0)', result: '-4', description: 'Away from zero means more negative' }
+        ]
+      },
+      ROUNDDOWN: {
+        name: 'ROUNDDOWN',
+        description: 'Rounds a number down, toward zero',
+        syntax: 'ROUNDDOWN(number, num_digits)',
+        parameters: [
+          { name: 'number', description: 'The number to round down', required: true },
+          { name: 'num_digits', description: 'The number of digits to which to round', required: true }
+        ],
+        examples: [
+          { formula: 'ROUNDDOWN(3.9, 0)', result: '3', description: 'Always rounds toward zero' },
+          { formula: 'ROUNDDOWN(-3.9, 0)', result: '-3', description: 'Toward zero means less negative' }
+        ]
       }
     }
   },

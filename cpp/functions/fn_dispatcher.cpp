@@ -27,6 +27,20 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::abs_function(args, context);
         case hash_function_name("ROUND"):
             return builtin::round_function(args, context);
+        case hash_function_name("ROUNDUP"):
+            return builtin::roundup(args, context);
+        case hash_function_name("ROUNDDOWN"):
+            return builtin::rounddown(args, context);
+        case hash_function_name("MROUND"):
+            return builtin::mround(args, context);
+        case hash_function_name("SUMSQ"):
+            return builtin::sumsq(args, context);
+        case hash_function_name("QUOTIENT"):
+            return builtin::quotient(args, context);
+        case hash_function_name("EVEN"):
+            return builtin::even_function(args, context);
+        case hash_function_name("ODD"):
+            return builtin::odd_function(args, context);
         case hash_function_name("SQRT"):
             return builtin::sqrt_function(args, context);
         case hash_function_name("POWER"):
@@ -274,10 +288,11 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
 
 std::vector<std::string> get_builtin_function_names() {
     return {// Math functions
-            "SUM", "MAX", "MIN", "AVERAGE", "COUNT", "COUNTA", "ABS", "ROUND", "SQRT", "POWER",
-            "MOD", "PI", "SIGN", "INT", "TRUNC", "CEILING", "FLOOR", "RAND", "RANDBETWEEN",
-            "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD", "LCM", "FACT", "COMBIN", "PERMUT",
-            "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF", "AVERAGEIFS",
+            "SUM", "MAX", "MIN", "AVERAGE", "COUNT", "COUNTA", "ABS", "ROUND", "ROUNDUP", "ROUNDDOWN", 
+            "MROUND", "SQRT", "POWER", "MOD", "PI", "SIGN", "INT", "TRUNC", "CEILING", "FLOOR", 
+            "RAND", "RANDBETWEEN", "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD", "LCM", "FACT", 
+            "COMBIN", "PERMUT", "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF", "AVERAGEIFS",
+            "SUMSQ", "QUOTIENT", "EVEN", "ODD",
 
             // Trigonometric functions
             "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN", "ATAN2", "SINH", "COSH", "TANH", "DEGREES",

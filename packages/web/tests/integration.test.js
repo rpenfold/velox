@@ -64,6 +64,86 @@ describe('XL Formula Integration Tests', () => {
       expect(value.isNumber()).toBe(true);
       expect(value.asNumber()).toBe(3);
     });
+
+    test('SUMSQ() should return sum of squares correctly', () => {
+      const result = engine.evaluate('SUMSQ(2, 3, 4)');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isNumber()).toBe(true);
+      expect(value.asNumber()).toBe(29); // 2^2 + 3^2 + 4^2 = 4 + 9 + 16 = 29
+    });
+
+    test('QUOTIENT() should return integer division correctly', () => {
+      const result = engine.evaluate('QUOTIENT(10, 3)');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isNumber()).toBe(true);
+      expect(value.asNumber()).toBe(3); // 10/3 = 3.333..., truncated to 3
+    });
+
+    test('EVEN() should round to nearest even integer', () => {
+      const result1 = engine.evaluate('EVEN(1.5)');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isNumber()).toBe(true);
+      expect(value1.asNumber()).toBe(2);
+
+      const result2 = engine.evaluate('EVEN(-1.5)');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isNumber()).toBe(true);
+      expect(value2.asNumber()).toBe(-2);
+    });
+
+    test('ODD() should round to nearest odd integer', () => {
+      const result1 = engine.evaluate('ODD(2)');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isNumber()).toBe(true);
+      expect(value1.asNumber()).toBe(3);
+
+      const result2 = engine.evaluate('ODD(0)');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isNumber()).toBe(true);
+      expect(value2.asNumber()).toBe(1);
+    });
+
+    test('MROUND() should round to nearest multiple', () => {
+      const result = engine.evaluate('MROUND(10, 3)');
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isNumber()).toBe(true);
+      expect(value.asNumber()).toBe(9); // Nearest multiple of 3 to 10 is 9
+    });
+
+    test('ROUNDUP() should round away from zero', () => {
+      const result1 = engine.evaluate('ROUNDUP(3.2, 0)');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isNumber()).toBe(true);
+      expect(value1.asNumber()).toBe(4);
+
+      const result2 = engine.evaluate('ROUNDUP(-3.2, 0)');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isNumber()).toBe(true);
+      expect(value2.asNumber()).toBe(-4);
+    });
+
+    test('ROUNDDOWN() should round toward zero', () => {
+      const result1 = engine.evaluate('ROUNDDOWN(3.9, 0)');
+      expect(result1.isSuccess()).toBe(true);
+      const value1 = result1.getValue();
+      expect(value1.isNumber()).toBe(true);
+      expect(value1.asNumber()).toBe(3);
+
+      const result2 = engine.evaluate('ROUNDDOWN(-3.9, 0)');
+      expect(result2.isSuccess()).toBe(true);
+      const value2 = result2.getValue();
+      expect(value2.isNumber()).toBe(true);
+      expect(value2.asNumber()).toBe(-3);
+    });
   });
 
   describe('DateTime Functions - Critical Test', () => {
