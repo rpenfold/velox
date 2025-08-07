@@ -10,7 +10,7 @@ export function HomePage() {
       <section style={{ 
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         color: 'white',
-        padding: '6rem 0'
+        padding: '6rem 0',
       }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <h1 className="text-3xl font-bold mb-4" style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>
@@ -19,13 +19,17 @@ export function HomePage() {
           <p className="text-xl mb-8" style={{ fontSize: '1.25rem', marginBottom: '2rem', opacity: 0.9 }}>
             High-performance Excel-like formula parser and evaluator for web applications
           </p>
-          <div className="flex gap-4" style={{ justifyContent: 'center' }}>
+          <div className="flex gap-4" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href={`${basePath}playground`} className="btn btn-primary" style={{ 
               background: 'white', 
               color: '#4f46e5',
               padding: '1rem 2rem',
               fontSize: '1rem',
-              textDecoration: 'none'
+              textDecoration: 'none',
+              marginBottom: '0.5rem',
+              flex: '1 1 180px',
+              minWidth: '140px',
+              maxWidth: '240px',
             }}>
               Try Playground
             </Link>
@@ -35,7 +39,11 @@ export function HomePage() {
               color: 'white',
               padding: '1rem 2rem',
               fontSize: '1rem',
-              textDecoration: 'none'
+              textDecoration: 'none',
+              marginBottom: '0.5rem',
+              flex: '1 1 180px',
+              minWidth: '140px',
+              maxWidth: '240px',
             }}>
               Documentation
             </Link>
@@ -49,7 +57,6 @@ export function HomePage() {
           <h2 className="text-2xl font-bold mb-8" style={{ textAlign: 'center' }}>
             Why XL Formula?
           </h2>
-          
           <div className="grid grid-cols-3 gap-8">
             <div className="card" style={{ textAlign: 'center' }}>
               <div style={{ 
@@ -69,7 +76,6 @@ export function HomePage() {
                 Compiled to WebAssembly for near-native performance in the browser
               </p>
             </div>
-            
             <div className="card" style={{ textAlign: 'center' }}>
               <div style={{ 
                 width: '3rem', 
@@ -88,7 +94,6 @@ export function HomePage() {
                 Supports 100+ Excel functions with familiar syntax and behavior
               </p>
             </div>
-            
             <div className="card" style={{ textAlign: 'center' }}>
               <div style={{ 
                 width: '3rem', 
@@ -117,7 +122,6 @@ export function HomePage() {
           <h2 className="text-2xl font-bold mb-8" style={{ textAlign: 'center' }}>
             Quick Start
           </h2>
-          
           <div className="grid grid-cols-2 gap-8">
             <div>
               <h3 className="font-semibold mb-4">Installation</h3>
@@ -125,19 +129,20 @@ export function HomePage() {
                 background: 'var(--color-bg)', 
                 border: '1px solid var(--color-border)',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.875rem'
+                fontSize: '0.875rem',
+                overflowX: 'auto',
               }}>
                 <code>npm install xl-formula-web</code>
               </pre>
             </div>
-            
             <div>
               <h3 className="font-semibold mb-4">Basic Usage</h3>
               <pre className="p-4 rounded" style={{ 
                 background: 'var(--color-bg)', 
                 border: '1px solid var(--color-border)',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.875rem'
+                fontSize: '0.875rem',
+                overflowX: 'auto',
               }}>
                 <code>{`import XLFormula from 'xl-formula-web'
 
