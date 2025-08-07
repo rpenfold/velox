@@ -204,29 +204,7 @@ public:
     }
 
     // Quick evaluation functions for convenience
-    double evaluateNumber(const std::string& formula) {
-        auto result = engine_.evaluate(formula);
-        if (result.isSuccess() && result.getValue().canConvertToNumber()) {
-            return result.getValue().toNumber();
-        }
-        return 0.0;
-    }
 
-    std::string evaluateText(const std::string& formula) {
-        auto result = engine_.evaluate(formula);
-        if (result.isSuccess()) {
-            return result.getValue().toString();
-        }
-        return "";
-    }
-
-    bool evaluateBoolean(const std::string& formula) {
-        auto result = engine_.evaluate(formula);
-        if (result.isSuccess() && result.getValue().isBoolean()) {
-            return result.getValue().asBoolean();
-        }
-        return false;
-    }
 };
 
 /**
@@ -236,29 +214,7 @@ JSEvaluationResult quickEvaluate(const std::string& formula) {
     return JSEvaluationResult(xl_formula::evaluate(formula));
 }
 
-double quickEvaluateNumber(const std::string& formula) {
-    auto result = xl_formula::evaluate(formula);
-    if (result.isSuccess() && result.getValue().canConvertToNumber()) {
-        return result.getValue().toNumber();
-    }
-    return 0.0;
-}
 
-std::string quickEvaluateText(const std::string& formula) {
-    auto result = xl_formula::evaluate(formula);
-    if (result.isSuccess()) {
-        return result.getValue().toString();
-    }
-    return "";
-}
-
-bool quickEvaluateBoolean(const std::string& formula) {
-    auto result = xl_formula::evaluate(formula);
-    if (result.isSuccess() && result.getValue().isBoolean()) {
-        return result.getValue().asBoolean();
-    }
-    return false;
-}
 
 std::string getVersion() {
     return Version::toString();
@@ -305,16 +261,11 @@ EMSCRIPTEN_BINDINGS(xl_formula) {
         .function("hasVariable", &JSFormulaEngine::hasVariable)
         .function("removeVariable", &JSFormulaEngine::removeVariable)
         .function("clearVariables", &JSFormulaEngine::clearVariables)
-        .function("evaluate", &JSFormulaEngine::evaluate)
-        .function("evaluateNumber", &JSFormulaEngine::evaluateNumber)
-        .function("evaluateText", &JSFormulaEngine::evaluateText)
-        .function("evaluateBoolean", &JSFormulaEngine::evaluateBoolean);
+        .function("evaluate", &JSFormulaEngine::evaluate);
 
     // Standalone functions
     function("evaluate", &quickEvaluate);
-    function("evaluateNumber", &quickEvaluateNumber);
-    function("evaluateText", &quickEvaluateText);
-    function("evaluateBoolean", &quickEvaluateBoolean);
+
     function("getVersion", &getVersion);
 
     // Vector bindings for arrays

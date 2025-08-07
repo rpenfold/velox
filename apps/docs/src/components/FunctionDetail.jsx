@@ -22,18 +22,36 @@ export function FunctionDetail({ func, category, categoryName }) {
     try {
       // Import from the workspace package using proper npm dependency
       const XLFormulaModule = await import('xl-formula-web')
-      console.log('XL Formula module loaded:', XLFormulaModule)
+      console.log('🔍 XL Formula module loaded:', XLFormulaModule)
       
       await XLFormulaModule.default.init()
-      console.log('XL Formula initialized successfully')
+      console.log('🔍 XL Formula initialized successfully')
+      
+      // Create a FormulaEngine instance (this is the key difference!)
+      const engine = new XLFormulaModule.default.FormulaEngine()
+      console.log('🔍 FormulaEngine created:', engine)
       
       // Test that it's actually working
-      const testResult = XLFormulaModule.default.evaluateNumber('SUM(1,2,3)')
-      console.log('XL Formula test result:', testResult)
+      const testResult = engine.evaluate('SUM(1,2,3)')
+      if (testResult.isSuccess()) {
+        const testValue = testResult.getValue()
+        console.log('🔍 XL Formula test result:', testValue.asNumber())
+      }
       
-      setXlFormula(XLFormulaModule.default)
+      // Test NOW() specifically
+      try {
+        const nowResult = engine.evaluate('NOW()')
+        if (nowResult.isSuccess()) {
+          const nowValue = nowResult.getValue()
+          console.log('🔍 NOW() test result:', nowValue.asText())
+        }
+      } catch (error) {
+        console.error('🔍 NOW() test failed:', error)
+      }
+      
+      setXlFormula(engine)
     } catch (error) {
-      console.error('Failed to initialize XL Formula:', error)
+      console.error('🔍 Failed to initialize XL Formula:', error)
       throw error // Don't fall back to mock, we want to see real errors
     }
   }
@@ -42,22 +60,44 @@ export function FunctionDetail({ func, category, categoryName }) {
     if (!xlFormula || !testFormula) return
 
     try {
-      let result
       const cleanFormula = testFormula.startsWith('=') ? testFormula.substring(1) : testFormula
 
-      // Determine the expected result type
-      if (func.examples.some(ex => ex.formula === testFormula && !isNaN(parseFloat(ex.result)))) {
-        result = xlFormula.evaluateNumber(cleanFormula)
-      } else if (func.examples.some(ex => ex.formula === testFormula && (ex.result === 'TRUE' || ex.result === 'FALSE'))) {
-        result = xlFormula.evaluateBoolean(cleanFormula) ? 'TRUE' : 'FALSE'
-      } else {
-        result = xlFormula.evaluateText(cleanFormula)
-      }
+      console.log('🔍 FunctionDetail runTest:', {
+        formula: cleanFormula,
+        xlFormula: xlFormula,
+        hasEvaluate: typeof xlFormula.evaluate === 'function'
+      })
 
-      setTestResult(String(result))
+      // Use the proper evaluate() method that returns the correct type
+      const evalResult = xlFormula.evaluate(cleanFormula)
+      
+      if (evalResult.isSuccess()) {
+        const value = evalResult.getValue()
+        const result = formatValue(value)
+        console.log('🔍 evaluate result:', result, 'Type:', value.getTypeName())
+        setTestResult(String(result))
+      } else {
+        const errorMsg = evalResult.getErrorMessage() || 'Unknown error'
+        console.error('🔍 evaluate error:', errorMsg)
+        setTestResult(`Error: ${errorMsg}`)
+      }
     } catch (error) {
+      console.error('🔍 FunctionDetail error:', error)
       setTestResult(`Error: ${error.message}`)
     }
+  }
+
+  // Format value based on its actual type (same as playground)
+  const formatValue = (value) => {
+    if (value.isNumber()) {
+      const num = value.asNumber()
+      return Number.isInteger(num) ? num.toString() : num.toFixed(6).replace(/\.?0+$/, '')
+    } else if (value.isBoolean()) {
+      return value.asBoolean() ? 'TRUE' : 'FALSE'
+    } else if (value.isError()) {
+      return value.getErrorText()
+    }
+    return value.asText()
   }
 
   const runBenchmark = async () => {
@@ -74,13 +114,16 @@ export function FunctionDetail({ func, category, categoryName }) {
       console.log('Formula:', cleanFormula)
       
       // Warm up both implementations
-      xlFormula.evaluateNumber(cleanFormula)
+      xlFormula.evaluate(cleanFormula)
       
       // Benchmark XL Formula
       const xlStart = performance.now()
       let xlResult
       for (let i = 0; i < iterations; i++) {
-        xlResult = xlFormula.evaluateNumber(cleanFormula)
+        const result = xlFormula.evaluate(cleanFormula)
+        if (result.isSuccess()) {
+          xlResult = result.getValue()
+        }
       }
       const xlTime = performance.now() - xlStart
       console.log('XL Formula result:', xlResult, 'Time:', xlTime, 'ms')

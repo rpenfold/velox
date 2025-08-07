@@ -139,8 +139,10 @@ export function HomePage() {
                 <code>{`import XLFormula from 'xl-formula-web'
 
 await XLFormula.init()
-const result = XLFormula.evaluateNumber('SUM(1,2,3)')
-console.log(result) // 6`}</code>
+const result = XLFormula.evaluate('SUM(1,2,3)')
+if (result.isSuccess()) {
+  console.log(result.getValue().asNumber()) // 6
+}`}</code>
               </pre>
             </div>
           </div>

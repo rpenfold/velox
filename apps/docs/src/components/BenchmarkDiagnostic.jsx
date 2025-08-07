@@ -35,18 +35,25 @@ export function BenchmarkDiagnostic({ formula = 'SUM(1,2,3,4,5)', compact = fals
         const cleanFormula = formula.startsWith('=') ? formula.substring(1) : formula
         
         try {
-          const result = XLFormulaModule.default.evaluateNumber(cleanFormula)
-          diagnostic.calcTest = `success: ${result}`
-          diagnostic.isReal = true
-          
-          // Test 4: Performance test with user's formula (only if formula is valid)
-          const iterations = 10000
-          const start = performance.now()
-          for (let i = 0; i < iterations; i++) {
-            XLFormulaModule.default.evaluateNumber(cleanFormula)
+          const result = XLFormulaModule.default.evaluate(cleanFormula)
+          if (result.isSuccess()) {
+            const value = result.getValue()
+            diagnostic.calcTest = `success: ${value.asText()}`
+            diagnostic.isReal = true
+            
+            // Test 4: Performance test with user's formula (only if formula is valid)
+            const iterations = 10000
+            const start = performance.now()
+            for (let i = 0; i < iterations; i++) {
+              XLFormulaModule.default.evaluate(cleanFormula)
+            }
+            const xlTime = performance.now() - start
+            diagnostic.xlPerformance = `${xlTime.toFixed(2)}ms for ${iterations} iterations`
+          } else {
+            diagnostic.calcTest = `failed: ${result.getErrorMessage()}`
+            diagnostic.xlPerformance = 'Skipped (invalid formula)'
+            diagnostic.isReal = false
           }
-          const xlTime = performance.now() - start
-          diagnostic.xlPerformance = `${xlTime.toFixed(2)}ms for ${iterations} iterations`
         } catch (formulaError) {
           diagnostic.calcTest = `failed: ${formulaError.message}`
           diagnostic.xlPerformance = 'Skipped (invalid formula)'

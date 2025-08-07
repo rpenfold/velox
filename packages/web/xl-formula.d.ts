@@ -50,9 +50,6 @@ export interface FormulaEngine {
     
     // Formula evaluation (supports both '=FORMULA' and 'FORMULA' input)
     evaluate(formula: string): EvaluationResult;
-    evaluateNumber(formula: string): number;
-    evaluateText(formula: string): string;
-    evaluateBoolean(formula: string): boolean;
 }
 
 export interface FormulaEngineConstructor {
@@ -67,11 +64,8 @@ export interface XLFormulaAPI {
     EvaluationResult: any; // Constructor not typically used directly
     FormulaEngine: FormulaEngineConstructor;
     
-    // Quick evaluation functions (supports both '=FORMULA' and 'FORMULA' input)
+    // Quick evaluation function (supports both '=FORMULA' and 'FORMULA' input)
     evaluate(formula: string): EvaluationResult;
-    evaluateNumber(formula: string): number;
-    evaluateText(formula: string): string;
-    evaluateBoolean(formula: string): boolean;
     
     getVersion(): string;
 }

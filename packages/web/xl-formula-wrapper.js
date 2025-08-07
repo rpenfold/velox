@@ -77,9 +77,8 @@ class Value {
     asBoolean() { return this._value.asBoolean(); }
     asDate() { 
         if (this.isDate()) {
-            // Convert C++ timestamp to JavaScript Date
             const timestamp = this._value.asDate();
-            return new Date(timestamp * 1000); // Convert seconds to milliseconds
+            return new Date(timestamp * 1000);
         }
         throw new Error('Value is not a date');
     }
@@ -175,30 +174,6 @@ class FormulaEngine {
     evaluate(formula) {
         return new EvaluationResult(this._engine.evaluate(normalizeFormula(formula)));
     }
-
-    evaluateNumber(formula) {
-        return this._engine.evaluateNumber(normalizeFormula(formula));
-    }
-
-    evaluateText(formula) {
-        return this._engine.evaluateText(normalizeFormula(formula));
-    }
-
-    evaluateBoolean(formula) {
-        return this._engine.evaluateBoolean(normalizeFormula(formula));
-    }
-
-    evaluateDate(formula) {
-        const result = this._engine.evaluate(normalizeFormula(formula));
-        if (result.isSuccess()) {
-            const value = new Value(result.getValue());
-            if (value.isDate()) {
-                return value.asDate();
-            }
-            throw new Error('Formula result is not a date');
-        }
-        throw new Error(result.getErrorMessage());
-    }
 }
 
 /**
@@ -211,26 +186,11 @@ function normalizeFormula(formula) {
 }
 
 /**
- * Quick evaluation functions
+ * Quick evaluation function
  */
 function evaluate(formula) {
     if (!isInitialized()) throw new Error('XL Formula not initialized');
     return new EvaluationResult(XLFormulaModule.evaluate(normalizeFormula(formula)));
-}
-
-function evaluateNumber(formula) {
-    if (!isInitialized()) throw new Error('XL Formula not initialized');
-    return XLFormulaModule.evaluateNumber(normalizeFormula(formula));
-}
-
-function evaluateText(formula) {
-    if (!isInitialized()) throw new Error('XL Formula not initialized');
-    return XLFormulaModule.evaluateText(normalizeFormula(formula));
-}
-
-function evaluateBoolean(formula) {
-    if (!isInitialized()) throw new Error('XL Formula not initialized');
-    return XLFormulaModule.evaluateBoolean(normalizeFormula(formula));
 }
 
 function getVersion() {
@@ -246,9 +206,6 @@ const XLFormula = {
     EvaluationResult,
     FormulaEngine,
     evaluate,
-    evaluateNumber,
-    evaluateText,
-    evaluateBoolean,
     getVersion
 };
 

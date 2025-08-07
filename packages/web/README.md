@@ -29,10 +29,10 @@ import XLFormula from 'xl-formula-web';
 await XLFormula.init();
 
 // Simple evaluation (supports both Excel-style '=' prefix and direct input)
-const result1 = XLFormula.evaluateNumber('=SUM(1, 2, 3, 4, 5)'); // 15
-const result2 = XLFormula.evaluateNumber('SUM(1, 2, 3, 4, 5)');   // 15 (same result)
-const text = XLFormula.evaluateText('=CONCATENATE("Hello", " ", "World")'); // "Hello World"
-const boolean = XLFormula.evaluateBoolean('=IF(5 > 3, TRUE, FALSE)'); // true
+const result = XLFormula.evaluate('=SUM(1, 2, 3, 4, 5)');
+if (result.isSuccess()) {
+  console.log(result.getValue().asNumber()); // 15
+}
 
 // Using the engine for stateful evaluation
 const engine = new XLFormula.FormulaEngine();
@@ -40,8 +40,10 @@ engine.setNumber('A1', 10);
 engine.setNumber('B1', 20);
 engine.setText('C1', 'Hello');
 
-const sum = engine.evaluateNumber('=A1 + B1'); // 30
-const concat = engine.evaluateText('=C1 & " World"'); // "Hello World"
+const sumResult = engine.evaluate('=A1 + B1');
+const sum = sumResult.isSuccess() ? sumResult.getValue().asNumber() : 0; // 30
+const concatResult = engine.evaluate('=C1 & " World"');
+const concat = concatResult.isSuccess() ? concatResult.getValue().asText() : ''; // "Hello World"
 ```
 
 ### Advanced Usage
@@ -110,9 +112,7 @@ if (result.isSuccess()) {
 - `XLFormula.init()`: Initialize the WebAssembly module (returns Promise<boolean>)
 - `XLFormula.isInitialized()`: Check if the library is ready
 - `XLFormula.evaluate(formula)`: Quick evaluation returning EvaluationResult
-- `XLFormula.evaluateNumber(formula)`: Quick number evaluation
-- `XLFormula.evaluateText(formula)`: Quick text evaluation  
-- `XLFormula.evaluateBoolean(formula)`: Quick boolean evaluation
+- `XLFormula.evaluate(formula)`: Quick evaluation (returns EvaluationResult)
 - `XLFormula.getVersion()`: Get library version
 
 ### FormulaEngine Class
@@ -132,9 +132,17 @@ engine.clearVariables();
 
 // Evaluation
 engine.evaluate(formula);        // Returns EvaluationResult
-engine.evaluateNumber(formula);  // Returns number
-engine.evaluateText(formula);    // Returns string
-engine.evaluateBoolean(formula); // Returns boolean
+const result = engine.evaluate(formula);
+if (result.isSuccess()) {
+  const value = result.getValue();
+  if (value.isNumber()) {
+    console.log(value.asNumber());  // Returns number
+  } else if (value.isText()) {
+    console.log(value.asText());    // Returns string
+  } else if (value.isBoolean()) {
+    console.log(value.asBoolean()); // Returns boolean
+  }
+}
 ```
 
 ### Value Class
