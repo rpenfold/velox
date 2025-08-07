@@ -31,9 +31,11 @@ jobs:
         cd apps/docs
         npm run build
         
-    - name: Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages (gh-pages branch)
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./apps/docs/dist 
+        publish_dir: ./apps/docs/dist
+        # Uncomment the next line if gh-pages branch doesn't exist
+        # publish_branch: main 
