@@ -195,18 +195,18 @@ export function FunctionDetail({ func, category, categoryName }) {
     <div>
       {/* Function Header */}
       <div style={{ marginBottom: '2rem' }}>
-        <div style={{ marginBottom: '0.25rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0' }}>
-            <span className="text-xs rounded" style={{ 
-              background: 'var(--color-primary-light)', 
-              color: 'var(--color-primary)',
-              padding: '2px 8px'
-            }}>
-              {categoryName}
-            </span>
+                  <div style={{ marginBottom: '0.25rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0' }}>
+              <span className="text-xs rounded" style={{ 
+                background: 'var(--color-primary-light)', 
+                color: 'var(--color-primary)',
+                padding: '2px 8px'
+              }}>
+                {categoryName}
+              </span>
+            </div>
+            <h1 className="text-3xl font-mono font-bold" style={{ overflowWrap: 'anywhere' }}>{func.name}</h1>
           </div>
-          <h1 className="text-3xl font-mono font-bold">{func.name}</h1>
-        </div>
         <p className="text-lg text-muted">{func.description}</p>
       </div>
       <div className="grid grid-cols-2 gap-8" style={{ gap: '1rem' }}>
@@ -278,6 +278,7 @@ export function FunctionDetail({ func, category, categoryName }) {
             <div className="p-3 rounded" style={{ 
               background: 'var(--color-success-light)', 
               border: '1px solid var(--color-success)',
+              color: 'var(--color-text)',
               overflowX: 'auto'
             }}>
               <div className="flex justify-between items-center" style={{ flexWrap: 'wrap' }}>

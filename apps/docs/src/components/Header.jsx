@@ -15,22 +15,22 @@ export function Header() {
       zIndex: 50
     }}>
       <div className="container">
-        <nav className="flex items-center justify-between" style={{ height: '4rem' }}>
+                 <nav className="flex items-center justify-between" style={{ height: '4rem' }}>
           <div className="flex items-center" style={{ flex: 1 }}>
             <Link href={basePath} className="text-xl font-bold" style={{ textDecoration: 'none', color: 'var(--color-primary)' }}>
               XL Formula
             </Link>
-            <button className="show-mobile btn btn-sm" style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--color-text)', fontSize: '1.5rem', display: 'none' }} aria-label="Open menu" onClick={() => setMobileMenuOpen(true)}>
-              <span style={{ fontSize: '2rem', lineHeight: 1 }}>&#9776;</span>
+            <button className="show-mobile" style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--color-text)', fontSize: '1.5rem', display: 'none', padding: '0.25rem 0.5rem' }} aria-label="Open menu" onClick={() => setMobileMenuOpen(true)}>
+              <span style={{ fontSize: '1.75rem', lineHeight: 1 }}>&#9776;</span>
             </button>
-            <div className="flex items-center hide-mobile" style={{ marginLeft: '2rem' }}>
+            <div className="flex items-center hide-mobile" style={{ marginLeft: '1rem' }}>
               <Link 
                 href={`${basePath}playground`} 
                 className="text-sm font-medium nav-link"
                 style={{ 
                   textDecoration: 'none', 
                   color: 'var(--color-text-secondary)',
-                  padding: '8px 16px',
+                  padding: '6px 10px',
                   borderRadius: '6px',
                   transition: 'all 0.2s ease'
                 }}
@@ -46,7 +46,7 @@ export function Header() {
                 style={{ 
                   textDecoration: 'none', 
                   color: 'var(--color-text-secondary)',
-                  padding: '8px 16px',
+                  padding: '6px 10px',
                   borderRadius: '6px',
                   transition: 'all 0.2s ease'
                 }}

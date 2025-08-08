@@ -53,7 +53,7 @@ export function DocsPage({ category, function: functionName }) {
     return (
       <div className="container" style={{ padding: '2rem 0' }}>
         <div className="mb-6">
-          <nav className="flex items-center gap-2 text-sm text-muted">
+          <nav className="flex items-center gap-2 text-sm text-muted hide-mobile">
             <Link 
               href={`${basePath}docs`} 
               style={{ textDecoration: 'none', color: 'var(--color-primary)' }}
@@ -174,7 +174,7 @@ export function DocsPage({ category, function: functionName }) {
         {/* Functions Grid - Right Three Quarters */}
         <div style={{ flex: 1 }}>
           <div className="card">
-            <div className="flex justify-between items-center mb-4">
+                        <div className="flex justify-between items-center mb-4" style={{ flexWrap: 'wrap' }}>
               <h3 className="font-semibold">
                 {currentCategory?.name}
               </h3>
@@ -214,10 +214,11 @@ export function DocsPage({ category, function: functionName }) {
                   style={{ 
                     textDecoration: 'none',
                     display: 'block',
-                    border: '1px solid var(--color-border)'
+                    border: '1px solid var(--color-border)',
+                    color: 'var(--color-text)'
                   }}
                 >
-                  <div className="font-mono font-medium text-sm">{func.name}</div>
+                                    <div className="font-mono font-medium text-sm" style={{ color: 'var(--color-text)' }}>{func.name}</div>
                   <div className="text-xs text-muted mt-1">{func.description}</div>
                 </Link>
               )) : (
