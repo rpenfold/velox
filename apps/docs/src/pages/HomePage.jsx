@@ -23,13 +23,13 @@ export function HomePage() {
             <Link href={`${basePath}playground`} className="btn btn-primary" style={{ 
               background: 'white', 
               color: '#4f46e5',
-              padding: '1rem 2rem',
-              fontSize: '1rem',
+              padding: '0.875rem 1.25rem',
+              fontSize: '0.95rem',
               textDecoration: 'none',
               marginBottom: '0.5rem',
-              flex: '1 1 180px',
+              flex: '0 1 200px',
               minWidth: '140px',
-              maxWidth: '240px',
+              maxWidth: '220px',
             }}>
               Try Playground
             </Link>
@@ -37,13 +37,13 @@ export function HomePage() {
               background: 'rgba(255,255,255,0.1)', 
               border: '1px solid rgba(255,255,255,0.3)',
               color: 'white',
-              padding: '1rem 2rem',
-              fontSize: '1rem',
+              padding: '0.875rem 1.25rem',
+              fontSize: '0.95rem',
               textDecoration: 'none',
               marginBottom: '0.5rem',
-              flex: '1 1 180px',
+              flex: '0 1 200px',
               minWidth: '140px',
-              maxWidth: '240px',
+              maxWidth: '220px',
             }}>
               Documentation
             </Link>

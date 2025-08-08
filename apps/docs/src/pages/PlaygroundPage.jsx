@@ -270,6 +270,7 @@ export function PlaygroundPage() {
         <div className="p-4 rounded" style={{ 
           background: isSuccess ? 'var(--color-success-light)' : 'var(--color-error-light)',
           border: `1px solid ${isSuccess ? 'var(--color-success)' : 'var(--color-error)'}`,
+          color: isSuccess ? 'var(--color-text)' : 'var(--color-text)',
           fontFamily: 'var(--font-mono)'
         }}>
           <div className="flex justify-between items-center" style={{ flexWrap: 'wrap' }}>

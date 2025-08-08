@@ -41,6 +41,11 @@
     --color-text-muted: #94a3b8;
     --color-border: #334155;
     --color-border-hover: #475569;
+    /* Dark mode: make feedback backgrounds darker for contrast with light text */
+    --color-success-light: #0b3b2e; /* dark teal */
+    --color-error-light: #3a1212;   /* dark red */
+    --color-warning-light: #3a2a0b; /* dark amber */
+    --color-primary-light: rgba(79, 70, 229, 0.25);
   }
 }
 
@@ -48,6 +53,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Prevent accidental horizontal scroll on small screens */
+html, body {
+  overflow-x: hidden;
 }
 
 body {
@@ -237,23 +247,11 @@ code, pre {
   header {
     min-height: 56px;
   }
-  .flex, .flex.items-center, .flex.justify-between {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0.5rem !important;
-  }
-  nav.flex {
-    flex-direction: row !important;
-    flex-wrap: wrap;
-    height: auto !important;
-    gap: 0.5rem !important;
-  }
-  .btn, .btn.btn-primary, .btn.btn-sm {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
-  }
+  /* Avoid globally changing every .flex layout to column on mobile.
+     Let components control their own stacking to prevent header/menu issues. */
+  /* Removed global .flex direction overrides */
+
+  /* Keep cards and grids comfortable on mobile */
   .card {
     padding: 1rem;
   }
@@ -264,30 +262,23 @@ code, pre {
   .mb-6, .mb-8 {
     margin-bottom: 1rem !important;
   }
-  .text-3xl {
-    font-size: 2rem !important;
+  .text-3xl { font-size: 2rem !important; }
+  .text-2xl { font-size: 1.25rem !important; }
+  .text-xl { font-size: 1.1rem !important; }
+  .text-lg { font-size: 1rem !important; }
+  .p-4 { padding: 0.75rem !important; }
+  .p-3 { padding: 0.5rem !important; }
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: block !important; }
+
+  /* Drawer-specific buttons should be full-width on mobile without affecting all buttons */
+  .sidebar-mobile-drawer .btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
   }
-  .text-2xl {
-    font-size: 1.25rem !important;
-  }
-  .text-xl {
-    font-size: 1.1rem !important;
-  }
-  .text-lg {
-    font-size: 1rem !important;
-  }
-  .p-4 {
-    padding: 0.75rem !important;
-  }
-  .p-3 {
-    padding: 0.5rem !important;
-  }
-  .hide-mobile {
-    display: none !important;
-  }
-  .show-mobile {
-    display: block !important;
-  }
+
   .sidebar-mobile-drawer {
     position: fixed;
     top: 0;
@@ -302,9 +293,7 @@ code, pre {
     transform: translateX(-100%);
     transition: transform 0.2s;
   }
-  .sidebar-mobile-drawer.open {
-    transform: translateX(0);
-  }
+  .sidebar-mobile-drawer.open { transform: translateX(0); }
   .sidebar-mobile-backdrop {
     position: fixed;
     top: 0;
