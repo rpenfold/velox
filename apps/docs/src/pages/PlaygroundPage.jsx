@@ -240,11 +240,10 @@ export function PlaygroundPage() {
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       <h1 className="text-2xl font-bold mb-6">Formula Playground</h1>
-      
       {/* Formula Input */}
       <div className="card mb-6">
         <label className="label">Formula</label>
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-4" style={{ flexWrap: 'wrap' }}>
           <input
             type="text"
             value={formula}
@@ -252,54 +251,49 @@ export function PlaygroundPage() {
               setFormula(e.target.value)
               calculateFormula(e.target.value)
             }}
-
             className="input monospace flex-1"
             placeholder="Enter a formula like =SUM(1, 2, 3) or =A1 + B1"
+            style={{ minWidth: '180px', flex: 1 }}
           />
           <button 
             onClick={() => {
-              console.log('Save button clicked, formula:', formula)
-              console.log('Setting showSaveDialog to true')
               setShowSaveDialog(true)
-              console.log('showSaveDialog should now be:', true)
             }}
             className="btn btn-sm"
             disabled={!formula.trim()}
+            style={{ minWidth: '100px' }}
           >
             Save
           </button>
         </div>
-        
         {/* Result with Performance */}
         <div className="p-4 rounded" style={{ 
           background: isSuccess ? 'var(--color-success-light)' : 'var(--color-error-light)',
           border: `1px solid ${isSuccess ? 'var(--color-success)' : 'var(--color-error)'}`,
+          color: isSuccess ? 'var(--color-text)' : 'var(--color-text)',
           fontFamily: 'var(--font-mono)'
         }}>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center" style={{ flexWrap: 'wrap' }}>
             <strong>Result:</strong>
             <span className="text-sm">{resultType}</span>
           </div>
-          <div className="flex justify-between items-center" style={{ marginTop: '0.5rem' }}>
+          <div className="flex justify-between items-center" style={{ marginTop: '0.5rem', flexWrap: 'wrap' }}>
             <div style={{ fontSize: '1.1rem' }}>
               {result || 'Enter a formula to see the result'}
             </div>
             {/* Inline Performance Benchmark */}
             {result && (
-              <div style={{ marginLeft: '1rem' }}>
+              <div style={{ marginLeft: '1rem', minWidth: '120px' }}>
                 <BenchmarkDiagnostic formula={formula} compact={true} />
               </div>
             )}
           </div>
         </div>
       </div>
-
-
-
       {/* Saved Formulas */}
       {savedFormulas.length > 0 && (
         <div className="card mb-6">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center mb-4" style={{ flexWrap: 'wrap' }}>
             <h3 className="font-semibold">Saved Formulas ({savedFormulas.length})</h3>
             <button
               onClick={() => {
@@ -307,7 +301,7 @@ export function PlaygroundPage() {
                 localStorage.removeItem('xl-formula-saved')
               }}
               className="btn btn-sm"
-              style={{ fontSize: '0.75rem' }}
+              style={{ fontSize: '0.75rem', minWidth: '100px' }}
             >
               Clear All
             </button>
@@ -321,7 +315,8 @@ export function PlaygroundPage() {
                 style={{ 
                   background: 'var(--color-bg-secondary)',
                   border: '1px solid var(--color-border)',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  flexWrap: 'wrap'
                 }}
                 onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--color-primary)'}
                 onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--color-border)'}
@@ -345,7 +340,7 @@ export function PlaygroundPage() {
                     localStorage.setItem('xl-formula-saved', JSON.stringify(newSaved))
                   }}
                   className="text-xs text-muted hover:text-error ml-2"
-                  style={{ padding: '4px 8px' }}
+                  style={{ padding: '4px 8px', minWidth: '32px' }}
                   title="Delete saved formula"
                 >
                   ×
@@ -355,19 +350,18 @@ export function PlaygroundPage() {
           </div>
         </div>
       )}
-
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-6" style={{ gap: '1rem' }}>
         {/* Variables */}
         <div className="card">
           <h3 className="font-semibold mb-4">Variables</h3>
-          
-          <div className="flex gap-2 mb-4">
+          <div className="flex gap-2 mb-4" style={{ flexWrap: 'wrap' }}>
             <input
               type="text"
               value={newVarName}
               onChange={(e) => setNewVarName(e.target.value)}
               placeholder="Variable name"
               className="input"
+              style={{ minWidth: '100px', flex: 1 }}
             />
             <input
               type="text"
@@ -375,21 +369,21 @@ export function PlaygroundPage() {
               onChange={(e) => setNewVarValue(e.target.value)}
               placeholder="Value"
               className="input"
+              style={{ minWidth: '100px', flex: 1 }}
             />
-            <button onClick={addVariable} className="btn btn-primary">
+            <button onClick={addVariable} className="btn btn-primary" style={{ minWidth: '80px' }}>
               Add
             </button>
           </div>
-          
           <div className="grid gap-2">
             {variables.map((variable) => (
-              <div key={variable.name} className="flex justify-between items-center p-2 rounded" style={{ background: 'var(--color-bg-secondary)' }}>
+              <div key={variable.name} className="flex justify-between items-center p-2 rounded" style={{ background: 'var(--color-bg-secondary)', flexWrap: 'wrap' }}>
                 <span className="font-mono font-medium">{variable.name}</span>
                 <span className="font-mono text-muted">{variable.value}</span>
                 <button 
                   onClick={() => removeVariable(variable.name)}
                   className="btn btn-sm"
-                  style={{ background: 'var(--color-error)', color: 'white', border: 'none' }}
+                  style={{ background: 'var(--color-error)', color: 'white', border: 'none', minWidth: '60px' }}
                 >
                   Remove
                 </button>
@@ -397,7 +391,6 @@ export function PlaygroundPage() {
             ))}
           </div>
         </div>
-
         {/* Examples */}
         <div className="card">
           <h3 className="font-semibold mb-4">Examples</h3>
@@ -417,7 +410,8 @@ export function PlaygroundPage() {
                 style={{ 
                   background: 'var(--color-bg-secondary)',
                   border: '1px solid var(--color-border)',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  flexWrap: 'wrap'
                 }}
                 onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--color-primary)'}
                 onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--color-border)'}
@@ -429,7 +423,6 @@ export function PlaygroundPage() {
           </div>
         </div>
       </div>
-      
       {/* Save Formula Dialog */}
       {showSaveDialog && (
         <div 
@@ -446,8 +439,6 @@ export function PlaygroundPage() {
             zIndex: 9999
           }}
           onClick={(e) => {
-            console.log('Dialog overlay clicked')
-            // Close dialog when clicking outside
             if (e.target === e.currentTarget) {
               setShowSaveDialog(false)
             }
@@ -458,14 +449,13 @@ export function PlaygroundPage() {
               backgroundColor: 'white',
               borderRadius: '8px',
               padding: '24px',
-              width: '400px',
-              maxWidth: '90vw',
+              width: '90vw',
+              maxWidth: '400px',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
             }}
             onClick={(e) => e.stopPropagation()}
           >
             <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px' }}>Save Formula</h3>
-            
             <div style={{ marginBottom: '16px' }}>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
                 Formula Name (optional)
@@ -485,7 +475,6 @@ export function PlaygroundPage() {
                 autoFocus
               />
             </div>
-            
             <div style={{ marginBottom: '16px' }}>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
                 Formula
@@ -495,12 +484,12 @@ export function PlaygroundPage() {
                 backgroundColor: '#f5f5f5',
                 borderRadius: '4px',
                 fontFamily: 'monospace',
-                fontSize: '14px'
+                fontSize: '14px',
+                overflowX: 'auto'
               }}>
                 {formula}
               </div>
             </div>
-            
             {variables.length > 0 && (
               <div style={{ marginBottom: '16px' }}>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
@@ -511,8 +500,7 @@ export function PlaygroundPage() {
                 </div>
               </div>
             )}
-            
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
               <button
                 onClick={() => {
                   setShowSaveDialog(false)
@@ -523,14 +511,14 @@ export function PlaygroundPage() {
                   border: '1px solid #ccc',
                   borderRadius: '4px',
                   backgroundColor: 'white',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  minWidth: '80px'
                 }}
               >
                 Cancel
               </button>
               <button
                 onClick={() => {
-                  console.log('Dialog Save button clicked')
                   saveFormula(formula, saveFormulaName.trim() || null)
                   setShowSaveDialog(false)
                   setSaveFormulaName('')
@@ -541,7 +529,8 @@ export function PlaygroundPage() {
                   borderRadius: '4px',
                   backgroundColor: '#007bff',
                   color: 'white',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  minWidth: '80px'
                 }}
               >
                 Save

@@ -195,43 +195,40 @@ export function FunctionDetail({ func, category, categoryName }) {
     <div>
       {/* Function Header */}
       <div style={{ marginBottom: '2rem' }}>
-        <div style={{ marginBottom: '0.25rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0' }}>
-            <span className="text-xs rounded" style={{ 
-              background: 'var(--color-primary-light)', 
-              color: 'var(--color-primary)',
-              padding: '2px 8px'
-            }}>
-              {categoryName}
-            </span>
+                  <div style={{ marginBottom: '0.25rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0' }}>
+              <span className="text-xs rounded" style={{ 
+                background: 'var(--color-primary-light)', 
+                color: 'var(--color-primary)',
+                padding: '2px 8px'
+              }}>
+                {categoryName}
+              </span>
+            </div>
+            <h1 className="text-3xl font-mono font-bold" style={{ overflowWrap: 'anywhere' }}>{func.name}</h1>
           </div>
-          <h1 className="text-3xl font-mono font-bold">{func.name}</h1>
-        </div>
         <p className="text-lg text-muted">{func.description}</p>
       </div>
-
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-2 gap-8" style={{ gap: '1rem' }}>
         {/* Documentation */}
         <div>
           {/* Syntax & Parameters */}
           <div className="card mb-6">
             <h3 className="font-semibold mb-4">Syntax & Parameters</h3>
-            
             {/* Syntax */}
             <div className="mb-4">
               <div className="text-sm font-medium mb-2">Syntax</div>
-              <div className="font-mono p-3 rounded" style={{ background: 'var(--color-bg-secondary)' }}>
+              <div className="font-mono p-3 rounded" style={{ background: 'var(--color-bg-secondary)', overflowX: 'auto' }}>
                 {func.syntax}
               </div>
             </div>
-
             {/* Parameters */}
             <div>
               <div className="text-sm font-medium mb-3">Parameters</div>
               {func.parameters.length > 0 ? (
                 <div className="grid gap-3">
                   {func.parameters.map((param, index) => (
-                    <div key={index} className="flex gap-3">
+                    <div key={index} className="flex gap-3" style={{ flexWrap: 'wrap' }}>
                       <div className="font-mono text-sm font-medium" style={{ minWidth: '100px' }}>
                         {param.name}
                         {param.required && <span className="text-error">*</span>}
@@ -248,14 +245,13 @@ export function FunctionDetail({ func, category, categoryName }) {
               )}
             </div>
           </div>
-
           {/* Examples */}
           <div className="card">
             <h3 className="font-semibold mb-3">Examples</h3>
             <div className="grid gap-4">
               {func.examples.map((example, index) => (
-                <div key={index} className="p-3 rounded" style={{ background: 'var(--color-bg-secondary)' }}>
-                  <div className="flex justify-between items-start mb-2">
+                <div key={index} className="p-3 rounded" style={{ background: 'var(--color-bg-secondary)', overflowX: 'auto' }}>
+                  <div className="flex justify-between items-start mb-2" style={{ flexWrap: 'wrap' }}>
                     <code className="font-mono text-sm">{example.formula}</code>
                     <span className="text-sm text-success">{example.result}</span>
                   </div>
@@ -265,13 +261,11 @@ export function FunctionDetail({ func, category, categoryName }) {
             </div>
           </div>
         </div>
-
         {/* Interactive Sandbox */}
         <div>
           {/* Try It Out */}
           <div className="card mb-6">
             <h3 className="font-semibold mb-3">Try It Out</h3>
-            
             <label className="label">Formula</label>
             <input
               type="text"
@@ -279,13 +273,15 @@ export function FunctionDetail({ func, category, categoryName }) {
               onChange={(e) => setTestFormula(e.target.value)}
               className="input monospace mb-3"
               placeholder="Enter a formula to test"
+              style={{ minWidth: '180px', width: '100%' }}
             />
-
             <div className="p-3 rounded" style={{ 
               background: 'var(--color-success-light)', 
-              border: '1px solid var(--color-success)' 
+              border: '1px solid var(--color-success)',
+              color: 'var(--color-text)',
+              overflowX: 'auto'
             }}>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center" style={{ flexWrap: 'wrap' }}>
                 <strong>Result:</strong>
                 <button onClick={runTest} className="btn btn-sm">
                   Run Test
@@ -295,7 +291,6 @@ export function FunctionDetail({ func, category, categoryName }) {
                 {testResult || 'Click "Run Test" to see result'}
               </div>
             </div>
-
             <div className="mt-4">
               <h4 className="font-medium mb-2">Quick Examples</h4>
               <div className="grid gap-2">
@@ -304,7 +299,7 @@ export function FunctionDetail({ func, category, categoryName }) {
                     key={index}
                     onClick={() => setTestFormula(example.formula)}
                     className="btn btn-sm text-left"
-                    style={{ justifyContent: 'flex-start' }}
+                    style={{ justifyContent: 'flex-start', width: '100%' }}
                   >
                     <code className="font-mono text-xs">{example.formula}</code>
                   </button>
@@ -312,22 +307,20 @@ export function FunctionDetail({ func, category, categoryName }) {
               </div>
             </div>
           </div>
-
           {/* Benchmark */}
           <div className="card">
             <h3 className="font-semibold mb-3">Performance Benchmark</h3>
             <p className="text-sm text-muted mb-4">
               Compare XL Formula performance against Hot Formula Parser
             </p>
-
             <button
               onClick={runBenchmark}
               disabled={isBenchmarking || !testFormula}
               className="btn btn-primary mb-4"
+              style={{ width: '100%' }}
             >
               {isBenchmarking ? 'Running Benchmark...' : 'Run Benchmark'}
             </button>
-
             {benchmarkResults && (
               <div className="grid gap-3">
                 {benchmarkResults.error ? (
@@ -336,15 +329,12 @@ export function FunctionDetail({ func, category, categoryName }) {
                   </div>
                 ) : (
                   <>
-
-                    
                     <div className="flex justify-between">
                       <span>XL Formula:</span>
                       <span className="font-mono">
                         {benchmarkResults.xlFormula ? `${benchmarkResults.xlFormula.toFixed(2)}ms` : 'N/A'}
                       </span>
                     </div>
-                    
                     {benchmarkResults.hotFormulaParser && (
                       <>
                         <div className="flex justify-between">
@@ -359,7 +349,6 @@ export function FunctionDetail({ func, category, categoryName }) {
                         </div>
                       </>
                     )}
-                    
                     {benchmarkResults.resultsMatch !== null && (
                       <div className="flex justify-between text-xs">
                         <span>Results match:</span>
@@ -369,7 +358,6 @@ export function FunctionDetail({ func, category, categoryName }) {
                         </span>
                       </div>
                     )}
-                    
                     <div className="text-xs text-muted">
                       Tested with {benchmarkResults.iterations.toLocaleString()} iterations
                     </div>
@@ -377,7 +365,6 @@ export function FunctionDetail({ func, category, categoryName }) {
                 )}
               </div>
             )}
-
             {!benchmarkResults && !isBenchmarking && (
               <div className="text-sm text-muted">
                 Enter a formula above and click "Run Benchmark" to compare performance against Hot Formula Parser.
