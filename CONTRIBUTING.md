@@ -850,11 +850,11 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 ### Math & Trigonometry
 - [x] SUM / MAX / MIN / AVERAGE / COUNT / COUNTA / ABS / ROUND / SQRT / POWER / MOD / PI / SIGN / INT / TRUNC / CEILING / FLOOR / RAND / RANDBETWEEN / COUNTIF / MEDIAN / MODE / STDEV / VAR / GCD / LCM / FACT / COMBIN / PERMUT / SUMPRODUCT / SUMIF / SUMIFS / AVERAGEIF / AVERAGEIFS / SIN / COS / TAN / ASIN / ACOS / ATAN / ATAN2 / SINH / COSH / TANH / DEGREES / RADIANS / EXP / LN / LOG / LOG10
 - [x] SUMSQ
-- [ ] SUMX2MY2 / SUMX2PY2 / SUMXMY2
+- [x] SUMX2MY2 / SUMX2PY2 / SUMXMY2
 - [x] QUOTIENT
 - [x] EVEN / ODD
 - [x] MROUND / ROUNDUP / ROUNDDOWN
-- [ ] ROMAN / ARABIC (ARABIC done if needed)
+- [x] ROMAN / ARABIC
 - [ ] SERIESSUM
 
 ### Date & Time
@@ -882,14 +882,16 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 
 ### Engineering
 - [x] CONVERT / HEX2DEC / DEC2HEX / BIN2DEC / DEC2BIN / BITAND / BITOR / BITXOR
-- [ ] BIN2OCT / OCT2BIN / HEX2OCT / OCT2HEX / DEC2OCT
-- [ ] COMPLEX / IMABS / IMARGUMENT / IMREAL / IMAGINARY / IMSUM / IMDIV / IMPRODUCT / IMSUB / IMPOWER
+- [x] BIN2OCT / OCT2BIN / HEX2OCT / OCT2HEX / DEC2OCT
+- [x] COMPLEX / IMREAL / IMAGINARY
+- [ ] IMABS / IMARGUMENT / IMSUM / IMDIV / IMPRODUCT / IMSUB / IMPOWER
 
 ### Statistical
 - [ ] AVERAGEA
 - [ ] AVEDEV / STDEVA / VARA
 - [ ] CHISQ.* / BETA.* / BINOM.* (subset already covered; expand as needed)
-- [ ] CORREL / COVAR / COVARIANCE.* / PEARSON / RSQ / SLOPE / INTERCEPT
+- [x] CORREL
+- [ ] COVAR / COVARIANCE.* / PEARSON / RSQ / SLOPE / INTERCEPT
 - [ ] PERCENTILE.* / QUARTILE.* / RANK.*
 
 Note: This list is non-exhaustive and will evolve. When you implement a function, please move it to the checked list and include tests and docs.

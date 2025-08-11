@@ -101,6 +101,94 @@ Value imaginary(const std::vector<Value>& args, const Context& context) {
     return Value(p.second);
 }
 
+Value imabs(const std::vector<Value>& args, const Context& context) {
+    (void)context;
+    auto err = utils::validateArgCount(args, 1, "IMABS");
+    if (!err.isEmpty()) return err;
+    auto check = utils::checkForErrors(args);
+    if (!check.isEmpty()) return check;
+    auto p = parseComplex(args[0].toString());
+    double mag = std::sqrt(p.first * p.first + p.second * p.second);
+    return Value(mag);
+}
+
+Value imargument(const std::vector<Value>& args, const Context& context) {
+    (void)context;
+    auto err = utils::validateArgCount(args, 1, "IMARGUMENT");
+    if (!err.isEmpty()) return err;
+    auto check = utils::checkForErrors(args);
+    if (!check.isEmpty()) return check;
+    auto p = parseComplex(args[0].toString());
+    double ang = std::atan2(p.second, p.first);
+    return Value(ang);
+}
+
+static std::pair<double,double> addC(const std::pair<double,double>& a, const std::pair<double,double>& b){return {a.first+b.first, a.second+b.second};}
+static std::pair<double,double> subC(const std::pair<double,double>& a, const std::pair<double,double>& b){return {a.first-b.first, a.second-b.second};}
+static std::pair<double,double> mulC(const std::pair<double,double>& a, const std::pair<double,double>& b){return {a.first*b.first - a.second*b.second, a.first*b.second + a.second*b.first};}
+static std::pair<double,double> divC(const std::pair<double,double>& a, const std::pair<double,double>& b){double d=b.first*b.first+b.second*b.second;return { (a.first*b.first + a.second*b.second)/d, (a.second*b.first - a.first*b.second)/d};}
+
+Value imsum(const std::vector<Value>& args, const Context& context) {
+    (void)context;
+    if (args.empty()) return Value::error(ErrorType::VALUE_ERROR);
+    auto check = utils::checkForErrors(args);
+    if (!check.isEmpty()) return check;
+    std::pair<double,double> acc{0.0,0.0};
+    for (const auto& v : args) {
+        auto p = parseComplex(v.toString());
+        acc = addC(acc, p);
+    }
+    std::ostringstream oss; oss<<acc.first; if (acc.second>=0) oss<<"+"; oss<<acc.second<<"i"; return Value(oss.str());
+}
+
+Value imsub(const std::vector<Value>& args, const Context& context) {
+    (void)context;
+    auto err = utils::validateArgCount(args, 2, "IMSUB");
+    if (!err.isEmpty()) return err;
+    auto a = parseComplex(args[0].toString());
+    auto b = parseComplex(args[1].toString());
+    auto r = subC(a,b);
+    std::ostringstream oss; oss<<r.first; if (r.second>=0) oss<<"+"; oss<<r.second<<"i"; return Value(oss.str());
+}
+
+Value improduct(const std::vector<Value>& args, const Context& context) {
+    (void)context;
+    if (args.empty()) return Value::error(ErrorType::VALUE_ERROR);
+    auto check = utils::checkForErrors(args);
+    if (!check.isEmpty()) return check;
+    std::pair<double,double> acc{1.0,0.0};
+    for (const auto& v : args) {
+        acc = mulC(acc, parseComplex(v.toString()));
+    }
+    std::ostringstream oss; oss<<acc.first; if (acc.second>=0) oss<<"+"; oss<<acc.second<<"i"; return Value(oss.str());
+}
+
+Value imdiv(const std::vector<Value>& args, const Context& context) {
+    (void)context;
+    auto err = utils::validateArgCount(args, 2, "IMDIV");
+    if (!err.isEmpty()) return err;
+    auto a = parseComplex(args[0].toString());
+    auto b = parseComplex(args[1].toString());
+    auto r = divC(a,b);
+    std::ostringstream oss; oss<<r.first; if (r.second>=0) oss<<"+"; oss<<r.second<<"i"; return Value(oss.str());
+}
+
+Value impower(const std::vector<Value>& args, const Context& context) {
+    (void)context;
+    auto err = utils::validateArgCount(args, 2, "IMPOWER");
+    if (!err.isEmpty()) return err;
+    auto a = parseComplex(args[0].toString());
+    auto expV = utils::toNumberSafe(args[1], "IMPOWER");
+    if (expV.isError()) return expV;
+    int n = static_cast<int>(expV.asNumber());
+    std::pair<double,double> acc{1.0,0.0};
+    std::pair<double,double> base=a;
+    int p = std::abs(n);
+    while (p>0){ if (p&1) acc = mulC(acc, base); base = mulC(base, base); p >>= 1; }
+    if (n<0){ acc = divC({1.0,0.0}, acc); }
+    std::ostringstream oss; oss<<acc.first; if (acc.second>=0) oss<<"+"; oss<<acc.second<<"i"; return Value(oss.str());
+}
+
 }  // namespace builtin
 }  // namespace functions
 }  // namespace xl_formula

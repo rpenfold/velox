@@ -21,6 +21,54 @@ export const functionCategories = {
           { formula: 'SUM(A1, B1, C1)', result: '15', description: 'Sum of cells (A1=5, B1=4, C1=6)' }
         ]
       },
+      PEARSON: {
+        name: 'PEARSON',
+        description: 'Returns the Pearson correlation coefficient (alias of CORREL)',
+        syntax: 'PEARSON(array1, array2)',
+        parameters: [
+          { name: 'array1', description: 'First range or array of numbers', required: true },
+          { name: 'array2', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'PEARSON([1,2,3,4],[2,4,6,8])', result: '1', description: 'Perfect positive correlation' }
+        ]
+      },
+      RSQ: {
+        name: 'RSQ',
+        description: 'Returns the square of the Pearson correlation coefficient (R^2)',
+        syntax: 'RSQ(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'RSQ([1,2,3,4],[2,4,6,8])', result: '1', description: 'Perfect fit' }
+        ]
+      },
+      SLOPE: {
+        name: 'SLOPE',
+        description: 'Returns the slope of the linear regression line through data points',
+        syntax: 'SLOPE(known_y’s, known_x’s)',
+        parameters: [
+          { name: 'known_y’s', description: 'Dependent data points', required: true },
+          { name: 'known_x’s', description: 'Independent data points', required: true }
+        ],
+        examples: [
+          { formula: 'SLOPE([2,4,6,8],[1,2,3,4])', result: '2', description: 'y = 2x perfect line' }
+        ]
+      },
+      INTERCEPT: {
+        name: 'INTERCEPT',
+        description: 'Returns the y-intercept of the linear regression line through data points',
+        syntax: 'INTERCEPT(known_y’s, known_x’s)',
+        parameters: [
+          { name: 'known_y’s', description: 'Dependent data points', required: true },
+          { name: 'known_x’s', description: 'Independent data points', required: true }
+        ],
+        examples: [
+          { formula: 'INTERCEPT([2,4,6,8],[1,2,3,4])', result: '0', description: 'y = 2x line intercept' }
+        ]
+      },
       SUMX2MY2: {
         name: 'SUMX2MY2',
         description: 'Sum of the difference of squares of corresponding values: Σ(x^2 − y^2)',
@@ -1494,6 +1542,31 @@ export const functionCategories = {
         examples: [
           { formula: 'DATEDIF(DATE(2020,1,1), DATE(2024,1,1), "Y")', result: '4', description: 'Years between dates' },
           { formula: 'DATEDIF(DATE(2024,1,1), DATE(2024,3,15), "D")', result: '74', description: 'Days between dates' }
+        ]
+      }
+      ,
+      EDATE: {
+        name: 'EDATE',
+        description: 'Returns the date that is the indicated number of months before or after a start date',
+        syntax: 'EDATE(start_date, months)',
+        parameters: [
+          { name: 'start_date', description: 'The start date', required: true },
+          { name: 'months', description: 'The number of months before (negative) or after (positive)', required: true }
+        ],
+        examples: [
+          { formula: 'EDATE(DATE(2024,1,31), 1)', result: '2024-02-29 00:00:00', description: 'Clamped to last day of Feb (leap year)' }
+        ]
+      },
+      EOMONTH: {
+        name: 'EOMONTH',
+        description: 'Returns the serial number for the last day of the month, n months before or after start date',
+        syntax: 'EOMONTH(start_date, months)',
+        parameters: [
+          { name: 'start_date', description: 'The start date', required: true },
+          { name: 'months', description: 'Number of months before (negative) or after (positive)', required: true }
+        ],
+        examples: [
+          { formula: 'EOMONTH(DATE(2024,1,15), 1)', result: '2024-02-29 00:00:00', description: 'End of next month' }
         ]
       }
     }

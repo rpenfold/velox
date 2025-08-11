@@ -75,6 +75,14 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::var(args, context);
         case hash_function_name("CORREL"):
             return builtin::correl(args, context);
+        case hash_function_name("PEARSON"):
+            return builtin::correl(args, context);
+        case hash_function_name("RSQ"):
+            return builtin::rsq(args, context);
+        case hash_function_name("SLOPE"):
+            return builtin::slope(args, context);
+        case hash_function_name("INTERCEPT"):
+            return builtin::intercept(args, context);
         case hash_function_name("SUMX2MY2"):
             return builtin::sumx2my2(args, context);
         case hash_function_name("SUMX2PY2"):
@@ -191,6 +199,10 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::weekday(args, context);
         case hash_function_name("DATEDIF"):
             return builtin::datedif(args, context);
+        case hash_function_name("EDATE"):
+            return builtin::edate(args, context);
+        case hash_function_name("EOMONTH"):
+            return builtin::eomonth(args, context);
 
         // Logical functions
         case hash_function_name("TRUE"):
@@ -257,6 +269,20 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::imreal(args, context);
         case hash_function_name("IMAGINARY"):
             return builtin::imaginary(args, context);
+        case hash_function_name("IMABS"):
+            return builtin::imabs(args, context);
+        case hash_function_name("IMARGUMENT"):
+            return builtin::imargument(args, context);
+        case hash_function_name("IMSUM"):
+            return builtin::imsum(args, context);
+        case hash_function_name("IMSUB"):
+            return builtin::imsub(args, context);
+        case hash_function_name("IMPRODUCT"):
+            return builtin::improduct(args, context);
+        case hash_function_name("IMDIV"):
+            return builtin::imdiv(args, context);
+        case hash_function_name("IMPOWER"):
+            return builtin::impower(args, context);
 
         // Financial functions
         case hash_function_name("PV"):

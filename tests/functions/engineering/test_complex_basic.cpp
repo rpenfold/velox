@@ -31,4 +31,30 @@ TEST(EngineeringComplexTest, Parse_Imaginary_Forms) {
     EXPECT_DOUBLE_EQ(im2.asNumber(), 3.0);
 }
 
+TEST(EngineeringComplexTest, Complex_MoreOps) {
+    auto c = Value("3-4i");
+    auto mag = imabs({c}, Context{});
+    ASSERT_TRUE(mag.isNumber());
+    EXPECT_DOUBLE_EQ(mag.asNumber(), 5.0);
+    auto arg = imargument({c}, Context{});
+    ASSERT_TRUE(arg.isNumber());
+    EXPECT_NEAR(arg.asNumber(), std::atan2(-4.0, 3.0), 1e-12);
 
+    auto s = imsum({Value("1+2i"), Value("3+4i")}, Context{});
+    ASSERT_TRUE(s.isText());
+    EXPECT_EQ(s.asText(), "4+6i");
+    auto sub = imsub({Value("3+4i"), Value("1+2i")}, Context{});
+    ASSERT_TRUE(sub.isText());
+    EXPECT_EQ(sub.asText(), "2+2i");
+
+    auto prod = improduct({Value("1+2i"), Value("3+4i")}, Context{});
+    ASSERT_TRUE(prod.isText());
+    EXPECT_EQ(prod.asText(), "-5+10i");
+    auto div = imdiv({Value("3+4i"), Value("1+2i")}, Context{});
+    ASSERT_TRUE(div.isText());
+    EXPECT_EQ(div.asText(), "2.2-0.4i");
+
+    auto p2 = impower({Value("1+2i"), Value(2.0)}, Context{});
+    ASSERT_TRUE(p2.isText());
+    EXPECT_EQ(p2.asText(), "-3+4i");
+}

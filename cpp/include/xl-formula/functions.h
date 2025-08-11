@@ -268,8 +268,11 @@ Value unichar(const std::vector<Value>& args, const Context& context);
  */
 Value unicode_function(const std::vector<Value>& args, const Context& context);
 
-// New: CORREL and SUMX* variants
+// New: CORREL and related regression functions
 Value correl(const std::vector<Value>& args, const Context& context);
+Value rsq(const std::vector<Value>& args, const Context& context);
+Value slope(const std::vector<Value>& args, const Context& context);
+Value intercept(const std::vector<Value>& args, const Context& context);
 Value sumx2my2(const std::vector<Value>& args, const Context& context);
 Value sumx2py2(const std::vector<Value>& args, const Context& context);
 Value sumxmy2(const std::vector<Value>& args, const Context& context);
@@ -783,6 +786,8 @@ Value weekday(const std::vector<Value>& args, const Context& context);
  * @return Date difference in specified unit
  */
 Value datedif(const std::vector<Value>& args, const Context& context);
+Value edate(const std::vector<Value>& args, const Context& context);
+Value eomonth(const std::vector<Value>& args, const Context& context);
 
 // Engineering & Specialized Functions
 
@@ -861,6 +866,13 @@ Value oct2hex(const std::vector<Value>& args, const Context& context);
 Value complex_function(const std::vector<Value>& args, const Context& context);
 Value imreal(const std::vector<Value>& args, const Context& context);
 Value imaginary(const std::vector<Value>& args, const Context& context);
+Value imabs(const std::vector<Value>& args, const Context& context);
+Value imargument(const std::vector<Value>& args, const Context& context);
+Value imsum(const std::vector<Value>& args, const Context& context);
+Value imsub(const std::vector<Value>& args, const Context& context);
+Value improduct(const std::vector<Value>& args, const Context& context);
+Value imdiv(const std::vector<Value>& args, const Context& context);
+Value impower(const std::vector<Value>& args, const Context& context);
 
 // Financial Functions
 
