@@ -62,7 +62,7 @@ export interface FormulaEngine {
     clearVariables(): FormulaEngine;
     
     // Formula evaluation (supports both '=FORMULA' and 'FORMULA' input)
-    evaluate(formula: string): EvaluationResult;
+    evaluate(formula: string, variables?: Record<string, number | string | boolean | Value>): EvaluationResult;
 
     // Tooling-only evaluation with trace tree for visualization
     evaluateWithTrace(formula: string): EvaluateWithTraceReturn;

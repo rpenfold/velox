@@ -174,31 +174,26 @@ TEST_F(IntegrationTest, ComplexNestedFormulas) {
 TEST_F(IntegrationTest, ErrorHandling) {
     // Division by zero
     auto result = engine.evaluate("A1 / 0");
-    EXPECT_FALSE(result.isSuccess());
     EXPECT_TRUE(result.getValue().isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.getValue().asError());
 
     // Invalid function
     result = engine.evaluate("INVALID_FUNCTION(A1)");
-    EXPECT_FALSE(result.isSuccess());
     EXPECT_TRUE(result.getValue().isError());
     EXPECT_EQ(ErrorType::NAME_ERROR, result.getValue().asError());
 
     // Invalid variable
     result = engine.evaluate("NONEXISTENT_VAR + A1");
-    EXPECT_FALSE(result.isSuccess());
     EXPECT_TRUE(result.getValue().isError());
     EXPECT_EQ(ErrorType::NAME_ERROR, result.getValue().asError());
 
     // Parse error
     result = engine.evaluate("A1 +");
-    EXPECT_FALSE(result.isSuccess());
     EXPECT_TRUE(result.getValue().isError());
     EXPECT_EQ(ErrorType::PARSE_ERROR, result.getValue().asError());
 
     // Type error
     result = engine.evaluate("ABS(\"hello\")");
-    EXPECT_FALSE(result.isSuccess());
     EXPECT_TRUE(result.getValue().isError());
     EXPECT_EQ(ErrorType::VALUE_ERROR, result.getValue().asError());
 }

@@ -227,6 +227,29 @@ public:
         return JSEvaluationResult(engine_.evaluate(formula));
     }
 
+    // Evaluate with per-call variables (object of key->JSValue|number|string|boolean)
+    JSEvaluationResult evaluateWithVariables(const std::string& formula, const val& variables) {
+        std::unordered_map<std::string, Value> overrides;
+        auto typeStr = variables.typeOf().as<std::string>();
+        if (typeStr == "object") {
+            auto keys = val::global("Object").call<val>("keys", variables);
+            auto len = keys["length"].as<unsigned>();
+            for (unsigned i = 0; i < len; ++i) {
+                std::string key = keys[i].as<std::string>();
+                val v = variables[key];
+                std::string vt = v.typeOf().as<std::string>();
+                if (vt == "number") {
+                    overrides.emplace(key, Value(v.as<double>()));
+                } else if (vt == "string") {
+                    overrides.emplace(key, Value(v.as<std::string>()));
+                } else if (vt == "boolean") {
+                    overrides.emplace(key, Value(v.as<bool>()));
+                }
+            }
+        }
+        return JSEvaluationResult(engine_.evaluate(formula, overrides));
+    }
+
     // Trace-enabled evaluation for tooling
     val evaluateWithTrace(const std::string& formula) {
         std::unique_ptr<TraceNode> trace_root;
@@ -306,6 +329,7 @@ EMSCRIPTEN_BINDINGS(xl_formula) {
         .function("removeVariable", &JSFormulaEngine::removeVariable)
         .function("clearVariables", &JSFormulaEngine::clearVariables)
         .function("evaluate", &JSFormulaEngine::evaluate)
+        .function("evaluateWithVariables", &JSFormulaEngine::evaluateWithVariables)
         .function("evaluateWithTrace", &JSFormulaEngine::evaluateWithTrace);
 
     // Standalone functions

@@ -171,9 +171,16 @@ class FormulaEngine {
     }
 
     // Formula evaluation
-    evaluate(formula) {
-        return new EvaluationResult(this._engine.evaluate(normalizeFormula(formula)));
-    }
+  evaluate(formula, variables) {
+      const f = normalizeFormula(formula);
+      if (variables && typeof variables === 'object') {
+          if (typeof this._engine.evaluateWithVariables === 'function') {
+              // Convert plain JS values to wrapper Values where helpful is handled by binding
+              return new EvaluationResult(this._engine.evaluateWithVariables(f, variables));
+          }
+      }
+      return new EvaluationResult(this._engine.evaluate(f));
+  }
 
     // Tooling-only: evaluate with trace for visualization
     evaluateWithTrace(formula) {

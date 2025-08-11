@@ -146,7 +146,8 @@ TEST_F(EvaluatorTest, ArithmeticErrors) {
     checkErrorResult("1 / 0", ErrorType::DIV_ZERO);
     checkErrorResult("A1 / 0", ErrorType::DIV_ZERO);
     checkErrorResult("\"hello\" + 1", ErrorType::VALUE_ERROR);
-    checkErrorResult("TRUE * FALSE", ErrorType::VALUE_ERROR);
+    // Excel coerces booleans in arithmetic: TRUE*FALSE = 0
+    checkNumberResult("TRUE * FALSE", 0.0);
 }
 
 TEST_F(EvaluatorTest, SumFunction) {
@@ -297,4 +298,27 @@ TEST_F(FormulaEngineTest, CustomFunction) {
     EXPECT_TRUE(result.isSuccess());
     EXPECT_TRUE(result.getValue().isNumber());
     EXPECT_DOUBLE_EQ(20.0, result.getValue().asNumber());  // 10 * 2
+}
+
+TEST_F(FormulaEngineTest, EvaluateWithOverrides_UsesOverridesAndFallsBack) {
+    engine.setVariable("X", Value(5.0));
+    // Y only provided via overrides; X should fall back to engine context
+    std::unordered_map<std::string, Value> vars{{"Y", Value(3.0)}};
+    auto res = engine.evaluate("X + Y", vars);
+    ASSERT_TRUE(res.isSuccess());
+    ASSERT_TRUE(res.getValue().isNumber());
+    EXPECT_DOUBLE_EQ(8.0, res.getValue().asNumber());
+
+    // Override X for this call only; engine's X should remain unchanged afterward
+    std::unordered_map<std::string, Value> vars2{{"X", Value(10.0)}};
+    auto res2 = engine.evaluate("X + 1", vars2);
+    ASSERT_TRUE(res2.isSuccess());
+    ASSERT_TRUE(res2.getValue().isNumber());
+    EXPECT_DOUBLE_EQ(11.0, res2.getValue().asNumber());
+
+    // Verify engine context restored
+    auto res3 = engine.evaluate("X");
+    ASSERT_TRUE(res3.isSuccess());
+    ASSERT_TRUE(res3.getValue().isNumber());
+    EXPECT_DOUBLE_EQ(5.0, res3.getValue().asNumber());
 }

@@ -197,6 +197,20 @@ class FormulaEngine {
     EvaluationResult evaluate(const ASTNode& ast);
 
     /**
+     * @brief Evaluate a formula string with per-call variable overrides
+     * @param formula Formula text to evaluate
+     * @param overrides Map of variable name to Value to use for this call only
+     * @return Evaluation result
+     *
+     * Variables provided in overrides are temporarily applied for the duration of
+     * this call. Variables not present in overrides fall back to the engine's
+     * existing context. After evaluation, the engine's context is restored to its
+     * original state.
+     */
+    EvaluationResult evaluate(const std::string& formula,
+                              const std::unordered_map<std::string, Value>& overrides);
+
+    /**
      * @brief Evaluate and produce a trace tree for visualization
      * @param formula Formula text to evaluate
      * @param out_trace_root Output unique_ptr for the trace root node

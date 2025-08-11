@@ -1,6 +1,5 @@
 // Jest setup for XL Formula WASM testing
 import { TextEncoder, TextDecoder } from 'util';
-import XMLHttpRequest from 'xhr2';
 import fs from 'fs';
 import path from 'path';
 
@@ -8,8 +7,7 @@ import path from 'path';
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
-// Set up environment for WASM loading
-global.XMLHttpRequest = XMLHttpRequest;
+// No XMLHttpRequest needed; we polyfill fetch below to load WASM from filesystem
 
 // Mock performance.now if not available
 if (typeof performance === 'undefined') {

@@ -13,6 +13,12 @@ EvaluationResult evaluate(const std::string& formula, const Context& context) {
     return engine.evaluate(formula);
 }
 
+EvaluationResult evaluate(const std::string& formula,
+                          const std::unordered_map<std::string, Value>& variables) {
+    FormulaEngine engine;
+    return engine.evaluate(formula, variables);
+}
+
 ParseResult parse(const std::string& formula) {
     Parser parser;
     return parser.parse(formula);

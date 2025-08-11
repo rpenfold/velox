@@ -38,6 +38,14 @@ describe('XL Formula Integration Tests', () => {
       expect(engine).toBeDefined();
       expect(typeof engine.evaluate).toBe('function');
     });
+
+    test('evaluate with per-call variables', () => {
+      const result = engine.evaluate('X + Y + 1', { X: 10, Y: 5 });
+      expect(result.isSuccess()).toBe(true);
+      const value = result.getValue();
+      expect(value.isNumber()).toBe(true);
+      expect(value.asNumber()).toBe(16);
+    });
   });
 
   describe('Math Functions', () => {
