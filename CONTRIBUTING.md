@@ -859,7 +859,7 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 
 ### Date & Time
 - [x] NOW / TODAY / DATE / TIME / YEAR / MONTH / DAY / HOUR / MINUTE / SECOND / WEEKDAY / DATEDIF
-- [ ] EDATE / EOMONTH
+- [x] EDATE / EOMONTH
 - [ ] DATEVALUE / TIMEVALUE
 - [ ] WEEKNUM / WEEKNUM.ISO / ISOWEEKNUM
 - [ ] WORKDAY / WORKDAY.INTL / NETWORKDAYS / NETWORKDAYS.INTL
@@ -884,14 +884,15 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 - [x] CONVERT / HEX2DEC / DEC2HEX / BIN2DEC / DEC2BIN / BITAND / BITOR / BITXOR
 - [x] BIN2OCT / OCT2BIN / HEX2OCT / OCT2HEX / DEC2OCT
 - [x] COMPLEX / IMREAL / IMAGINARY
-- [ ] IMABS / IMARGUMENT / IMSUM / IMDIV / IMPRODUCT / IMSUB / IMPOWER
+- [x] IMABS / IMARGUMENT / IMSUM / IMDIV / IMPRODUCT / IMSUB / IMPOWER
 
 ### Statistical
 - [ ] AVERAGEA
 - [ ] AVEDEV / STDEVA / VARA
 - [ ] CHISQ.* / BETA.* / BINOM.* (subset already covered; expand as needed)
 - [x] CORREL
-- [ ] COVAR / COVARIANCE.* / PEARSON / RSQ / SLOPE / INTERCEPT
+- [x] PEARSON / RSQ / SLOPE / INTERCEPT
+- [ ] COVAR / COVARIANCE.*
 - [ ] PERCENTILE.* / QUARTILE.* / RANK.*
 
 Note: This list is non-exhaustive and will evolve. When you implement a function, please move it to the checked list and include tests and docs.
