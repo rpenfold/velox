@@ -241,6 +241,22 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::bitor_function(args, context);
         case hash_function_name("BITXOR"):
             return builtin::bitxor_function(args, context);
+        case hash_function_name("DEC2OCT"):
+            return builtin::dec2oct(args, context);
+        case hash_function_name("BIN2OCT"):
+            return builtin::bin2oct(args, context);
+        case hash_function_name("OCT2BIN"):
+            return builtin::oct2bin(args, context);
+        case hash_function_name("HEX2OCT"):
+            return builtin::hex2oct(args, context);
+        case hash_function_name("OCT2HEX"):
+            return builtin::oct2hex(args, context);
+        case hash_function_name("COMPLEX"):
+            return builtin::complex_function(args, context);
+        case hash_function_name("IMREAL"):
+            return builtin::imreal(args, context);
+        case hash_function_name("IMAGINARY"):
+            return builtin::imaginary(args, context);
 
         // Financial functions
         case hash_function_name("PV"):
@@ -327,6 +343,7 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Engineering functions
             "CONVERT", "HEX2DEC", "DEC2HEX", "BIN2DEC", "DEC2BIN", "BITAND", "BITOR", "BITXOR",
+            "DEC2OCT", "BIN2OCT", "OCT2BIN", "HEX2OCT", "OCT2HEX", "COMPLEX", "IMREAL", "IMAGINARY",
 
             // Financial functions
             "PV", "FV", "PMT", "RATE", "NPER", "NPV", "IRR", "MIRR"};

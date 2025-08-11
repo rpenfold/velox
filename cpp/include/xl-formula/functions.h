@@ -850,6 +850,18 @@ Value bitor_function(const std::vector<Value>& args, const Context& context);
  */
 Value bitxor_function(const std::vector<Value>& args, const Context& context);
 
+// Engineering: additional base conversions
+Value dec2oct(const std::vector<Value>& args, const Context& context);
+Value bin2oct(const std::vector<Value>& args, const Context& context);
+Value oct2bin(const std::vector<Value>& args, const Context& context);
+Value hex2oct(const std::vector<Value>& args, const Context& context);
+Value oct2hex(const std::vector<Value>& args, const Context& context);
+
+// Engineering: complex number helpers
+Value complex_function(const std::vector<Value>& args, const Context& context);
+Value imreal(const std::vector<Value>& args, const Context& context);
+Value imaginary(const std::vector<Value>& args, const Context& context);
+
 // Financial Functions
 
 /**

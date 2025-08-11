@@ -21,6 +21,42 @@ export const functionCategories = {
           { formula: 'SUM(A1, B1, C1)', result: '15', description: 'Sum of cells (A1=5, B1=4, C1=6)' }
         ]
       },
+      SUMX2MY2: {
+        name: 'SUMX2MY2',
+        description: 'Sum of the difference of squares of corresponding values: Σ(x^2 − y^2)',
+        syntax: 'SUMX2MY2(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'SUMX2MY2([1,2],[3,4])', result: '-20', description: '(1^2-3^2)+(2^2-4^2)= -20' }
+        ]
+      },
+      SUMX2PY2: {
+        name: 'SUMX2PY2',
+        description: 'Sum of the sum of squares of corresponding values: Σ(x^2 + y^2)',
+        syntax: 'SUMX2PY2(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'SUMX2PY2([1,2],[3,4])', result: '30', description: '(1^2+3^2)+(2^2+4^2)=30' }
+        ]
+      },
+      SUMXMY2: {
+        name: 'SUMXMY2',
+        description: 'Sum of squares of differences of corresponding values: Σ(x − y)^2',
+        syntax: 'SUMXMY2(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'SUMXMY2([5,7],[2,4])', result: '18', description: '(5-2)^2 + (7-4)^2 = 18' }
+        ]
+      },
       MAX: {
         name: 'MAX',
         description: 'Returns the largest value among the arguments',
@@ -955,6 +991,97 @@ export const functionCategories = {
         examples: [
           { formula: 'UNICODE("A")', result: '65', description: 'Unicode code for "A"' },
           { formula: 'UNICODE("😀")', result: '128512', description: 'Unicode code for emoji' }
+        ]
+      },
+      DEC2OCT: {
+        name: 'DEC2OCT',
+        description: 'Converts a decimal number to octal',
+        syntax: 'DEC2OCT(number, [places])',
+        parameters: [
+          { name: 'number', description: 'The decimal number to convert', required: true },
+          { name: 'places', description: 'Number of characters to use', required: false }
+        ],
+        examples: [
+          { formula: 'DEC2OCT(8)', result: '"10"', description: 'Decimal 8 to octal 10' }
+        ]
+      },
+      BIN2OCT: {
+        name: 'BIN2OCT',
+        description: 'Converts a binary number to octal',
+        syntax: 'BIN2OCT(number)',
+        parameters: [
+          { name: 'number', description: 'Binary string to convert', required: true }
+        ],
+        examples: [
+          { formula: 'BIN2OCT("1111111111")', result: '"1777"', description: 'Binary to octal' }
+        ]
+      },
+      OCT2BIN: {
+        name: 'OCT2BIN',
+        description: 'Converts an octal number to binary',
+        syntax: 'OCT2BIN(number)',
+        parameters: [
+          { name: 'number', description: 'Octal string to convert', required: true }
+        ],
+        examples: [
+          { formula: 'OCT2BIN("1777")', result: '"1111111111"', description: 'Octal to binary' }
+        ]
+      },
+      HEX2OCT: {
+        name: 'HEX2OCT',
+        description: 'Converts a hexadecimal number to octal',
+        syntax: 'HEX2OCT(number)',
+        parameters: [
+          { name: 'number', description: 'Hexadecimal string to convert', required: true }
+        ],
+        examples: [
+          { formula: 'HEX2OCT("FF")', result: '"377"', description: 'Hex to octal' }
+        ]
+      },
+      OCT2HEX: {
+        name: 'OCT2HEX',
+        description: 'Converts an octal number to hexadecimal',
+        syntax: 'OCT2HEX(number)',
+        parameters: [
+          { name: 'number', description: 'Octal string to convert', required: true }
+        ],
+        examples: [
+          { formula: 'OCT2HEX("377")', result: '"FF"', description: 'Octal to hex' }
+        ]
+      },
+      COMPLEX: {
+        name: 'COMPLEX',
+        description: 'Converts real and imaginary coefficients into a complex number',
+        syntax: 'COMPLEX(real_num, i_num, [suffix])',
+        parameters: [
+          { name: 'real_num', required: true, description: 'Real coefficient' },
+          { name: 'i_num', required: true, description: 'Imaginary coefficient' },
+          { name: 'suffix', required: false, description: 'i or j (default i)' }
+        ],
+        examples: [
+          { formula: 'COMPLEX(3, -4)', result: '"3+-4i"', description: 'Standard i suffix' }
+        ]
+      },
+      IMREAL: {
+        name: 'IMREAL',
+        description: 'Returns the real coefficient of a complex number',
+        syntax: 'IMREAL(inumber)',
+        parameters: [
+          { name: 'inumber', required: true, description: 'Complex number as text' }
+        ],
+        examples: [
+          { formula: 'IMREAL("3-4i")', result: '3', description: 'Extract real part' }
+        ]
+      },
+      IMAGINARY: {
+        name: 'IMAGINARY',
+        description: 'Returns the imaginary coefficient of a complex number',
+        syntax: 'IMAGINARY(inumber)',
+        parameters: [
+          { name: 'inumber', required: true, description: 'Complex number as text' }
+        ],
+        examples: [
+          { formula: 'IMAGINARY("3-4i")', result: '-4', description: 'Extract imaginary part' }
         ]
       },
       ROMAN: {
