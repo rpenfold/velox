@@ -73,6 +73,14 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::stdev(args, context);
         case hash_function_name("VAR"):
             return builtin::var(args, context);
+        case hash_function_name("CORREL"):
+            return builtin::correl(args, context);
+        case hash_function_name("SUMX2MY2"):
+            return builtin::sumx2my2(args, context);
+        case hash_function_name("SUMX2PY2"):
+            return builtin::sumx2py2(args, context);
+        case hash_function_name("SUMXMY2"):
+            return builtin::sumxmy2(args, context);
 
         // Trigonometric functions
         case hash_function_name("SIN"):
@@ -153,6 +161,10 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::unichar(args, context);
         case hash_function_name("UNICODE"):
             return builtin::unicode_function(args, context);
+        case hash_function_name("ROMAN"):
+            return builtin::roman(args, context);
+        case hash_function_name("ARABIC"):
+            return builtin::arabic(args, context);
 
         // Date & Time functions
         case hash_function_name("NOW"):
@@ -293,6 +305,7 @@ std::vector<std::string> get_builtin_function_names() {
             "RAND", "RANDBETWEEN", "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD", "LCM", "FACT", 
             "COMBIN", "PERMUT", "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF", "AVERAGEIFS",
             "SUMSQ", "QUOTIENT", "EVEN", "ODD",
+            "CORREL", "SUMX2MY2", "SUMX2PY2", "SUMXMY2",
 
             // Trigonometric functions
             "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN", "ATAN2", "SINH", "COSH", "TANH", "DEGREES",
@@ -302,6 +315,7 @@ std::vector<std::string> get_builtin_function_names() {
             "CONCATENATE", "CONCAT", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",
             "CHAR", "CODE", "CLEAN", "EXACT",
             "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE", "T", "TEXTJOIN", "UNICHAR", "UNICODE",
+            "ROMAN", "ARABIC",
 
             // Date & Time functions
             "NOW", "TODAY", "DATE", "TIME", "YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND",

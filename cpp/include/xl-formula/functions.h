@@ -268,6 +268,16 @@ Value unichar(const std::vector<Value>& args, const Context& context);
  */
 Value unicode_function(const std::vector<Value>& args, const Context& context);
 
+// New: CORREL and SUMX* variants
+Value correl(const std::vector<Value>& args, const Context& context);
+Value sumx2my2(const std::vector<Value>& args, const Context& context);
+Value sumx2py2(const std::vector<Value>& args, const Context& context);
+Value sumxmy2(const std::vector<Value>& args, const Context& context);
+
+// New: ROMAN and ARABIC
+Value roman(const std::vector<Value>& args, const Context& context);
+Value arabic(const std::vector<Value>& args, const Context& context);
+
 /**
  * @brief ABS function - returns absolute value
  * @param args Function arguments (expects 1 numeric argument)

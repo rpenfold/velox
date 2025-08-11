@@ -446,6 +446,55 @@ export const functionCategories = {
           { formula: 'ROUNDDOWN(3.9, 0)', result: '3', description: 'Always rounds toward zero' },
           { formula: 'ROUNDDOWN(-3.9, 0)', result: '-3', description: 'Toward zero means less negative' }
         ]
+      },
+      CORREL: {
+        name: 'CORREL',
+        description: 'Returns the correlation coefficient between two data sets',
+        syntax: 'CORREL(array1, array2)',
+        parameters: [
+          { name: 'array1', description: 'First range or array of numbers', required: true },
+          { name: 'array2', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'CORREL([1,2,3,4],[2,4,6,8])', result: '1', description: 'Perfect positive correlation' },
+          { formula: 'CORREL([1,2,3],[3,2,1])', result: '-1', description: 'Perfect negative correlation' }
+        ]
+      },
+      SUMX2MY2: {
+        name: 'SUMX2MY2',
+        description: 'Sum of the difference of squares of corresponding values: Σ(x^2 − y^2)',
+        syntax: 'SUMX2MY2(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'SUMX2MY2([1,2],[3,4])', result: '-20', description: '(1^2-3^2) + (2^2-4^2) = -20' }
+        ]
+      },
+      SUMX2PY2: {
+        name: 'SUMX2PY2',
+        description: 'Sum of the sum of squares of corresponding values: Σ(x^2 + y^2)',
+        syntax: 'SUMX2PY2(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'SUMX2PY2([1,2],[3,4])', result: '30', description: '(1^2+3^2) + (2^2+4^2) = 30' }
+        ]
+      },
+      SUMXMY2: {
+        name: 'SUMXMY2',
+        description: 'Sum of squares of differences of corresponding values: Σ(x − y)^2',
+        syntax: 'SUMXMY2(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'SUMXMY2([5,7],[2,4])', result: '18', description: '(5-2)^2 + (7-4)^2 = 18' }
+        ]
       }
     }
   },
@@ -906,6 +955,30 @@ export const functionCategories = {
         examples: [
           { formula: 'UNICODE("A")', result: '65', description: 'Unicode code for "A"' },
           { formula: 'UNICODE("😀")', result: '128512', description: 'Unicode code for emoji' }
+        ]
+      },
+      ROMAN: {
+        name: 'ROMAN',
+        description: 'Converts an Arabic number to Roman numerals',
+        syntax: 'ROMAN(number)',
+        parameters: [
+          { name: 'number', description: 'Positive integer to convert to Roman numerals', required: true }
+        ],
+        examples: [
+          { formula: 'ROMAN(1987)', result: '"MCMLXXXVII"', description: '1987 in Roman numerals' },
+          { formula: 'ROMAN(4)', result: '"IV"', description: 'Subtractive notation' }
+        ]
+      },
+      ARABIC: {
+        name: 'ARABIC',
+        description: 'Converts Roman numerals to an Arabic number',
+        syntax: 'ARABIC(text)',
+        parameters: [
+          { name: 'text', description: 'Roman numeral string to convert', required: true }
+        ],
+        examples: [
+          { formula: 'ARABIC("MCMLXXXVII")', result: '1987', description: 'Roman to Arabic' },
+          { formula: 'ARABIC("IV")', result: '4', description: 'Subtractive notation' }
         ]
       }
     }
