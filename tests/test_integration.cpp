@@ -62,7 +62,8 @@ TEST_F(IntegrationTest, BasicSpreadsheetFormulas) {
     checkFormulaResult("SUM(A1, A2, A3, A4, A5) / 5", Value(30.0));
 
     // Percentage calculation
-    checkFormulaResult("A1 / SUM(A1, A2, A3, A4, A5) * 100", Value(6.666667));  // Close enough
+    // Use a slightly rounded expected to avoid double precision mismatch
+    checkFormulaResult("A1 / SUM(A1, A2, A3, A4, A5) * 100", Value(6.666666666666667));
 
     // Tax calculation
     checkFormulaResult("A1 * (1 + tax_rate)", Value(11.0));
@@ -225,7 +226,7 @@ TEST_F(IntegrationTest, CustomFunctionIntegration) {
             });
 
     // Test custom function
-    checkFormulaResult("PERCENT(A1, SUM(A1, A2, A3))", Value(16.666667));  // Close enough
+    checkFormulaResult("PERCENT(A1, SUM(A1, A2, A3))", Value(16.666666666666664));
 
     // Custom function in complex expression
     checkFormulaResult("\"A1 is \" & ROUND(PERCENT(A1, SUM(A1, A2, A3)), 1) & \"% of total\"",

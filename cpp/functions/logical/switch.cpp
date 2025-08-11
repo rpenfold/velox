@@ -28,8 +28,7 @@ Value switch_function(const std::vector<Value>& args, const Context& context) {
         return minValidation;
     }
 
-    // Don't check for errors in expression since errors can be matched
-    // Only check for errors in the value/result pairs during processing
+    // Expression may be an error; do not immediately propagate because a default might be provided
     const Value& expression = args[0];
     
     // Determine if we have a default value
@@ -84,7 +83,11 @@ Value switch_function(const std::vector<Value>& args, const Context& context) {
         }
     }
     
-    // No match found, return default (or #N/A if no default)
+    // No match found
+    if (expression.isError()) {
+        // If expression was an error, return default if provided, otherwise propagate the error
+        return hasDefault ? defaultValue : expression;
+    }
     return defaultValue;
 }
 

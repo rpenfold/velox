@@ -117,19 +117,19 @@ bool evaluateCriteria(const Value& value, const Value& criteria) {
             return simpleWildcardMatch(value.asText(), criteriaStr);
         }
 
-        // Direct text comparison
-        if (value.isText()) {
-            return value.asText() == criteriaStr;
-        }
-
-        // Try to convert text criteria to number and compare
+        // Excel coerces numeric-looking text criteria. Compare numerically if possible (numbers, booleans, dates)
         try {
             double criteriaVal = std::stod(criteriaStr);
-            if (value.isNumber()) {
-                return value.asNumber() == criteriaVal;
+            if (value.canConvertToNumber()) {
+                return value.toNumber() == criteriaVal;
             }
         } catch (...) {
-            // Not a number, fall through
+            // not numeric, fall through
+        }
+
+        // Direct text comparison otherwise
+        if (value.isText()) {
+            return value.asText() == criteriaStr;
         }
     }
 
