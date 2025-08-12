@@ -21,8 +21,13 @@ static void forEachDateCandidate(const std::vector<Value>& args, const std::func
 }
 
 /**
- * @brief [Non-Standard] NS_UNIXTIME - returns Unix epoch seconds for a given date
- * @param args (date)
+ * @brief [Non-Standard] Returns Unix epoch seconds for a given date
+ * @ingroup nonstandard
+ * @name NS_UNIXTIME
+ * @param date Date/time value to convert
+ * @code
+ * NS_UNIXTIME(NOW()) -> 1697040000
+ * @endcode
  */
 Value ns_unixtime(const std::vector<Value>& args, const Context& context) {
     (void)context;
@@ -39,8 +44,14 @@ Value ns_unixtime(const std::vector<Value>& args, const Context& context) {
 }
 
 /**
- * @brief [Non-Standard] NS_NEARESTDATE - returns the date closest to current time from a list/array
- * @param args ([dates] or variadic dates)
+ * @brief [Non-Standard] Returns the date closest to the current time from a list/array
+ * @ingroup nonstandard
+ * @name NS_NEARESTDATE
+ * @param dates Array of dates or variadic list of date arguments (…)
+ * @code
+ * NS_NEARESTDATE({TODAY()-1, TODAY(), TODAY()+2}) -> 2025-01-01
+ * NS_NEARESTDATE(TODAY()-1, TODAY()+3) -> 2024-12-31
+ * @endcode
  */
 Value ns_nearestdate(const std::vector<Value>& args, const Context& context) {
     (void)context;
@@ -68,8 +79,14 @@ Value ns_nearestdate(const std::vector<Value>& args, const Context& context) {
 }
 
 /**
- * @brief [Non-Standard] NS_FURTHESTDATE - returns the date farthest from current time from a list/array
- * @param args ([dates] or variadic dates)
+ * @brief [Non-Standard] Returns the date farthest from the current time from a list/array
+ * @ingroup nonstandard
+ * @name NS_FURTHESTDATE
+ * @param dates Array of dates or variadic list of date arguments (…)
+ * @code
+ * NS_FURTHESTDATE({TODAY()-1, TODAY()+3}) -> 2025-01-03
+ * NS_FURTHESTDATE(TODAY()-10, TODAY()+2, TODAY()+5) -> 2024-12-22
+ * @endcode
  */
 Value ns_furthestdate(const std::vector<Value>& args, const Context& context) {
     (void)context;
