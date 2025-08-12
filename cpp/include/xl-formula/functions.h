@@ -1250,10 +1250,6 @@ Value multiNumericFunction(const std::vector<Value>& args, const Context& contex
         }
     }
 
-    if (numbers.empty()) {
-        return Value(0.0);
-    }
-
     try {
         return Value(operation(numbers));
     } catch (const std::runtime_error&) {

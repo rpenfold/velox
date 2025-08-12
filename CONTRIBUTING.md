@@ -1019,6 +1019,13 @@ grep -r "#include <regex>" cpp/functions/
 - [ ] **NPM Package Distribution** - Unified package for all platforms
 - [ ] **TypeScript Definitions** - Type safety for JavaScript/TypeScript
 - [ ] **Documentation Website** - Interactive examples and API docs
+- [ ] **Python Bindings** - 
+
+### General TODOs:
+- Functions docs page should go to two columns for the funtions on sufficiently large screens
+- Change "Documentation" page to "Functions"
+- Add new "Documentation" page with "Getting started", "Basic usage", and "Advanced usage"
+
 
 ## Submitting Changes
 
