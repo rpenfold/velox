@@ -52,3 +52,5 @@ coverage.html
 # Web build artifacts
 apps/docs/dist/
 apps/docs/.vite/
+# Docs generator output
+apps/docs/src/__generated__/

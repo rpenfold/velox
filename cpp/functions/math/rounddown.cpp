@@ -6,21 +6,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief ROUNDDOWN function - rounds a number down, toward zero
- * @param args Function arguments (number, num_digits)
- * @param context Evaluation context (unused for ROUNDDOWN)
- * @return Number rounded down to specified decimal places
- * 
- * Excel syntax: ROUNDDOWN(number, num_digits)
- * - number: The number to round down
- * - num_digits: The number of digits to which to round
- * 
- * The function:
- * - Always rounds toward zero
- * - Positive num_digits: rounds to decimal places
- * - Zero num_digits: rounds to nearest integer
- * - Negative num_digits: rounds to left of decimal point
- * - Examples: ROUNDDOWN(3.9, 0) = 3, ROUNDDOWN(-3.9, 0) = -3, ROUNDDOWN(38.9, -1) = 30
+ * @brief Rounds a number down, toward zero
+ * @ingroup math
+ * @param number The number to round down
+ * @param num_digits The number of digits to round to
+ * @code
+ * ROUNDDOWN(3.9, 0) -> 3
+ * @endcode
  */
 Value rounddown(const std::vector<Value>& args, const Context& context) {
     (void)context;

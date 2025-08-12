@@ -6,10 +6,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief FLOOR function - rounds a number down to the nearest multiple
- * @param args Function arguments (expects 1 or 2 arguments)
- * @param context Evaluation context (unused for FLOOR)
- * @return Number rounded down to nearest multiple
+ * @brief Rounds a number down to the nearest multiple of significance
+ * @ingroup math
+ * @param number The number to round down
+ * @param significance The multiple to round down to (optional)
+ * @code
+ * FLOOR(4.7) -> 4
+ * @endcode
  */
 Value floor_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

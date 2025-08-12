@@ -63,6 +63,16 @@ bool simpleWildcardMatch(const std::string& text, const std::string& pattern) {
     return textPos == text.length() && patternPos == pattern.length();
 }
 
+/**
+ * @brief Sums values that meet a condition
+ * @ingroup math
+ * @param range Range to test against the criterion
+ * @param criteria Condition to evaluate
+ * @param sum_range Values to sum (optional; defaults to range)
+ * @code
+ * SUMIF(3, "=3", 5) -> 5
+ * @endcode
+ */
 Value sumif(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Suppress unused parameter warning
 

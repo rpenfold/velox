@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the sum of the products of corresponding values
+ * @ingroup math
+ * @param array1 First array or value
+ * @param array2 Second array or value (optional, variadic)
+ * @code
+ * SUMPRODUCT(2,3,4) -> 24
+ * @endcode
+ */
 Value sumproduct(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Suppress unused parameter warning
 

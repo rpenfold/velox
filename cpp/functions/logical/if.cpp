@@ -4,6 +4,16 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns one value if condition is TRUE, another if FALSE
+ * @ingroup logical
+ * @param logical_test Condition to evaluate
+ * @param value_if_true Value to return if condition is TRUE
+ * @param value_if_false Value to return if condition is FALSE
+ * @code
+ * IF(5>3,"Yes","No") -> "Yes"
+ * @endcode
+ */
 Value if_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

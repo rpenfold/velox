@@ -98,7 +98,9 @@ export function DocsPage({ category, function: functionName }) {
               <button className="btn btn-sm" style={{ background: 'none', border: 'none', fontSize: '1.5rem' }} aria-label="Close menu" onClick={() => setMobileSidebarOpen(false)}>&times;</button>
             </div>
             <nav style={{ display: 'flex', flexDirection: 'column', padding: '1rem' }}>
-              {Object.entries(functionCategories).map(([key, cat]) => {
+              {Object.entries(functionCategories)
+                .sort(([a],[b]) => (a==='all'? -1 : b==='all'? 1 : a.localeCompare(b)))
+                .map(([key, cat]) => {
                 const categoryIcons = {
                   all: '📚',
                   math: '🔢',
@@ -109,6 +111,7 @@ export function DocsPage({ category, function: functionName }) {
                   engineering: '⚙️'
                 }
                 const icon = categoryIcons[key] || '📄'
+                const displayName = key === 'datetime' ? 'Date / Time' : cat.name
                 return (
                   <Link
                     key={key}
@@ -118,7 +121,7 @@ export function DocsPage({ category, function: functionName }) {
                     onClick={() => setMobileSidebarOpen(false)}
                   >
                     <span style={{ marginRight: '0.75rem' }}>{icon}</span>
-                    {cat.name}
+                    {displayName}
                   </Link>
                 )
               })}
@@ -132,7 +135,9 @@ export function DocsPage({ category, function: functionName }) {
           <div className="card">
             <h3 className="font-semibold mb-4">Categories</h3>
             <div className="grid gap-2">
-              {Object.entries(functionCategories).map(([key, cat]) => {
+              {Object.entries(functionCategories)
+                .sort(([a],[b]) => (a==='all'? -1 : b==='all'? 1 : a.localeCompare(b)))
+                .map(([key, cat]) => {
                 // Define icons for each category
                 const categoryIcons = {
                   all: '📚',
@@ -144,6 +149,7 @@ export function DocsPage({ category, function: functionName }) {
                   engineering: '⚙️'
                 }
                 const icon = categoryIcons[key] || '📄'
+                const displayName = key === 'datetime' ? 'Date / Time' : cat.name
                 return (
                   <Link
                     key={key}
@@ -159,7 +165,7 @@ export function DocsPage({ category, function: functionName }) {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <span style={{ fontSize: '1.2rem' }}>{icon}</span>
                       <div>
-                        <div className="font-medium">{cat.name}</div>
+                        <div className="font-medium">{displayName}</div>
                         <div className="text-xs opacity-80">
                           {Object.keys(cat.functions).length} functions
                         </div>

@@ -6,6 +6,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the tangent of an angle (in radians)
+ * @ingroup math
+ * @param angle Angle in radians
+ * @code
+ * TAN(PI()/4) -> 1
+ * @endcode
+ */
 Value tan_function(const std::vector<Value>& args, const Context& context) {
     return templates::singleNumericFunction(args, context, "TAN", [](double x) {
         // Check if x is close to an odd multiple of π/2

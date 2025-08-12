@@ -6,10 +6,11 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief NOW function - returns the current date and time
- * @param args Function arguments (expects 0 arguments)
- * @param context Evaluation context (unused for NOW)
- * @return Current date and time as Value
+ * @brief Returns the current date and time
+ * @ingroup datetime
+ * @code
+ * NOW() -> 2025-08-11 10:00:00
+ * @endcode
  */
 Value now(const std::vector<Value>& args, const Context& context) {
     return templates::noArgFunction(args, context, "NOW",

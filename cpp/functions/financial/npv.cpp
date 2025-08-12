@@ -5,6 +5,16 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the net present value of an investment based on a series of cash flows
+ * @ingroup financial
+ * @param rate Discount rate per period
+ * @param value1 First cash flow value or array
+ * @param value2 Additional cash flow values (optional, variadic)
+ * @code
+ * NPV(0.1, -1000, 300, 400, 500) -> 18.78
+ * @endcode
+ */
 Value npv(const std::vector<Value>& args, const Context& context) {
     (void)context;
 

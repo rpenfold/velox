@@ -126,6 +126,15 @@ struct Version {
 EvaluationResult evaluate(const std::string& formula, const Context& context = Context());
 
 /**
+ * @brief Quick evaluation with per-call variables (overrides)
+ * @param formula Formula string to evaluate
+ * @param variables Map of variable name -> Value for this call
+ * @return Evaluation result
+ */
+EvaluationResult evaluate(const std::string& formula,
+                          const std::unordered_map<std::string, Value>& variables);
+
+/**
  * @brief Parse formula into AST without evaluation
  * @param formula Formula string to parse
  * @return Parse result containing AST or errors

@@ -181,3 +181,12 @@ TEST_F(DateFunctionTest, NonLeapYear_February29_HandledBySystem) {
     // The system will likely adjust this to March 1st
     EXPECT_TRUE(result.isDate());
 }
+
+TEST_F(DateFunctionTest, Edate_And_Eomonth_Basic) {
+    auto start = callDate({Value(2024.0), Value(1.0), Value(31.0)});
+    ASSERT_TRUE(start.isDate());
+    auto next = edate({start, Value(1.0)}, context);
+    EXPECT_TRUE(next.isDate());
+    auto eom = eomonth({start, Value(1.0)}, context);
+    EXPECT_TRUE(eom.isDate());
+}

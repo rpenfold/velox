@@ -6,10 +6,11 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief RAND function - returns a random number between 0 and 1
- * @param args Function arguments (should be empty)
- * @param context Evaluation context (unused for RAND)
- * @return Random number between 0 and 1
+ * @brief Returns a random number between 0 and 1
+ * @ingroup math
+ * @code
+ * RAND() -> 0.1234
+ * @endcode
  */
 Value rand_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

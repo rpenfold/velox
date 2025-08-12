@@ -6,6 +6,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts a decimal number to binary
+ * @ingroup engineering
+ * @param number Decimal number (range -512 to 511)
+ * @param places Number of characters to use (optional)
+ * @code
+ * DEC2BIN(10) -> "1010"
+ * @endcode
+ */
 Value dec2bin(const std::vector<Value>& args, const Context& context) {
     return templates::decimalToBaseFunction(
             args, context, "DEC2BIN", [](long long value, int places) -> std::string {

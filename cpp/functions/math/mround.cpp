@@ -6,20 +6,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief MROUND function - rounds a number to the nearest multiple
- * @param args Function arguments (number, multiple)
- * @param context Evaluation context (unused for MROUND)
- * @return Number rounded to the nearest multiple
- * 
- * Excel syntax: MROUND(number, multiple)
- * - number: The value to round
- * - multiple: The multiple to which to round
- * 
- * The function:
- * - Rounds number to the nearest multiple of multiple
- * - If number and multiple have different signs, returns #NUM! error
- * - If multiple is 0, returns 0
- * - Examples: MROUND(10, 3) = 9, MROUND(1.3, 0.2) = 1.4, MROUND(-10, -3) = -9
+ * @brief Rounds a number to the nearest multiple
+ * @ingroup math
+ * @param number The value to round
+ * @param multiple The multiple to which to round
+ * @code
+ * MROUND(10, 3) -> 9
+ * @endcode
  */
 Value mround(const std::vector<Value>& args, const Context& context) {
     (void)context;

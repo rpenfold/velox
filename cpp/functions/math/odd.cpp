@@ -6,18 +6,12 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief ODD function - rounds a number up to the nearest odd integer
- * @param args Function arguments (number)
- * @param context Evaluation context (unused for ODD)
- * @return Nearest odd integer >= number (for positive) or <= number (for negative)
- * 
- * Excel syntax: ODD(number)
- * - number: The value to round to the nearest odd integer
- * 
- * The function:
- * - For positive numbers: rounds up to the next odd integer
- * - For negative numbers: rounds away from zero to the next odd integer
- * - Examples: ODD(1.2) = 3, ODD(2) = 3, ODD(-1) = -1, ODD(-2.5) = -3
+ * @brief Rounds a number up to the nearest odd integer
+ * @ingroup math
+ * @param number The value to round
+ * @code
+ * ODD(2) -> 3
+ * @endcode
  */
 Value odd_function(const std::vector<Value>& args, const Context& context) {
     (void)context;

@@ -5,6 +5,19 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the interest rate per period of an annuity
+ * @ingroup financial
+ * @param nper Number of payment periods
+ * @param pmt Payment made each period
+ * @param pv Present value
+ * @param fv Future value (optional)
+ * @param type Payment timing: 0=end of period, 1=beginning (optional)
+ * @param guess Initial guess for rate (optional)
+ * @code
+ * RATE(10, -100, 1000) -> 0.0507
+ * @endcode
+ */
 Value rate(const std::vector<Value>& args, const Context& context) {
     return templates::financialFunction(
             args, context, "RATE", 3, 6, [](const std::vector<double>& args) -> Value {

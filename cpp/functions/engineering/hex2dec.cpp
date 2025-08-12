@@ -6,6 +6,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts a hexadecimal number to decimal
+ * @ingroup engineering
+ * @param number Hex string (up to 10 hex digits; two's complement for negatives)
+ * @code
+ * HEX2DEC("FF") -> 255
+ * @endcode
+ */
 Value hex2dec(const std::vector<Value>& args, const Context& context) {
     return templates::baseConversionFunction(
             args, context, "HEX2DEC", [](const std::string& hex_str) -> double {

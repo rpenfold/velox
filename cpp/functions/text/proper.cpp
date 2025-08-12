@@ -6,6 +6,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Capitalizes the first letter of each word in text
+ * @ingroup text
+ * @param text The text to convert to proper case
+ * @code
+ * PROPER("hello world") -> "Hello World"
+ * @endcode
+ */
 Value proper(const std::vector<Value>& args, const Context& context) {
     return templates::singleTextFunction(args, context, "PROPER", [](const std::string& text) {
         if (text.empty()) {

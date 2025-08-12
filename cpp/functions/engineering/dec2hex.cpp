@@ -6,6 +6,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts a decimal number to hexadecimal
+ * @ingroup engineering
+ * @param number Decimal number (range per Excel limits)
+ * @param places Number of characters to use (optional)
+ * @code
+ * DEC2HEX(255) -> "FF"
+ * @endcode
+ */
 Value dec2hex(const std::vector<Value>& args, const Context& context) {
     return templates::decimalToBaseFunction(
             args, context, "DEC2HEX", [](long long value, int places) -> std::string {

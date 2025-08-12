@@ -5,7 +5,14 @@
  namespace functions {
  namespace builtin {
 
- // CHAR(number) -> returns character for code 1-255
+/**
+ * @brief Returns the character specified by a code number (1-255)
+ * @ingroup text
+ * @param number Code number between 1 and 255
+ * @code
+ * CHAR(65) -> "A"
+ * @endcode
+ */
  Value char_function(const std::vector<Value>& args, const Context& context) {
      (void)context;
 

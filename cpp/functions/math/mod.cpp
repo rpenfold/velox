@@ -5,6 +5,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the remainder after division
+ * @ingroup math
+ * @param number The number to divide (numerator)
+ * @param divisor The divisor
+ * @code
+ * MOD(10, 3) -> 1
+ * @endcode
+ */
 Value mod(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

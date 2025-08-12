@@ -5,6 +5,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the square root of a number
+ * @ingroup math
+ * @param number The number to get square root of
+ * @code
+ * SQRT(16) -> 4
+ * @endcode
+ */
 Value sqrt_function(const std::vector<Value>& args, const Context& context) {
     return templates::singleNumericFunction(args, context, "SQRT", [](double x) {
         if (x < 0.0) {

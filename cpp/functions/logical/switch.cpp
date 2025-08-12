@@ -5,19 +5,16 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief SWITCH function - compares an expression against multiple values and returns corresponding result
- * @param args Function arguments (expression, value1, result1, [value2, result2, ...], [default])
- * @param context Evaluation context (unused for SWITCH)
- * @return The result corresponding to the first matching value, or default if no match
- * 
- * Excel syntax: SWITCH(expression, value1, result1, [value2, result2, ...], [default])
- * - expression: The value to compare against
- * - value1, value2, ...: Values to compare the expression against
- * - result1, result2, ...: Results to return if corresponding value matches
- * - default: Optional value to return if no values match
- * 
- * The function requires at least 3 arguments (expression, value1, result1)
- * Arguments after that come in pairs (value, result) except for an optional final default
+ * @brief Compares an expression against multiple values and returns corresponding result
+ * @ingroup logical
+ * @param expression The value to compare against
+ * @param value1 First value to compare, followed by result1
+ * @param result1 Result to return if value1 matches
+ * @param value2/result2 Additional pairs (optional, variadic)
+ * @param default Optional default value if no match
+ * @code
+ * SWITCH(2, 1, "One", 2, "Two", 3, "Three") -> "Two"
+ * @endcode
  */
 Value switch_function(const std::vector<Value>& args, const Context& context) {
     (void)context;
@@ -28,8 +25,7 @@ Value switch_function(const std::vector<Value>& args, const Context& context) {
         return minValidation;
     }
 
-    // Don't check for errors in expression since errors can be matched
-    // Only check for errors in the value/result pairs during processing
+    // Expression may be an error; do not immediately propagate because a default might be provided
     const Value& expression = args[0];
     
     // Determine if we have a default value
@@ -84,7 +80,11 @@ Value switch_function(const std::vector<Value>& args, const Context& context) {
         }
     }
     
-    // No match found, return default (or #N/A if no default)
+    // No match found
+    if (expression.isError()) {
+        // If expression was an error, return default if provided, otherwise propagate the error
+        return hasDefault ? defaultValue : expression;
+    }
     return defaultValue;
 }
 

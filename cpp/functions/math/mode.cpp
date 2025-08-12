@@ -8,10 +8,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief MODE function - returns the most frequently occurring value
- * @param args Function arguments (expects 1+ numeric arguments)
- * @param context Evaluation context (unused for MODE)
- * @return Most frequently occurring value
+ * @brief Returns the most frequently occurring value
+ * @ingroup math
+ * @param number1 First number
+ * @param number2 Additional numbers (optional, variadic)
+ * @code
+ * MODE(1,2,2,3) -> 2
+ * @endcode
  */
 Value mode(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

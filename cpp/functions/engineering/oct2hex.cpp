@@ -8,6 +8,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts an octal number to hexadecimal
+ * @ingroup engineering
+ * @param number Octal string (up to 10 digits)
+ * @code
+ * OCT2HEX("377") -> "FF"
+ * @endcode
+ */
 Value oct2hex(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

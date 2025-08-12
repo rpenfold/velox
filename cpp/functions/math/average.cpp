@@ -5,6 +5,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the average (arithmetic mean) of the arguments
+ * @ingroup math
+ * @param number1 First number (optional)
+ * @param number2 Additional numbers (variadic)
+ * @code
+ * AVERAGE(1,2,3,4,5) -> 3
+ * @endcode
+ */
 Value average(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

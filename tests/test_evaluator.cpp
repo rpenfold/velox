@@ -146,7 +146,8 @@ TEST_F(EvaluatorTest, ArithmeticErrors) {
     checkErrorResult("1 / 0", ErrorType::DIV_ZERO);
     checkErrorResult("A1 / 0", ErrorType::DIV_ZERO);
     checkErrorResult("\"hello\" + 1", ErrorType::VALUE_ERROR);
-    checkErrorResult("TRUE * FALSE", ErrorType::VALUE_ERROR);
+    // Excel coerces booleans in arithmetic: TRUE*FALSE = 0
+    checkNumberResult("TRUE * FALSE", 0.0);
 }
 
 TEST_F(EvaluatorTest, SumFunction) {
@@ -220,16 +221,15 @@ TEST_F(EvaluatorTest, RoundFunction) {
 }
 
 TEST_F(EvaluatorTest, NestedFunctions) {
-    checkNumberResult("SUM(MAX(A1, A2), MIN(A2, A3))", 50.0);  // MAX(10,20) + MIN(20,30) = 20 + 20
+    // With A1=10, A2=20, A3=30; MAX(A1,A2)=20, MIN(A2,A3)=20; SUM=40
+    checkNumberResult("SUM(MAX(A1, A2), MIN(A2, A3))", 40.0);
     checkNumberResult("ABS(SUM(-5, -10))", 15.0);              // ABS(-15) = 15
     checkTextResult("CONCATENATE(\"Sum: \", SUM(A1, A2))", "Sum: 30");
 }
 
 TEST_F(EvaluatorTest, ComplexExpressions) {
     checkNumberResult("(A1 + A2) * (A3 - A1) / 10", 60.0);  // (10+20) * (30-10) / 10 = 30 * 20 / 10
-    checkBooleanResult("SUM(A1, A2) > A3",
-                       true);  // 30 > 30 is false... wait, 10+20=30, 30>30 is false
-    // Let me fix this
+    checkBooleanResult("SUM(A1, A2) > A3", false);  // 30 > 30 is false
     checkBooleanResult("SUM(A1, A2) >= A3", true);  // 30 >= 30 is true
     checkTextResult("\"Result: \" & (A1 + A2)", "Result: 30");
 }
@@ -298,4 +298,27 @@ TEST_F(FormulaEngineTest, CustomFunction) {
     EXPECT_TRUE(result.isSuccess());
     EXPECT_TRUE(result.getValue().isNumber());
     EXPECT_DOUBLE_EQ(20.0, result.getValue().asNumber());  // 10 * 2
+}
+
+TEST_F(FormulaEngineTest, EvaluateWithOverrides_UsesOverridesAndFallsBack) {
+    engine.setVariable("X", Value(5.0));
+    // Y only provided via overrides; X should fall back to engine context
+    std::unordered_map<std::string, Value> vars{{"Y", Value(3.0)}};
+    auto res = engine.evaluate("X + Y", vars);
+    ASSERT_TRUE(res.isSuccess());
+    ASSERT_TRUE(res.getValue().isNumber());
+    EXPECT_DOUBLE_EQ(8.0, res.getValue().asNumber());
+
+    // Override X for this call only; engine's X should remain unchanged afterward
+    std::unordered_map<std::string, Value> vars2{{"X", Value(10.0)}};
+    auto res2 = engine.evaluate("X + 1", vars2);
+    ASSERT_TRUE(res2.isSuccess());
+    ASSERT_TRUE(res2.getValue().isNumber());
+    EXPECT_DOUBLE_EQ(11.0, res2.getValue().asNumber());
+
+    // Verify engine context restored
+    auto res3 = engine.evaluate("X");
+    ASSERT_TRUE(res3.isSuccess());
+    ASSERT_TRUE(res3.getValue().isNumber());
+    EXPECT_DOUBLE_EQ(5.0, res3.getValue().asNumber());
 }

@@ -6,6 +6,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns a number raised to a power
+ * @ingroup math
+ * @param number The base number
+ * @param power The exponent
+ * @code
+ * POWER(2, 3) -> 8
+ * @endcode
+ */
 Value power(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

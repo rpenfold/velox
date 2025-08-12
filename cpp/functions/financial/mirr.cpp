@@ -5,6 +5,16 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the modified internal rate of return for a series of cash flows
+ * @ingroup financial
+ * @param values Cash flow values (array or arguments)
+ * @param finance_rate Interest rate for financing costs
+ * @param reinvest_rate Interest rate for reinvestment
+ * @code
+ * MIRR({-1000, 300, 400, 500}, 0.1, 0.12) -> 0.1342
+ * @endcode
+ */
 Value mirr(const std::vector<Value>& args, const Context& context) {
     (void)context;
 

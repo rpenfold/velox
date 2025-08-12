@@ -6,6 +6,18 @@ namespace builtin {
 
 // Use shared criteria evaluation utility
 
+/**
+ * @brief Returns the average of values that meet multiple conditions
+ * @ingroup math
+ * @param average_range Values to average
+ * @param criteria_range1 First range to test
+ * @param criteria1 First condition
+ * @param criteria_range2 Additional ranges (optional, variadic)
+ * @param criteria2 Additional conditions (optional, variadic)
+ * @code
+ * AVERAGEIFS(5, 3, "=3") -> 5
+ * @endcode
+ */
 Value averageifs(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Suppress unused parameter warning
 

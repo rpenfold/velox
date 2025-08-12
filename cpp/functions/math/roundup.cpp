@@ -6,21 +6,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief ROUNDUP function - rounds a number up, away from zero
- * @param args Function arguments (number, num_digits)
- * @param context Evaluation context (unused for ROUNDUP)
- * @return Number rounded up to specified decimal places
- * 
- * Excel syntax: ROUNDUP(number, num_digits)
- * - number: The number to round up
- * - num_digits: The number of digits to which to round
- * 
- * The function:
- * - Always rounds away from zero
- * - Positive num_digits: rounds to decimal places
- * - Zero num_digits: rounds to nearest integer
- * - Negative num_digits: rounds to left of decimal point
- * - Examples: ROUNDUP(3.2, 0) = 4, ROUNDUP(-3.2, 0) = -4, ROUNDUP(31.9, -1) = 40
+ * @brief Rounds a number up, away from zero
+ * @ingroup math
+ * @param number The number to round up
+ * @param num_digits The number of digits to round to
+ * @code
+ * ROUNDUP(3.2, 0) -> 4
+ * @endcode
  */
 Value roundup(const std::vector<Value>& args, const Context& context) {
     (void)context;

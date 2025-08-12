@@ -4,6 +4,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the factorial of a number
+ * @ingroup math
+ * @param number Non-negative integer (n <= 170)
+ * @code
+ * FACT(5) -> 120
+ * @endcode
+ */
 Value fact(const std::vector<Value>& args, const Context& context) {
     return templates::singleNumericFunction(args, context, "FACT", [](double x) -> double {
         // Check for non-negative integer

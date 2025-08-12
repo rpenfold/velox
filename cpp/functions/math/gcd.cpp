@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the greatest common divisor
+ * @ingroup math
+ * @param number1 First integer
+ * @param number2 Additional integers (optional, variadic)
+ * @code
+ * GCD(12, 18) -> 6
+ * @endcode
+ */
 Value gcd(const std::vector<Value>& args, const Context& context) {
     (void)context;
 

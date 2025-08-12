@@ -7,19 +7,12 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief IMAGINARY function - returns the imaginary coefficient of a complex number
- * @param args Function arguments (complex_number)
- * @param context Evaluation context (unused for IMAGINARY)
- * @return Imaginary part of the complex number
- * 
- * Excel syntax: IMAGINARY(complex_number)
- * - complex_number: A complex number in the form "a+bi" or "a-bi"
- * 
- * Parses complex numbers in formats like:
- * - "3+4i" -> returns 4
- * - "5-2j" -> returns -2
- * - "7" -> returns 0 (pure real)
- * - "3i" -> returns 3 (pure imaginary)
+ * @brief Returns the imaginary coefficient of a complex number
+ * @ingroup engineering
+ * @param inumber Complex number as text
+ * @code
+ * IMAGINARY("3-4i") -> -4
+ * @endcode
  */
 Value imaginary(const std::vector<Value>& args, const Context& context) {
     (void)context;

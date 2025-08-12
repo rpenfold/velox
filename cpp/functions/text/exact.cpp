@@ -5,7 +5,15 @@
  namespace functions {
  namespace builtin {
 
- // EXACT(text1, text2) -> case-sensitive equality returning TRUE/FALSE
+/**
+ * @brief Checks whether two text strings are exactly the same (case-sensitive)
+ * @ingroup text
+ * @param text1 First text string
+ * @param text2 Second text string
+ * @code
+ * EXACT("Hello", "hello") -> FALSE
+ * @endcode
+ */
  Value exact(const std::vector<Value>& args, const Context& context) {
      (void)context;
 

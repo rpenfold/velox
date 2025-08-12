@@ -6,6 +6,16 @@ namespace builtin {
 
 // Use shared criteria evaluation utility
 
+/**
+ * @brief Returns the average of values that meet a condition
+ * @ingroup math
+ * @param range Range to test against the criterion
+ * @param criteria Condition to evaluate
+ * @param average_range Values to average (optional)
+ * @code
+ * AVERAGEIF(3, "=3", 5) -> 5
+ * @endcode
+ */
 Value averageif(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Suppress unused parameter warning
 

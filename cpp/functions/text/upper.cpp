@@ -6,6 +6,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts text to uppercase
+ * @ingroup text
+ * @param text Text to convert
+ * @code
+ * UPPER("hello") -> "HELLO"
+ * @endcode
+ */
 Value upper(const std::vector<Value>& args, const Context& context) {
     return templates::singleTextFunction(args, context, "UPPER", [](const std::string& text) {
         std::string result = text;

@@ -6,20 +6,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief QUOTIENT function - returns the integer portion of a division
- * @param args Function arguments (numerator, denominator)
- * @param context Evaluation context (unused for QUOTIENT)
- * @return Integer portion of numerator divided by denominator
- * 
- * Excel syntax: QUOTIENT(numerator, denominator)
- * - numerator: The dividend (number to be divided)
- * - denominator: The divisor (number to divide by)
- * 
- * The function:
- * - Returns the integer portion of numerator/denominator
- * - Truncates toward zero (same as INT function on division result)
- * - Returns #DIV/0! error if denominator is zero
- * - Both arguments must be numeric
+ * @brief Returns the integer portion of a division
+ * @ingroup math
+ * @param numerator Dividend
+ * @param denominator Divisor
+ * @code
+ * QUOTIENT(10, 3) -> 3
+ * @endcode
  */
 Value quotient(const std::vector<Value>& args, const Context& context) {
     (void)context;

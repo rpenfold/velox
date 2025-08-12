@@ -9,10 +9,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief TEXT function - formats a number as text
- * @param args Function arguments (value, format_text)
- * @param context Evaluation context (unused for TEXT)
- * @return Formatted text string
+ * @brief Formats a number as text according to a specified format
+ * @ingroup text
+ * @param value Number to format
+ * @param format_text Format pattern (e.g., 0.00, 0%)
+ * @code
+ * TEXT(123.456, "0.00") -> "123.46"
+ * @endcode
  */
 Value text(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

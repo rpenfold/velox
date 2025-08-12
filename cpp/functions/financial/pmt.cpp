@@ -5,6 +5,18 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the periodic payment for an annuity
+ * @ingroup financial
+ * @param rate Interest rate per period
+ * @param nper Number of payment periods
+ * @param pv Present value
+ * @param fv Future value (optional)
+ * @param type Payment timing: 0=end of period, 1=beginning (optional)
+ * @code
+ * PMT(0.06/12, 360, 200000) -> -1199.10
+ * @endcode
+ */
 Value pmt(const std::vector<Value>& args, const Context& context) {
     return templates::financialFunction(
             args, context, "PMT", 3, 5, [](const std::vector<double>& args) -> Value {

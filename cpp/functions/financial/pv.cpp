@@ -5,6 +5,18 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the present value of an investment
+ * @ingroup financial
+ * @param rate Interest rate per period
+ * @param nper Number of payment periods
+ * @param pmt Payment made each period
+ * @param fv Future value (optional)
+ * @param type Payment timing: 0=end of period, 1=beginning (optional)
+ * @code
+ * PV(0.08, 10, -100, 0, 0) -> 671.01
+ * @endcode
+ */
 Value pv(const std::vector<Value>& args, const Context& context) {
     return templates::financialFunction(
             args, context, "PV", 3, 5, [](const std::vector<double>& args) -> Value {

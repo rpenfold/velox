@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the number of combinations for a given number of items
+ * @ingroup math
+ * @param n Total number of items
+ * @param k Number of items in each combination
+ * @code
+ * COMBIN(5, 2) -> 10
+ * @endcode
+ */
 Value combin(const std::vector<Value>& args, const Context& context) {
     (void)context;
 

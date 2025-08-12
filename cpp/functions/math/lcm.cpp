@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the least common multiple
+ * @ingroup math
+ * @param number1 First integer
+ * @param number2 Additional integers (optional, variadic)
+ * @code
+ * LCM(4, 6) -> 12
+ * @endcode
+ */
 Value lcm(const std::vector<Value>& args, const Context& context) {
     (void)context;
 

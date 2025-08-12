@@ -4,6 +4,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns TRUE if the value is an error
+ * @ingroup logical
+ * @param value Value to test
+ * @code
+ * ISERROR(#DIV/0!) -> TRUE
+ * @endcode
+ */
 Value iserror_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

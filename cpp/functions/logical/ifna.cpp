@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns value_if_na if value is the #N/A error; otherwise returns value
+ * @ingroup logical
+ * @param value Value to check for #N/A
+ * @param value_if_na Value to return if value is #N/A
+ * @code
+ * IFNA(#N/A, 0) -> 0
+ * @endcode
+ */
 Value ifna_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

@@ -185,7 +185,8 @@ TEST_F(ParserTest, ErrorCases) {
     parseAndCheckError("1 + 2)");   // Extra closing parenthesis
     parseAndCheckError("SUM(1,)");  // Trailing comma
     parseAndCheckError("SUM(,1)");  // Leading comma
-    parseAndCheckError("1 ++ 2");   // Invalid operator sequence
+    // Excel treats '1 ++ 2' as '1 + +2', which is valid
+    parseAndCheckSuccess("1 ++ 2");
     parseAndCheckError("1 2");      // Missing operator
 }
 

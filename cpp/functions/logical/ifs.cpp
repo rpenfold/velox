@@ -5,18 +5,14 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief IFS function - checks multiple conditions and returns corresponding result for first TRUE condition
- * @param args Function arguments (condition1, result1, [condition2, result2, ...])
- * @param context Evaluation context (unused for IFS)
- * @return The result corresponding to the first TRUE condition, or #N/A if none are TRUE
- * 
- * Excel syntax: IFS(condition1, result1, [condition2, result2, ...])
- * - condition1, condition2, ...: Logical conditions to test
- * - result1, result2, ...: Results to return if corresponding condition is TRUE
- * 
- * The function requires at least 2 arguments (condition1, result1)
- * Arguments come in pairs (condition, result)
- * Returns #N/A error if no conditions are TRUE
+ * @brief Checks multiple conditions and returns result for first TRUE condition
+ * @ingroup logical
+ * @param condition1 First logical condition to test
+ * @param result1 Result to return if condition1 is TRUE
+ * @param condition2/result2 Additional pairs (optional, variadic)
+ * @code
+ * IFS(FALSE, "First", TRUE, "Second") -> "Second"
+ * @endcode
  */
 Value ifs_function(const std::vector<Value>& args, const Context& context) {
     (void)context;

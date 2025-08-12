@@ -5,6 +5,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the logarithm of a number to a specified base (default base 10)
+ * @ingroup math
+ * @param number Positive number
+ * @param base Base of the logarithm (optional, default: 10)
+ * @code
+ * LOG(8, 2) -> 3
+ * @endcode
+ */
 Value log_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

@@ -5,7 +5,14 @@
  namespace functions {
  namespace builtin {
 
- // CLEAN(text) -> removes non-printable ASCII (codes < 32)
+/**
+ * @brief Removes all nonprintable characters from text (ASCII < 32)
+ * @ingroup text
+ * @param text The text from which to remove nonprintable characters
+ * @code
+ * CLEAN("Hello\nWorld") -> "HelloWorld"
+ * @endcode
+ */
  Value clean(const std::vector<Value>& args, const Context& context) {
      (void)context;
 

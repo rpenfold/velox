@@ -7,10 +7,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief MEDIAN function - returns the median of a set of numbers
- * @param args Function arguments (expects 1+ numeric arguments)
- * @param context Evaluation context (unused for MEDIAN)
- * @return Median value of the arguments
+ * @brief Returns the median (middle value) of the arguments
+ * @ingroup math
+ * @param number1 First number
+ * @param number2 Additional numbers (optional, variadic)
+ * @code
+ * MEDIAN(1, 2, 3, 4) -> 2.5
+ * @endcode
  */
 Value median(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

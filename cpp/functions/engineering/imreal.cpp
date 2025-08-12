@@ -7,19 +7,12 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief IMREAL function - returns the real coefficient of a complex number
- * @param args Function arguments (complex_number)
- * @param context Evaluation context (unused for IMREAL)
- * @return Real part of the complex number
- * 
- * Excel syntax: IMREAL(complex_number)
- * - complex_number: A complex number in the form "a+bi" or "a-bi"
- * 
- * Parses complex numbers in formats like:
- * - "3+4i" -> returns 3
- * - "5-2j" -> returns 5
- * - "7" -> returns 7 (pure real)
- * - "3i" -> returns 0 (pure imaginary)
+ * @brief Returns the real coefficient of a complex number
+ * @ingroup engineering
+ * @param inumber Complex number as text
+ * @code
+ * IMREAL("3-4i") -> 3
+ * @endcode
  */
 Value imreal(const std::vector<Value>& args, const Context& context) {
     (void)context;

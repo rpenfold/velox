@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns TRUE if all arguments are TRUE
+ * @ingroup logical
+ * @param logical1 First logical value
+ * @param logical2 Additional logical values (optional, variadic)
+ * @code
+ * AND(TRUE, 1, "text") -> TRUE
+ * @endcode
+ */
 Value and_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

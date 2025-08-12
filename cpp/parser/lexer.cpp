@@ -123,7 +123,7 @@ Token Lexer::makeIdentifier() {
     size_t start_pos = position_;
     std::string identifier;
 
-    while (current_char_ != '\0' && (std::isalnum(current_char_) || current_char_ == '_')) {
+    while (current_char_ != '\0' && (std::isalnum(current_char_) || current_char_ == '_' || current_char_ == ':')) {
         identifier += current_char_;
         advance();
     }
@@ -136,7 +136,10 @@ Token Lexer::makeIdentifier() {
     // Check for boolean literals
     TokenType type = TokenType::IDENTIFIER;
     if (upper_identifier == "TRUE" || upper_identifier == "FALSE") {
-        type = TokenType::BOOLEAN;
+        // Only treat as boolean literal if not followed by '(' (so TRUE() parses as function)
+        if (current_char_ != '(') {
+            type = TokenType::BOOLEAN;
+        }
     }
 
     return Token(type, identifier, start_pos, position_ - start_pos);
@@ -180,6 +183,7 @@ Token Lexer::nextToken() {
         // Single character tokens
         switch (current_char_) {
             case '+':
+                // Excel treats '1 ++ 2' the same as '1 + + 2', so lex each '+' as PLUS
                 advance();
                 return Token(TokenType::PLUS, "+", start_pos, 1);
             case '-':

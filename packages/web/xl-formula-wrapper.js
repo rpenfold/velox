@@ -171,8 +171,30 @@ class FormulaEngine {
     }
 
     // Formula evaluation
-    evaluate(formula) {
-        return new EvaluationResult(this._engine.evaluate(normalizeFormula(formula)));
+  evaluate(formula, variables) {
+      const f = normalizeFormula(formula);
+      if (variables && typeof variables === 'object') {
+          if (typeof this._engine.evaluateWithVariables === 'function') {
+              // Convert plain JS values to wrapper Values where helpful is handled by binding
+              return new EvaluationResult(this._engine.evaluateWithVariables(f, variables));
+          }
+      }
+      return new EvaluationResult(this._engine.evaluate(f));
+  }
+
+    // Tooling-only: evaluate with trace for visualization
+    evaluateWithTrace(formula) {
+        try {
+            if (typeof this._engine.evaluateWithTrace === 'function') {
+                const obj = this._engine.evaluateWithTrace(normalizeFormula(formula));
+                const result = new EvaluationResult(obj.result);
+                const trace = obj.trace || null;
+                return { result, trace };
+            }
+        } catch {}
+        // Fallback for builds without trace support
+        const fallback = this._engine.evaluate(normalizeFormula(formula));
+        return { result: new EvaluationResult(fallback), trace: null };
     }
 }
 

@@ -6,6 +6,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts a decimal number to octal
+ * @ingroup engineering
+ * @param number Decimal number (range per Excel limits)
+ * @param places Number of characters to use (optional)
+ * @code
+ * DEC2OCT(8) -> "10"
+ * @endcode
+ */
 Value dec2oct(const std::vector<Value>& args, const Context& context) {
     return templates::decimalToBaseFunction(
             args, context, "DEC2OCT", [](long long value, int places) -> std::string {

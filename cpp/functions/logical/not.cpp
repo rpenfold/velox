@@ -4,6 +4,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the opposite of a logical value
+ * @ingroup logical
+ * @param logical Logical value to negate
+ * @code
+ * NOT(TRUE) -> FALSE
+ * @endcode
+ */
 Value not_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

@@ -7,10 +7,14 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief SEARCH function - finds one text string within another (case-insensitive)
- * @param args Function arguments (find_text, within_text, [start_num])
- * @param context Evaluation context (unused for SEARCH)
- * @return Position of find_text within within_text, or #VALUE! if not found
+ * @brief Finds one text string within another (case-insensitive)
+ * @ingroup text
+ * @param find_text Substring to find
+ * @param within_text Text to search within
+ * @param start_num Starting position (optional)
+ * @code
+ * SEARCH("LO", "Hello") -> 4
+ * @endcode
  */
 Value search(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

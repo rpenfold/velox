@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the number of permutations for a given number of items
+ * @ingroup math
+ * @param n Total number of items
+ * @param k Number of items to arrange
+ * @code
+ * PERMUT(5, 3) -> 60
+ * @endcode
+ */
 Value permut(const std::vector<Value>& args, const Context& context) {
     (void)context;
 

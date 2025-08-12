@@ -6,10 +6,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief CEILING function - rounds a number up to the nearest multiple
- * @param args Function arguments (expects 1 or 2 arguments)
- * @param context Evaluation context (unused for CEILING)
- * @return Number rounded up to nearest multiple
+ * @brief Rounds a number up to the nearest multiple of significance
+ * @ingroup math
+ * @param number The number to round up
+ * @param significance The multiple to round up to (optional)
+ * @code
+ * CEILING(4.3) -> 5
+ * @endcode
  */
 Value ceiling_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

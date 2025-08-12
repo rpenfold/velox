@@ -6,6 +6,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the rightmost characters from a text string
+ * @ingroup text
+ * @param text Input text
+ * @param num_chars Number of characters (optional)
+ * @code
+ * RIGHT("Hello",2) -> "lo"
+ * @endcode
+ */
 Value right(const std::vector<Value>& args, const Context& context) {
     return templates::oneOrTwoArgTextFunction(
             args, context, "RIGHT", [](const std::string& text, int num_chars) {

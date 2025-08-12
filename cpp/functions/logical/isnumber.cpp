@@ -4,6 +4,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns TRUE if the value is a number or convertible to a number
+ * @ingroup logical
+ * @param value Value to test
+ * @code
+ * ISNUMBER("123") -> TRUE
+ * @endcode
+ */
 Value isnumber_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

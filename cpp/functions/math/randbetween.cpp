@@ -7,10 +7,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief RANDBETWEEN function - returns a random number between specified numbers
- * @param args Function arguments (expects 2 numeric arguments)
- * @param context Evaluation context (unused for RANDBETWEEN)
- * @return Random integer between bottom and top (inclusive)
+ * @brief Returns a random integer between bottom and top (inclusive)
+ * @ingroup math
+ * @param bottom Lowest integer to return
+ * @param top Highest integer to return
+ * @code
+ * RANDBETWEEN(1, 10) -> 7
+ * @endcode
  */
 Value randbetween(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

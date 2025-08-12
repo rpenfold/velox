@@ -6,6 +6,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Removes leading and trailing spaces from text
+ * @ingroup text
+ * @param text The text to trim
+ * @code
+ * TRIM("  Hello  ") -> "Hello"
+ * @endcode
+ */
 Value trim(const std::vector<Value>& args, const Context& context) {
     return templates::singleTextFunction(args, context, "TRIM", [](const std::string& text) {
         std::string result = text;

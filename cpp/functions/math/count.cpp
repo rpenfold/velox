@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Counts the number of numeric values among the arguments
+ * @ingroup math
+ * @param value1 First value or range
+ * @param value2 Additional values (optional, variadic)
+ * @code
+ * COUNT(1, 2, "x") -> 2
+ * @endcode
+ */
 Value count(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 
@@ -27,6 +36,15 @@ Value count(const std::vector<Value>& args, const Context& context) {
     return Value(static_cast<double>(count));
 }
 
+/**
+ * @brief Counts the number of non-empty values among the arguments
+ * @ingroup math
+ * @param value1 First value or range
+ * @param value2 Additional values (optional, variadic)
+ * @code
+ * COUNTA(1, "x", "") -> 2
+ * @endcode
+ */
 Value counta(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

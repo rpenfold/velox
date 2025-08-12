@@ -6,6 +6,18 @@ namespace builtin {
 
 // Use shared criteria evaluation utility
 
+/**
+ * @brief Sums values that meet multiple conditions
+ * @ingroup math
+ * @param sum_range Values to sum
+ * @param criteria_range1 First range to test
+ * @param criteria1 First condition
+ * @param criteria_range2 Additional ranges (optional, variadic)
+ * @param criteria2 Additional conditions (optional, variadic)
+ * @code
+ * SUMIFS(5, 3, "=3") -> 5
+ * @endcode
+ */
 Value sumifs(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Suppress unused parameter warning
 

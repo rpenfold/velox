@@ -5,6 +5,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the smallest value among the arguments
+ * @ingroup math
+ * @param number1 First number (optional)
+ * @param number2 Additional numbers (variadic)
+ * @code
+ * MIN(10,20,5) -> 5
+ * @endcode
+ */
 Value min(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

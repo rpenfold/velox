@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the largest value among the arguments
+ * @ingroup math
+ * @param number1 First number (optional)
+ * @param number2 Additional numbers (variadic)
+ * @code
+ * MAX(10,20,5) -> 20
+ * @endcode
+ */
 Value max(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

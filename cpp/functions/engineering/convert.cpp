@@ -93,6 +93,16 @@ static const std::unordered_map<std::string, UnitInfo> UNITS = {
         {"lt", {"liquid", 0.001, 0.0}},              // liter (alias)
 };
 
+/**
+ * @brief Converts a number from one measurement system to another
+ * @ingroup engineering
+ * @param number Value to convert
+ * @param from_unit Unit to convert from
+ * @param to_unit Unit to convert to
+ * @code
+ * CONVERT(32,"F","C") -> 0
+ * @endcode
+ */
 Value convert(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

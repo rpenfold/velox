@@ -7,10 +7,15 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief SUBSTITUTE function - substitutes new text for old text
- * @param args Function arguments (text, old_text, new_text, [instance_num])
- * @param context Evaluation context (unused for SUBSTITUTE)
- * @return Text with old_text replaced by new_text
+ * @brief Substitutes new text for old text
+ * @ingroup text
+ * @param text Original text
+ * @param old_text Text to replace
+ * @param new_text Replacement text
+ * @param instance_num Which occurrence to replace (optional; default all)
+ * @code
+ * SUBSTITUTE("a,b,c", ",", ";") -> "a;b;c"
+ * @endcode
  */
 Value substitute(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

@@ -4,6 +4,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns TRUE if the value is text
+ * @ingroup logical
+ * @param value Value to test
+ * @code
+ * ISTEXT("abc") -> TRUE
+ * @endcode
+ */
 Value istext_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

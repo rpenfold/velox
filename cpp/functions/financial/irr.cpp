@@ -5,6 +5,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the internal rate of return for a series of cash flows
+ * @ingroup financial
+ * @param values Cash flow values (array or arguments)
+ * @param guess Initial guess for IRR (optional)
+ * @code
+ * IRR({-1000, 300, 400, 500}) -> 0.1296
+ * @endcode
+ */
 Value irr(const std::vector<Value>& args, const Context& context) {
     (void)context;
 

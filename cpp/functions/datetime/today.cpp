@@ -6,10 +6,11 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief TODAY function - returns the current date (without time)
- * @param args Function arguments (expects 0 arguments)
- * @param context Evaluation context (unused for TODAY)
- * @return Current date at midnight as Value
+ * @brief Returns the current date (without time)
+ * @ingroup datetime
+ * @code
+ * TODAY() -> 2025-08-11 00:00:00
+ * @endcode
  */
 Value today(const std::vector<Value>& args, const Context& context) {
     return templates::noArgFunction(args, context, "TODAY", []() {

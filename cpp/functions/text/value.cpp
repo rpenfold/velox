@@ -8,10 +8,12 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief VALUE function - converts a text string to a number
- * @param args Function arguments (text)
- * @param context Evaluation context (unused for VALUE)
- * @return Numeric value
+ * @brief Converts text that represents a number to a number
+ * @ingroup text
+ * @param text The text to convert
+ * @code
+ * VALUE("$1,234.00") -> 1234
+ * @endcode
  */
 Value value(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

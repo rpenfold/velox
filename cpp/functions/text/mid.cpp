@@ -7,10 +7,14 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief MID function - returns characters from the middle of text
- * @param args Function arguments (text, start_num, num_chars)
- * @param context Evaluation context (unused for MID)
- * @return Characters from the middle of text
+ * @brief Returns characters from the middle of a text string
+ * @ingroup text
+ * @param text Input text
+ * @param start_num Position of first character (1-based)
+ * @param num_chars Number of characters to extract
+ * @code
+ * MID("Hello World",7,5) -> "World"
+ * @endcode
  */
 Value mid(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

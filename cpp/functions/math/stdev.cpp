@@ -7,10 +7,13 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief STDEV function - returns the standard deviation of a set of numbers
- * @param args Function arguments (expects 1+ numeric arguments)
- * @param context Evaluation context (unused for STDEV)
- * @return Standard deviation of the arguments
+ * @brief Returns the standard deviation of a sample
+ * @ingroup math
+ * @param number1 First number
+ * @param number2 Additional numbers (optional, variadic)
+ * @code
+ * STDEV(1,2,3) -> 1
+ * @endcode
  */
 Value stdev(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

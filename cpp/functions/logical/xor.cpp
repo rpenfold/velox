@@ -4,6 +4,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns TRUE if an odd number of arguments are TRUE
+ * @ingroup logical
+ * @param logical1 First logical value
+ * @param logical2 Additional logical values (optional, variadic)
+ * @code
+ * XOR(TRUE, TRUE, TRUE) -> TRUE
+ * @endcode
+ */
 Value xor_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

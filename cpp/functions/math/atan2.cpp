@@ -5,6 +5,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the arctangent of y/x, using the signs of both arguments to determine the quadrant
+ * @ingroup math
+ * @param y The y-coordinate
+ * @param x The x-coordinate
+ * @code
+ * ATAN2(1, 1) -> PI()/4
+ * @endcode
+ */
 Value atan2_function(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

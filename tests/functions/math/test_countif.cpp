@@ -156,12 +156,14 @@ TEST_F(CountIfFunctionTest, MixedTypesWithNumberCriteria_CountsOnlyNumbers) {
     EXPECT_DOUBLE_EQ(2.0, result.asNumber());  // only the actual numbers 5.0
 }
 
+// Excel treats numeric-looking text criteria as numeric; matches numeric 5 and text "5"
+//   =COUNTIF(A1:A10, "5")  // counts 5.0 and "5"
 TEST_F(CountIfFunctionTest, MixedTypesWithTextCriteria_CountsOnlyText) {
     auto result =
             callCountIf({Value(5.0), Value("5"), Value(true), Value("5"), Value("5"), Value("5")});
 
     EXPECT_TRUE(result.isNumber());
-    EXPECT_DOUBLE_EQ(2.0, result.asNumber());  // only the text "5"
+    EXPECT_DOUBLE_EQ(4.0, result.asNumber());
 }
 
 // Error handling tests

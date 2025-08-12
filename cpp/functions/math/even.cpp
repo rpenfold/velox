@@ -6,19 +6,12 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief EVEN function - rounds a number up to the nearest even integer
- * @param args Function arguments (number)
- * @param context Evaluation context (unused for EVEN)
- * @return Nearest even integer >= number (for positive) or <= number (for negative)
- * 
- * Excel syntax: EVEN(number)
- * - number: The value to round to the nearest even integer
- * 
- * The function:
- * - For positive numbers: rounds up to the next even integer
- * - For negative numbers: rounds away from zero to the next even integer
- * - For zero: returns zero
- * - Examples: EVEN(1.5) = 2, EVEN(3) = 4, EVEN(-1) = -2, EVEN(-2.5) = -4
+ * @brief Rounds a number up to the nearest even integer
+ * @ingroup math
+ * @param number The value to round
+ * @code
+ * EVEN(3) -> 4
+ * @endcode
  */
 Value even_function(const std::vector<Value>& args, const Context& context) {
     (void)context;

@@ -5,7 +5,14 @@
  namespace functions {
  namespace builtin {
 
- // CODE(text) -> numeric code of first character
+/**
+ * @brief Returns a numeric code for the first character in a text string
+ * @ingroup text
+ * @param text The text to examine
+ * @code
+ * CODE("A") -> 65
+ * @endcode
+ */
  Value code_function(const std::vector<Value>& args, const Context& context) {
      (void)context;
 

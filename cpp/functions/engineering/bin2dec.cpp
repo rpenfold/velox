@@ -6,6 +6,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts a binary number to decimal
+ * @ingroup engineering
+ * @param number Binary string (up to 10 bits; two's complement for negatives)
+ * @code
+ * BIN2DEC("1010") -> 10
+ * @endcode
+ */
 Value bin2dec(const std::vector<Value>& args, const Context& context) {
     return templates::baseConversionFunction(
             args, context, "BIN2DEC", [](const std::string& bin_str) -> double {

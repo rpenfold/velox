@@ -7,6 +7,14 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Converts an octal number to binary
+ * @ingroup engineering
+ * @param number Octal string (up to 10 digits)
+ * @code
+ * OCT2BIN("1777") -> "1111111111"
+ * @endcode
+ */
 Value oct2bin(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
 

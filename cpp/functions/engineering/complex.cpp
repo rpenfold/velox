@@ -7,17 +7,14 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief COMPLEX function - creates a complex number from real and imaginary parts
- * @param args Function arguments (real_num, i_num, [suffix])
- * @param context Evaluation context (unused for COMPLEX)
- * @return Complex number as text string
- * 
- * Excel syntax: COMPLEX(real_num, i_num, [suffix])
- * - real_num: The real coefficient of the complex number
- * - i_num: The imaginary coefficient of the complex number
- * - suffix: The suffix for the imaginary component. If omitted, uses "i"
- * 
- * Returns a complex number in the form "a+bi" or "a-bi" where a is real and b is imaginary
+ * @brief Creates a complex number from real and imaginary parts
+ * @ingroup engineering
+ * @param real_num Real coefficient
+ * @param i_num Imaginary coefficient
+ * @param suffix Suffix for imaginary part (optional; i or j)
+ * @code
+ * COMPLEX(3, -4) -> "3-4i"
+ * @endcode
  */
 Value complex_function(const std::vector<Value>& args, const Context& context) {
     (void)context;

@@ -7,10 +7,15 @@ namespace functions {
 namespace builtin {
 
 /**
- * @brief REPLACE function - replaces part of a text string
- * @param args Function arguments (old_text, start_num, num_chars, new_text)
- * @param context Evaluation context (unused for REPLACE)
- * @return Text with the specified characters replaced
+ * @brief Replaces part of a text string
+ * @ingroup text
+ * @param old_text Original text
+ * @param start_num Position to start replacing (1-based)
+ * @param num_chars Number of characters to replace
+ * @param new_text Replacement text
+ * @code
+ * REPLACE("Hello", 2, 2, "i") -> "Hilo"
+ * @endcode
  */
 Value replace(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter

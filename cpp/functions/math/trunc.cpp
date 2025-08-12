@@ -5,6 +5,15 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Truncates a number to an integer or to a specified number of digits
+ * @ingroup math
+ * @param number The number to truncate
+ * @param num_digits Number of digits (optional; negative truncates to tens, hundreds, ...)
+ * @code
+ * TRUNC(3.14159, 2) -> 3.14
+ * @endcode
+ */
 Value trunc_function(const std::vector<Value>& args, const Context& context) {
     return templates::oneOrTwoArgFunction(args, context, "TRUNC",
                                           [](double value, double num_digits) {
