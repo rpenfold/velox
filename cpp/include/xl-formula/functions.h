@@ -774,6 +774,26 @@ Value weekday(const std::vector<Value>& args, const Context& context);
  */
 Value datedif(const std::vector<Value>& args, const Context& context);
 
+ /**
+  * @brief EDATE function - returns the date n months before/after a start date
+  */
+ Value edate(const std::vector<Value>& args, const Context& context);
+
+ /**
+  * @brief EOMONTH function - returns the last day of the month n months before/after a start date
+  */
+ Value eomonth(const std::vector<Value>& args, const Context& context);
+
+ /**
+  * @brief DATEVALUE function - converts a date in text to a date value
+  */
+ Value datevalue(const std::vector<Value>& args, const Context& context);
+
+ /**
+  * @brief TIMEVALUE function - converts a time in text to a fraction of a day
+  */
+ Value timevalue(const std::vector<Value>& args, const Context& context);
+
 // Engineering & Specialized Functions
 
 /**

@@ -179,6 +179,14 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::weekday(args, context);
         case hash_function_name("DATEDIF"):
             return builtin::datedif(args, context);
+        case hash_function_name("EDATE"):
+            return builtin::edate(args, context);
+        case hash_function_name("EOMONTH"):
+            return builtin::eomonth(args, context);
+        case hash_function_name("DATEVALUE"):
+            return builtin::datevalue(args, context);
+        case hash_function_name("TIMEVALUE"):
+            return builtin::timevalue(args, context);
 
         // Logical functions
         case hash_function_name("TRUE"):
@@ -321,7 +329,7 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Date & Time functions
             "NOW", "TODAY", "DATE", "TIME", "YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND",
-            "WEEKDAY", "DATEDIF",
+            "WEEKDAY", "DATEDIF", "EDATE", "EOMONTH", "DATEVALUE", "TIMEVALUE",
 
             // Logical functions
             "TRUE", "FALSE", "IF", "AND", "OR", "NOT", "XOR", "IFERROR", "IFNA", "ISNUMBER",
