@@ -333,6 +333,10 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::clean(args, context);
         case hash_function_name("EXACT"):
             return builtin::exact(args, context);
+        case hash_function_name("ROMAN"):
+            return builtin::roman(args, context);
+        case hash_function_name("ARABIC"):
+            return builtin::arabic(args, context);
 
         default:
             // Not a built-in function - return empty Value to indicate fallback needed
@@ -360,7 +364,7 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Text functions
             "CONCATENATE", "CONCAT", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",
-            "CHAR", "CODE", "CLEAN", "EXACT",
+            "CHAR", "CODE", "CLEAN", "EXACT", "ROMAN", "ARABIC",
             "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE", "T", "TEXTJOIN", "UNICHAR", "UNICODE",
 
             // Date & Time functions

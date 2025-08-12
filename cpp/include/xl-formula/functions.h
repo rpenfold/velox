@@ -227,6 +227,8 @@ Value proper(const std::vector<Value>& args, const Context& context);
     Value code_function(const std::vector<Value>& args, const Context& context);
     Value clean(const std::vector<Value>& args, const Context& context);
     Value exact(const std::vector<Value>& args, const Context& context);
+ Value roman(const std::vector<Value>& args, const Context& context);
+ Value arabic(const std::vector<Value>& args, const Context& context);
 
 /**
  * @brief RPT function - repeats text a specified number of times
