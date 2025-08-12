@@ -130,6 +130,18 @@ Currently supports **85+ built-in functions** across 8 categories:
 ./build.sh --format-check
 ```
 
+### CLI (formula)
+
+Run the following to add the CLI to your path
+
+```bash
+echo "export PATH=\"$PWD/scripts:$PATH\"" >> ~/.zshrc && source ~/.zshrc
+```
+
+Then you can run `formula [-h|--help|help]` for details on how to use the CLI.
+
+
+
 ### Manual Build
 
 ```bash

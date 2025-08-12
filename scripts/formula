@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+print_usage() {
+  cat <<EOF
+XL-Formula CLI
+
+Usage: formula <command> [options]
+
+Commands:
+  build            Build the project (Release by default)
+    -d, --debug      Debug build
+    -c, --clean      Clean before build
+    --web           Build web bindings
+    --rn            Build React Native bindings
+
+  test             Build and run C++ tests
+    -d, --debug      Debug build
+    -c, --clean      Clean before build
+
+  bench            Build and run benchmarks; compares to fixed snapshot
+    --save           Update fixed snapshot after run
+    -- args...       Pass-through args to Google Benchmark (after --)
+
+  format           Format C++ code
+  format-check     Check formatting
+  install          Run CMake install target
+
+Examples:
+  formula build -d
+  formula test -c
+  formula bench -- --benchmark_filter=BM_.* --benchmark_min_time=2s
+  formula bench --save -- --benchmark_filter=BM_SimpleSum
+
+EOF
+}
+
+cmd_build() {
+  local args=( )
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -d|--debug) args+=( -d ); shift ;;
+      -c|--clean) args+=( -c ); shift ;;
+      --web) args+=( --web ); shift ;;
+      --rn|--react-native) args+=( --react-native ); shift ;;
+      *) echo "Unknown build option: $1" >&2; exit 1 ;;
+    esac
+  done
+  exec "$REPO_ROOT/scripts/build.sh" "${args[@]}"
+}
+
+cmd_test() {
+  local args=( -t )
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -d|--debug) args+=( -d ); shift ;;
+      -c|--clean) args+=( -c ); shift ;;
+      *) echo "Unknown test option: $1" >&2; exit 1 ;;
+    esac
+  done
+  exec "$REPO_ROOT/scripts/build.sh" "${args[@]}"
+}
+
+cmd_bench() {
+  local save=false
+  local pass_through=( )
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --save) save=true; shift ;;
+      --) shift; pass_through=( "$@" ); break ;;
+      *) echo "Unknown bench option: $1" >&2; exit 1 ;;
+    esac
+  done
+  local args=( --bench )
+  if [[ "$save" == true ]]; then args+=( --bench-save ); fi
+  if [[ ${#pass_through[@]} -gt 0 ]]; then
+    args+=( --bench-args "${pass_through[*]}" )
+  fi
+  exec "$REPO_ROOT/scripts/build.sh" "${args[@]}"
+}
+
+cmd_format() { exec "$REPO_ROOT/scripts/build.sh" --format; }
+cmd_format_check() { exec "$REPO_ROOT/scripts/build.sh" --format-check; }
+cmd_install() { exec "$REPO_ROOT/scripts/build.sh" --install; }
+
+main() {
+  local cmd="${1:-}"; shift || true
+  case "$cmd" in
+    build) cmd_build "$@" ;;
+    test) cmd_test "$@" ;;
+    bench) cmd_bench "$@" ;;
+    format) cmd_format ;;
+    format-check|format_check) cmd_format_check ;;
+    install) cmd_install ;;
+    -h|--help|help|"") print_usage ;;
+    *) echo "Unknown command: $cmd" >&2; echo; print_usage; exit 1 ;;
+  esac
+}
+
+main "$@"
+
+

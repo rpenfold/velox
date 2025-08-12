@@ -773,7 +773,7 @@ Before submitting your function implementation:
 - [ ] All tests pass
 - [ ] Function is registered in dispatcher
 - [ ] Function is added to name lists
-- [ ] Documentation is updated in `functions.js`
+- [ ] Documentation is added via doxygen-style comment on C++ function
 - [ ] Function appears in the docs interface
 - [ ] Code is properly formatted
 - [ ] Edge cases are tested
