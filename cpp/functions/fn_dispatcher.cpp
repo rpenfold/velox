@@ -73,6 +73,22 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::stdev(args, context);
         case hash_function_name("VAR"):
             return builtin::var(args, context);
+        case hash_function_name("CORREL"):
+            return builtin::correl(args, context);
+        case hash_function_name("PEARSON"):
+            return builtin::correl(args, context);
+        case hash_function_name("RSQ"):
+            return builtin::rsq(args, context);
+        case hash_function_name("SLOPE"):
+            return builtin::slope(args, context);
+        case hash_function_name("INTERCEPT"):
+            return builtin::intercept(args, context);
+        case hash_function_name("COVARIANCE.P"):
+            return builtin::covariance_p(args, context);
+        case hash_function_name("COVARIANCE.S"):
+            return builtin::covariance_s(args, context);
+        case hash_function_name("COVAR"):
+            return builtin::covar(args, context);
 
         // Trigonometric functions
         case hash_function_name("SIN"):
@@ -329,6 +345,9 @@ std::vector<std::string> get_builtin_function_names() {
             // Trigonometric functions
             "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN", "ATAN2", "SINH", "COSH", "TANH", "DEGREES",
             "RADIANS", "EXP", "LN", "LOG", "LOG10",
+
+            // Statistics & Regression
+            "CORREL", "PEARSON", "RSQ", "SLOPE", "INTERCEPT", "COVARIANCE.P", "COVARIANCE.S", "COVAR",
 
             // Text functions
             "CONCATENATE", "CONCAT", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",

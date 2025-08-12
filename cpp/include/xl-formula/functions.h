@@ -505,6 +505,15 @@ Value stdev(const std::vector<Value>& args, const Context& context);
  */
 Value var(const std::vector<Value>& args, const Context& context);
 
+ // Correlation and regression
+ Value correl(const std::vector<Value>& args, const Context& context);
+ Value rsq(const std::vector<Value>& args, const Context& context);
+ Value slope(const std::vector<Value>& args, const Context& context);
+ Value intercept(const std::vector<Value>& args, const Context& context);
+ Value covariance_p(const std::vector<Value>& args, const Context& context);
+ Value covariance_s(const std::vector<Value>& args, const Context& context);
+ Value covar(const std::vector<Value>& args, const Context& context);
+
 /**
  * @brief FIND function - finds one text string within another (case-sensitive)
  * @param args Function arguments (find_text, within_text, [start_num])
