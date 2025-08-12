@@ -305,6 +305,12 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::sumif(args, context);
         case hash_function_name("SUMIFS"):
             return builtin::sumifs(args, context);
+        case hash_function_name("SUMX2MY2"):
+            return builtin::sumx2my2(args, context);
+        case hash_function_name("SUMX2PY2"):
+            return builtin::sumx2py2(args, context);
+        case hash_function_name("SUMXMY2"):
+            return builtin::sumxmy2(args, context);
         case hash_function_name("AVERAGEIF"):
             return builtin::averageif(args, context);
         case hash_function_name("AVERAGEIFS"):
@@ -348,6 +354,9 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Statistics & Regression
             "CORREL", "PEARSON", "RSQ", "SLOPE", "INTERCEPT", "COVARIANCE.P", "COVARIANCE.S", "COVAR",
+
+            // Sum of squares variants
+            "SUMX2MY2", "SUMX2PY2", "SUMXMY2",
 
             // Text functions
             "CONCATENATE", "CONCAT", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",

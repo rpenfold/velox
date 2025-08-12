@@ -1084,6 +1084,11 @@ Value averageif(const std::vector<Value>& args, const Context& context);
  */
 Value averageifs(const std::vector<Value>& args, const Context& context);
 
+ // SUMX* variants
+ Value sumx2my2(const std::vector<Value>& args, const Context& context);
+ Value sumx2py2(const std::vector<Value>& args, const Context& context);
+ Value sumxmy2(const std::vector<Value>& args, const Context& context);
+
 /**
  * @brief Helper function for simple wildcard matching without regex
  * @param text The text to match
