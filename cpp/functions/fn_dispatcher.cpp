@@ -294,6 +294,14 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
         case hash_function_name("AVERAGEIFS"):
             return builtin::averageifs(args, context);
 
+        // Lookup & Reference
+        case hash_function_name("CHOOSE"):
+            return builtin::choose(args, context);
+        case hash_function_name("ROW"):
+            return builtin::row_function(args, context);
+        case hash_function_name("COLUMN"):
+            return builtin::column_function(args, context);
+
         // Text additions
         case hash_function_name("CHAR"):
             return builtin::char_function(args, context);
@@ -330,6 +338,9 @@ std::vector<std::string> get_builtin_function_names() {
             // Date & Time functions
             "NOW", "TODAY", "DATE", "TIME", "YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND",
             "WEEKDAY", "DATEDIF", "EDATE", "EOMONTH", "DATEVALUE", "TIMEVALUE",
+
+            // Lookup & Reference
+            "CHOOSE", "ROW", "COLUMN",
 
             // Logical functions
             "TRUE", "FALSE", "IF", "AND", "OR", "NOT", "XOR", "IFERROR", "IFNA", "ISNUMBER",

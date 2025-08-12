@@ -268,6 +268,11 @@ Value unichar(const std::vector<Value>& args, const Context& context);
  */
 Value unicode_function(const std::vector<Value>& args, const Context& context);
 
+ // Lookup & Reference
+ Value choose(const std::vector<Value>& args, const Context& context);
+ Value row_function(const std::vector<Value>& args, const Context& context);
+ Value column_function(const std::vector<Value>& args, const Context& context);
+
 /**
  * @brief ABS function - returns absolute value
  * @param args Function arguments (expects 1 numeric argument)
