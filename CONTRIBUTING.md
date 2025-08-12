@@ -860,7 +860,7 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 ### Date & Time
 - [x] NOW / TODAY / DATE / TIME / YEAR / MONTH / DAY / HOUR / MINUTE / SECOND / WEEKDAY / DATEDIF
 - [x] EDATE / EOMONTH
-- [ ] DATEVALUE / TIMEVALUE
+- [x] DATEVALUE / TIMEVALUE
 - [ ] WEEKNUM / WEEKNUM.ISO / ISOWEEKNUM
 - [ ] WORKDAY / WORKDAY.INTL / NETWORKDAYS / NETWORKDAYS.INTL
 
@@ -868,7 +868,8 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 - [ ] ADDRESS
 - [ ] AREAS
 - [ ] CHOOSECOLS / CHOOSEROWS
-- [ ] COLUMN / COLUMNS (COLUMNS supported; verify COLUMN variants)
+- [x] CHOOSE
+- [x] COLUMN / ROW (basic stubs)
 - [ ] HLOOKUP / VLOOKUP / LOOKUP / XLOOKUP
 - [ ] INDEX / MATCH / XMATCH
 - [ ] OFFSET / INDIRECT
@@ -892,7 +893,7 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 - [ ] CHISQ.* / BETA.* / BINOM.* (subset already covered; expand as needed)
 - [x] CORREL
 - [x] PEARSON / RSQ / SLOPE / INTERCEPT
-- [ ] COVAR / COVARIANCE.*
+- [x] COVAR / COVARIANCE.*
 - [ ] PERCENTILE.* / QUARTILE.* / RANK.*
 
 Note: This list is non-exhaustive and will evolve. When you implement a function, please move it to the checked list and include tests and docs.

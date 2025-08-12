@@ -69,6 +69,78 @@ export const functionCategories = {
           { formula: 'INTERCEPT([2,4,6,8],[1,2,3,4])', result: '0', description: 'y = 2x line intercept' }
         ]
       },
+      COVAR: {
+        name: 'COVAR',
+        description: 'Returns population covariance of two data sets (historical, same as COVARIANCE.P)',
+        syntax: 'COVAR(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array', required: true },
+          { name: 'array_y', description: 'Second range or array', required: true }
+        ],
+        examples: [
+          { formula: 'COVAR([1,2,3],[2,4,6])', result: '0.6667', description: 'Population covariance' }
+        ]
+      },
+      'COVARIANCE.P': {
+        name: 'COVARIANCE.P',
+        description: 'Returns population covariance of two data sets',
+        syntax: 'COVARIANCE.P(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array', required: true },
+          { name: 'array_y', description: 'Second range or array', required: true }
+        ],
+        examples: [
+          { formula: 'COVARIANCE.P([1,2,3],[2,4,6])', result: '0.6667', description: 'Population covariance' }
+        ]
+      },
+      'COVARIANCE.S': {
+        name: 'COVARIANCE.S',
+        description: 'Returns sample covariance of two data sets',
+        syntax: 'COVARIANCE.S(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array', required: true },
+          { name: 'array_y', description: 'Second range or array', required: true }
+        ],
+        examples: [
+          { formula: 'COVARIANCE.S([1,2,3],[2,4,6])', result: '1', description: 'Sample covariance' }
+        ]
+      },
+      COVAR: {
+        name: 'COVAR',
+        description: 'Returns covariance of two data sets (population denominator N)',
+        syntax: 'COVAR(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'COVAR([1,2,3],[2,4,6])', result: '0.6667', description: 'Simple covariance' }
+        ]
+      },
+      'COVARIANCE.P': {
+        name: 'COVARIANCE.P',
+        description: 'Returns population covariance (denominator N)',
+        syntax: 'COVARIANCE.P(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'COVARIANCE.P([1,2,3],[2,4,6])', result: '0.6667', description: 'Population covariance' }
+        ]
+      },
+      'COVARIANCE.S': {
+        name: 'COVARIANCE.S',
+        description: 'Returns sample covariance (denominator N-1)',
+        syntax: 'COVARIANCE.S(array_x, array_y)',
+        parameters: [
+          { name: 'array_x', description: 'First range or array of numbers', required: true },
+          { name: 'array_y', description: 'Second range or array of numbers', required: true }
+        ],
+        examples: [
+          { formula: 'COVARIANCE.S([1,2,3],[2,4,6])', result: '1', description: 'Sample covariance' }
+        ]
+      },
       SUMX2MY2: {
         name: 'SUMX2MY2',
         description: 'Sum of the difference of squares of corresponding values: Σ(x^2 − y^2)',
@@ -1567,6 +1639,65 @@ export const functionCategories = {
         ],
         examples: [
           { formula: 'EOMONTH(DATE(2024,1,15), 1)', result: '2024-02-29 00:00:00', description: 'End of next month' }
+        ]
+      },
+      DATEVALUE: {
+        name: 'DATEVALUE',
+        description: 'Converts a date in the form of text to a date value',
+        syntax: 'DATEVALUE(date_text)',
+        parameters: [
+          { name: 'date_text', description: 'Date string (e.g., 2024-01-15)', required: true }
+        ],
+        examples: [
+          { formula: 'DATEVALUE("2024-01-15")', result: '2024-01-15 00:00:00', description: 'ISO date' }
+        ]
+      },
+      TIMEVALUE: {
+        name: 'TIMEVALUE',
+        description: 'Converts a time in the form of text to a decimal number',
+        syntax: 'TIMEVALUE(time_text)',
+        parameters: [
+          { name: 'time_text', description: 'Time string (e.g., 14:30:00)', required: true }
+        ],
+        examples: [
+          { formula: 'TIMEVALUE("12:00:00")', result: '0.5', description: 'Noon as fraction of day' }
+        ]
+      }
+    }
+  }
+  ,
+  lookup: {
+    name: 'Lookup & Reference',
+    description: 'Lookup and reference functions',
+    functions: {
+      CHOOSE: {
+        name: 'CHOOSE',
+        description: 'Chooses a value from a list of values',
+        syntax: 'CHOOSE(index, value1, [value2], ...)',
+        parameters: [
+          { name: 'index', description: 'Index (1-based) of the value to return', required: true },
+          { name: 'value1', description: 'First value', required: true }
+        ],
+        examples: [
+          { formula: 'CHOOSE(2, "A", "B", "C")', result: '"B"', description: 'Second value' }
+        ]
+      },
+      ROW: {
+        name: 'ROW',
+        description: 'Returns the row number of a reference (stub: always 1)',
+        syntax: 'ROW([reference])',
+        parameters: [],
+        examples: [
+          { formula: 'ROW()', result: '1', description: 'Current row (stub)' }
+        ]
+      },
+      COLUMN: {
+        name: 'COLUMN',
+        description: 'Returns the column number of a reference (stub: always 1)',
+        syntax: 'COLUMN([reference])',
+        parameters: [],
+        examples: [
+          { formula: 'COLUMN()', result: '1', description: 'Current column (stub)' }
         ]
       }
     }

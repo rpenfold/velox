@@ -83,6 +83,12 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::slope(args, context);
         case hash_function_name("INTERCEPT"):
             return builtin::intercept(args, context);
+        case hash_function_name("COVAR"):
+            return builtin::covar(args, context);
+        case hash_function_name("COVARIANCE.P"):
+            return builtin::covariance_p(args, context);
+        case hash_function_name("COVARIANCE.S"):
+            return builtin::covariance_s(args, context);
         case hash_function_name("SUMX2MY2"):
             return builtin::sumx2my2(args, context);
         case hash_function_name("SUMX2PY2"):
@@ -203,6 +209,10 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::edate(args, context);
         case hash_function_name("EOMONTH"):
             return builtin::eomonth(args, context);
+        case hash_function_name("DATEVALUE"):
+            return builtin::datevalue(args, context);
+        case hash_function_name("TIMEVALUE"):
+            return builtin::timevalue(args, context);
 
         // Logical functions
         case hash_function_name("TRUE"):
@@ -324,6 +334,14 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
         case hash_function_name("AVERAGEIFS"):
             return builtin::averageifs(args, context);
 
+        // Lookup & Reference
+        case hash_function_name("CHOOSE"):
+            return builtin::choose(args, context);
+        case hash_function_name("ROW"):
+            return builtin::row_function(args, context);
+        case hash_function_name("COLUMN"):
+            return builtin::column_function(args, context);
+
         // Text additions
         case hash_function_name("CHAR"):
             return builtin::char_function(args, context);
@@ -347,7 +365,8 @@ std::vector<std::string> get_builtin_function_names() {
             "RAND", "RANDBETWEEN", "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD", "LCM", "FACT", 
             "COMBIN", "PERMUT", "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF", "AVERAGEIFS",
             "SUMSQ", "QUOTIENT", "EVEN", "ODD",
-            "CORREL", "SUMX2MY2", "SUMX2PY2", "SUMXMY2",
+            "CORREL", "RSQ", "SLOPE", "INTERCEPT", "COVAR", "COVARIANCE.P", "COVARIANCE.S",
+            "SUMX2MY2", "SUMX2PY2", "SUMXMY2",
 
             // Trigonometric functions
             "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN", "ATAN2", "SINH", "COSH", "TANH", "DEGREES",
@@ -361,7 +380,7 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Date & Time functions
             "NOW", "TODAY", "DATE", "TIME", "YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND",
-            "WEEKDAY", "DATEDIF",
+            "WEEKDAY", "DATEDIF", "EDATE", "EOMONTH", "DATEVALUE", "TIMEVALUE",
 
             // Logical functions
             "TRUE", "FALSE", "IF", "AND", "OR", "NOT", "XOR", "IFERROR", "IFNA", "ISNUMBER",
@@ -370,6 +389,10 @@ std::vector<std::string> get_builtin_function_names() {
             // Engineering functions
             "CONVERT", "HEX2DEC", "DEC2HEX", "BIN2DEC", "DEC2BIN", "BITAND", "BITOR", "BITXOR",
             "DEC2OCT", "BIN2OCT", "OCT2BIN", "HEX2OCT", "OCT2HEX", "COMPLEX", "IMREAL", "IMAGINARY",
+            "IMABS", "IMARGUMENT", "IMSUM", "IMSUB", "IMPRODUCT", "IMDIV", "IMPOWER",
+
+            // Lookup & Reference
+            "CHOOSE", "ROW", "COLUMN",
 
             // Financial functions
             "PV", "FV", "PMT", "RATE", "NPER", "NPV", "IRR", "MIRR"};
