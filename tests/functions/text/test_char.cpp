@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class CharFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callChar(const std::vector<Value>& args) {
         return builtin::char_function(args, context);
     }
@@ -71,13 +71,13 @@ TEST_F(CharFunctionTest, TextInput_ConvertsToNumber) {
 
 TEST_F(CharFunctionTest, BooleanTrue_ConvertsToOne) {
     auto result = callChar({Value(true)});
-    ASSERT_TRUE(result.isText()); // 1 is valid ASCII range for CHAR
-    EXPECT_EQ(1, result.asText().length()); // Should return one character
+    ASSERT_TRUE(result.isText());            // 1 is valid ASCII range for CHAR
+    EXPECT_EQ(1, result.asText().length());  // Should return one character
 }
 
 TEST_F(CharFunctionTest, BooleanFalse_ConvertsToZero) {
     auto result = callChar({Value(false)});
-    EXPECT_TRUE(result.isError()); // 0 is not in valid ASCII range for CHAR
+    EXPECT_TRUE(result.isError());  // 0 is not in valid ASCII range for CHAR
 }
 
 TEST_F(CharFunctionTest, ErrorInput_PropagatesError) {
@@ -98,5 +98,5 @@ TEST_F(CharFunctionTest, NegativeNumber_ReturnsError) {
 TEST_F(CharFunctionTest, ExtendedASCII_ReturnsCorrectCharacter) {
     auto result = callChar({Value(128.0)});
     ASSERT_TRUE(result.isText());
-    EXPECT_EQ(1, result.asText().length()); // Should return a character
+    EXPECT_EQ(1, result.asText().length());  // Should return a character
 }

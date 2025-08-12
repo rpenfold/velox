@@ -9,10 +9,10 @@ namespace builtin {
  * @param args Function arguments (number values)
  * @param context Evaluation context (unused for SUMSQ)
  * @return Sum of squares of all numeric arguments
- * 
+ *
  * Excel syntax: SUMSQ(number1, [number2], ...)
  * - number1, number2, ...: Numbers to square and sum
- * 
+ *
  * The function:
  * - Accepts any number of arguments (at least 1 required)
  * - Squares each numeric value and sums them

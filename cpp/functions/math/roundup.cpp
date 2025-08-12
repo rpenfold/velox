@@ -1,5 +1,5 @@
-#include "xl-formula/functions.h"
 #include <cmath>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -47,7 +47,7 @@ Value roundup(const std::vector<Value>& args, const Context& context) {
 
     // Calculate the factor for rounding
     double factor = std::pow(10.0, num_digits);
-    
+
     double result;
     if (number > 0) {
         // For positive numbers, use ceiling to round away from zero

@@ -26,8 +26,8 @@ EvaluationResult FormulaEngine::evaluate(const ASTNode& ast) {
     return evaluator.evaluate(ast);
 }
 
-EvaluationResult FormulaEngine::evaluate(
-        const std::string& formula, const std::unordered_map<std::string, Value>& overrides) {
+EvaluationResult FormulaEngine::evaluate(const std::string& formula,
+                                         const std::unordered_map<std::string, Value>& overrides) {
     // Parse first
     Parser parser;
     auto parse_result = parser.parse(formula);
@@ -67,7 +67,8 @@ EvaluationResult FormulaEngine::evaluate(
     return result;
 }
 
-EvaluationResult FormulaEngine::evaluateWithTrace(const std::string& formula, std::unique_ptr<TraceNode>& out_trace_root) {
+EvaluationResult FormulaEngine::evaluateWithTrace(const std::string& formula,
+                                                  std::unique_ptr<TraceNode>& out_trace_root) {
     Parser parser;
     auto parse_result = parser.parse(formula);
 

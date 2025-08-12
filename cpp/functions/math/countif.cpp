@@ -117,7 +117,8 @@ bool evaluateCriteria(const Value& value, const Value& criteria) {
             return simpleWildcardMatch(value.asText(), criteriaStr);
         }
 
-        // Excel coerces numeric-looking text criteria. Compare numerically if possible (numbers, booleans, dates)
+        // Excel coerces numeric-looking text criteria. Compare numerically if possible (numbers,
+        // booleans, dates)
         try {
             double criteriaVal = std::stod(criteriaStr);
             if (value.canConvertToNumber()) {

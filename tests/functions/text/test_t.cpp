@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class TFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callT(const std::vector<Value>& args) {
         return builtin::t_function(args, context);
     }

@@ -153,7 +153,8 @@ Value isblank_function(const std::vector<Value>& args, const Context& context);
 Value iserror_function(const std::vector<Value>& args, const Context& context);
 
 /**
- * @brief SWITCH function - compares an expression against multiple values and returns corresponding result
+ * @brief SWITCH function - compares an expression against multiple values and returns corresponding
+ * result
  * @param args Function arguments (expression, value1, result1, [value2, result2, ...], [default])
  * @param context Evaluation context (unused for SWITCH)
  * @return The result corresponding to the first matching value, or default if no match
@@ -161,7 +162,8 @@ Value iserror_function(const std::vector<Value>& args, const Context& context);
 Value switch_function(const std::vector<Value>& args, const Context& context);
 
 /**
- * @brief IFS function - checks multiple conditions and returns corresponding result for first TRUE condition
+ * @brief IFS function - checks multiple conditions and returns corresponding result for first TRUE
+ * condition
  * @param args Function arguments (condition1, result1, [condition2, result2, ...])
  * @param context Evaluation context (unused for IFS)
  * @return The result corresponding to the first TRUE condition, or #N/A if none are TRUE
@@ -223,12 +225,12 @@ Value lower(const std::vector<Value>& args, const Context& context);
  * @return Text with first letter of each word capitalized
  */
 Value proper(const std::vector<Value>& args, const Context& context);
-    Value char_function(const std::vector<Value>& args, const Context& context);
-    Value code_function(const std::vector<Value>& args, const Context& context);
-    Value clean(const std::vector<Value>& args, const Context& context);
-    Value exact(const std::vector<Value>& args, const Context& context);
- Value roman(const std::vector<Value>& args, const Context& context);
- Value arabic(const std::vector<Value>& args, const Context& context);
+Value char_function(const std::vector<Value>& args, const Context& context);
+Value code_function(const std::vector<Value>& args, const Context& context);
+Value clean(const std::vector<Value>& args, const Context& context);
+Value exact(const std::vector<Value>& args, const Context& context);
+Value roman(const std::vector<Value>& args, const Context& context);
+Value arabic(const std::vector<Value>& args, const Context& context);
 
 /**
  * @brief RPT function - repeats text a specified number of times
@@ -270,10 +272,10 @@ Value unichar(const std::vector<Value>& args, const Context& context);
  */
 Value unicode_function(const std::vector<Value>& args, const Context& context);
 
- // Lookup & Reference
- Value choose(const std::vector<Value>& args, const Context& context);
- Value row_function(const std::vector<Value>& args, const Context& context);
- Value column_function(const std::vector<Value>& args, const Context& context);
+// Lookup & Reference
+Value choose(const std::vector<Value>& args, const Context& context);
+Value row_function(const std::vector<Value>& args, const Context& context);
+Value column_function(const std::vector<Value>& args, const Context& context);
 
 /**
  * @brief ABS function - returns absolute value
@@ -507,14 +509,14 @@ Value stdev(const std::vector<Value>& args, const Context& context);
  */
 Value var(const std::vector<Value>& args, const Context& context);
 
- // Correlation and regression
- Value correl(const std::vector<Value>& args, const Context& context);
- Value rsq(const std::vector<Value>& args, const Context& context);
- Value slope(const std::vector<Value>& args, const Context& context);
- Value intercept(const std::vector<Value>& args, const Context& context);
- Value covariance_p(const std::vector<Value>& args, const Context& context);
- Value covariance_s(const std::vector<Value>& args, const Context& context);
- Value covar(const std::vector<Value>& args, const Context& context);
+// Correlation and regression
+Value correl(const std::vector<Value>& args, const Context& context);
+Value rsq(const std::vector<Value>& args, const Context& context);
+Value slope(const std::vector<Value>& args, const Context& context);
+Value intercept(const std::vector<Value>& args, const Context& context);
+Value covariance_p(const std::vector<Value>& args, const Context& context);
+Value covariance_s(const std::vector<Value>& args, const Context& context);
+Value covar(const std::vector<Value>& args, const Context& context);
 
 /**
  * @brief FIND function - finds one text string within another (case-sensitive)
@@ -790,25 +792,25 @@ Value weekday(const std::vector<Value>& args, const Context& context);
  */
 Value datedif(const std::vector<Value>& args, const Context& context);
 
- /**
-  * @brief EDATE function - returns the date n months before/after a start date
-  */
- Value edate(const std::vector<Value>& args, const Context& context);
+/**
+ * @brief EDATE function - returns the date n months before/after a start date
+ */
+Value edate(const std::vector<Value>& args, const Context& context);
 
- /**
-  * @brief EOMONTH function - returns the last day of the month n months before/after a start date
-  */
- Value eomonth(const std::vector<Value>& args, const Context& context);
+/**
+ * @brief EOMONTH function - returns the last day of the month n months before/after a start date
+ */
+Value eomonth(const std::vector<Value>& args, const Context& context);
 
- /**
-  * @brief DATEVALUE function - converts a date in text to a date value
-  */
- Value datevalue(const std::vector<Value>& args, const Context& context);
+/**
+ * @brief DATEVALUE function - converts a date in text to a date value
+ */
+Value datevalue(const std::vector<Value>& args, const Context& context);
 
- /**
-  * @brief TIMEVALUE function - converts a time in text to a fraction of a day
-  */
- Value timevalue(const std::vector<Value>& args, const Context& context);
+/**
+ * @brief TIMEVALUE function - converts a time in text to a fraction of a day
+ */
+Value timevalue(const std::vector<Value>& args, const Context& context);
 
 // Engineering & Specialized Functions
 
@@ -1086,10 +1088,10 @@ Value averageif(const std::vector<Value>& args, const Context& context);
  */
 Value averageifs(const std::vector<Value>& args, const Context& context);
 
- // SUMX* variants
- Value sumx2my2(const std::vector<Value>& args, const Context& context);
- Value sumx2py2(const std::vector<Value>& args, const Context& context);
- Value sumxmy2(const std::vector<Value>& args, const Context& context);
+// SUMX* variants
+Value sumx2my2(const std::vector<Value>& args, const Context& context);
+Value sumx2py2(const std::vector<Value>& args, const Context& context);
+Value sumxmy2(const std::vector<Value>& args, const Context& context);
 
 /**
  * @brief Helper function for simple wildcard matching without regex
@@ -1424,7 +1426,7 @@ Value oneOrTwoArgTextFunction(const std::vector<Value>& args, const Context& con
  */
 template <typename Func>
 Value twoArgTextNumberFunction(const std::vector<Value>& args, const Context& context,
-                              const std::string& name, Func operation) {
+                               const std::string& name, Func operation) {
     (void)context;  // Unused parameter
 
     // Validate argument count (exactly 2 arguments)

@@ -187,7 +187,7 @@ TEST_F(ParserTest, ErrorCases) {
     parseAndCheckError("SUM(,1)");  // Leading comma
     // Excel treats '1 ++ 2' as '1 + +2', which is valid
     parseAndCheckSuccess("1 ++ 2");
-    parseAndCheckError("1 2");      // Missing operator
+    parseAndCheckError("1 2");  // Missing operator
 }
 
 TEST_F(ParserTest, WhitespaceHandling) {

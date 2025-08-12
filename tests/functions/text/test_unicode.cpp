@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class UnicodeFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callUnicode(const std::vector<Value>& args) {
         return builtin::unicode_function(args, context);
     }
@@ -49,13 +49,13 @@ TEST_F(UnicodeFunctionTest, EmptyString_ReturnsError) {
 TEST_F(UnicodeFunctionTest, MultipleCharacters_ReturnsFirstCharacterCode) {
     auto result = callUnicode({Value("ABC")});
     ASSERT_TRUE(result.isNumber());
-    EXPECT_EQ(65.0, result.asNumber()); // Should return code for 'A'
+    EXPECT_EQ(65.0, result.asNumber());  // Should return code for 'A'
 }
 
 TEST_F(UnicodeFunctionTest, NumberInput_ConvertsToTextFirst) {
     auto result = callUnicode({Value(5.0)});
     ASSERT_TRUE(result.isNumber());
-    EXPECT_EQ(53.0, result.asNumber()); // Code for '5'
+    EXPECT_EQ(53.0, result.asNumber());  // Code for '5'
 }
 
 TEST_F(UnicodeFunctionTest, BooleanInput_ConvertsToTextFirst) {
@@ -63,7 +63,7 @@ TEST_F(UnicodeFunctionTest, BooleanInput_ConvertsToTextFirst) {
     ASSERT_TRUE(result.isNumber());
     // Boolean true converts to "TRUE", so should return code for 'T'
     EXPECT_EQ(84.0, result.asNumber());
-    
+
     result = callUnicode({Value(false)});
     ASSERT_TRUE(result.isNumber());
     // Boolean false converts to "FALSE", so should return code for 'F'
@@ -80,12 +80,12 @@ TEST_F(UnicodeFunctionTest, SpecialCharacters_ReturnsCorrectCodes) {
     auto result = callUnicode({Value("\n")});
     ASSERT_TRUE(result.isNumber());
     EXPECT_EQ(10.0, result.asNumber());
-    
+
     // Tab
     result = callUnicode({Value("\t")});
     ASSERT_TRUE(result.isNumber());
     EXPECT_EQ(9.0, result.asNumber());
-    
+
     // Exclamation mark
     result = callUnicode({Value("!")});
     ASSERT_TRUE(result.isNumber());
@@ -124,7 +124,7 @@ TEST_F(UnicodeFunctionTest, MixedUTF8String_ReturnsFirstCharacterCode) {
     // String with mixed character encodings - should return first char code
     auto result = callUnicode({Value("A中😀")});
     ASSERT_TRUE(result.isNumber());
-    EXPECT_EQ(65.0, result.asNumber()); // Code for 'A'
+    EXPECT_EQ(65.0, result.asNumber());  // Code for 'A'
 }
 
 TEST_F(UnicodeFunctionTest, ControlCharacters_ReturnCorrectCodes) {
@@ -138,5 +138,5 @@ TEST_F(UnicodeFunctionTest, HighUnicodeValues_ReturnCorrectly) {
     // Test near the upper limit of Unicode
     auto result = callUnicode({Value("𝕏")});  // Mathematical double-struck X
     ASSERT_TRUE(result.isNumber());
-    EXPECT_GT(result.asNumber(), 65536.0); // Should be in the high Unicode range
+    EXPECT_GT(result.asNumber(), 65536.0);  // Should be in the high Unicode range
 }

@@ -223,14 +223,14 @@ TEST_F(EvaluatorTest, RoundFunction) {
 TEST_F(EvaluatorTest, NestedFunctions) {
     // With A1=10, A2=20, A3=30; MAX(A1,A2)=20, MIN(A2,A3)=20; SUM=40
     checkNumberResult("SUM(MAX(A1, A2), MIN(A2, A3))", 40.0);
-    checkNumberResult("ABS(SUM(-5, -10))", 15.0);              // ABS(-15) = 15
+    checkNumberResult("ABS(SUM(-5, -10))", 15.0);  // ABS(-15) = 15
     checkTextResult("CONCATENATE(\"Sum: \", SUM(A1, A2))", "Sum: 30");
 }
 
 TEST_F(EvaluatorTest, ComplexExpressions) {
     checkNumberResult("(A1 + A2) * (A3 - A1) / 10", 60.0);  // (10+20) * (30-10) / 10 = 30 * 20 / 10
-    checkBooleanResult("SUM(A1, A2) > A3", false);  // 30 > 30 is false
-    checkBooleanResult("SUM(A1, A2) >= A3", true);  // 30 >= 30 is true
+    checkBooleanResult("SUM(A1, A2) > A3", false);          // 30 > 30 is false
+    checkBooleanResult("SUM(A1, A2) >= A3", true);          // 30 >= 30 is true
     checkTextResult("\"Result: \" & (A1 + A2)", "Result: 30");
 }
 

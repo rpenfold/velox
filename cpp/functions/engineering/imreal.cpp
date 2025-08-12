@@ -1,6 +1,6 @@
-#include "xl-formula/functions.h"
 #include <regex>
 #include <string>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -29,9 +29,10 @@ Value imreal(const std::vector<Value>& args, const Context& context) {
 
     // Get the complex number as text
     std::string complex_str = args[0].toString();
-    
+
     // Remove spaces
-    complex_str.erase(std::remove_if(complex_str.begin(), complex_str.end(), ::isspace), complex_str.end());
+    complex_str.erase(std::remove_if(complex_str.begin(), complex_str.end(), ::isspace),
+                      complex_str.end());
 
     if (complex_str.empty()) {
         return Value::error(ErrorType::NUM_ERROR);
@@ -44,7 +45,8 @@ Value imreal(const std::vector<Value>& args, const Context& context) {
         std::smatch matches;
 
         // First, check if it's a pure real number (no i or j)
-        if (complex_str.find('i') == std::string::npos && complex_str.find('j') == std::string::npos) {
+        if (complex_str.find('i') == std::string::npos &&
+            complex_str.find('j') == std::string::npos) {
             // Pure real number
             try {
                 double real_value = std::stod(complex_str);
@@ -59,15 +61,15 @@ Value imreal(const std::vector<Value>& args, const Context& context) {
             // Just "i" or "j" means coefficient is 1, real part is 0
             return Value(0.0);
         }
-        
+
         if (complex_str.back() == 'i' || complex_str.back() == 'j') {
             // Has imaginary unit at the end
             std::string coeff_part = complex_str.substr(0, complex_str.length() - 1);
-            
+
             // Check if there's a + or - sign that separates real and imaginary parts
             size_t plus_pos = coeff_part.find_last_of('+');
             size_t minus_pos = coeff_part.find_last_of('-');
-            
+
             // Find the position of the last +/- that's not at the beginning
             size_t separator_pos = std::string::npos;
             if (plus_pos != std::string::npos && plus_pos > 0) {
@@ -78,7 +80,7 @@ Value imreal(const std::vector<Value>& args, const Context& context) {
                     separator_pos = minus_pos;
                 }
             }
-            
+
             if (separator_pos != std::string::npos) {
                 // Has both real and imaginary parts
                 std::string real_part = coeff_part.substr(0, separator_pos);

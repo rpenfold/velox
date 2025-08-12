@@ -123,7 +123,8 @@ Token Lexer::makeIdentifier() {
     size_t start_pos = position_;
     std::string identifier;
 
-    while (current_char_ != '\0' && (std::isalnum(current_char_) || current_char_ == '_' || current_char_ == ':')) {
+    while (current_char_ != '\0' &&
+           (std::isalnum(current_char_) || current_char_ == '_' || current_char_ == ':')) {
         identifier += current_char_;
         advance();
     }

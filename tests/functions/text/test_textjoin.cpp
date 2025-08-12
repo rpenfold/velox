@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class TextjoinFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callTextjoin(const std::vector<Value>& args) {
         return builtin::textjoin(args, context);
     }
@@ -16,10 +16,10 @@ protected:
 TEST_F(TextjoinFunctionTest, TooFewArguments_ReturnsError) {
     auto result = callTextjoin({});
     EXPECT_TRUE(result.isError());
-    
+
     result = callTextjoin({Value(",")});
     EXPECT_TRUE(result.isError());
-    
+
     result = callTextjoin({Value(","), Value(true)});
     EXPECT_TRUE(result.isError());
 }
@@ -37,13 +37,15 @@ TEST_F(TextjoinFunctionTest, JoinWithSpace_ReturnsSpaceSeparated) {
 }
 
 TEST_F(TextjoinFunctionTest, IgnoreEmptyTrue_SkipsEmptyValues) {
-    auto result = callTextjoin({Value("|"), Value(true), Value("A"), Value(""), Value("B"), Value(""), Value("C")});
+    auto result = callTextjoin(
+            {Value("|"), Value(true), Value("A"), Value(""), Value("B"), Value(""), Value("C")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("A|B|C", result.asText());
 }
 
 TEST_F(TextjoinFunctionTest, IgnoreEmptyFalse_IncludesEmptyValues) {
-    auto result = callTextjoin({Value("|"), Value(false), Value("A"), Value(""), Value("B"), Value(""), Value("C")});
+    auto result = callTextjoin(
+            {Value("|"), Value(false), Value("A"), Value(""), Value("B"), Value(""), Value("C")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("A||B||C", result.asText());
 }
@@ -85,7 +87,8 @@ TEST_F(TextjoinFunctionTest, BooleanInputs_ConvertsToText) {
 }
 
 TEST_F(TextjoinFunctionTest, MixedInputTypes_ConvertsAllToText) {
-    auto result = callTextjoin({Value("|"), Value(true), Value("Text"), Value(123.0), Value(true), Value("End")});
+    auto result = callTextjoin(
+            {Value("|"), Value(true), Value("Text"), Value(123.0), Value(true), Value("End")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("Text|123|TRUE|End", result.asText());
 }
@@ -102,7 +105,7 @@ TEST_F(TextjoinFunctionTest, IgnoreEmptyAsNumber_ConvertsToBoolean) {
     auto result = callTextjoin({Value(","), Value(1.0), Value("A"), Value(""), Value("B")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("A,B", result.asText());
-    
+
     // Zero should be treated as FALSE for ignore_empty
     result = callTextjoin({Value(","), Value(0.0), Value("A"), Value(""), Value("B")});
     ASSERT_TRUE(result.isText());
@@ -112,16 +115,17 @@ TEST_F(TextjoinFunctionTest, IgnoreEmptyAsNumber_ConvertsToBoolean) {
 TEST_F(TextjoinFunctionTest, ErrorInput_PropagatesError) {
     auto result = callTextjoin({Value::error(ErrorType::VALUE_ERROR), Value(true), Value("A")});
     EXPECT_TRUE(result.isError());
-    
+
     result = callTextjoin({Value(","), Value::error(ErrorType::VALUE_ERROR), Value("A")});
     EXPECT_TRUE(result.isError());
-    
+
     result = callTextjoin({Value(","), Value(true), Value::error(ErrorType::VALUE_ERROR)});
     EXPECT_TRUE(result.isError());
 }
 
 TEST_F(TextjoinFunctionTest, LongDelimiter_WorksCorrectly) {
-    auto result = callTextjoin({Value(" AND "), Value(true), Value("Apple"), Value("Orange"), Value("Banana")});
+    auto result = callTextjoin(
+            {Value(" AND "), Value(true), Value("Apple"), Value("Orange"), Value("Banana")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("Apple AND Orange AND Banana", result.asText());
 }

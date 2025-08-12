@@ -87,8 +87,9 @@ Value hex2oct(const std::vector<Value>& args, const Context& context) {
             octal_result = temp;
         } else {
             // Negative number - use appropriate representation for round-trip compatibility
-            unsigned long long unsigned_val = static_cast<unsigned long long>(signed_result + (1LL << 30));
-            
+            unsigned long long unsigned_val =
+                    static_cast<unsigned long long>(signed_result + (1LL << 30));
+
             std::string temp;
             if (unsigned_val == 0) {
                 temp = "0";

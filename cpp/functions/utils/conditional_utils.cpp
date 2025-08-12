@@ -1,7 +1,7 @@
 #include "xl-formula/conditional_utils.h"
-#include "xl-formula/functions.h"
 #include <algorithm>
 #include <string>
+#include "xl-formula/functions.h"
 
 // Local implementation of simpleWildcardMatch to avoid external dependency
 namespace {
@@ -51,7 +51,7 @@ bool simpleWildcardMatch(const std::string& text, const std::string& pattern) {
 
     return textPos == text.length() && patternPos == pattern.length();
 }
-} // anonymous namespace
+}  // anonymous namespace
 
 namespace xl_formula {
 namespace conditional {
@@ -197,9 +197,9 @@ bool evaluateAllCriteria(const std::vector<Value>& args, size_t start_index) {
     // Check all criteria pairs starting from start_index
     for (size_t i = start_index; i < args.size(); i += 2) {
         if (i + 1 >= args.size()) {
-            return false; // Incomplete pair
+            return false;  // Incomplete pair
         }
-        
+
         const Value& criteriaRange = args[i];
         const Value& criteria = args[i + 1];
 

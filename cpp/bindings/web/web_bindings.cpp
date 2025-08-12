@@ -1,9 +1,9 @@
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
 #include <xl-formula/xl-formula.h>
+#include <chrono>
 #include <string>
 #include <vector>
-#include <chrono>
 
 using namespace emscripten;
 using namespace xl_formula;
@@ -12,10 +12,10 @@ using namespace xl_formula;
  * @brief JavaScript-friendly wrapper for the Value class
  */
 class JSValue {
-private:
+  private:
     Value value_;
 
-public:
+  public:
     JSValue() : value_(Value::empty()) {}
     JSValue(const Value& value) : value_(value) {}
     JSValue(double number) : value_(Value(number)) {}
@@ -23,12 +23,24 @@ public:
     JSValue(bool boolean) : value_(Value(boolean)) {}
 
     // Type checking
-    bool isNumber() const { return value_.getType() == ValueType::NUMBER; }
-    bool isText() const { return value_.getType() == ValueType::TEXT; }
-    bool isBoolean() const { return value_.getType() == ValueType::BOOLEAN; }
-    bool isError() const { return value_.getType() == ValueType::ERROR; }
-    bool isEmpty() const { return value_.getType() == ValueType::EMPTY; }
-    bool isDate() const { return value_.getType() == ValueType::DATE; }
+    bool isNumber() const {
+        return value_.getType() == ValueType::NUMBER;
+    }
+    bool isText() const {
+        return value_.getType() == ValueType::TEXT;
+    }
+    bool isBoolean() const {
+        return value_.getType() == ValueType::BOOLEAN;
+    }
+    bool isError() const {
+        return value_.getType() == ValueType::ERROR;
+    }
+    bool isEmpty() const {
+        return value_.getType() == ValueType::EMPTY;
+    }
+    bool isDate() const {
+        return value_.getType() == ValueType::DATE;
+    }
 
     // Value getters
     double asNumber() const {
@@ -60,14 +72,22 @@ public:
     std::string getErrorText() const {
         if (value_.getType() == ValueType::ERROR) {
             switch (value_.asError()) {
-                case ErrorType::DIV_ZERO: return "#DIV/0!";
-                case ErrorType::VALUE_ERROR: return "#VALUE!";
-                case ErrorType::REF_ERROR: return "#REF!";
-                case ErrorType::NAME_ERROR: return "#NAME?";
-                case ErrorType::NUM_ERROR: return "#NUM!";
-                case ErrorType::NA_ERROR: return "#N/A";
-                case ErrorType::PARSE_ERROR: return "#PARSE!";
-                default: return "#ERROR!";
+                case ErrorType::DIV_ZERO:
+                    return "#DIV/0!";
+                case ErrorType::VALUE_ERROR:
+                    return "#VALUE!";
+                case ErrorType::REF_ERROR:
+                    return "#REF!";
+                case ErrorType::NAME_ERROR:
+                    return "#NAME?";
+                case ErrorType::NUM_ERROR:
+                    return "#NUM!";
+                case ErrorType::NA_ERROR:
+                    return "#N/A";
+                case ErrorType::PARSE_ERROR:
+                    return "#PARSE!";
+                default:
+                    return "#ERROR!";
             }
         }
         return "";
@@ -75,33 +95,43 @@ public:
 
     std::string getTypeName() const {
         switch (value_.getType()) {
-            case ValueType::NUMBER: return "number";
-            case ValueType::TEXT: return "text";
-            case ValueType::BOOLEAN: return "boolean";
-            case ValueType::DATE: return "date";
-            case ValueType::ERROR: return "error";
-            case ValueType::ARRAY: return "array";
-            case ValueType::EMPTY: return "empty";
-            default: return "unknown";
+            case ValueType::NUMBER:
+                return "number";
+            case ValueType::TEXT:
+                return "text";
+            case ValueType::BOOLEAN:
+                return "boolean";
+            case ValueType::DATE:
+                return "date";
+            case ValueType::ERROR:
+                return "error";
+            case ValueType::ARRAY:
+                return "array";
+            case ValueType::EMPTY:
+                return "empty";
+            default:
+                return "unknown";
         }
     }
 
     // Get the underlying Value for internal use
-    const Value& getValue() const { return value_; }
-    
+    const Value& getValue() const {
+        return value_;
+    }
+
     // Static factory methods for Emscripten bindings
     static JSValue fromNumber(double value) {
         return JSValue(Value(value));
     }
-    
+
     static JSValue fromText(const std::string& value) {
         return JSValue(Value(value));
     }
-    
+
     static JSValue fromBoolean(bool value) {
         return JSValue(Value(value));
     }
-    
+
     static JSValue createEmpty() {
         return JSValue(Value::empty());
     }
@@ -114,7 +144,7 @@ struct JSTraceNode {
     int id;
     std::string kind;
     std::string label;
-    JSValue value; // Use JSValue wrapper
+    JSValue value;  // Use JSValue wrapper
     std::vector<JSTraceNode> children;
 };
 
@@ -135,20 +165,24 @@ static JSTraceNode convertTraceNode(const TraceNode& n) {
  * @brief JavaScript-friendly wrapper for evaluation results
  */
 class JSEvaluationResult {
-private:
+  private:
     EvaluationResult result_;
 
-public:
+  public:
     JSEvaluationResult(const EvaluationResult& result) : result_(result) {}
 
-    bool isSuccess() const { return result_.isSuccess(); }
-    bool hasError() const { return !result_.isSuccess(); }
+    bool isSuccess() const {
+        return result_.isSuccess();
+    }
+    bool hasError() const {
+        return !result_.isSuccess();
+    }
 
     JSValue getValue() const {
         if (result_.isSuccess()) {
             return JSValue(result_.getValue());
         }
-        return JSValue(); // empty value
+        return JSValue();  // empty value
     }
 
     std::string getErrorMessage() const {
@@ -156,14 +190,22 @@ public:
             const auto& value = result_.getValue();
             if (value.isError()) {
                 switch (value.asError()) {
-                    case ErrorType::DIV_ZERO: return "#DIV/0!";
-                    case ErrorType::VALUE_ERROR: return "#VALUE!";
-                    case ErrorType::REF_ERROR: return "#REF!";
-                    case ErrorType::NAME_ERROR: return "#NAME?";
-                    case ErrorType::NUM_ERROR: return "#NUM!";
-                    case ErrorType::NA_ERROR: return "#N/A";
-                    case ErrorType::PARSE_ERROR: return "#PARSE!";
-                    default: return "#ERROR!";
+                    case ErrorType::DIV_ZERO:
+                        return "#DIV/0!";
+                    case ErrorType::VALUE_ERROR:
+                        return "#VALUE!";
+                    case ErrorType::REF_ERROR:
+                        return "#REF!";
+                    case ErrorType::NAME_ERROR:
+                        return "#NAME?";
+                    case ErrorType::NUM_ERROR:
+                        return "#NUM!";
+                    case ErrorType::NA_ERROR:
+                        return "#N/A";
+                    case ErrorType::PARSE_ERROR:
+                        return "#PARSE!";
+                    default:
+                        return "#ERROR!";
                 }
             }
         }
@@ -179,10 +221,10 @@ public:
  * @brief JavaScript-friendly wrapper for the FormulaEngine
  */
 class JSFormulaEngine {
-private:
+  private:
     FormulaEngine engine_;
 
-public:
+  public:
     JSFormulaEngine() = default;
 
     // Variable management
@@ -207,7 +249,7 @@ public:
         if (context.hasVariable(name)) {
             return JSValue(context.getVariable(name));
         }
-        return JSValue(); // empty value
+        return JSValue();  // empty value
     }
 
     bool hasVariable(const std::string& name) const {
@@ -272,8 +314,6 @@ JSEvaluationResult quickEvaluate(const std::string& formula) {
     return JSEvaluationResult(xl_formula::evaluate(formula));
 }
 
-
-
 std::string getVersion() {
     return Version::toString();
 }
@@ -282,55 +322,55 @@ std::string getVersion() {
 EMSCRIPTEN_BINDINGS(xl_formula) {
     // JSValue class
     class_<JSValue>("Value")
-        .constructor<>()
-        .class_function("fromNumber", &JSValue::fromNumber)
-        .class_function("fromText", &JSValue::fromText)
-        .class_function("fromBoolean", &JSValue::fromBoolean)
-        .class_function("empty", &JSValue::createEmpty)
-        .function("isNumber", &JSValue::isNumber)
-        .function("isText", &JSValue::isText)
-        .function("isBoolean", &JSValue::isBoolean)
-        .function("isError", &JSValue::isError)
-        .function("isEmpty", &JSValue::isEmpty)
-        .function("isDate", &JSValue::isDate)
-        .function("asNumber", &JSValue::asNumber)
-        .function("asText", &JSValue::asText)
-        .function("asBoolean", &JSValue::asBoolean)
-        .function("asDate", &JSValue::asDate)
-        .function("getErrorText", &JSValue::getErrorText)
-        .function("getTypeName", &JSValue::getTypeName);
+            .constructor<>()
+            .class_function("fromNumber", &JSValue::fromNumber)
+            .class_function("fromText", &JSValue::fromText)
+            .class_function("fromBoolean", &JSValue::fromBoolean)
+            .class_function("empty", &JSValue::createEmpty)
+            .function("isNumber", &JSValue::isNumber)
+            .function("isText", &JSValue::isText)
+            .function("isBoolean", &JSValue::isBoolean)
+            .function("isError", &JSValue::isError)
+            .function("isEmpty", &JSValue::isEmpty)
+            .function("isDate", &JSValue::isDate)
+            .function("asNumber", &JSValue::asNumber)
+            .function("asText", &JSValue::asText)
+            .function("asBoolean", &JSValue::asBoolean)
+            .function("asDate", &JSValue::asDate)
+            .function("getErrorText", &JSValue::getErrorText)
+            .function("getTypeName", &JSValue::getTypeName);
 
     // Bind JSTraceNode and vector
     value_object<JSTraceNode>("TraceNode")
-        .field("id", &JSTraceNode::id)
-        .field("kind", &JSTraceNode::kind)
-        .field("label", &JSTraceNode::label)
-        .field("value", &JSTraceNode::value)
-        .field("children", &JSTraceNode::children);
+            .field("id", &JSTraceNode::id)
+            .field("kind", &JSTraceNode::kind)
+            .field("label", &JSTraceNode::label)
+            .field("value", &JSTraceNode::value)
+            .field("children", &JSTraceNode::children);
     register_vector<JSTraceNode>("TraceNodeVector");
 
     // JSEvaluationResult class
     class_<JSEvaluationResult>("EvaluationResult")
-        .function("isSuccess", &JSEvaluationResult::isSuccess)
-        .function("hasError", &JSEvaluationResult::hasError)
-        .function("getValue", &JSEvaluationResult::getValue)
-        .function("getErrorMessage", &JSEvaluationResult::getErrorMessage)
-        .function("getErrors", &JSEvaluationResult::getErrors);
+            .function("isSuccess", &JSEvaluationResult::isSuccess)
+            .function("hasError", &JSEvaluationResult::hasError)
+            .function("getValue", &JSEvaluationResult::getValue)
+            .function("getErrorMessage", &JSEvaluationResult::getErrorMessage)
+            .function("getErrors", &JSEvaluationResult::getErrors);
 
     // JSFormulaEngine class
     class_<JSFormulaEngine>("FormulaEngine")
-        .constructor<>()
-        .function("setVariable", &JSFormulaEngine::setVariable)
-        .function("setNumberVariable", &JSFormulaEngine::setNumberVariable)
-        .function("setTextVariable", &JSFormulaEngine::setTextVariable)
-        .function("setBooleanVariable", &JSFormulaEngine::setBooleanVariable)
-        .function("getVariable", &JSFormulaEngine::getVariable)
-        .function("hasVariable", &JSFormulaEngine::hasVariable)
-        .function("removeVariable", &JSFormulaEngine::removeVariable)
-        .function("clearVariables", &JSFormulaEngine::clearVariables)
-        .function("evaluate", &JSFormulaEngine::evaluate)
-        .function("evaluateWithVariables", &JSFormulaEngine::evaluateWithVariables)
-        .function("evaluateWithTrace", &JSFormulaEngine::evaluateWithTrace);
+            .constructor<>()
+            .function("setVariable", &JSFormulaEngine::setVariable)
+            .function("setNumberVariable", &JSFormulaEngine::setNumberVariable)
+            .function("setTextVariable", &JSFormulaEngine::setTextVariable)
+            .function("setBooleanVariable", &JSFormulaEngine::setBooleanVariable)
+            .function("getVariable", &JSFormulaEngine::getVariable)
+            .function("hasVariable", &JSFormulaEngine::hasVariable)
+            .function("removeVariable", &JSFormulaEngine::removeVariable)
+            .function("clearVariables", &JSFormulaEngine::clearVariables)
+            .function("evaluate", &JSFormulaEngine::evaluate)
+            .function("evaluateWithVariables", &JSFormulaEngine::evaluateWithVariables)
+            .function("evaluateWithTrace", &JSFormulaEngine::evaluateWithTrace);
 
     // Standalone functions
     function("evaluate", &quickEvaluate);

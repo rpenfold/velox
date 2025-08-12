@@ -346,26 +346,27 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
 
 std::vector<std::string> get_builtin_function_names() {
     return {// Math functions
-            "SUM", "MAX", "MIN", "AVERAGE", "COUNT", "COUNTA", "ABS", "ROUND", "ROUNDUP", "ROUNDDOWN", 
-            "MROUND", "SQRT", "POWER", "MOD", "PI", "SIGN", "INT", "TRUNC", "CEILING", "FLOOR", 
-            "RAND", "RANDBETWEEN", "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD", "LCM", "FACT", 
-            "COMBIN", "PERMUT", "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF", "AVERAGEIFS",
-            "SUMSQ", "QUOTIENT", "EVEN", "ODD",
+            "SUM", "MAX", "MIN", "AVERAGE", "COUNT", "COUNTA", "ABS", "ROUND", "ROUNDUP",
+            "ROUNDDOWN", "MROUND", "SQRT", "POWER", "MOD", "PI", "SIGN", "INT", "TRUNC", "CEILING",
+            "FLOOR", "RAND", "RANDBETWEEN", "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD",
+            "LCM", "FACT", "COMBIN", "PERMUT", "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF",
+            "AVERAGEIFS", "SUMSQ", "QUOTIENT", "EVEN", "ODD",
 
             // Trigonometric functions
             "SIN", "COS", "TAN", "ASIN", "ACOS", "ATAN", "ATAN2", "SINH", "COSH", "TANH", "DEGREES",
             "RADIANS", "EXP", "LN", "LOG", "LOG10",
 
             // Statistics & Regression
-            "CORREL", "PEARSON", "RSQ", "SLOPE", "INTERCEPT", "COVARIANCE.P", "COVARIANCE.S", "COVAR",
+            "CORREL", "PEARSON", "RSQ", "SLOPE", "INTERCEPT", "COVARIANCE.P", "COVARIANCE.S",
+            "COVAR",
 
             // Sum of squares variants
             "SUMX2MY2", "SUMX2PY2", "SUMXMY2",
 
             // Text functions
-            "CONCATENATE", "CONCAT", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER", "PROPER", "RPT",
-            "CHAR", "CODE", "CLEAN", "EXACT", "ROMAN", "ARABIC",
-            "FIND", "SEARCH", "REPLACE", "SUBSTITUTE", "TEXT", "VALUE", "T", "TEXTJOIN", "UNICHAR", "UNICODE",
+            "CONCATENATE", "CONCAT", "TRIM", "LEN", "LEFT", "RIGHT", "MID", "UPPER", "LOWER",
+            "PROPER", "RPT", "CHAR", "CODE", "CLEAN", "EXACT", "ROMAN", "ARABIC", "FIND", "SEARCH",
+            "REPLACE", "SUBSTITUTE", "TEXT", "VALUE", "T", "TEXTJOIN", "UNICHAR", "UNICODE",
 
             // Date & Time functions
             "NOW", "TODAY", "DATE", "TIME", "YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND",
@@ -380,8 +381,7 @@ std::vector<std::string> get_builtin_function_names() {
 
             // Engineering functions
             "CONVERT", "HEX2DEC", "DEC2HEX", "BIN2DEC", "DEC2BIN", "BITAND", "BITOR", "BITXOR",
-            "DEC2OCT", "BIN2OCT", "OCT2BIN", "HEX2OCT", "OCT2HEX",
-            "COMPLEX", "IMREAL", "IMAGINARY",
+            "DEC2OCT", "BIN2OCT", "OCT2BIN", "HEX2OCT", "OCT2HEX", "COMPLEX", "IMREAL", "IMAGINARY",
 
             // Financial functions
             "PV", "FV", "PMT", "RATE", "NPER", "NPV", "IRR", "MIRR"};

@@ -96,7 +96,8 @@ EvaluationResult Evaluator::evaluate(const ASTNode& node) {
     }
 }
 
-EvaluationResult Evaluator::evaluateWithTrace(const ASTNode& node, std::unique_ptr<TraceNode>& out_trace_root) {
+EvaluationResult Evaluator::evaluateWithTrace(const ASTNode& node,
+                                              std::unique_ptr<TraceNode>& out_trace_root) {
     resetState();
     tracing_enabled_ = true;
     next_trace_id_ = 0;
@@ -116,7 +117,8 @@ EvaluationResult Evaluator::evaluateWithTrace(const ASTNode& node, std::unique_p
 }
 
 TraceNode* Evaluator::beginTraceNode(const std::string& kind, const std::string& label) {
-    if (!tracing_enabled_) return nullptr;
+    if (!tracing_enabled_)
+        return nullptr;
     auto node = std::make_unique<TraceNode>();
     node->id = next_trace_id_++;
     node->kind = kind;
@@ -134,7 +136,8 @@ TraceNode* Evaluator::beginTraceNode(const std::string& kind, const std::string&
 }
 
 void Evaluator::endTraceNode(TraceNode* node, const Value& value) {
-    if (!tracing_enabled_ || trace_stack_.empty()) return;
+    if (!tracing_enabled_ || trace_stack_.empty())
+        return;
     node->value = value;
     // Pop if this node is at the top
     if (trace_stack_.back() == node) {
@@ -145,7 +148,8 @@ void Evaluator::endTraceNode(TraceNode* node, const Value& value) {
 void Evaluator::visit(const LiteralNode& node) {
     TraceNode* t = beginTraceNode("Literal", node.getValue().toString());
     result_ = node.getValue();
-    if (t) endTraceNode(t, result_);
+    if (t)
+        endTraceNode(t, result_);
 }
 
 void Evaluator::visit(const VariableNode& node) {
@@ -154,7 +158,8 @@ void Evaluator::visit(const VariableNode& node) {
     if (result_.isEmpty()) {
         result_ = Value::error(ErrorType::NAME_ERROR);
     }
-    if (t) endTraceNode(t, result_);
+    if (t)
+        endTraceNode(t, result_);
 }
 
 void Evaluator::visit(const BinaryOpNode& node) {
@@ -168,7 +173,8 @@ void Evaluator::visit(const BinaryOpNode& node) {
     Value right = result_;
 
     result_ = performBinaryOperation(node.getOperator(), left, right);
-    if (t) endTraceNode(t, result_);
+    if (t)
+        endTraceNode(t, result_);
 }
 
 void Evaluator::visit(const UnaryOpNode& node) {
@@ -178,7 +184,8 @@ void Evaluator::visit(const UnaryOpNode& node) {
     Value operand = result_;
 
     result_ = performUnaryOperation(node.getOperator(), operand);
-    if (t) endTraceNode(t, result_);
+    if (t)
+        endTraceNode(t, result_);
 }
 
 void Evaluator::visit(const ArrayNode& node) {
@@ -196,7 +203,8 @@ void Evaluator::visit(const ArrayNode& node) {
 
     // Create an array Value - we need to add this to the Value class
     result_ = Value::array(elements);
-    if (t) endTraceNode(t, result_);
+    if (t)
+        endTraceNode(t, result_);
 }
 
 void Evaluator::visit(const FunctionCallNode& node) {
@@ -212,7 +220,8 @@ void Evaluator::visit(const FunctionCallNode& node) {
 
     // Call function
     result_ = function_registry_->callFunction(node.getName(), args, *context_);
-    if (t) endTraceNode(t, result_);
+    if (t)
+        endTraceNode(t, result_);
 }
 
 Value Evaluator::performBinaryOperation(BinaryOpNode::Operator op, const Value& left,

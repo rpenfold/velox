@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class SumsqFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callSumsq(const std::vector<Value>& args) {
         return builtin::sumsq(args, context);
     }

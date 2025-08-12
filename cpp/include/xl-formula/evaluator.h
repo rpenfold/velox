@@ -2,9 +2,9 @@
 
 #include <functional>
 #include <memory>
+#include <string>
 #include <unordered_map>
 #include <vector>
-#include <string>
 #include "ast.h"
 #include "types.h"
 
@@ -156,7 +156,8 @@ class Evaluator : public ASTVisitor {
      * @param out_trace_root Output unique_ptr for the trace root node
      * @return Evaluation result
      */
-    EvaluationResult evaluateWithTrace(const ASTNode& node, std::unique_ptr<TraceNode>& out_trace_root);
+    EvaluationResult evaluateWithTrace(const ASTNode& node,
+                                       std::unique_ptr<TraceNode>& out_trace_root);
 
     // Visitor pattern implementation
     void visit(const LiteralNode& node) override;
@@ -216,7 +217,8 @@ class FormulaEngine {
      * @param out_trace_root Output unique_ptr for the trace root node
      * @return Evaluation result
      */
-    EvaluationResult evaluateWithTrace(const std::string& formula, std::unique_ptr<TraceNode>& out_trace_root);
+    EvaluationResult evaluateWithTrace(const std::string& formula,
+                                       std::unique_ptr<TraceNode>& out_trace_root);
 
     /**
      * @brief Get the evaluation context

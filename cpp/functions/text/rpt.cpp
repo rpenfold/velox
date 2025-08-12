@@ -1,5 +1,5 @@
-#include "xl-formula/functions.h"
 #include <string>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -13,25 +13,27 @@ namespace builtin {
  */
 Value rpt(const std::vector<Value>& args, const Context& context) {
     return templates::twoArgTextNumberFunction(
-        args, context, "RPT", [](const std::string& text, double repeat_count) {
-            // Validate that repeat count is non-negative
-            if (repeat_count < 0) {
-                return std::string(); // Return empty string for negative counts
-            }
+            args, context, "RPT", [](const std::string& text, double repeat_count) {
+                // Validate that repeat count is non-negative
+                if (repeat_count < 0) {
+                    return std::string();  // Return empty string for negative counts
+                }
 
-            // Convert to integer (truncate decimal part)
-            int count = static_cast<int>(repeat_count);
+                // Convert to integer (truncate decimal part)
+                int count = static_cast<int>(repeat_count);
 
-            // Build the repeated string
-            std::string result;
-            result.reserve(text.length() * count); // Pre-allocate for efficiency
+                // Build the repeated string
+                std::string result;
+                result.reserve(text.length() * count);  // Pre-allocate for efficiency
 
-            for (int i = 0; i < count; ++i) {
-                result += text;
-            }
+                for (int i = 0; i < count; ++i) {
+                    result += text;
+                }
 
-            return result;
-        });
+                return result;
+            });
 }
 
-}}} // namespace xl_formula::functions::builtin 
+}  // namespace builtin
+}  // namespace functions
+}  // namespace xl_formula

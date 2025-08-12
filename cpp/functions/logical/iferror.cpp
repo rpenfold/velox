@@ -22,7 +22,8 @@ Value iferror_function(const std::vector<Value>& args, const Context& context) {
     }
 
     // Use shared error conditional utility
-    return ::xl_formula::conditional::conditionalOnError(args[0], args[1], [](ErrorType) { return true; });
+    return ::xl_formula::conditional::conditionalOnError(args[0], args[1],
+                                                         [](ErrorType) { return true; });
 }
 
 }  // namespace builtin

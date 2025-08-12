@@ -9,7 +9,7 @@ namespace builtin {
  * @param args Function arguments (value)
  * @param context Evaluation context (unused for T)
  * @return Text representation if input is text, empty string otherwise
- * 
+ *
  * Excel behavior:
  * - If value is text, returns the text unchanged
  * - If value is not text (number, boolean, error), returns empty string ""
@@ -29,7 +29,7 @@ Value t_function(const std::vector<Value>& args, const Context& context) {
     }
 
     const Value& value = args[0];
-    
+
     // T function returns text only if the input is already text
     // All other types (numbers, booleans, errors) return empty string
     if (value.isText()) {

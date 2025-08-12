@@ -1,5 +1,5 @@
-#include "xl-formula/functions.h"
 #include <cmath>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -47,7 +47,7 @@ Value quotient(const std::vector<Value>& args, const Context& context) {
 
     // Perform division and truncate toward zero
     double result = numerator / denominator;
-    
+
     // Use trunc() to truncate toward zero (removes fractional part)
     // This is different from floor() which always rounds down
     double quotient_result = std::trunc(result);

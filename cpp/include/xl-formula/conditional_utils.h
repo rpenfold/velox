@@ -7,15 +7,15 @@ namespace xl_formula {
 namespace functions {
 bool simpleWildcardMatch(const std::string& text, const std::string& pattern);
 }
-}
+}  // namespace xl_formula
 
 namespace xl_formula {
 namespace conditional {
 
 /**
  * @brief Shared utilities for conditional functions and criteria evaluation
- * 
- * This header consolidates common patterns used across IF, SUMIF, COUNTIF, 
+ *
+ * This header consolidates common patterns used across IF, SUMIF, COUNTIF,
  * AVERAGEIF and related functions to reduce code duplication and improve
  * maintainability.
  */
@@ -34,8 +34,9 @@ bool toBooleanExcel(const Value& value);
  * @param error_predicate Function that returns true for target error type
  * @return value_if_condition if error condition met, otherwise value
  */
-template<typename ErrorPredicate>
-Value conditionalOnError(const Value& value, const Value& value_if_condition, ErrorPredicate predicate) {
+template <typename ErrorPredicate>
+Value conditionalOnError(const Value& value, const Value& value_if_condition,
+                         ErrorPredicate predicate) {
     if (value.isError() && predicate(value.asError())) {
         return value_if_condition;
     }
@@ -58,21 +59,21 @@ bool evaluateCriteria(const Value& value, const Value& criteria);
  * @param operation Callback that processes matching values
  * @return Result of the operation
  */
-template<typename Operation>
+template <typename Operation>
 Value singleCriteriaFunction(const std::vector<Value>& args, const Context& context,
                              const std::string& function_name, Operation operation);
 
 /**
  * @brief Template for multi-criteria functions (SUMIFS, AVERAGEIFS)
  * @param args Function arguments
- * @param context Evaluation context  
+ * @param context Evaluation context
  * @param function_name Function name for error messages
  * @param operation Callback that processes matching values
  * @return Result of the operation
  */
-template<typename Operation>
+template <typename Operation>
 Value multiCriteriaFunction(const std::vector<Value>& args, const Context& context,
-                           const std::string& function_name, Operation operation);
+                            const std::string& function_name, Operation operation);
 
 /**
  * @brief Check if all criteria pairs match for multi-criteria functions

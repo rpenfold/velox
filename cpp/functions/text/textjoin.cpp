@@ -1,5 +1,5 @@
-#include "xl-formula/functions.h"
 #include <sstream>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -10,7 +10,7 @@ namespace builtin {
  * @param args Function arguments (delimiter, ignore_empty, text1, text2, ...)
  * @param context Evaluation context (unused for TEXTJOIN)
  * @return Joined text string
- * 
+ *
  * Excel syntax: TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...)
  * - delimiter: Text to use as separator
  * - ignore_empty: TRUE to ignore empty values, FALSE to include them
@@ -48,15 +48,15 @@ Value textjoin(const std::vector<Value>& args, const Context& context) {
 
     // Collect all text values to join
     std::vector<std::string> textValues;
-    
+
     for (size_t i = 2; i < args.size(); ++i) {
         std::string text = args[i].toString();
-        
+
         // If ignore_empty is true, skip empty strings
         if (ignoreEmpty && text.empty()) {
             continue;
         }
-        
+
         textValues.push_back(text);
     }
 

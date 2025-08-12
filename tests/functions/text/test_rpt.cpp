@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class RptFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callRpt(const std::vector<Value>& args) {
         return builtin::rpt(args, context);
     }
@@ -80,7 +80,7 @@ TEST_F(RptFunctionTest, BooleanInput_ConvertsToText) {
     auto result = callRpt({Value(true), Value(2.0)});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("TRUETRUE", result.asText());
-    
+
     result = callRpt({Value(false), Value(3.0)});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("FALSEFALSEFALSE", result.asText());
@@ -100,7 +100,7 @@ TEST_F(RptFunctionTest, NonNumericCount_ReturnsError) {
 TEST_F(RptFunctionTest, ErrorInput_PropagatesError) {
     auto result = callRpt({Value::error(ErrorType::VALUE_ERROR), Value(2.0)});
     EXPECT_TRUE(result.isError());
-    
+
     result = callRpt({Value("Text"), Value::error(ErrorType::VALUE_ERROR)});
     EXPECT_TRUE(result.isError());
 }

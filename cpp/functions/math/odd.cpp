@@ -1,5 +1,5 @@
-#include "xl-formula/functions.h"
 #include <cmath>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {

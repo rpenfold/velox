@@ -42,8 +42,9 @@ Value dec2oct(const std::vector<Value>& args, const Context& context) {
                 } else {
                     // Negative number - use two's complement representation (30-bit for octal)
                     // Excel uses 30-bit signed integers for octal
-                    unsigned long long unsigned_val = static_cast<unsigned long long>(value + (1LL << 30));
-                    
+                    unsigned long long unsigned_val =
+                            static_cast<unsigned long long>(value + (1LL << 30));
+
                     // Convert to octal
                     std::string temp;
                     if (unsigned_val == 0) {

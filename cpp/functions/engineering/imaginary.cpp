@@ -1,6 +1,6 @@
-#include "xl-formula/functions.h"
 #include <regex>
 #include <string>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -29,9 +29,10 @@ Value imaginary(const std::vector<Value>& args, const Context& context) {
 
     // Get the complex number as text
     std::string complex_str = args[0].toString();
-    
+
     // Remove spaces
-    complex_str.erase(std::remove_if(complex_str.begin(), complex_str.end(), ::isspace), complex_str.end());
+    complex_str.erase(std::remove_if(complex_str.begin(), complex_str.end(), ::isspace),
+                      complex_str.end());
 
     if (complex_str.empty()) {
         return Value::error(ErrorType::NUM_ERROR);
@@ -39,7 +40,8 @@ Value imaginary(const std::vector<Value>& args, const Context& context) {
 
     try {
         // First, check if it's a pure real number (no i or j)
-        if (complex_str.find('i') == std::string::npos && complex_str.find('j') == std::string::npos) {
+        if (complex_str.find('i') == std::string::npos &&
+            complex_str.find('j') == std::string::npos) {
             // Pure real number, imaginary part is 0
             return Value(0.0);
         }
@@ -58,11 +60,11 @@ Value imaginary(const std::vector<Value>& args, const Context& context) {
         // Has imaginary unit
         if (complex_str.back() == 'i' || complex_str.back() == 'j') {
             std::string coeff_part = complex_str.substr(0, complex_str.length() - 1);
-            
+
             // Check if there's a + or - sign that separates real and imaginary parts
             size_t plus_pos = coeff_part.find_last_of('+');
             size_t minus_pos = coeff_part.find_last_of('-');
-            
+
             // Find the position of the last +/- that's not at the beginning
             size_t separator_pos = std::string::npos;
             if (plus_pos != std::string::npos && plus_pos > 0) {
@@ -73,7 +75,7 @@ Value imaginary(const std::vector<Value>& args, const Context& context) {
                     separator_pos = minus_pos;
                 }
             }
-            
+
             if (separator_pos != std::string::npos) {
                 // Has both real and imaginary parts like "3+4i" or "5-2j"
                 std::string imag_part = coeff_part.substr(separator_pos);

@@ -72,8 +72,9 @@ Value oct2hex(const std::vector<Value>& args, const Context& context) {
             hex_result = ss.str();
         } else {
             // Negative number - use appropriate unsigned representation
-            unsigned long long unsigned_val = static_cast<unsigned long long>(signed_result + (1LL << 40));
-            
+            unsigned long long unsigned_val =
+                    static_cast<unsigned long long>(signed_result + (1LL << 40));
+
             std::stringstream ss;
             ss << std::uppercase << std::hex << unsigned_val;
             hex_result = ss.str();

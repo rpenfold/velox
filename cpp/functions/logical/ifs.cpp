@@ -22,7 +22,7 @@ Value ifs_function(const std::vector<Value>& args, const Context& context) {
     if (!minValidation.isEmpty()) {
         return minValidation;
     }
-    
+
     // Validate that we have an even number of arguments (pairs)
     if (args.size() % 2 != 0) {
         return Value::error(ErrorType::VALUE_ERROR);
@@ -32,18 +32,18 @@ Value ifs_function(const std::vector<Value>& args, const Context& context) {
     if (!errorCheck.isEmpty()) {
         return errorCheck;
     }
-    
+
     // Number of condition/result pairs
     size_t numPairs = args.size() / 2;
-    
+
     // Check each condition/result pair
     for (size_t i = 0; i < numPairs; ++i) {
-        const Value& condition = args[i * 2];         // condition to test
-        const Value& resultValue = args[i * 2 + 1];   // result if condition is TRUE
-        
+        const Value& condition = args[i * 2];        // condition to test
+        const Value& resultValue = args[i * 2 + 1];  // result if condition is TRUE
+
         // Convert condition to boolean
         bool conditionResult = false;
-        
+
         switch (condition.getType()) {
             case ValueType::BOOLEAN:
                 conditionResult = condition.asBoolean();
@@ -60,7 +60,7 @@ Value ifs_function(const std::vector<Value>& args, const Context& context) {
                 return condition;
             case ValueType::DATE:
                 // Dates are treated as numbers (non-zero = TRUE)
-                conditionResult = true; // Dates are always non-zero
+                conditionResult = true;  // Dates are always non-zero
                 break;
             case ValueType::ARRAY:
                 // Arrays not supported in IFS conditions
@@ -70,12 +70,12 @@ Value ifs_function(const std::vector<Value>& args, const Context& context) {
                 conditionResult = false;
                 break;
         }
-        
+
         if (conditionResult) {
             return resultValue;
         }
     }
-    
+
     // No condition was TRUE, return #N/A error
     return Value::error(ErrorType::NA_ERROR);
 }

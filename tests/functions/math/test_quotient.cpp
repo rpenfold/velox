@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class QuotientFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callQuotient(const std::vector<Value>& args) {
         return builtin::quotient(args, context);
     }
@@ -17,7 +17,7 @@ TEST_F(QuotientFunctionTest, TooFewArguments_ReturnsError) {
     auto result = callQuotient({});
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::VALUE_ERROR, result.asError());
-    
+
     result = callQuotient({Value(10.0)});
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::VALUE_ERROR, result.asError());
@@ -93,7 +93,7 @@ TEST_F(QuotientFunctionTest, ErrorInput_PropagatesError) {
     auto result = callQuotient({Value::error(ErrorType::VALUE_ERROR), Value(3.0)});
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::VALUE_ERROR, result.asError());
-    
+
     result = callQuotient({Value(10.0), Value::error(ErrorType::NUM_ERROR)});
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::NUM_ERROR, result.asError());

@@ -1,5 +1,5 @@
-#include "xl-formula/functions.h"
 #include <string>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -10,7 +10,7 @@ namespace builtin {
  * @param args Function arguments (code_point)
  * @param context Evaluation context (unused for UNICHAR)
  * @return Unicode character corresponding to the code point
- * 
+ *
  * Excel behavior:
  * - Returns Unicode character for code points 1-1114111 (0x10FFFF)
  * - Returns error for invalid code points (0 or > 1114111)
@@ -34,10 +34,10 @@ Value unichar(const std::vector<Value>& args, const Context& context) {
     }
 
     double codePointDouble = numResult.asNumber();
-    
+
     // Truncate to integer
     int codePoint = static_cast<int>(codePointDouble);
-    
+
     // Validate Unicode code point range (1 to 1114111)
     if (codePoint <= 0 || codePoint > 0x10FFFF) {
         return Value::error(ErrorType::VALUE_ERROR);
@@ -45,7 +45,7 @@ Value unichar(const std::vector<Value>& args, const Context& context) {
 
     // Convert code point to UTF-8 string
     std::string result;
-    
+
     if (codePoint <= 0x7F) {
         // ASCII range (1 byte)
         result = static_cast<char>(codePoint);

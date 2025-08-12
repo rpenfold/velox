@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class CodeFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callCode(const std::vector<Value>& args) {
         return builtin::code_function(args, context);
     }
@@ -50,7 +50,7 @@ TEST_F(CodeFunctionTest, SpaceCharacter_Returns32) {
 TEST_F(CodeFunctionTest, MultipleCharacters_ReturnsFirstCharacterCode) {
     auto result = callCode({Value("ABC")});
     ASSERT_TRUE(result.isNumber());
-    EXPECT_EQ(65.0, result.asNumber()); // Should return code for 'A'
+    EXPECT_EQ(65.0, result.asNumber());  // Should return code for 'A'
 }
 
 TEST_F(CodeFunctionTest, EmptyString_ReturnsError) {
@@ -61,7 +61,7 @@ TEST_F(CodeFunctionTest, EmptyString_ReturnsError) {
 TEST_F(CodeFunctionTest, NumberInput_ConvertsToTextFirst) {
     auto result = callCode({Value(5.0)});
     ASSERT_TRUE(result.isNumber());
-    EXPECT_EQ(53.0, result.asNumber()); // Code for '5'
+    EXPECT_EQ(53.0, result.asNumber());  // Code for '5'
 }
 
 TEST_F(CodeFunctionTest, BooleanTrue_ConvertsToText) {
@@ -87,7 +87,7 @@ TEST_F(CodeFunctionTest, SpecialCharacters_ReturnsCorrectCodes) {
     auto result = callCode({Value("!")});
     ASSERT_TRUE(result.isNumber());
     EXPECT_EQ(33.0, result.asNumber());
-    
+
     result = callCode({Value("@")});
     ASSERT_TRUE(result.isNumber());
     EXPECT_EQ(64.0, result.asNumber());
@@ -95,7 +95,7 @@ TEST_F(CodeFunctionTest, SpecialCharacters_ReturnsCorrectCodes) {
 
 TEST_F(CodeFunctionTest, ExtendedASCII_ReturnsCorrectCode) {
     // Test with a character that has ASCII code > 127
-    auto result = callCode({Value("€")}); // Euro symbol
+    auto result = callCode({Value("€")});  // Euro symbol
     ASSERT_TRUE(result.isNumber());
     // The exact value depends on encoding, but should be > 127
     EXPECT_GT(result.asNumber(), 127.0);

@@ -34,7 +34,5 @@ TEST(DateParseFunctionsTest, TimeValue_ParsesAMPM) {
     EXPECT_NEAR(v2.asNumber(), 0.5, 1e-9);
     auto v3 = timevalue({Value("1:30 pm")}, Context{});
     ASSERT_TRUE(v3.isNumber());
-    EXPECT_NEAR(v3.asNumber(), (13*3600.0+30*60.0)/(24.0*3600.0), 1e-9);
+    EXPECT_NEAR(v3.asNumber(), (13 * 3600.0 + 30 * 60.0) / (24.0 * 3600.0), 1e-9);
 }
-
-

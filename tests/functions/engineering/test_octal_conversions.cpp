@@ -5,25 +5,25 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class OctalConversionsTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callDec2Oct(const std::vector<Value>& args) {
         return builtin::dec2oct(args, context);
     }
-    
+
     Value callBin2Oct(const std::vector<Value>& args) {
         return builtin::bin2oct(args, context);
     }
-    
+
     Value callOct2Bin(const std::vector<Value>& args) {
         return builtin::oct2bin(args, context);
     }
-    
+
     Value callHex2Oct(const std::vector<Value>& args) {
         return builtin::hex2oct(args, context);
     }
-    
+
     Value callOct2Hex(const std::vector<Value>& args) {
         return builtin::oct2hex(args, context);
     }
@@ -34,7 +34,7 @@ TEST_F(OctalConversionsTest, Dec2Oct_BasicConversion_WorksCorrectly) {
     auto result = callDec2Oct({Value(8.0)});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("10", result.asText());  // 8 decimal = 10 octal
-    
+
     result = callDec2Oct({Value(64.0)});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("100", result.asText());  // 64 decimal = 100 octal
@@ -63,7 +63,7 @@ TEST_F(OctalConversionsTest, Bin2Oct_BasicConversion_WorksCorrectly) {
     auto result = callBin2Oct({Value("1000")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("10", result.asText());  // 1000 binary = 8 decimal = 10 octal
-    
+
     result = callBin2Oct({Value("1010")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("12", result.asText());  // 1010 binary = 10 decimal = 12 octal
@@ -92,7 +92,7 @@ TEST_F(OctalConversionsTest, Oct2Bin_BasicConversion_WorksCorrectly) {
     auto result = callOct2Bin({Value("10")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("1000", result.asText());  // 10 octal = 8 decimal = 1000 binary
-    
+
     result = callOct2Bin({Value("12")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("1010", result.asText());  // 12 octal = 10 decimal = 1010 binary
@@ -115,7 +115,7 @@ TEST_F(OctalConversionsTest, Hex2Oct_BasicConversion_WorksCorrectly) {
     auto result = callHex2Oct({Value("8")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("10", result.asText());  // 8 hex = 8 decimal = 10 octal
-    
+
     result = callHex2Oct({Value("A")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("12", result.asText());  // A hex = 10 decimal = 12 octal
@@ -144,7 +144,7 @@ TEST_F(OctalConversionsTest, Oct2Hex_BasicConversion_WorksCorrectly) {
     auto result = callOct2Hex({Value("10")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("8", result.asText());  // 10 octal = 8 decimal = 8 hex
-    
+
     result = callOct2Hex({Value("12")});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("A", result.asText());  // 12 octal = 10 decimal = A hex
@@ -173,11 +173,11 @@ TEST_F(OctalConversionsTest, AllFunctions_ErrorInput_PropagatesError) {
     auto result = callDec2Oct({Value::error(ErrorType::VALUE_ERROR)});
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::VALUE_ERROR, result.asError());
-    
+
     result = callBin2Oct({Value::error(ErrorType::DIV_ZERO)});
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::DIV_ZERO, result.asError());
-    
+
     result = callOct2Bin({Value::error(ErrorType::NUM_ERROR)});
     EXPECT_TRUE(result.isError());
     EXPECT_EQ(ErrorType::NUM_ERROR, result.asError());

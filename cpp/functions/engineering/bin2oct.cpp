@@ -74,8 +74,9 @@ Value bin2oct(const std::vector<Value>& args, const Context& context) {
         } else {
             // Negative number - use appropriate representation
             // Excel represents negative numbers in a way that maintains round-trip compatibility
-            unsigned long long unsigned_val = static_cast<unsigned long long>(signed_result + (1LL << 30));
-            
+            unsigned long long unsigned_val =
+                    static_cast<unsigned long long>(signed_result + (1LL << 30));
+
             std::string temp;
             if (unsigned_val == 0) {
                 temp = "0";

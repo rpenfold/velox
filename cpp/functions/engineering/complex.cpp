@@ -1,6 +1,6 @@
-#include "xl-formula/functions.h"
-#include <sstream>
 #include <cmath>
+#include <sstream>
+#include "xl-formula/functions.h"
 
 namespace xl_formula {
 namespace functions {
@@ -46,7 +46,7 @@ Value complex_function(const std::vector<Value>& args, const Context& context) {
     std::string suffix = "i";
     if (args.size() == 3) {
         suffix = args[2].toString();
-        
+
         // Validate suffix (Excel only allows "i" or "j")
         if (suffix != "i" && suffix != "j") {
             return Value::error(ErrorType::VALUE_ERROR);
@@ -55,18 +55,18 @@ Value complex_function(const std::vector<Value>& args, const Context& context) {
 
     // Build complex number string
     std::stringstream ss;
-    
+
     // Handle special cases
     if (real_part == 0.0 && imag_part == 0.0) {
         return Value("0");
     }
-    
+
     if (imag_part == 0.0) {
         // Pure real number
         ss << real_part;
         return Value(ss.str());
     }
-    
+
     if (real_part == 0.0) {
         // Pure imaginary number
         if (imag_part == 1.0) {
@@ -78,10 +78,10 @@ Value complex_function(const std::vector<Value>& args, const Context& context) {
         }
         return Value(ss.str());
     }
-    
+
     // Mixed real and imaginary
     ss << real_part;
-    
+
     if (imag_part > 0.0) {
         if (imag_part == 1.0) {
             ss << "+" << suffix;

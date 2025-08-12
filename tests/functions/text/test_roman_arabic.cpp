@@ -2,8 +2,8 @@
 #include "xl-formula/functions.h"
 
 using namespace xl_formula::functions::builtin;
-using xl_formula::Value;
 using xl_formula::Context;
+using xl_formula::Value;
 
 TEST(RomanArabicTest, RomanBasic) {
     auto r = roman({Value(1987.0)}, Context{});
@@ -16,5 +16,3 @@ TEST(RomanArabicTest, ArabicBasic) {
     ASSERT_TRUE(a.isNumber());
     EXPECT_DOUBLE_EQ(a.asNumber(), 1987.0);
 }
-
-

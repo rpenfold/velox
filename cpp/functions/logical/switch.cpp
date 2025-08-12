@@ -27,26 +27,26 @@ Value switch_function(const std::vector<Value>& args, const Context& context) {
 
     // Expression may be an error; do not immediately propagate because a default might be provided
     const Value& expression = args[0];
-    
+
     // Determine if we have a default value
     // If we have an odd number of arguments (excluding expression), the last one is default
     // Total args = 1 (expression) + pairs + [default]
     // So if (total - 1) is odd, we have a default
     bool hasDefault = ((args.size() - 1) % 2) == 1;
     Value defaultValue = hasDefault ? args[args.size() - 1] : Value::error(ErrorType::NA_ERROR);
-    
+
     // Number of value/result pairs
     size_t numPairs = (args.size() - 1) / 2;
-    
+
     // Check each value/result pair
     for (size_t i = 0; i < numPairs; ++i) {
-        const Value& testValue = args[1 + i * 2];     // value to compare
-        const Value& resultValue = args[1 + i * 2 + 1]; // result if match
-        
+        const Value& testValue = args[1 + i * 2];        // value to compare
+        const Value& resultValue = args[1 + i * 2 + 1];  // result if match
+
         // Compare expression with testValue
         // Use exact comparison like Excel SWITCH
         bool match = false;
-        
+
         if (expression.getType() == testValue.getType()) {
             switch (expression.getType()) {
                 case ValueType::NUMBER:
@@ -74,12 +74,12 @@ Value switch_function(const std::vector<Value>& args, const Context& context) {
                     break;
             }
         }
-        
+
         if (match) {
             return resultValue;
         }
     }
-    
+
     // No match found
     if (expression.isError()) {
         // If expression was an error, return default if provided, otherwise propagate the error

@@ -1,6 +1,6 @@
 #include <algorithm>
-#include <cctype>
 #include <bitset>
+#include <cctype>
 #include "xl-formula/functions.h"
 
 namespace xl_formula {

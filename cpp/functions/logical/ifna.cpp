@@ -22,8 +22,8 @@ Value ifna_function(const std::vector<Value>& args, const Context& context) {
     }
 
     // Use shared error conditional utility with NA-specific predicate
-    return ::xl_formula::conditional::conditionalOnError(args[0], args[1], 
-                                   [](ErrorType error) { return error == ErrorType::NA_ERROR; });
+    return ::xl_formula::conditional::conditionalOnError(
+            args[0], args[1], [](ErrorType error) { return error == ErrorType::NA_ERROR; });
 }
 
 }  // namespace builtin

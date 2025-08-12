@@ -5,9 +5,9 @@ using namespace xl_formula;
 using namespace xl_formula::functions;
 
 class UnicharFunctionTest : public ::testing::Test {
-protected:
+  protected:
     Context context;
-    
+
     Value callUnichar(const std::vector<Value>& args) {
         return builtin::unichar(args, context);
     }
@@ -44,7 +44,7 @@ TEST_F(UnicharFunctionTest, SpaceCharacter_ReturnsSpace) {
 TEST_F(UnicharFunctionTest, InvalidRange_TooLow_ReturnsError) {
     auto result = callUnichar({Value(0.0)});
     EXPECT_TRUE(result.isError());
-    
+
     result = callUnichar({Value(-1.0)});
     EXPECT_TRUE(result.isError());
 }
@@ -85,7 +85,8 @@ TEST_F(UnicharFunctionTest, ErrorInput_PropagatesError) {
 TEST_F(UnicharFunctionTest, ExtendedASCII_ReturnsCorrectCharacter) {
     auto result = callUnichar({Value(128.0)});
     ASSERT_TRUE(result.isText());
-    EXPECT_GE(result.asText().length(), 1); // Should return a character (may be multi-byte in UTF-8)
+    EXPECT_GE(result.asText().length(),
+              1);  // Should return a character (may be multi-byte in UTF-8)
 }
 
 TEST_F(UnicharFunctionTest, TwoByteUTF8_ReturnsCorrectCharacter) {
@@ -114,7 +115,7 @@ TEST_F(UnicharFunctionTest, SpecialCharacters_ReturnCorrectly) {
     auto result = callUnichar({Value(10.0)});
     ASSERT_TRUE(result.isText());
     EXPECT_EQ("\n", result.asText());
-    
+
     // Tab
     result = callUnichar({Value(9.0)});
     ASSERT_TRUE(result.isText());
@@ -124,8 +125,8 @@ TEST_F(UnicharFunctionTest, SpecialCharacters_ReturnCorrectly) {
 TEST_F(UnicharFunctionTest, BooleanInput_ConvertsToNumber) {
     auto result = callUnichar({Value(true)});
     ASSERT_TRUE(result.isText());
-    EXPECT_EQ(1, result.asText().length()); // Character for code 1
-    
+    EXPECT_EQ(1, result.asText().length());  // Character for code 1
+
     result = callUnichar({Value(false)});
-    EXPECT_TRUE(result.isError()); // 0 is invalid
+    EXPECT_TRUE(result.isError());  // 0 is invalid
 }
