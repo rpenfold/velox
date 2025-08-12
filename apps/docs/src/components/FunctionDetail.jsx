@@ -109,6 +109,8 @@ export function FunctionDetail({ func, category, categoryName }) {
     try {
       const iterations = 100000
       const cleanFormula = testFormula.startsWith('=') ? testFormula.substring(1) : testFormula
+      const funcName = cleanFormula.split('(')[0]?.trim().toUpperCase()
+      const isNonStandard = funcName?.startsWith('NS_')
 
       console.log('Running benchmark with XL Formula implementation')
       console.log('Formula:', cleanFormula)
@@ -128,30 +130,33 @@ export function FunctionDetail({ func, category, categoryName }) {
       const xlTime = performance.now() - xlStart
       console.log('XL Formula result:', xlResult, 'Time:', xlTime, 'ms')
 
-      // Benchmark hot-formula-parser
+      // Benchmark hot-formula-parser (skip if non-standard)
       let hotFormulaTime = null
       let hotFormulaResult = null
-      try {
-        // Create Parser instance
-        const parser = new Parser()
-        
-        // Get the result for comparison
-        const parseResult = parser.parse(cleanFormula)
-        hotFormulaResult = parseResult.error ? null : parseResult.result
-        console.log('Hot-formula-parser args:', cleanFormula)
-        console.log('Hot-formula-parser parse result:', parseResult)
-        
-        // Warm up hot-formula-parser
-        parser.parse(cleanFormula)
-        
-        const hfpStart = performance.now()
-        for (let i = 0; i < iterations; i++) {
-          parser.parse(cleanFormula)
+      let hotFormulaSupported = true
+      if (isNonStandard) {
+        hotFormulaSupported = false
+      } else {
+        try {
+          const parser = new Parser()
+          const parseResult = parser.parse(cleanFormula)
+          if (parseResult.error) {
+            hotFormulaSupported = false
+          } else {
+            hotFormulaResult = parseResult.result
+            // Warm up
+            parser.parse(cleanFormula)
+            const hfpStart = performance.now()
+            for (let i = 0; i < iterations; i++) {
+              parser.parse(cleanFormula)
+            }
+            hotFormulaTime = performance.now() - hfpStart
+            console.log('Hot-formula-parser result:', hotFormulaResult, 'Time:', hotFormulaTime, 'ms')
+          }
+        } catch (error) {
+          console.warn('Hot-formula-parser benchmark failed:', error)
+          hotFormulaSupported = false
         }
-        hotFormulaTime = performance.now() - hfpStart
-        console.log('Hot-formula-parser result:', hotFormulaResult, 'Time:', hotFormulaTime, 'ms')
-      } catch (error) {
-        console.warn('Hot-formula-parser benchmark failed:', error)
       }
 
       // Verify results match (handle different data types)
@@ -170,12 +175,13 @@ export function FunctionDetail({ func, category, categoryName }) {
 
       setBenchmarkResults({
         xlFormula: xlTime,
-        hotFormulaParser: hotFormulaTime,
+        hotFormulaParser: hotFormulaSupported ? hotFormulaTime : null,
+        hotFormulaSupported,
         iterations,
-        speedup: hotFormulaTime ? (hotFormulaTime / xlTime).toFixed(2) : null,
+        speedup: hotFormulaSupported && hotFormulaTime ? (hotFormulaTime / xlTime).toFixed(2) : null,
         xlResult,
         hotFormulaResult,
-        resultsMatch: hotFormulaResult !== null ? resultsMatch : null
+        resultsMatch: hotFormulaSupported && hotFormulaResult !== null ? resultsMatch : null
       })
     } catch (error) {
       console.error('Benchmark failed:', error)
@@ -344,21 +350,23 @@ export function FunctionDetail({ func, category, categoryName }) {
                         {benchmarkResults.xlFormula ? `${benchmarkResults.xlFormula.toFixed(2)}ms` : 'N/A'}
                       </span>
                     </div>
-                    {benchmarkResults.hotFormulaParser && (
-                      <>
-                        <div className="flex justify-between">
-                          <span>Hot Formula Parser:</span>
-                          <span className="font-mono">{benchmarkResults.hotFormulaParser.toFixed(2)}ms</span>
-                        </div>
-                        <div className="flex justify-between font-semibold">
-                          <span>Speedup:</span>
-                          <span className={benchmarkResults.speedup > 1 ? "text-success" : "text-error"}>
-                            {benchmarkResults.speedup > 1 ? `${benchmarkResults.speedup}x faster` : `${(1/parseFloat(benchmarkResults.speedup)).toFixed(2)}x slower`}
-                          </span>
-                        </div>
-                      </>
+                    <div className="flex justify-between">
+                      <span>Hot Formula Parser:</span>
+                      <span className="font-mono">
+                        {benchmarkResults.hotFormulaSupported === false
+                          ? 'Not supported'
+                          : (benchmarkResults.hotFormulaParser ? `${benchmarkResults.hotFormulaParser.toFixed(2)}ms` : 'N/A')}
+                      </span>
+                    </div>
+                    {benchmarkResults.hotFormulaSupported !== false && benchmarkResults.speedup && (
+                      <div className="flex justify-between font-semibold">
+                        <span>Speedup:</span>
+                        <span className={benchmarkResults.speedup > 1 ? "text-success" : "text-error"}>
+                          {benchmarkResults.speedup > 1 ? `${benchmarkResults.speedup}x faster` : `${(1/parseFloat(benchmarkResults.speedup)).toFixed(2)}x slower`}
+                        </span>
+                      </div>
                     )}
-                    {benchmarkResults.resultsMatch !== null && (
+                    {benchmarkResults.hotFormulaSupported !== false && benchmarkResults.resultsMatch !== null && (
                       <div className="flex justify-between text-xs">
                         <span>Results match:</span>
                         <span className={benchmarkResults.resultsMatch ? "text-success" : "text-error"}>
