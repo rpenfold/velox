@@ -140,7 +140,8 @@ function buildSyntax(name, params) {
 function addFunction(map, category, name, meta) {
   const catKey = category.toLowerCase();
   if (!map[catKey]) map[catKey] = { functions: {} };
-  map[catKey].functions[name] = meta;
+  const isNonStandard = /^NS_/.test(name);
+  map[catKey].functions[name] = { ...meta, nonStandard: isNonStandard };
 }
 
 function ensureCategoryFromPath(filePath) {

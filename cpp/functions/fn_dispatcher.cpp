@@ -338,6 +338,14 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
         case hash_function_name("ARABIC"):
             return builtin::arabic(args, context);
 
+        // Non-standard namespace (NS_*)
+        case hash_function_name("NS_UNIXTIME"):
+            return builtin::ns_unixtime(args, context);
+        case hash_function_name("NS_NEARESTDATE"):
+            return builtin::ns_nearestdate(args, context);
+        case hash_function_name("NS_FURTHESTDATE"):
+            return builtin::ns_furthestdate(args, context);
+
         default:
             // Not a built-in function - return empty Value to indicate fallback needed
             return Value();

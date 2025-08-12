@@ -204,6 +204,15 @@ export function FunctionDetail({ func, category, categoryName }) {
               }}>
                 {categoryName}
               </span>
+              {func.nonStandard && (
+                <span className="text-xs rounded" title="Non-Standard function" style={{
+                  background: 'var(--color-warning-light)',
+                  color: 'var(--color-warning)',
+                  padding: '2px 8px'
+                }}>
+                  Non-Standard
+                </span>
+              )}
             </div>
             <h1 className="text-3xl font-mono font-bold" style={{ overflowWrap: 'anywhere' }}>{func.name}</h1>
           </div>

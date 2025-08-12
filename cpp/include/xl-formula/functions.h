@@ -272,6 +272,11 @@ Value unichar(const std::vector<Value>& args, const Context& context);
  */
 Value unicode_function(const std::vector<Value>& args, const Context& context);
 
+// Non-standard namespace functions (prefixed with NS_)
+Value ns_unixtime(const std::vector<Value>& args, const Context& context);
+Value ns_nearestdate(const std::vector<Value>& args, const Context& context);
+Value ns_furthestdate(const std::vector<Value>& args, const Context& context);
+
 // Lookup & Reference
 Value choose(const std::vector<Value>& args, const Context& context);
 Value row_function(const std::vector<Value>& args, const Context& context);
