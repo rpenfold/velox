@@ -17,9 +17,10 @@ Commands:
     --web           Build web bindings
     --rn            Build React Native bindings
 
-  test             Build and run C++ tests
+  test             Build and run C++ tests (parallel by default)
     -d, --debug      Debug build
     -c, --clean      Clean before build
+    --workers=NUM    Number of parallel workers (autodetect by default)
 
   bench            Build and run benchmarks; compares to fixed snapshot
     --save           Update fixed snapshot after run
@@ -31,7 +32,8 @@ Commands:
 
 Examples:
   formula build -d
-  formula test -c
+  formula test -c                 # parallel by default (autodetect workers)
+  formula test --workers=1        # run serially
   formula bench -- --benchmark_filter=BM_.* --benchmark_min_time=2s
   formula bench --save -- --benchmark_filter=BM_SimpleSum
 
@@ -49,19 +51,46 @@ cmd_build() {
       *) echo "Unknown build option: $1" >&2; exit 1 ;;
     esac
   done
-  exec "$REPO_ROOT/scripts/build.sh" "${args[@]}"
+  # Safe expansion when array may be empty under `set -u`
+  if ((${#args[@]})); then
+    exec "$REPO_ROOT/scripts/build.sh" "${args[@]}"
+  else
+    exec "$REPO_ROOT/scripts/build.sh"
+  fi
 }
 
 cmd_test() {
-  local args=( -t )
+  local build_args=( )
+  local workers="auto"
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      -d|--debug) args+=( -d ); shift ;;
-      -c|--clean) args+=( -c ); shift ;;
+      -d|--debug) build_args+=( -d ); shift ;;
+      -c|--clean) build_args+=( -c ); shift ;;
+      --workers=*) workers="${1#*=}"; shift ;;
+      --workers) workers="${2:-}"; shift 2 ;;
       *) echo "Unknown test option: $1" >&2; exit 1 ;;
     esac
   done
-  exec "$REPO_ROOT/scripts/build.sh" "${args[@]}"
+  # Build (without running tests inside the build script)
+  if ((${#build_args[@]})); then
+    "$REPO_ROOT/scripts/build.sh" "${build_args[@]}"
+  else
+    "$REPO_ROOT/scripts/build.sh"
+  fi
+
+  # Run tests (optionally in parallel)
+  local build_dir="$REPO_ROOT/build"
+  if [[ ! -d "$build_dir" ]]; then
+    echo "Build directory not found: $build_dir" >&2; exit 1
+  fi
+  cd "$build_dir"
+  local CORES
+  if [[ -z "$workers" || "$workers" == "auto" ]]; then
+    CORES="$(sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 4)"
+  else
+    CORES="$workers"
+  fi
+  ctest -j"$CORES" --output-on-failure
 }
 
 cmd_bench() {
