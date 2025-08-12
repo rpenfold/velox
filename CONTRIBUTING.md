@@ -74,9 +74,9 @@ Before you begin, ensure you have the following tools installed:
 
 #### Optional Dependencies
 
-5. **Future Dependencies** (not yet implemented)
-   - Emscripten (for planned web builds)
-   - React Native development environment (for planned mobile builds)
+5. **Platform Bindings**
+   - Emscripten (for web builds)
+   - React Native development environment (future mobile builds)
 
 6. **Coverage Tools** (for coverage reports)
    ```bash
@@ -139,7 +139,7 @@ Before you begin, ensure you have the following tools installed:
 | `-e, --examples` | Build examples | ON |
 | `--no-tests` | Don't build tests | - |
 | `--no-examples` | Don't build examples | - |
-| `--web` | Build web bindings (not implemented) | OFF |
+| `--web` | Build web bindings | OFF |
 | `--react-native` | Build React Native bindings (not implemented) | OFF |
 | `--install` | Install after building | false |
 | `--coverage` | Build with coverage information | false |
@@ -325,6 +325,41 @@ xl-formula/
 ## Adding New Functions
 
 This section provides a step-by-step guide for adding new functions to XL-Formula. We follow a systematic approach to ensure consistency, testability, and maintainability.
+
+### Doxygen Doc Comment Guidelines (for docs generation)
+
+We auto-generate the function catalog used by the docs app by parsing concise Doxygen-style blocks in C++ files. Please include a block above each function implementation with:
+
+- `@brief` One-line description
+- `@ingroup` Category key (e.g., `math`, `text`, `logical`, `datetime`, `financial`, `engineering`). Choose the closest fit.
+- `@name` Excel-style function name (uppercase). For non-standard functions use the `NS_` prefix (e.g., `NS_UNIXTIME`). The docs infer a Non-Standard badge when name starts with `NS_`.
+- `@param NAME description` for each parameter
+  - Mark optional params by including `(optional)` in the description
+  - Mark variadic by including `(variadic)` on the variadic parameter
+  - Default values can be hinted with `(default: X)` in the description
+- `@code ... @endcode` Example lines. You can add either:
+  - `FORMULA -> RESULT` lines, or
+  - `formula=..., result=..., description=...` semicolon-separated lines
+
+Example:
+
+```cpp
+/**
+ * @brief Returns the k-th percentile of a dataset
+ * @ingroup statistics
+ * @name PERCENTILE
+ * @param array Data values (variadic)
+ * @param k Percentile fraction between 0 and 1
+ * @code
+ * PERCENTILE({1,2,3,4,5}, 0.5) -> 3
+ * @endcode
+ */
+```
+
+Notes:
+- If `@name` is absent we infer the name from the function identifier (uppercased, trimming a trailing `_function`).
+- If `@ingroup` is absent we fall back to the directory name under `cpp/functions/`.
+- The docs generator removes `(optional)`, `(variadic)`, `(default: ...)` from the displayed parameter descriptions but uses them to build syntax and badges.
 
 ### Overview
 
@@ -826,7 +861,7 @@ Before submitting your function implementation:
 3. **Check namespace** - Use `builtin::` namespace for function calls in tests
 4. **Review test examples** - See the RPT test example above
 
-## TODO: Functions Parity with Formula.js
+## Backlog: Functions Parity and Roadmap
 
 This section tracks Excel/Formula.js functions that we intend to implement. Items are grouped by category and checked when implemented. Contributions welcome – please reference this list in PRs.
 
@@ -850,17 +885,17 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 ### Math & Trigonometry
 - [x] SUM / MAX / MIN / AVERAGE / COUNT / COUNTA / ABS / ROUND / SQRT / POWER / MOD / PI / SIGN / INT / TRUNC / CEILING / FLOOR / RAND / RANDBETWEEN / COUNTIF / MEDIAN / MODE / STDEV / VAR / GCD / LCM / FACT / COMBIN / PERMUT / SUMPRODUCT / SUMIF / SUMIFS / AVERAGEIF / AVERAGEIFS / SIN / COS / TAN / ASIN / ACOS / ATAN / ATAN2 / SINH / COSH / TANH / DEGREES / RADIANS / EXP / LN / LOG / LOG10
 - [x] SUMSQ
-- [ ] SUMX2MY2 / SUMX2PY2 / SUMXMY2
+- [x] SUMX2MY2 / SUMX2PY2 / SUMXMY2
 - [x] QUOTIENT
 - [x] EVEN / ODD
 - [x] MROUND / ROUNDUP / ROUNDDOWN
-- [ ] ROMAN / ARABIC (ARABIC done if needed)
+- [x] ROMAN / ARABIC
 - [ ] SERIESSUM
 
 ### Date & Time
 - [x] NOW / TODAY / DATE / TIME / YEAR / MONTH / DAY / HOUR / MINUTE / SECOND / WEEKDAY / DATEDIF
 - [ ] EDATE / EOMONTH
-- [ ] DATEVALUE / TIMEVALUE
+- [x] DATEVALUE / TIMEVALUE
 - [ ] WEEKNUM / WEEKNUM.ISO / ISOWEEKNUM
 - [ ] WORKDAY / WORKDAY.INTL / NETWORKDAYS / NETWORKDAYS.INTL
 
@@ -868,7 +903,7 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 - [ ] ADDRESS
 - [ ] AREAS
 - [ ] CHOOSECOLS / CHOOSEROWS
-- [ ] COLUMN / COLUMNS (COLUMNS supported; verify COLUMN variants)
+- [x] COLUMN / COLUMNS
 - [ ] HLOOKUP / VLOOKUP / LOOKUP / XLOOKUP
 - [ ] INDEX / MATCH / XMATCH
 - [ ] OFFSET / INDIRECT
@@ -890,7 +925,7 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 - [ ] AVERAGEA
 - [ ] AVEDEV / STDEVA / VARA
 - [ ] CHISQ.* / BETA.* / BINOM.* (subset already covered; expand as needed)
-- [ ] CORREL / COVAR / COVARIANCE.* / PEARSON / RSQ / SLOPE / INTERCEPT
+- [x] CORREL / COVAR / COVARIANCE.* / PEARSON / RSQ / SLOPE / INTERCEPT
 - [ ] PERCENTILE.* / QUARTILE.* / RANK.*
 
 Note: This list is non-exhaustive and will evolve. When you implement a function, please move it to the checked list and include tests and docs.
