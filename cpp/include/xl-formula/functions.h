@@ -273,6 +273,9 @@ Value correl(const std::vector<Value>& args, const Context& context);
 Value rsq(const std::vector<Value>& args, const Context& context);
 Value slope(const std::vector<Value>& args, const Context& context);
 Value intercept(const std::vector<Value>& args, const Context& context);
+Value covar(const std::vector<Value>& args, const Context& context);
+Value covariance_p(const std::vector<Value>& args, const Context& context);
+Value covariance_s(const std::vector<Value>& args, const Context& context);
 Value sumx2my2(const std::vector<Value>& args, const Context& context);
 Value sumx2py2(const std::vector<Value>& args, const Context& context);
 Value sumxmy2(const std::vector<Value>& args, const Context& context);
@@ -788,6 +791,13 @@ Value weekday(const std::vector<Value>& args, const Context& context);
 Value datedif(const std::vector<Value>& args, const Context& context);
 Value edate(const std::vector<Value>& args, const Context& context);
 Value eomonth(const std::vector<Value>& args, const Context& context);
+Value datevalue(const std::vector<Value>& args, const Context& context);
+Value timevalue(const std::vector<Value>& args, const Context& context);
+
+// Lookup & Reference
+Value choose(const std::vector<Value>& args, const Context& context);
+Value row_function(const std::vector<Value>& args, const Context& context);
+Value column_function(const std::vector<Value>& args, const Context& context);
 
 // Engineering & Specialized Functions
 
