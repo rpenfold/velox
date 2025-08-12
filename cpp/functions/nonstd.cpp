@@ -47,7 +47,7 @@ Value ns_unixtime(const std::vector<Value>& args, const Context& context) {
  * @brief [Non-Standard] Returns the date closest to the current time from a list/array
  * @ingroup datetime
  * @name NS_NEARESTDATE
- * @param dates Array of dates or variadic list of date arguments (…)
+ * @param dates Array of dates or variadic list of date arguments (variadic)
  * @code
  * NS_NEARESTDATE({TODAY()-1, TODAY(), TODAY()+2}) -> 2025-01-01
  * NS_NEARESTDATE(TODAY()-1, TODAY()+3) -> 2024-12-31
@@ -82,7 +82,7 @@ Value ns_nearestdate(const std::vector<Value>& args, const Context& context) {
  * @brief [Non-Standard] Returns the date farthest from the current time from a list/array
  * @ingroup datetime
  * @name NS_FURTHESTDATE
- * @param dates Array of dates or variadic list of date arguments (…)
+ * @param dates Array of dates or variadic list of date arguments (variadic)
  * @code
  * NS_FURTHESTDATE({TODAY()-1, TODAY()+3}) -> 2025-01-03
  * NS_FURTHESTDATE(TODAY()-10, TODAY()+2, TODAY()+5) -> 2024-12-22
