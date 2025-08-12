@@ -22,7 +22,7 @@ static void forEachDateCandidate(const std::vector<Value>& args, const std::func
 
 /**
  * @brief [Non-Standard] Returns Unix epoch seconds for a given date
- * @ingroup nonstandard
+ * @ingroup datetime
  * @name NS_UNIXTIME
  * @param date Date/time value to convert
  * @code
@@ -45,7 +45,7 @@ Value ns_unixtime(const std::vector<Value>& args, const Context& context) {
 
 /**
  * @brief [Non-Standard] Returns the date closest to the current time from a list/array
- * @ingroup nonstandard
+ * @ingroup datetime
  * @name NS_NEARESTDATE
  * @param dates Array of dates or variadic list of date arguments (…)
  * @code
@@ -80,7 +80,7 @@ Value ns_nearestdate(const std::vector<Value>& args, const Context& context) {
 
 /**
  * @brief [Non-Standard] Returns the date farthest from the current time from a list/array
- * @ingroup nonstandard
+ * @ingroup datetime
  * @name NS_FURTHESTDATE
  * @param dates Array of dates or variadic list of date arguments (…)
  * @code
