@@ -859,8 +859,8 @@ This section tracks Excel/Formula.js functions that we intend to implement. Item
 
 ### Date & Time
 - [x] NOW / TODAY / DATE / TIME / YEAR / MONTH / DAY / HOUR / MINUTE / SECOND / WEEKDAY / DATEDIF
-- [ ] EDATE / EOMONTH
-- [ ] DATEVALUE / TIMEVALUE
+- [x] EDATE / EOMONTH
+- [x] DATEVALUE / TIMEVALUE
 - [ ] WEEKNUM / WEEKNUM.ISO / ISOWEEKNUM
 - [ ] WORKDAY / WORKDAY.INTL / NETWORKDAYS / NETWORKDAYS.INTL
 

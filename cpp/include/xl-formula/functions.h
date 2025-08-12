@@ -774,6 +774,38 @@ Value weekday(const std::vector<Value>& args, const Context& context);
  */
 Value datedif(const std::vector<Value>& args, const Context& context);
 
+/**
+ * @brief EDATE function - returns the date that is the indicated number of months before or after a specified date
+ * @param args Function arguments (start_date, months)
+ * @param context Evaluation context (unused for EDATE)
+ * @return Date value offset by months
+ */
+Value edate(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief EOMONTH function - returns the serial number for the last day of the month before or after a specified number of months
+ * @param args Function arguments (start_date, months)
+ * @param context Evaluation context (unused for EOMONTH)
+ * @return Date value representing end of month
+ */
+Value eomonth(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief DATEVALUE function - converts a date in the form of text to a date value
+ * @param args Function arguments (date_text)
+ * @param context Evaluation context (unused for DATEVALUE)
+ * @return Date value parsed from text
+ */
+Value datevalue(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief TIMEVALUE function - converts a time in the form of text to a decimal number representing the time
+ * @param args Function arguments (time_text)
+ * @param context Evaluation context (unused for TIMEVALUE)
+ * @return Number representing time as fraction of a day
+ */
+Value timevalue(const std::vector<Value>& args, const Context& context);
+
 // Engineering & Specialized Functions
 
 /**

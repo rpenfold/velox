@@ -1397,6 +1397,56 @@ export const functionCategories = {
           { formula: 'DATEDIF(DATE(2020,1,1), DATE(2024,1,1), "Y")', result: '4', description: 'Years between dates' },
           { formula: 'DATEDIF(DATE(2024,1,1), DATE(2024,3,15), "D")', result: '74', description: 'Days between dates' }
         ]
+      },
+      EDATE: {
+        name: 'EDATE',
+        description: 'Returns the date that is the indicated number of months before or after a start date',
+        syntax: 'EDATE(start_date, months)',
+        parameters: [
+          { name: 'start_date', description: 'The start date', required: true },
+          { name: 'months', description: 'Number of months before/after start date', required: true }
+        ],
+        examples: [
+          { formula: 'EDATE(DATE(2023,1,31), 1)', result: '2023-02-28', description: 'Clamps to last day of month' },
+          { formula: 'EDATE(DATE(2024,3,15), -2)', result: '2024-01-15', description: 'Moves back two months' }
+        ]
+      },
+      EOMONTH: {
+        name: 'EOMONTH',
+        description: 'Returns the last day of the month before or after a specified number of months',
+        syntax: 'EOMONTH(start_date, months)',
+        parameters: [
+          { name: 'start_date', description: 'The start date', required: true },
+          { name: 'months', description: 'Number of months before/after start date', required: true }
+        ],
+        examples: [
+          { formula: 'EOMONTH(DATE(2023,1,15), 0)', result: '2023-01-31', description: 'End of current month' },
+          { formula: 'EOMONTH(DATE(2023,1,15), 1)', result: '2023-02-28', description: 'End of next month' }
+        ]
+      },
+      DATEVALUE: {
+        name: 'DATEVALUE',
+        description: 'Converts a date in the form of text to a date value',
+        syntax: 'DATEVALUE(date_text)',
+        parameters: [
+          { name: 'date_text', description: 'Date text like "2024-03-15" or "12/31/2023"', required: true }
+        ],
+        examples: [
+          { formula: 'DATEVALUE("2024-03-15")', result: '2024-03-15', description: 'ISO date' },
+          { formula: 'DATEVALUE("12/31/2023")', result: '2023-12-31', description: 'US format' }
+        ]
+      },
+      TIMEVALUE: {
+        name: 'TIMEVALUE',
+        description: 'Converts a time in the form of text to a decimal number representing the time',
+        syntax: 'TIMEVALUE(time_text)',
+        parameters: [
+          { name: 'time_text', description: 'Time text like "14:30" or "2:30 PM"', required: true }
+        ],
+        examples: [
+          { formula: 'TIMEVALUE("14:30:15")', result: '0.60434', description: 'Fraction of a day for 14:30:15' },
+          { formula: 'TIMEVALUE("2:30 PM")', result: '0.60417', description: '12-hour format' }
+        ]
       }
     }
   }
