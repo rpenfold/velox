@@ -239,6 +239,8 @@ code, pre {
 .rounded { border-radius: var(--radius); }
 .rounded-lg { border-radius: var(--radius-lg); }
 
+.show-mobile { display: none !important; }
+
 @media (max-width: 600px) {
   .container {
     max-width: 100vw;
