@@ -933,7 +933,7 @@ Note: This list is non-exhaustive and will evolve. When you implement a function
 ## Function Implementation Roadmap
 
 **Target**: Match and exceed Formula.js (399/515 functions implemented)
-**Current**: 85 functions implemented (17% of Excel's ~500 core functions)
+**Current**: 95+ functions implemented (19% of Excel's ~500 core functions)
 
 ## Completed Functions ✅
 
@@ -951,22 +951,22 @@ Note: This list is non-exhaustive and will evolve. When you implement a function
 - [ ] **HLOOKUP** - Looks up a value in a table (horizontal)
 - [ ] **INDEX** - Returns a value from a table
 - [ ] **MATCH** - Finds the position of a value
-- [ ] **CHOOSE** - Chooses a value from a list
+- [x] **CHOOSE** - Chooses a value from a list
 - [ ] **LOOKUP** - Looks up a value
 - [ ] **INDIRECT** - Returns a reference specified by text
 - [ ] **OFFSET** - Returns a reference offset from a given reference
-- [ ] **ROW** - Returns the row number
-- [ ] **COLUMN** - Returns the column number
+- [x] **ROW** - Returns the row number
+- [x] **COLUMN** - Returns the column number
 
 ### Phase 10: Statistical & Data Analysis Functions (Priority: Medium)
-- [ ] **CORRELATION** - Returns the correlation coefficient
-- [ ] **COVARIANCE** - Returns covariance
+- [x] **CORREL** - Returns the correlation coefficient (alias: PEARSON)
+- [x] **COVARIANCE** - Returns covariance (COVARIANCE.P, COVARIANCE.S, COVAR)
 - [ ] **PERCENTILE** - Returns the k-th percentile
 - [ ] **QUARTILE** - Returns the quartile value
 - [ ] **RANK** - Returns the rank of a number
-- [ ] **SLOPE** - Returns the slope of a linear regression line
-- [ ] **INTERCEPT** - Returns the y-intercept of a linear regression line
-- [ ] **RSQ** - Returns the square of correlation coefficient
+- [x] **SLOPE** - Returns the slope of a linear regression line
+- [x] **INTERCEPT** - Returns the y-intercept of a linear regression line
+- [x] **RSQ** - Returns the square of correlation coefficient
 - [ ] **FORECAST** - Calculates future value using linear trend
 - [ ] **TREND** - Returns values along a linear trend
 

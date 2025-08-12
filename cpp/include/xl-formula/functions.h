@@ -1264,6 +1264,54 @@ Value multiNumericFunction(const std::vector<Value>& args, const Context& contex
 }
 
 /**
+ * @brief Template for min/max functions
+ * @param args Function arguments
+ * @param context Evaluation context
+ * @param name Function name for error messages
+ * @param comparator The comparison operation to perform (< for min, > for max)
+ * @return Result of the operation
+ */
+template <typename Comparator>
+Value minMaxFunction(const std::vector<Value>& args, const Context& context,
+                     const std::string& name, Comparator comparator) {
+    (void)context;  // Unused parameter
+
+    auto validation = utils::validateMinArgs(args, 1, name);
+    if (!validation.isEmpty()) {
+        return validation;
+    }
+
+    // Check for errors first
+    auto error = utils::checkForErrors(args);
+    if (!error.isEmpty()) {
+        return error;
+    }
+
+    Value result;
+    bool hasValue = false;
+
+    for (const auto& arg : args) {
+        if (arg.isEmpty())
+            continue;
+
+        if (!hasValue) {
+            result = arg;
+            hasValue = true;
+        } else {
+            if (comparator(arg, result)) {
+                result = arg;
+            }
+        }
+    }
+
+    if (!hasValue) {
+        return Value(0.0);  // Excel returns 0 for MIN/MAX with no valid values
+    }
+
+    return result;
+}
+
+/**
  * @brief Template for single-argument text functions
  * @param args Function arguments
  * @param context Evaluation context

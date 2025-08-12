@@ -16,52 +16,7 @@ bool evaluateCriteriaCustom(const Value& value, const Value& criteria) {
     return ::xl_formula::conditional::evaluateCriteria(value, criteria);
 }
 
-/**
- * @brief Simple wildcard matching without regex
- * @param text The text to match
- * @param pattern Pattern with * and ? wildcards
- * @return true if text matches pattern
- */
-bool simpleWildcardMatch(const std::string& text, const std::string& pattern) {
-    size_t textPos = 0;
-    size_t patternPos = 0;
 
-    while (textPos < text.length() && patternPos < pattern.length()) {
-        if (pattern[patternPos] == '*') {
-            // Skip consecutive asterisks
-            while (patternPos < pattern.length() && pattern[patternPos] == '*') {
-                patternPos++;
-            }
-
-            // If pattern ends with *, match rest of text
-            if (patternPos >= pattern.length()) {
-                return true;
-            }
-
-            // Find next matching character
-            char nextChar = pattern[patternPos];
-            while (textPos < text.length() && text[textPos] != nextChar) {
-                textPos++;
-            }
-
-            if (textPos >= text.length()) {
-                return false;
-            }
-        } else if (pattern[patternPos] == '?' || pattern[patternPos] == text[textPos]) {
-            patternPos++;
-            textPos++;
-        } else {
-            return false;
-        }
-    }
-
-    // Handle remaining asterisks at end of pattern
-    while (patternPos < pattern.length() && pattern[patternPos] == '*') {
-        patternPos++;
-    }
-
-    return textPos == text.length() && patternPos == pattern.length();
-}
 
 /**
  * @brief Sums values that meet a condition
