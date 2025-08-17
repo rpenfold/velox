@@ -44,7 +44,7 @@ jobs:
       run: |
         npm run docs:gen
         cd apps/docs
-        VITE_BASE_PATH=/xl-formula/ npm run build
+        VITE_BASE_PATH=/velox/ npm run build
         
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
