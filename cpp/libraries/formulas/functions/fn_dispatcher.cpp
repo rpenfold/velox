@@ -69,6 +69,16 @@ Value dispatch_builtin_function(const std::string& name, const std::vector<Value
             return builtin::median(args, context);
         case hash_function_name("MODE"):
             return builtin::mode(args, context);
+        case hash_function_name("LARGE"):
+            return builtin::large(args, context);
+        case hash_function_name("SMALL"):
+            return builtin::small(args, context);
+        case hash_function_name("RANK"):
+            return builtin::rank(args, context);
+        case hash_function_name("PERCENTILE"):
+            return builtin::percentile(args, context);
+        case hash_function_name("QUARTILE"):
+            return builtin::quartile(args, context);
         case hash_function_name("STDEV"):
             return builtin::stdev(args, context);
         case hash_function_name("VAR"):
@@ -356,7 +366,8 @@ std::vector<std::string> get_builtin_function_names() {
     return {// Math functions
             "SUM", "MAX", "MIN", "AVERAGE", "COUNT", "COUNTA", "ABS", "ROUND", "ROUNDUP",
             "ROUNDDOWN", "MROUND", "SQRT", "POWER", "MOD", "PI", "SIGN", "INT", "TRUNC", "CEILING",
-            "FLOOR", "RAND", "RANDBETWEEN", "COUNTIF", "MEDIAN", "MODE", "STDEV", "VAR", "GCD",
+            "FLOOR", "RAND", "RANDBETWEEN", "COUNTIF", "MEDIAN", "MODE", "LARGE", "SMALL", "RANK", 
+            "PERCENTILE", "QUARTILE", "STDEV", "VAR", "GCD",
             "LCM", "FACT", "COMBIN", "PERMUT", "SUMPRODUCT", "SUMIF", "SUMIFS", "AVERAGEIF",
             "AVERAGEIFS", "SUMSQ", "QUOTIENT", "EVEN", "ODD",
 

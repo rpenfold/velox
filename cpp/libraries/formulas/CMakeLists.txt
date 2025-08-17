@@ -14,6 +14,7 @@ add_library(velox-formulas
     functions/fn_dispatcher.cpp
     functions/nonstd.cpp
     functions/utils/conditional_utils.cpp
+    functions/utils/statistical_utils.cpp
     functions/utils/validation.cpp
     functions/math/abs.cpp
     functions/math/acos.cpp
@@ -37,6 +38,7 @@ add_library(velox-formulas
     functions/math/floor.cpp
     functions/math/gcd.cpp
     functions/math/int.cpp
+    functions/math/large.cpp
     functions/math/lcm.cpp
     functions/math/ln.cpp
     functions/math/log.cpp
@@ -48,19 +50,23 @@ add_library(velox-formulas
     functions/math/mode.cpp
     functions/math/mround.cpp
     functions/math/odd.cpp
+    functions/math/percentile.cpp
     functions/math/permut.cpp
     functions/math/pi.cpp
     functions/math/power.cpp
+    functions/math/quartile.cpp
     functions/math/quotient.cpp
     functions/math/radians.cpp
     functions/math/rand.cpp
     functions/math/randbetween.cpp
+    functions/math/rank.cpp
     functions/math/round.cpp
     functions/math/rounddown.cpp
     functions/math/roundup.cpp
     functions/math/sign.cpp
     functions/math/sin.cpp
     functions/math/sinh.cpp
+    functions/math/small.cpp
     functions/math/sqrt.cpp
     functions/math/stdev.cpp
     functions/math/sum.cpp
