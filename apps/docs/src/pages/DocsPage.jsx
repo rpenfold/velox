@@ -4,7 +4,7 @@ import { functionCategories, getAllFunctions } from '../data/functions.js'
 import { FunctionDetail } from '../components/FunctionDetail.jsx'
 
 // Get base path from environment variable, default to '/' for development
-const basePath = import.meta.env.VITE_BASE_PATH || '/'
+const basePath = `${import.meta.env.VITE_BASE_PATH || '/'}formulas/`
 
 export function DocsPage({ category, function: functionName }) {
   // Use URL parameters as the single source of truth
@@ -115,7 +115,7 @@ export function DocsPage({ category, function: functionName }) {
                 return (
                   <Link
                     key={key}
-                    href={`${basePath}docs/${key}`}
+                    href={`${basePath}/formulas/docs/${key}`}
                     className={`btn btn-sm${selectedCategory === key ? ' btn-primary' : ''}`}
                     style={{ marginBottom: '0.5rem', textAlign: 'left' }}
                     onClick={() => setMobileSidebarOpen(false)}
