@@ -5,6 +5,7 @@
 #include <vector>
 #include "conditional_utils.h"
 #include "evaluator.h"
+#include "statistical_utils.h"
 #include "types.h"
 
 namespace xl_formula {
@@ -513,6 +514,46 @@ Value stdev(const std::vector<Value>& args, const Context& context);
  * @return Variance of the arguments
  */
 Value var(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief LARGE function - returns the k-th largest value in a dataset
+ * @param args Function arguments (array, k)
+ * @param context Evaluation context (unused for LARGE)
+ * @return k-th largest value
+ */
+Value large(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief SMALL function - returns the k-th smallest value in a dataset
+ * @param args Function arguments (array, k)
+ * @param context Evaluation context (unused for SMALL)
+ * @return k-th smallest value
+ */
+Value small(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief RANK function - returns the rank of a number in a list of numbers
+ * @param args Function arguments (number, ref, [order])
+ * @param context Evaluation context (unused for RANK)
+ * @return Rank of the number
+ */
+Value rank(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief PERCENTILE function - returns the k-th percentile of values in a range
+ * @param args Function arguments (array, k)
+ * @param context Evaluation context (unused for PERCENTILE)
+ * @return k-th percentile value
+ */
+Value percentile(const std::vector<Value>& args, const Context& context);
+
+/**
+ * @brief QUARTILE function - returns the quartile of a data set
+ * @param args Function arguments (array, quart)
+ * @param context Evaluation context (unused for QUARTILE)
+ * @return Quartile value
+ */
+Value quartile(const std::vector<Value>& args, const Context& context);
 
 // Correlation and regression
 Value correl(const std::vector<Value>& args, const Context& context);
