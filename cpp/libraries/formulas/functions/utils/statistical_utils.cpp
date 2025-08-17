@@ -8,6 +8,11 @@ namespace xl_formula {
 namespace functions {
 namespace utils {
 
+/**
+ * @brief Extract numeric values from a vector, filtering out non-numeric values
+ * @param values Input vector of values
+ * @return Vector containing only numeric values as doubles
+ */
 std::vector<double> extractNumericValues(const std::vector<Value>& values) {
     std::vector<double> numericValues;
     numericValues.reserve(values.size());
@@ -21,10 +26,24 @@ std::vector<double> extractNumericValues(const std::vector<Value>& values) {
     return numericValues;
 }
 
+/**
+ * @brief Validate that k is within valid range for array size
+ * @param k The k value to validate (1-based)
+ * @param arraySize Size of the array
+ * @return true if k is valid, false otherwise
+ */
 bool validateKValue(size_t k, size_t arraySize) {
     return k > 0 && k <= arraySize;
 }
 
+/**
+ * @brief Efficient k-th element selection using nth_element algorithm
+ * @param array Vector of values to select from (passed by value for modification)
+ * @param k Index of element to select (0-based)
+ * @param ascending If true, selects k-th smallest; if false, k-th largest
+ * @return The k-th element value
+ * @throws std::invalid_argument if array is empty, contains no numeric values, or k is out of range
+ */
 Value quickSelect(std::vector<Value> array, size_t k, bool ascending) {
     if (array.empty()) {
         throw std::invalid_argument("Array cannot be empty");
@@ -52,6 +71,13 @@ Value quickSelect(std::vector<Value> array, size_t k, bool ascending) {
     return Value(numericArray[k]);
 }
 
+/**
+ * @brief Calculate percentile with linear interpolation
+ * @param array Vector of values (passed by value for modification)
+ * @param percentile Percentile value (0.0 to 1.0)
+ * @return Calculated percentile value
+ * @throws std::invalid_argument if array is empty, contains no numeric values, or percentile is out of range
+ */
 Value calculatePercentile(std::vector<Value> array, double percentile) {
     if (array.empty()) {
         throw std::invalid_argument("Array cannot be empty");
@@ -91,6 +117,14 @@ Value calculatePercentile(std::vector<Value> array, double percentile) {
     return Value(result);
 }
 
+/**
+ * @brief Calculate rank of a number in an array
+ * @param number The number to rank
+ * @param array Vector of values to rank against
+ * @param ascending If true, ranks in ascending order; if false, descending
+ * @return Rank of the number (1-based)
+ * @throws std::invalid_argument if array is empty, contains no numeric values, number is not numeric, or number not found
+ */
 Value calculateRank(const Value& number, const std::vector<Value>& array, bool ascending) {
     if (array.empty()) {
         throw std::invalid_argument("Array cannot be empty");

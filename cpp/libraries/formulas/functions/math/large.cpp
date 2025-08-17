@@ -5,10 +5,24 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the k-th largest value in a dataset
+ * @ingroup math
+ * @param array Array of numeric values to search
+ * @param k Position of the largest value to return (1-based)
+ * @code
+ * LARGE({1, 2, 3, 4, 5}, 1) -> 5
+ * LARGE({1, 2, 3, 4, 5}, 2) -> 4
+ * @endcode
+ * 
+ * The LARGE function returns the k-th largest value from an array of numbers.
+ * - k=1 returns the largest value (maximum)
+ * - k=2 returns the second largest value, and so on
+ * - k must be a positive integer between 1 and the count of numeric values
+ * - Non-numeric values in the array are ignored
+ */
 Value large(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
-    // LARGE(array, k) - Returns the k-th largest value in a dataset
     
     if (args.size() != 2) {
         throw std::invalid_argument("LARGE function requires exactly 2 arguments");

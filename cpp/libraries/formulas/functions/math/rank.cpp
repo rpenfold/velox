@@ -5,11 +5,26 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the rank of a number in a list of numbers
+ * @ingroup math
+ * @param number The number whose rank you want to find
+ * @param ref Array of numbers to rank against
+ * @param order (Optional) Ranking order: 0 for descending (default), 1 for ascending
+ * @code
+ * RANK(3, {1, 2, 3, 4, 5}) -> 3 (descending: 5,4,3,2,1)
+ * RANK(3, {1, 2, 3, 4, 5}, 1) -> 3 (ascending: 1,2,3,4,5)
+ * @endcode
+ * 
+ * The RANK function returns the rank of a number within an array of numbers.
+ * - In descending order (default), larger numbers have lower ranks
+ * - In ascending order, smaller numbers have lower ranks
+ * - Duplicate values receive the same rank
+ * - The number must exist in the reference array
+ * - Non-numeric values are ignored
+ */
 Value rank(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
-    // RANK(number, ref, [order]) - Returns the rank of a number in a list of numbers
-    // order: 0 = descending (default), 1 = ascending
     
     if (args.size() < 2 || args.size() > 3) {
         throw std::invalid_argument("RANK function requires 2 or 3 arguments");

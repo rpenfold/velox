@@ -5,10 +5,24 @@ namespace xl_formula {
 namespace functions {
 namespace builtin {
 
+/**
+ * @brief Returns the k-th smallest value in a dataset
+ * @ingroup math
+ * @param array Array of numeric values to search
+ * @param k Position of the smallest value to return (1-based)
+ * @code
+ * SMALL({1, 2, 3, 4, 5}, 1) -> 1
+ * SMALL({1, 2, 3, 4, 5}, 2) -> 2
+ * @endcode
+ * 
+ * The SMALL function returns the k-th smallest value from an array of numbers.
+ * - k=1 returns the smallest value (minimum)
+ * - k=2 returns the second smallest value, and so on
+ * - k must be a positive integer between 1 and the count of numeric values
+ * - Non-numeric values in the array are ignored
+ */
 Value small(const std::vector<Value>& args, const Context& context) {
     (void)context;  // Unused parameter
-    
-    // SMALL(array, k) - Returns the k-th smallest value in a dataset
     
     if (args.size() != 2) {
         throw std::invalid_argument("SMALL function requires exactly 2 arguments");
