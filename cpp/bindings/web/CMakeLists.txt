@@ -32,18 +32,18 @@ target_link_options(velox-formulas-web PRIVATE
     "SHELL:--bind"
 )
 
-# Set the output directory to the packages/web folder
+# Set the output directory to the packages/formulas-web folder
 set_target_properties(velox-formulas-web PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/packages/web/bin"
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/packages/web/bin"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/packages/web/bin"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/packages/formulas-web/bin"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/packages/formulas-web/bin"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/packages/formulas-web/bin"
 )
 
 # Copy outputs to the web package directory and docs public directory
 add_custom_command(TARGET velox-formulas-web POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "$<TARGET_FILE_DIR:velox-formulas-web>/formulas.wasm"
-        "${CMAKE_SOURCE_DIR}/packages/web/formulas.wasm"
+        "${CMAKE_SOURCE_DIR}/packages/formulas-web/formulas.wasm"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "$<TARGET_FILE_DIR:velox-formulas-web>/formulas.wasm"
         "${CMAKE_SOURCE_DIR}/apps/docs/public/formulas.wasm"

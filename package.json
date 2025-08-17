@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "./build.sh --web",
-    "build:web": "npm run build --workspace=packages/web",
+    "build:web": "npm run build --workspace=packages/formulas-web",
     "dev": "npm run dev --workspace=apps/docs",
     "dev:docs": "npm run dev --workspace=apps/docs",
     "docs:gen": "node scripts/generate-docs.js",

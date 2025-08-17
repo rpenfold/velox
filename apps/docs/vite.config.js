@@ -10,7 +10,7 @@ export default defineConfig({
   base: basePath,
   resolve: {
     alias: {
-      '@velox/formulas': resolve(__dirname, '../../packages/web/xl-formula-wrapper.js')
+      '@velox/formulas': resolve(__dirname, '../../packages/formulas-web/formula-wrapper.js')
     }
   },
   build: {
