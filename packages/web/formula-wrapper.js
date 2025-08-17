@@ -220,7 +220,18 @@ function getVersion() {
     return FormulaModule.getVersion();
 }
 
-// Export the API
+// Export named exports
+export {
+    initFormula as init,
+    isInitialized,
+    Value,
+    EvaluationResult,
+    FormulaEngine,
+    evaluate,
+    getVersion
+};
+
+// Create default export object
 const Formula = {
     init: initFormula,
     isInitialized,
@@ -231,13 +242,15 @@ const Formula = {
     getVersion
 };
 
-// Support both CommonJS and ES modules
+// Support CommonJS
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = Formula;
 }
 
+// Support global/window
 if (typeof window !== 'undefined') {
     window.Formula = Formula;
 }
 
+// Default export for backward compatibility
 export default Formula;

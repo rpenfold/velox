@@ -23,19 +23,20 @@ npm install @velox/formulas
 ### Basic Usage
 
 ```javascript
-import XLFormula from '@velox/formulas';
+// Using default import
+import Formulas, { ForumlaEngine, evaluate } from '@velox/formulas';
 
 // Initialize the library
-await XLFormula.init();
+await Formulas.init();
 
 // Simple evaluation (supports both Excel-style '=' prefix and direct input)
-const result = XLFormula.evaluate('=SUM(1, 2, 3, 4, 5)');
+const result = evaluate('=SUM(1, 2, 3, 4, 5)');
 if (result.isSuccess()) {
   console.log(result.getValue().asNumber()); // 15
 }
 
 // Using the engine for stateful evaluation
-const engine = new XLFormula.FormulaEngine();
+const engine = new FormulaEngine();
 engine.setNumber('A1', 10);
 engine.setNumber('B1', 20);
 engine.setText('C1', 'Hello');
@@ -49,11 +50,12 @@ const concat = concatResult.isSuccess() ? concatResult.getValue().asText() : '';
 ### Advanced Usage
 
 ```javascript
-import XLFormula from '@velox/formulas';
+// Using named imports
+import Formulas, { FormulaEngine } from '@velox/formulas';
 
-await XLFormula.init();
+await Formulas.init();
 
-const engine = new XLFormula.FormulaEngine();
+const engine = new FormulaEngine();
 
 // Set variables of different types
 engine.setNumber('price', 100);
@@ -71,54 +73,20 @@ if (result.isSuccess()) {
 }
 ```
 
-## Supported Functions
-
-### Math Functions
-- Basic: `SUM`, `MAX`, `MIN`, `AVERAGE`, `COUNT`, `ABS`, `ROUND`, `TRUNC`
-- Trigonometry: `SIN`, `COS`, `TAN`, `ASIN`, `ACOS`, `ATAN`, `ATAN2`
-- Advanced: `SQRT`, `POWER`, `EXP`, `LN`, `LOG`, `LOG10`, `PI`
-- Statistics: `STDEV`, `VAR`, `MEDIAN`, `MODE`
-
-### Text Functions
-- `CONCATENATE`, `LEN`, `LEFT`, `RIGHT`, `MID`
-- `UPPER`, `LOWER`, `PROPER`, `TRIM`
-- `FIND`, `SEARCH`, `REPLACE`, `SUBSTITUTE`
-- `TEXT`, `VALUE`
-
-### Logical Functions
-- `IF`, `IFERROR`, `IFNA`
-- `AND`, `OR`, `NOT`, `XOR`
-- `TRUE`, `FALSE`
-- Type checking: `ISNUMBER`, `ISTEXT`, `ISBLANK`, `ISERROR`
-
-### Date/Time Functions
-- `NOW`, `TODAY`, `DATE`, `TIME`
-- `YEAR`, `MONTH`, `DAY`, `HOUR`, `MINUTE`, `SECOND`
-- `WEEKDAY`, `DATEDIF`
-
-### Financial Functions
-- `PV`, `FV`, `PMT`, `RATE`, `NPER`
-- `NPV`, `IRR`, `MIRR`
-
-### Engineering Functions
-- `BIN2DEC`, `DEC2BIN`, `DEC2HEX`, `HEX2DEC`
-- `BITAND`, `BITOR`, `BITXOR`
-- `CONVERT`
-
 ## API Reference
 
 ### Static Methods
 
-- `XLFormula.init()`: Initialize the WebAssembly module (returns Promise<boolean>)
-- `XLFormula.isInitialized()`: Check if the library is ready
-- `XLFormula.evaluate(formula)`: Quick evaluation returning EvaluationResult
-- `XLFormula.evaluate(formula)`: Quick evaluation (returns EvaluationResult)
-- `XLFormula.getVersion()`: Get library version
+- `Formulas.init()`: Initialize the WebAssembly module (returns Promise<boolean>)
+- `Formulas.isInitialized()`: Check if the library is ready
+- `Formulas.evaluate(formula)`: Quick evaluation returning EvaluationResult
+- `Formulas.evaluate(formula)`: Quick evaluation (returns EvaluationResult)
+- `Formulas.getVersion()`: Get library version
 
 ### FormulaEngine Class
 
 ```javascript
-const engine = new XLFormula.FormulaEngine();
+const engine = new Formula.FormulaEngine();
 
 // Variable management
 engine.setVariable(name, value);  // Auto-detect type
