@@ -1,21 +1,21 @@
 {
-  "name": "xl-formula-web",
+  "name": "@velox/formulas",
   "version": "1.0.0",
-  "description": "High-performance Excel-like formula parser and evaluator for web applications",
+  "description": "High-performance formula parser and evaluator for web applications",
   "type": "module",
-  "main": "xl-formula-wrapper.js",
-  "module": "xl-formula-wrapper.js",
-  "types": "xl-formula.d.ts",
+  "main": "formula-wrapper.js",
+  "module": "formula-wrapper.js",
+  "types": "formulas.d.ts",
   "files": [
-    "xl-formula.js",
-    "xl-formula.wasm",
-    "xl-formula-wrapper.js",
-    "xl-formula.d.ts",
+    "formulas.js",
+    "formulas.wasm",
+    "formula-wrapper.js",
+    "formulas.d.ts",
     "README.md"
   ],
   "scripts": {
     "build": "cd ../.. && ./build.sh --web",
-    "clean": "rm -f xl-formula.js xl-formula.wasm",
+    "clean": "rm -f formulas.js formulas.wasm",
     "prepublishOnly": "npm run build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest",
     "test:watch": "jest --watch",
@@ -36,7 +36,7 @@
     }
   },
   "keywords": [
-    "excel",
+    "velox",
     "formula",
     "parser",
     "evaluator",
@@ -48,25 +48,25 @@
     "javascript",
     "typescript"
   ],
-  "author": "XL Formula Team",
+  "author": "Velox Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/xl-formula.git",
-    "directory": "web"
+    "url": "https://github.com/your-username/velox.git",
+    "directory": "packages/web"
   },
   "bugs": {
-    "url": "https://github.com/your-username/xl-formula/issues"
+    "url": "https://github.com/your-username/velox/issues"
   },
-  "homepage": "https://github.com/your-username/xl-formula#readme",
+  "homepage": "https://github.com/your-username/velox#readme",
   "engines": {
     "node": ">=14.0.0"
   },
   "exports": {
     ".": {
-      "import": "./xl-formula-wrapper.js",
-      "require": "./xl-formula-wrapper.js",
-      "types": "./xl-formula.d.ts"
+      "import": "./formula-wrapper.js",
+      "require": "./formula-wrapper.js",
+      "types": "./formulas.d.ts"
     },
     "./package.json": "./package.json"
   },

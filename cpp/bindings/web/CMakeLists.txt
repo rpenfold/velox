@@ -1,21 +1,21 @@
-# WebAssembly bindings for XL-Formula
+# WebAssembly bindings for Velox Formulas
 
 # Create the web bindings library
-add_executable(xl-formula-web web_bindings.cpp)
+add_executable(velox-formulas-web web_bindings.cpp)
 
-# Link with the core library
-target_link_libraries(xl-formula-web xl-formula)
+# Link with the formulas library
+target_link_libraries(velox-formulas-web velox-formulas)
 
 # Emscripten-specific settings
-set_target_properties(xl-formula-web PROPERTIES
-    OUTPUT_NAME "xl-formula"
+set_target_properties(velox-formulas-web PROPERTIES
+    OUTPUT_NAME "formulas"
     SUFFIX ".js"
 )
 
 # Set Emscripten compiler and linker flags
-target_link_options(xl-formula-web PRIVATE
+target_link_options(velox-formulas-web PRIVATE
     "SHELL:-s MODULARIZE=1"
-    "SHELL:-s EXPORT_NAME='XLFormula'"
+    "SHELL:-s EXPORT_NAME='Formula'"
     "SHELL:-s EXPORTED_RUNTIME_METHODS=['ccall','cwrap']"
     "SHELL:-s ALLOW_MEMORY_GROWTH=1"
     "SHELL:-s INITIAL_MEMORY=16MB"
@@ -33,22 +33,22 @@ target_link_options(xl-formula-web PRIVATE
 )
 
 # Set the output directory to the packages/web folder
-set_target_properties(xl-formula-web PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/packages/web"
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/packages/web"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/packages/web"
+set_target_properties(velox-formulas-web PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/packages/web/bin"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/packages/web/bin"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/packages/web/bin"
 )
 
 # Copy outputs to the web package directory and docs public directory
-add_custom_command(TARGET xl-formula-web POST_BUILD
+add_custom_command(TARGET velox-formulas-web POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "$<TARGET_FILE_DIR:xl-formula-web>/xl-formula.wasm"
-        "${CMAKE_SOURCE_DIR}/packages/web/xl-formula.wasm"
+        "$<TARGET_FILE_DIR:velox-formulas-web>/formulas.wasm"
+        "${CMAKE_SOURCE_DIR}/packages/web/formulas.wasm"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "$<TARGET_FILE_DIR:xl-formula-web>/xl-formula.wasm"
-        "${CMAKE_SOURCE_DIR}/apps/docs/public/xl-formula.wasm"
+        "$<TARGET_FILE_DIR:velox-formulas-web>/formulas.wasm"
+        "${CMAKE_SOURCE_DIR}/apps/docs/public/formulas.wasm"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "$<TARGET_FILE:xl-formula-web>"
-        "${CMAKE_SOURCE_DIR}/apps/docs/public/xl-formula.js"
+        "$<TARGET_FILE:velox-formulas-web>"
+        "${CMAKE_SOURCE_DIR}/apps/docs/public/formulas.js"
     COMMENT "Copying WASM and JS files to web package and docs public directories"
 )

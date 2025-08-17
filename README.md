@@ -1,57 +1,71 @@
-# XL-Formula
+# Velox
 
-A high-performance Excel-like formula parsing and evaluation library implemented in C++ with bindings for web and React Native applications.
+A collection of high-performance libraries for modern web applications, built with WebAssembly and modern web technologies to deliver exceptional speed and reliability.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/your-org/xl-formula)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Coverage](https://img.shields.io/badge/coverage-95%25+-green.svg)](#testing)
 
+## Overview
+
+Velox is designed to bring native-level performance to web applications through a collection of specialized libraries. Whether you're building data-intensive applications, real-time dashboards, or complex computational tools, Velox provides the performance foundation you need.
+
+## Libraries
+
+### 🧮 Velox Formulas
+High-performance Excel-like formula parsing and evaluation library implemented in C++ with WebAssembly bindings.
+
+**Key Features:**
+- **85+ Excel-compatible functions** across 8 categories
+- **WebAssembly-powered performance** for complex calculations
+- **TypeScript support** with comprehensive type definitions
+- **Zero dependencies** and easy integration
+
+[📖 Documentation](./apps/docs/src/pages/FormulasPage.jsx) | [🎮 Playground](./apps/docs/src/pages/PlaygroundPage.jsx) | [📦 npm package](https://www.npmjs.com/package/@velox/formulas)
+
+### 🚀 More Libraries Coming Soon
+We're working on additional high-performance libraries for data processing, visualization, and more. Stay tuned for updates!
+
+## Quick Start
+
+### Velox Formulas
+
+```bash
+npm install @velox/formulas
+```
+
+```javascript
+import XLFormula from '@velox/formulas'
+
+await XLFormula.init()
+const result = XLFormula.evaluate('SUM(1,2,3)')
+if (result.isSuccess()) {
+  console.log(result.getValue().asNumber()) // 6
+}
+```
+
 ## Features
 
 ### 🚀 High Performance
 - Written in modern C++17 for optimal speed and memory efficiency
+- **WebAssembly compilation** for near-native browser performance
 - **Perfect hash function dispatcher** for ultra-fast function calls (6-91% faster)
 - Decoupled parser and evaluator architecture
 - Optimized for repeated evaluations with variable contexts
 
-### 📊 Excel Compatibility
-- Familiar Excel-like syntax and function names
-- Support for multiple data types (numbers, text, booleans, dates, errors)
-- Comprehensive error handling with Excel-compatible error types
+### 🔧 Developer Experience
+- **TypeScript support** with comprehensive type definitions
+- **Comprehensive documentation** and interactive playgrounds
+- **Easy integration** with zero dependencies
+- **Cross-platform compatibility** (Web, React Native, Native)
 
-### 🔧 Extensible
-- Easy-to-use API for registering custom functions
-- Plugin architecture for extending functionality
-- Context-based variable management
+### 🔒 Production Ready
+- **Battle-tested libraries** with comprehensive test coverage
+- **Active maintenance** and regular updates
+- **Comprehensive error handling** with detailed error messages
+- **Performance benchmarks** and optimization
 
-### 🌐 Cross-Platform
-- **Web**: Emscripten bindings for browser usage
-- **React Native**: Nitro modules for mobile apps
-- **Native**: Direct C++ usage in desktop applications
-- **Single NPM Package**: Unified distribution for all platforms
-
-## Quick Start
-
-### Basic Usage
-
-```cpp
-#include <xl-formula/xl-formula.h>
-
-// Create a formula engine
-xl_formula::FormulaEngine engine;
-
-// Set variables (like spreadsheet cells)
-engine.setVariable("A1", xl_formula::Value(10.0));
-engine.setVariable("A2", xl_formula::Value(20.0));
-
-// Evaluate formulas
-auto result = engine.evaluate("SUM(A1, A2) * 2");
-if (result.isSuccess()) {
-    std::cout << "Result: " << result.getValue().toString() << std::endl; // "60"
-}
-```
-
-### Supported Functions
+## Supported Functions (Velox Formulas)
 
 Currently supports **85+ built-in functions** across 8 categories:
 
@@ -108,8 +122,8 @@ Currently supports **85+ built-in functions** across 8 categories:
 
 - CMake 3.20+
 - C++17 compatible compiler (GCC 7+, Clang 5+, MSVC 2017+)
-- Optional: Emscripten (for future web builds)
-- Optional: React Native development environment (for future mobile builds)
+- Node.js 16+ (for web builds and documentation)
+- Optional: Emscripten (for web builds)
 
 ### Quick Build
 
@@ -140,8 +154,6 @@ echo "export PATH=\"$PWD/scripts:$PATH\"" >> ~/.zshrc && source ~/.zshrc
 
 Then you can run `formula [-h|--help|help]` for details on how to use the CLI.
 
-
-
 ### Manual Build
 
 ```bash
@@ -163,14 +175,18 @@ ctest
 |--------|-------------|---------|
 | `BUILD_TESTS` | Build test suite | ON |
 | `BUILD_EXAMPLES` | Build example programs | ON |
-| `BUILD_WEB_BINDINGS` | Build web bindings (not implemented) | OFF |
-| `BUILD_RN_BINDINGS` | Build React Native bindings (not implemented) | OFF |
+| `BUILD_WEB_BINDINGS` | Build web bindings | ON |
+| `BUILD_RN_BINDINGS` | Build React Native bindings | OFF |
 
 ## Project Structure
 
 ```
 xl-formula/
-├── cpp/                    # Core C++ implementation
+├── apps/
+│   └── docs/              # Documentation website
+├── packages/
+│   └── web/               # Web package distribution
+├── cpp/                   # Core C++ implementation
 │   ├── core/              # Value types, Context, API
 │   ├── parser/            # Lexer, Parser, AST
 │   ├── engine/            # Evaluator, FormulaEngine
@@ -243,7 +259,7 @@ auto result = engine.evaluate("DOUBLE(21)"); // Returns 42
 After building with web bindings:
 
 ```javascript
-import { XLFormula } from 'xl-formula';
+import { XLFormula } from '@velox/formulas';
 
 const engine = new XLFormula();
 engine.setVariable('A1', 10);
@@ -256,7 +272,7 @@ console.log(result); // 30
 ## React Native Usage
 
 ```typescript
-import { XLFormula } from 'xl-formula';
+import { XLFormula } from '@velox/formulas';
 
 const engine = new XLFormula();
 engine.setVariable('sales', 1000);
@@ -396,6 +412,11 @@ Benchmarks on modern hardware with **perfect hash optimization**:
 - **NPM Package**: Unified distribution for JavaScript/TypeScript
 - **Type Definitions**: Full TypeScript support
 
+### 🌟 Future Libraries
+- **Data Processing**: High-performance data transformation and analysis
+- **Visualization**: WebAssembly-powered charting and graphics
+- **Machine Learning**: Optimized ML algorithms for the web
+
 ## Contributing
 
 We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on:
@@ -422,4 +443,3 @@ cd xl-formula
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-# Test

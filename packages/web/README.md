@@ -1,4 +1,4 @@
-# XL Formula Web
+# Velox Formulas (Web)
 
 High-performance Excel-like formula parser and evaluator for web applications, compiled to WebAssembly.
 
@@ -17,13 +17,13 @@ High-performance Excel-like formula parser and evaluator for web applications, c
 ### Installation
 
 ```bash
-npm install xl-formula-web
+npm install @velox/formulas
 ```
 
 ### Basic Usage
 
 ```javascript
-import XLFormula from 'xl-formula-web';
+import XLFormula from '@velox/formulas';
 
 // Initialize the library
 await XLFormula.init();
@@ -49,7 +49,7 @@ const concat = concatResult.isSuccess() ? concatResult.getValue().asText() : '';
 ### Advanced Usage
 
 ```javascript
-import XLFormula from 'xl-formula-web';
+import XLFormula from '@velox/formulas';
 
 await XLFormula.init();
 
@@ -192,7 +192,7 @@ Requires WebAssembly support.
 A live demo is included in the package. After installation, serve the files:
 
 ```bash
-cd node_modules/xl-formula-web
+cd node_modules/@velox/formulas
 python3 -m http.server 8000
 # Open http://localhost:8000 in your browser
 ```
@@ -200,8 +200,8 @@ python3 -m http.server 8000
 ## Building from Source
 
 ```bash
-git clone https://github.com/your-username/xl-formula.git
-cd xl-formula
+git clone https://github.com/your-username/velox.git
+cd velox
 ./build.sh --web
 ```
 

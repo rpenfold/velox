@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <chrono>
 #include <thread>
-#include "xl-formula/functions.h"
+#include "velox/formulas/functions.h"
 
 using namespace xl_formula;
 using namespace xl_formula::functions::builtin;

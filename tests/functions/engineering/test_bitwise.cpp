@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "xl-formula/functions.h"
-#include "xl-formula/types.h"
+#include "velox/formulas/functions.h"
+#include "velox/formulas/types.h"
 
 using namespace xl_formula;
 using namespace xl_formula::functions::builtin;

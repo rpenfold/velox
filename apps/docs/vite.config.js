@@ -10,7 +10,7 @@ export default defineConfig({
   base: basePath,
   resolve: {
     alias: {
-      'xl-formula-web': resolve(__dirname, '../../packages/web/xl-formula-wrapper.js')
+      '@velox/formulas': resolve(__dirname, '../../packages/web/xl-formula-wrapper.js')
     }
   },
   build: {
@@ -33,6 +33,6 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.wasm'], // Treat WASM files as assets
   optimizeDeps: {
-    exclude: ['xl-formula-web'] // Don't pre-bundle our WASM module
+    exclude: ['@velox/formulas'] // Don't pre-bundle our WASM module
   }
 })

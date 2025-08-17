@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const CPP_DIR = path.join(ROOT, 'cpp', 'functions');
+const CPP_DIR = path.join(ROOT, 'cpp', 'libraries', 'formulas', 'functions');
 const OUT_FILE = path.join(ROOT, 'apps', 'docs', 'src', '__generated__', 'functions.js');
 
 function walk(dir) {

@@ -83,7 +83,7 @@ export function PlaygroundPage() {
     console.log('New saved formulas array:', newSaved)
     
     setSavedFormulas(newSaved)
-    localStorage.setItem('xl-formula-saved', JSON.stringify(newSaved))
+     localStorage.setItem('xl-formula-saved', JSON.stringify(newSaved))
     console.log('Saved to localStorage:', localStorage.getItem('xl-formula-saved'))
   }
 
@@ -94,7 +94,7 @@ export function PlaygroundPage() {
   const initializeXLFormula = async () => {
     try {
       // Import from the workspace package using proper npm dependency
-      const XLFormulaModule = await import('xl-formula-web')
+      const XLFormulaModule = await import('@velox/formulas')
       
       await XLFormulaModule.default.init()
       const formulaEngine = new XLFormulaModule.default.FormulaEngine()
@@ -111,7 +111,7 @@ export function PlaygroundPage() {
       // Calculate initial formula
       calculateFormula(formula, formulaEngine)
     } catch (error) {
-      console.error('Failed to initialize XL Formula:', error)
+      console.error('Failed to initialize Velox:', error)
       setIsLoading(false)
       throw error // Don't fall back, we want to see real errors
     }
@@ -235,7 +235,7 @@ export function PlaygroundPage() {
   if (isLoading) {
     return (
       <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>
-        <div>Loading XL Formula engine...</div>
+        <div>Loading Velox engine...</div>
       </div>
     )
   }
@@ -303,7 +303,7 @@ export function PlaygroundPage() {
             <button
               onClick={() => {
                 setSavedFormulas([])
-                localStorage.removeItem('xl-formula-saved')
+                 localStorage.removeItem('xl-formula-saved')
               }}
               className="btn btn-sm"
               style={{ fontSize: '0.75rem', minWidth: '100px' }}

@@ -21,7 +21,7 @@ export function FunctionDetail({ func, category, categoryName }) {
   const initializeXLFormula = async () => {
     try {
       // Import from the workspace package using proper npm dependency
-      const XLFormulaModule = await import('xl-formula-web')
+      const XLFormulaModule = await import('@velox/formulas')
       console.log('🔍 XL Formula module loaded:', XLFormulaModule)
       
       await XLFormulaModule.default.init()

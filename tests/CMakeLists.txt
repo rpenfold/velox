@@ -30,14 +30,9 @@ file(GLOB_RECURSE TEST_SOURCES "*.cpp")
 add_executable(xl-formula-tests ${TEST_SOURCES})
 
 target_link_libraries(xl-formula-tests 
-    xl-formula
+    velox-formulas
     gtest_main
     gmock_main
-)
-
-target_include_directories(xl-formula-tests PRIVATE 
-    ${CMAKE_SOURCE_DIR}/cpp/include
-    ${CMAKE_SOURCE_DIR}/cpp
 )
 
 # Discover tests for CTest
@@ -56,8 +51,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Coverage")
             add_custom_target(coverage
                 COMMAND ${GCOVR_PATH} 
                     --root ${CMAKE_SOURCE_DIR}
-                    --filter ${CMAKE_SOURCE_DIR}/cpp/
-                    --filter ${CMAKE_SOURCE_DIR}/cpp/include/
+                    --filter ${CMAKE_SOURCE_DIR}/cpp/libraries/formulas/
+                    --filter ${CMAKE_SOURCE_DIR}/cpp/libraries/formulas/include/
                     --html --html-details 
                     --output coverage.html
                     --print-summary

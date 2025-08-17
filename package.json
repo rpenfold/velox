@@ -1,7 +1,7 @@
 {
-  "name": "xl-formula-monorepo",
+  "name": "velox-monorepo",
   "version": "1.0.0",
-  "description": "XL Formula - High-performance Excel-like formula parser and evaluator",
+  "description": "Velox - High-performance libraries for modern web applications",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -21,16 +21,21 @@
     "postinstall": "npm run build"
   },
   "keywords": [
+    "velox",
+    "high-performance",
+    "webassembly",
+    "wasm",
+    "libraries",
+    "web",
+    "performance",
     "excel",
     "formula",
     "parser",
     "evaluator",
-    "webassembly",
-    "wasm",
     "spreadsheet",
     "calculation"
   ],
-  "author": "XL Formula Team",
+  "author": "Velox Team",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"

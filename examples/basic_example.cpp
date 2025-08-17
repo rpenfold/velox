@@ -1,10 +1,10 @@
-#include <xl-formula/xl-formula.h>
+#include <velox/formulas/xl-formula.h>
 #include <iostream>
 
 using namespace xl_formula;
 
 int main() {
-    std::cout << "=== XL-Formula Basic Example ===" << std::endl;
+    std::cout << "=== Velox Formulas Basic Example ===" << std::endl;
     std::cout << "Library Version: " << Version::toString() << std::endl << std::endl;
 
     // Create a formula engine

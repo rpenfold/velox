@@ -21,7 +21,7 @@ export function BenchmarkDiagnostic({ formula = 'SUM(1,2,3,4,5)', compact = fals
       // Test 1: Try to import XL Formula
       diagnostic.importTest = 'attempting...'
       try {
-        const XLFormulaModule = await import('xl-formula-web')
+        const XLFormulaModule = await import('@velox/formulas')
         diagnostic.importTest = 'success'
         diagnostic.module = Object.keys(XLFormulaModule)
         

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(xl-formula VERSION 1.0.0 LANGUAGES CXX)
+project(velox VERSION 1.0.0 LANGUAGES CXX)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -14,29 +14,16 @@ else()
 endif()
 
 # Build options
+option(BUILD_FORMULAS "Build Velox Formulas library" ON)
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 option(BUILD_WEB_BINDINGS "Build Emscripten web bindings" OFF)
 option(BUILD_RN_BINDINGS "Build React Native bindings" OFF)
 
-# Include directories
-include_directories(cpp/include)
-
-# Core library
-file(GLOB_RECURSE CORE_SOURCES 
-    "cpp/core/*.cpp"
-    "cpp/parser/*.cpp" 
-    "cpp/engine/*.cpp"
-    "cpp/functions/*.cpp"
-)
-
-file(GLOB_RECURSE CORE_HEADERS 
-    "cpp/include/xl-formula/*.h"
-    "cpp/include/xl-formula/*.hpp"
-)
-
-add_library(xl-formula STATIC ${CORE_SOURCES} ${CORE_HEADERS})
-target_include_directories(xl-formula PUBLIC cpp/include)
+# Add formulas library
+if(BUILD_FORMULAS)
+    add_subdirectory(cpp/libraries/formulas)
+endif()
 
 # Tests
 if(BUILD_TESTS)
@@ -58,12 +45,3 @@ endif()
 if(BUILD_RN_BINDINGS)
     add_subdirectory(cpp/bindings/react-native)
 endif()
-
-# Install targets
-install(TARGETS xl-formula
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION bin
-)
-
-install(DIRECTORY cpp/include/ DESTINATION include)

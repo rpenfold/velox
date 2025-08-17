@@ -1,6 +1,6 @@
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
-#include <xl-formula/xl-formula.h>
+#include <velox/formulas/xl-formula.h>
 #include <chrono>
 #include <string>
 #include <vector>
@@ -319,7 +319,7 @@ std::string getVersion() {
 }
 
 // Emscripten bindings
-EMSCRIPTEN_BINDINGS(xl_formula) {
+EMSCRIPTEN_BINDINGS(velox_formulas) {
     // JSValue class
     class_<JSValue>("Value")
             .constructor<>()
@@ -374,7 +374,6 @@ EMSCRIPTEN_BINDINGS(xl_formula) {
 
     // Standalone functions
     function("evaluate", &quickEvaluate);
-
     function("getVersion", &getVersion);
 
     // Vector bindings for arrays

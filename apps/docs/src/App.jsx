@@ -1,6 +1,7 @@
 import { Router } from 'preact-router'
 import { Header } from './components/Header.jsx'
 import { HomePage } from './pages/HomePage.jsx'
+import { FormulasPage } from './pages/FormulasPage.jsx'
 import { DocsPage } from './pages/DocsPage.jsx'
 import { PlaygroundPage } from './pages/PlaygroundPage.jsx'
 
@@ -15,10 +16,11 @@ export function App() {
         <Router>
           <HomePage path={basePath} />
           <HomePage path={`${basePath}`} />
-          <DocsPage path={`${basePath}docs`} />
-          <DocsPage path={`${basePath}docs/:category?`} />
-          <DocsPage path={`${basePath}docs/:category/:function?`} />
-          <PlaygroundPage path={`${basePath}playground`} />
+          <FormulasPage path={`${basePath}formulas`} />
+          <DocsPage path={`${basePath}formulas/docs`} />
+          <DocsPage path={`${basePath}formulas/docs/:category?`} />
+          <DocsPage path={`${basePath}formulas/docs/:category/:function?`} />
+          <PlaygroundPage path={`${basePath}formulas/playground`} />
         </Router>
       </main>
     </div>

@@ -112,6 +112,12 @@ echo "  Run Tests: $RUN_TESTS"
 echo "  Install: $INSTALL"
 echo ""
 
+if [[ "$BUILD_WEB" == "ON" ]]; then
+  BUILD_DIR="$REPO_ROOT/build/web"
+fi
+
+echo "  Build Dir: $BUILD_DIR"
+
 if [[ "$CLEAN" == "true" ]]; then
   print_status "Cleaning build directory..."
   rm -rf "$BUILD_DIR"
