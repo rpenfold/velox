@@ -67,6 +67,8 @@ public:
 };
 ```
 
+**Note:** All classes and methods should be annotated with doxygen-style comments for auto-generated documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
+
 ### Required Benchmarking
 
 Before implementing this optimization, we need:
@@ -111,7 +113,7 @@ Before implementing this optimization, we need:
 4. **Phase 4: Integration**
    - Careful integration with existing codebase
    - Comprehensive testing
-   - Performance verification
+   - Remove this proposal document once implementation is complete
 
 ### Risk Analysis
 

@@ -124,34 +124,49 @@ public:
 ## Implementation Steps
 
 ### 1. Core Infrastructure (3 days)
-- [ ] Create `PreparedFormula` class
+- [ ] Create `PreparedFormula` class with doxygen-style comments for auto-generated documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
+  ```cpp
+  class PreparedFormula {
+  private:
+      std::unique_ptr<ASTNode> ast_;
+      std::unordered_set<std::string> variable_names_;
+      std::vector<std::string> ordered_variables_;
+      bool has_optimized_plan_;
+
+  public:
+      static PreparedFormula prepare(const std::string& formula);
+      EvaluationResult evaluate(const std::unordered_map<std::string, Value>& variables);
+      EvaluationResult evaluate(const std::vector<Value>& variables);
+      const std::vector<std::string>& getRequiredVariables() const;
+      bool requiresVariable(const std::string& name) const;
+  };
+  ```
 - [ ] Implement variable analysis
 - [ ] Add execution plan structure
 - [ ] Create variable registry
 
 ### 2. AST Analysis and Optimization (3 days)
-- [ ] Implement constant folding
+- [ ] Implement constant folding with doxygen documentation
 - [ ] Create operation sequence
 - [ ] Optimize variable access
 - [ ] Add execution plan generation
 
 ### 3. Fast Evaluation Path (2 days)
-- [ ] Implement vector-based evaluation
+- [ ] Implement vector-based evaluation with doxygen documentation
 - [ ] Add direct variable substitution
 - [ ] Create optimized operation executor
 - [ ] Add result caching where possible
 
 ### 4. Integration and API (2 days)
-- [ ] Add preparation methods to FormulaEngine
+- [ ] Add preparation methods to FormulaEngine with doxygen documentation
 - [ ] Create batch evaluation interfaces
 - [ ] Update documentation
 - [ ] Add usage examples
 
 ### 5. Testing and Benchmarking (2 days)
 - [ ] Add unit tests
-- [ ] Create performance benchmarks
 - [ ] Test with large datasets
-- [ ] Document performance gains
+- [ ] Remove this proposal document once implementation is complete
 
 ## Usage Example
 
@@ -209,16 +224,6 @@ for (const auto& variables : ordered_data_sets) {
    - Complex nested expressions
    - Error conditions
    - Variable combinations
-
-### Performance Testing
-1. Micro-benchmarks:
-   - Preparation overhead
-   - Variable substitution
-   - Execution time
-2. Real-world scenarios:
-   - Large datasets
-   - Complex formulas
-   - Mixed operations
 
 ## Dependencies
 

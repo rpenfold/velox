@@ -76,6 +76,20 @@ for (const auto& formula : formulas) {
 }
 ```
 
+## API Design with Doxygen Documentation
+
+```cpp
+class FormulaEngine {
+public:
+    bool validate_formula(const std::string& formula);
+    EvaluationResult evaluate(const std::string& formula);
+    EvaluationResult evaluate_fast(const std::string& formula);
+    EvaluationResult evaluate_unsafe(const std::string& formula);
+};
+```
+
+**Note:** All methods should be annotated with doxygen-style comments for auto-generated documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
+
 ## Risk Considerations
 
 ### Memory Safety Risks
@@ -108,6 +122,15 @@ for (const auto& formula : formulas) {
    - Implement formula caching
    - Consider formula compilation
    - Monitor for errors in production
+
+## Implementation Checklist
+
+- [ ] Implement `validate_formula()` method
+- [ ] Implement `evaluate_fast()` method
+- [ ] Implement `evaluate_unsafe()` method
+- [ ] Add comprehensive tests for all methods
+- [ ] Test with existing function suite
+- [ ] Remove this proposal document once implementation is complete
 
 ## Future Considerations
 

@@ -60,7 +60,7 @@ Value calculateRank(const Value& number, const std::vector<Value>& array, bool a
   ```
 
 ### 2. LARGE and SMALL Functions (1 day)
-- [ ] Create `large.cpp` and `small.cpp` in `functions/math/`
+- [ ] Create `large.cpp` and `small.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
   ```cpp
   Value large(const std::vector<Value>& args, const Context& context) {
     // 1. Validate arguments
@@ -79,7 +79,7 @@ Value calculateRank(const Value& number, const std::vector<Value>& array, bool a
   ```
 
 ### 3. RANK Function (1 day)
-- [ ] Create `rank.cpp` in `functions/math/`
+- [ ] Create `rank.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
   ```cpp
   Value rank(const std::vector<Value>& args, const Context& context) {
     // 1. Validate arguments
@@ -98,7 +98,7 @@ Value calculateRank(const Value& number, const std::vector<Value>& array, bool a
   ```
 
 ### 4. PERCENTILE and QUARTILE Functions (1 day)
-- [ ] Create `percentile.cpp` and `quartile.cpp` in `functions/math/`
+- [ ] Create `percentile.cpp` and `quartile.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
   ```cpp
   Value percentile(const std::vector<Value>& args, const Context& context) {
     // 1. Validate arguments
@@ -119,8 +119,7 @@ Value calculateRank(const Value& number, const std::vector<Value>& array, bool a
 ### 5. Integration and Documentation (1 day)
 - [ ] Update function registry in `fn_dispatcher.cpp`
 - [ ] Add integration tests
-- [ ] Update documentation
-- [ ] Add performance benchmarks
+- [ ] Remove this proposal document once implementation is complete
 
 ## Dependencies
 
@@ -145,10 +144,6 @@ Value calculateRank(const Value& number, const std::vector<Value>& array, bool a
 - Interaction with other functions
 - Complex formulas
 
-### 3. Performance Tests
-- Large datasets
-- Repeated calculations
-
 ## Validation
 
 ### Excel Compatibility
@@ -158,11 +153,6 @@ Compare results with Excel for:
 - Error handling
 - Large datasets
 
-### Performance Benchmarks
-- Measure execution time
-- Memory usage
-- Compare with Excel performance
-
 ## Timeline
 
 Total: 6 working days
@@ -170,7 +160,7 @@ Total: 6 working days
 2. LARGE/SMALL: 1 day
 3. RANK: 1 day
 4. PERCENTILE/QUARTILE: 1 day
-5. Integration/Docs: 1 day
+5. Integration: 1 day
 
 ## Future Considerations
 

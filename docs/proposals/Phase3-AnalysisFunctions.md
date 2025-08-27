@@ -59,25 +59,48 @@ Value standardizeValue(
 ## Implementation Steps
 
 ### 1. Advanced Statistical Utilities (2 days)
-- [ ] Create `statistical_analysis_advanced.h/cpp`
+- [ ] Create `statistical_analysis_advanced.h/cpp`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation.
 - [ ] Implement covariance calculations
 - [ ] Implement correlation utilities
 - [ ] Add comprehensive unit tests
 
 ### 2. Covariance Functions (2 days)
-- [ ] Create `covariance.cpp`
+- [ ] Create `covariance.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
+  ```cpp
+  Value covariance_p(const std::vector<Value>& args, const Context& context) {
+    // Implementation with proper error handling
+  }
+  
+  Value covariance_s(const std::vector<Value>& args, const Context& context) {
+    // Implementation with proper error handling
+  }
+  ```
 - [ ] Implement population and sample variants
 - [ ] Add error handling
 - [ ] Create unit tests
 
 ### 3. Correlation Functions (2 days)
-- [ ] Create `correlation.cpp`
+- [ ] Create `correlation.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
+  ```cpp
+  Value pearson(const std::vector<Value>& args, const Context& context) {
+    // Implementation with proper error handling
+  }
+  
+  Value rsq(const std::vector<Value>& args, const Context& context) {
+    // Implementation with proper error handling
+  }
+  ```
 - [ ] Implement Pearson correlation
 - [ ] Add R-squared calculation
 - [ ] Create unit tests
 
 ### 4. Distribution Functions (1 day)
-- [ ] Create `standardize.cpp`
+- [ ] Create `standardize.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
+  ```cpp
+  Value standardize(const std::vector<Value>& args, const Context& context) {
+    // Implementation with proper error handling
+  }
+  ```
 - [ ] Implement standardization logic
 - [ ] Add error handling
 - [ ] Create unit tests
@@ -85,8 +108,7 @@ Value standardizeValue(
 ### 5. Integration and Documentation (1 day)
 - [ ] Update function registry
 - [ ] Add integration tests
-- [ ] Update documentation
-- [ ] Add performance benchmarks
+- [ ] Remove this proposal document once implementation is complete
 
 ## Dependencies
 
@@ -138,7 +160,7 @@ Total: 8 working days
 2. Covariance: 2 days
 3. Correlation: 2 days
 4. Distribution: 1 day
-5. Integration/Docs: 1 day
+5. Integration: 1 day
 
 ## Future Considerations
 

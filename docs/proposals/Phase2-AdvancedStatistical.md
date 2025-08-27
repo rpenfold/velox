@@ -75,7 +75,7 @@ RegressionResult calculateExponentialRegression(
   ```
 
 ### 2. CONFIDENCE Function (1 day)
-- [ ] Create `confidence.cpp` in `functions/math/`
+- [ ] Create `confidence.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
   ```cpp
   Value confidence(const std::vector<Value>& args, const Context& context) {
     // 1. Validate arguments
@@ -94,7 +94,7 @@ RegressionResult calculateExponentialRegression(
   ```
 
 ### 3. FORECAST Function (2 days)
-- [ ] Create `forecast.cpp` in `functions/math/`
+- [ ] Create `forecast.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
   ```cpp
   Value forecast(const std::vector<Value>& args, const Context& context) {
     // 1. Validate arrays
@@ -113,7 +113,16 @@ RegressionResult calculateExponentialRegression(
   ```
 
 ### 4. FREQUENCY and GROWTH Functions (2 days)
-- [ ] Create `frequency.cpp` and `growth.cpp`
+- [ ] Create `frequency.cpp` and `growth.cpp` in `functions/math/`. Functions should be annotated with doxygen-style comments that will be used to auto-generate the public function documentation. See [CONTRIBUTING.md](../CONTRIBUTING.md#doxygen-doc-comment-guidelines-for-docs-generation) for detailed guidelines.
+  ```cpp
+  Value frequency(const std::vector<Value>& args, const Context& context) {
+    // Implementation with proper error handling
+  }
+  
+  Value growth(const std::vector<Value>& args, const Context& context) {
+    // Implementation with proper error handling
+  }
+  ```
 - [ ] Implement array handling
 - [ ] Add error checking
 - [ ] Create unit tests
@@ -121,8 +130,7 @@ RegressionResult calculateExponentialRegression(
 ### 5. Integration and Documentation (1 day)
 - [ ] Update function registry
 - [ ] Add integration tests
-- [ ] Update documentation
-- [ ] Add performance benchmarks
+- [ ] Remove this proposal document once implementation is complete
 
 ## Dependencies
 
@@ -148,11 +156,6 @@ RegressionResult calculateExponentialRegression(
 - Array handling
 - Error propagation
 
-### 3. Performance Tests
-- Large datasets
-- Iterative calculations
-- Memory usage
-
 ## Validation
 
 ### Excel Compatibility
@@ -162,11 +165,6 @@ Compare with Excel:
 - Error handling
 - Large dataset behavior
 
-### Performance Benchmarks
-- Execution time
-- Memory usage
-- Numerical precision
-
 ## Timeline
 
 Total: 8 working days
@@ -174,7 +172,7 @@ Total: 8 working days
 2. CONFIDENCE: 1 day
 3. FORECAST: 2 days
 4. FREQUENCY/GROWTH: 2 days
-5. Integration/Docs: 1 day
+5. Integration: 1 day
 
 ## Future Considerations
 
