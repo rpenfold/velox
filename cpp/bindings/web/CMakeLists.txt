@@ -45,6 +45,9 @@ add_custom_command(TARGET velox-formulas-web POST_BUILD
         "$<TARGET_FILE_DIR:velox-formulas-web>/formulas.wasm"
         "${CMAKE_SOURCE_DIR}/packages/formulas-web/formulas.wasm"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:velox-formulas-web>"
+        "${CMAKE_SOURCE_DIR}/packages/formulas-web/formulas.js"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "$<TARGET_FILE_DIR:velox-formulas-web>/formulas.wasm"
         "${CMAKE_SOURCE_DIR}/apps/docs/public/formulas.wasm"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

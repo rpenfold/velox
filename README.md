@@ -44,6 +44,69 @@ if (result.isSuccess()) {
 }
 ```
 
+### 📱 Mobile Development (React Native)
+
+Velox includes a React Native app for testing and experimenting with the formula engine in a mobile environment.
+
+#### Prerequisites
+
+- **Node.js 18+** and npm
+- **Xcode 15+** (for iOS development)
+- **Android Studio** (for Android development)
+- **CocoaPods** (for iOS dependencies)
+
+#### Quick Start
+
+For a newly cloned repository, the setup is simple:
+
+```bash
+# 1. Install dependencies and apply patches
+npm ci
+
+# 2. Install iOS pods
+npm run mobile:prepare
+
+# 3. Start Metro bundler
+npm run mobile:start
+
+# 4. Run on iOS simulator
+npm run mobile:ios
+
+# Or run on Android emulator
+npm run mobile:android
+```
+
+#### Available Scripts
+
+From the project root, you can use these convenient scripts:
+
+- **`npm run mobile:setup`** - Complete setup (npm ci + pod install)
+- **`npm run mobile:prepare`** - Install iOS CocoaPods
+- **`npm run mobile:start`** - Start Metro bundler on port 8082
+- **`npm run mobile:ios`** - Build and run on iOS simulator
+- **`npm run mobile:android`** - Build and run on Android emulator
+- **`npm run mobile:dev`** - Start Metro and run iOS app simultaneously
+- **`npm run mobile:clean`** - Clean build artifacts and reinstall pods
+
+#### Development Workflow
+
+1. **Start Metro bundler**: `npm run mobile:start`
+2. **Make changes** to your React Native code
+3. **Hot reload** automatically in the simulator
+4. **Build and run**: `npm run mobile:ios` or `npm run mobile:android`
+
+#### Troubleshooting
+
+If you encounter issues:
+
+```bash
+# Clean everything and start fresh
+npm run mobile:clean
+npm run mobile:setup
+npm run mobile:start
+```
+```
+
 ## Features
 
 ### 🚀 High Performance

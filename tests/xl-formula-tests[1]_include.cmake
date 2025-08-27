@@ -1,0 +1,5 @@
+if(EXISTS "/Users/joltdev/Git/xl-formula/tests/xl-formula-tests[1]_tests.cmake")
+  include("/Users/joltdev/Git/xl-formula/tests/xl-formula-tests[1]_tests.cmake")
+else()
+  add_test(xl-formula-tests_NOT_BUILT xl-formula-tests_NOT_BUILT)
+endif()

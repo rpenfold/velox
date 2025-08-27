@@ -8,7 +8,7 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "./build.sh --web",
+    "build": "./scripts/build.sh --web",
     "build:web": "npm run build --workspace=packages/formulas-web",
     "dev": "npm run dev --workspace=apps/docs",
     "dev:docs": "npm run dev --workspace=apps/docs",
@@ -18,7 +18,12 @@
     "clean": "npm run clean --workspaces",
     "test": "npm test --workspaces",
     "lint": "echo 'Add linting commands here'",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build && patch-package",
+    "mobile:ios": "npm run -w velox-playground pod-install && npm run ios --w velox-playground -- --simulator=\"iPhone 16\"",
+    "mobile:android": "npm run android --workspace=apps/mobile",
+    "mobile:start": "npm run start --workspace=apps/mobile -- --port 8082",
+    "mobile:dev": "concurrently \"npm run mobile:start\" \"npm run mobile:ios\"",
+    "mobile:clean": "cd apps/mobile && rm -rf node_modules ios/build && cd ios && pod deintegrate && pod install"
   },
   "keywords": [
     "velox",
@@ -38,10 +43,12 @@
   "author": "Velox Team",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "patch-package": "^8.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

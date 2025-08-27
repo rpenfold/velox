@@ -14,7 +14,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cd ../.. && ./build.sh --web",
+    "build": "cd ../.. && ./scripts/build.sh --web",
     "clean": "rm -f formulas.js formulas.wasm",
     "prepublishOnly": "npm run build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest",

@@ -124,7 +124,6 @@ if [[ "$CLEAN" == "true" ]]; then
 fi
 
 mkdir -p "$BUILD_DIR"
-cd "$BUILD_DIR"
 
 print_status "Configuring with CMake..."
 CMAKE_ARGS=(
@@ -149,9 +148,9 @@ if [[ "$BUILD_WEB" == "ON" ]]; then
     -DBUILD_WEB_BINDINGS="$BUILD_WEB"
     -DBUILD_RN_BINDINGS="$BUILD_RN"
   )
-  emcmake cmake "${CMAKE_ARGS[@]}" "$REPO_ROOT"
+  emcmake cmake "${CMAKE_ARGS[@]}" -S "$REPO_ROOT" -B "$BUILD_DIR"
 else
-  cmake "${CMAKE_ARGS[@]}" "$REPO_ROOT"
+  cmake "${CMAKE_ARGS[@]}" -S "$REPO_ROOT" -B "$BUILD_DIR"
 fi
 
 print_status "Building..."
@@ -162,7 +161,7 @@ if [[ "$BUILD_WEB" == "ON" ]]; then
     node "$REPO_ROOT/scripts/update-docs.js"
   fi
 else
-  make -j"$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)"
+  cmake --build "$BUILD_DIR" -j"$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)"
 fi
 
 print_status "Build completed successfully!"

@@ -19,8 +19,8 @@ if (typeof performance === 'undefined') {
 // Mock fetch to load actual WASM file from filesystem
 global.fetch = global.fetch || ((url) => {
   // If it's requesting the WASM file, load it from filesystem
-  if (url.includes('xl-formula.wasm') || url.endsWith('.wasm')) {
-    const wasmPath = path.resolve(process.cwd(), 'xl-formula.wasm');
+  if (url.includes('formulas.wasm') || url.endsWith('.wasm')) {
+    const wasmPath = path.resolve(process.cwd(), 'formulas.wasm');
     
     try {
       if (fs.existsSync(wasmPath)) {
@@ -52,8 +52,8 @@ let globalXLFormulaModule = null;
 let globalFormulaEngine = null;
 
 // Check if WASM files exist
-const wasmPath = path.resolve(process.cwd(), 'xl-formula.js');
-const wrapperPath = path.resolve(process.cwd(), 'xl-formula-wrapper.js');
+const wasmPath = path.resolve(process.cwd(), 'formulas.js');
+const wrapperPath = path.resolve(process.cwd(), 'formula-wrapper.js');
 const hasWasmFiles = fs.existsSync(wasmPath) && fs.existsSync(wrapperPath);
 
 // Initialize WASM globally
@@ -79,7 +79,7 @@ const initializeWasm = async () => {
     };
     
     // Load the wrapper module using dynamic import
-    const WrapperModule = await import('./xl-formula-wrapper.js');
+    const WrapperModule = await import('./formula-wrapper.js');
     globalXLFormulaModule = WrapperModule.default;
     
     console.log('📦 Wrapper module loaded, initializing WASM...');
